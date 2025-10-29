@@ -1,9 +1,4 @@
-// src/components/SimpleFAQ.jsx
-import React from "react";
 
-/**
- * Why <details>: built-in accessibility, no JS state, keyboard + screen reader friendly.
- */
 const DEFAULT_ITEMS = [
   { id: "cost", question: "How much does solar cost?", answer: "It depends on system size, equipment, and location. Incentives can reduce net price." },
   { id: "timeline", question: "How long does installation take?", answer: "On-site work is usually 1–3 days; permits/approvals add a few weeks." },

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState, useId } from "react";
-import { Wrench, Settings, ClipboardList, Gauge, Activity, AlertTriangle, CheckCircle2, Globe2, BadgeCheck, Grid, Building2, Plug, ShieldCheck, Sparkles, Layers, SunDim, LineChart, ScrollText, Timer, FileCheck2, MapPin, ArrowRight } from "lucide-react";
+import { Wrench, Settings, ClipboardList,  Activity,  CheckCircle2, Globe2, BadgeCheck, Grid, Building2, Plug, ShieldCheck, Sparkles, Layers, SunDim, LineChart, ScrollText, Timer, FileCheck2, MapPin, ArrowRight } from "lucide-react";
 
 // --- Icons ---
 function SolarPanelIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -120,14 +120,6 @@ const CONTENT: Record<TabKey, ContentItem> = {
 
 
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-xl border border-neutral-500/60 bg-white p-4 text-center shadow-sm">
-      <div className="text-2xl font-bold text-neutral-900">{value}</div>
-      <div className="text-xs text-neutral-600">{label}</div>
-    </div>
-  );
-}
 
 // --- Main Component ---
 export default function SolarServicesShowcase() {
