@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Send, Sparkles, Sun, Zap, Building2, Home } from "lucide-react";
 
@@ -61,10 +61,6 @@ export default function WhatsAppSolarDock({
     return () => clearTimeout(t);
   }, [autoOpenDelayMs]);
 
-  const waLink = useMemo(
-    () => buildWhatsAppLink(phoneNumber, message, isMobile),
-    [phoneNumber, message, isMobile]
-  );
 
   /** Mobile fix:
    * - On mobile, opening in the same tab avoids popup blockers (Safari/iOS).
