@@ -1,259 +1,187 @@
 "use client";
 
-import React, { useMemo, useState, useId } from "react";
-import { Wrench, Settings, ClipboardList,  Activity,  CheckCircle2, Globe2, BadgeCheck, Grid, Building2, Plug, ShieldCheck, Sparkles, Layers, SunDim, LineChart, ScrollText, Timer, FileCheck2, MapPin, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import {
+  Wrench,
+  Settings,
+  ClipboardList,
+  CheckCircle2,
+  Sun,
+  Sparkles,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-// --- Icons ---
-function SolarPanelIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <rect x="3" y="4" width="18" height="10" rx="1" />
-      <path d="M3 8h18M9 4v10M15 4v10" />
-      <path d="M12 14v6M8 20h8" />
-    </svg>
-  );
-}
-
-// --- Types ---
- type TabKey = "projects" | "om" | "consulting" | "advisory";
- type ServiceItem = { title: string; desc: string; };
- type Badge = { icon: React.ReactNode; label: string };
-
- interface ContentItem {
-  icon: React.ReactNode;
-  heading: string;
-  intro: string;
-  points: ServiceItem[];
-  seoTags: string[];
-  highlights: Badge[];
-  stats: { label: string; value: string }[];
- }
-
-// --- Content ---
-const CONTENT: Record<TabKey, ContentItem> = {
-  projects: {
-    icon: <SolarPanelIcon className="h-5 w-5" />,
-    heading: "Solar Projects (EPC)",
-    intro: "Rooftop systems for homes, housing societies, commercial & industrial— engineered for safety, yield and clean aesthetics.",
-    points: [
-      { title: "Design & Engineering", desc: "Load study, shade analysis, string sizing, structural checks." },
-      { title: "Permits & Net Metering", desc: "Utility files, approvals and meter changeover handled end‑to‑end." },
-      { title: "Commissioning", desc: "QA, safety validation, sync with grid, handover & training." },
-      { title: "Residential Excellence", desc: "Compact routing, neat cabling, app monitoring configuration." },
+const services = [
+  {
+    id: "projects",
+    icon: <Sun className="w-8 h-8 text-orange-500" />,
+    title: "Solar Projects (EPC)",
+    desc: "Turnkey rooftop systems for homes, societies, and industries — designed for safety, yield, and long-term reliability.",
+    features: [
+      "Structural Design & Engineering",
+      "Net Metering & Subsidy Approvals",
+      "Installation & Quality Testing",
+      "App-based Monitoring Setup",
     ],
-    seoTags: ["Home Solar Solutions Mumbai", "Solar System for Home in Maharashtra"],
-    highlights: [
-      { icon: <ShieldCheck className="h-4 w-4" />, label: "Safety First" },
-      { icon: <Sparkles className="h-4 w-4" />, label: "Neat Workmanship" },
-      { icon: <SunDim className="h-4 w-4" />, label: "Tier‑1 Modules" },
-    ],
-    stats: [
-      { label: "Typical PR", value: ">= 78%" },
-      { label: "Install Time", value: "2‑5 days" },
-      { label: "Warranty", value: "25 yrs*" },
-    ],
+    gradient: "from-amber-50 to-orange-100",
   },
-  om: {
-    icon: <Wrench className="h-5 w-5" />,
-    heading: "Operation & Maintenance",
-    intro: "Proactive care that maximizes uptime and output—so your plant performs year after year.",
-    points: [
-      { title: "Health Audits", desc: "Visual checks, torqueing, IV curves, thermography." },
-      { title: "Performance Monitoring", desc: "PR tracking, alerts, monthly reporting, SCADA/app dashboards." },
-      { title: "Fault Response", desc: "MPPT/inverter diagnostics, part replacement coordination." },
+  {
+    id: "om",
+    icon: <Wrench className="w-8 h-8 text-emerald-600" />,
+    title: "Operation & Maintenance",
+    desc: "Annual and predictive maintenance to keep your solar plant healthy, efficient, and always-on.",
+    features: [
+      "Monthly Plant Audits & Cleaning",
+      "Performance Monitoring & Alerts",
+      "Inverter & PR Optimization",
+      "24×7 Remote Support",
     ],
-    seoTags: ["Solar AMC", "Solar Plant Maintenance"],
-    highlights: [
-      { icon: <Activity className="h-4 w-4" />, label: "High Uptime" },
-      { icon: <LineChart className="h-4 w-4" />, label: "Live Monitoring" },
-      { icon: <Timer className="h-4 w-4" />, label: "Fast SLA" },
-    ],
-    stats: [
-      { label: "Uptime", value: ">= 99%" },
-      { label: "Visits", value: "Monthly/Qtly" },
-      { label: "Tickets", value: "24×7" },
-    ],
+    gradient: "from-emerald-50 to-green-200",
   },
-  consulting: {
-    icon: <Settings className="h-5 w-5" />,
-    heading: "Consulting",
-    intro: "Independent advice on technology selection, price discovery and feasibility—so you invest with clarity.",
-    points: [
-      { title: "Feasibility & Policy", desc: "Tariff study, payback, subsidy/compliance mapping." },
-      { title: "Tech Advisory", desc: "Module/inverter choice, BOS optimization, safety codes." },
-      { title: "RFP & Vendor Eval", desc: "BoQ definition, comparative bids, negotiation support." },
+  {
+    id: "consulting",
+    icon: <Settings className="w-8 h-8 text-blue-500" />,
+    title: "Consulting & Design",
+    desc: "Independent solar project consultancy for investors, developers, and corporates — from feasibility to execution.",
+    features: [
+      "Financial & Policy Feasibility",
+      "Technology & Vendor Evaluation",
+      "Bidding & Tender Support",
+      "Cost Optimization Strategies",
     ],
-    seoTags: ["Solar Consulting Company in India"],
-    highlights: [
-      { icon: <ScrollText className="h-4 w-4" />, label: "Code‑Compliant" },
-      { icon: <Layers className="h-4 w-4" />, label: "Bankable BoQ" },
-      { icon: <FileCheck2 className="h-4 w-4" />, label: "Transparent" },
-    ],
-    stats: [
-      { label: "Payback", value: "3‑5 yrs" },
-      { label: "Capex Saved", value: "5‑12%" },
-      { label: "Policies", value: "State/Discom" },
-    ],
+    gradient: "from-blue-50 to-indigo-200",
   },
-  advisory: {
-    icon: <ClipboardList className="h-5 w-5" />,
-    heading: "Advisory",
-    intro: "Board‑level guidance on footprinting, CSR energy programs, and credible net‑zero declarations.",
-    points: [
-      { title: "Carbon Footprinting", desc: "GHG inventory (Scopes 1‑3), baselines and targets." },
-      { title: "CSR Renewables", desc: "Solar‑first projects for schools, PHCs, utilities." },
-      { title: "Net‑Zero Readiness", desc: "Frameworks, verification support, disclosures." },
+  {
+    id: "advisory",
+    icon: <ClipboardList className="w-8 h-8 text-purple-600" />,
+    title: "ESG & Net-Zero Advisory",
+    desc: "Strategic advisory for carbon footprinting, CSR energy programs, and sustainable energy compliance.",
+    features: [
+      "Carbon Footprint Assessment",
+      "Renewable CSR Project Design",
+      "Net-Zero Roadmap Planning",
+      "ESG Data & Compliance Support",
     ],
-    seoTags: ["Net Zero", "ESG Energy"],
-    highlights: [
-      { icon: <Globe2 className="h-4 w-4" />, label: "ESG Aligned" },
-      { icon: <Building2 className="h-4 w-4" />, label: "Institutional" },
-      { icon: <Plug className="h-4 w-4" />, label: "Decarbonize" },
-    ],
-    stats: [
-      { label: "Scopes", value: "1‑3" },
-      { label: "Programs", value: "CSR/ESG" },
-      { label: "Assurance", value: "Ready" },
-    ],
+    gradient: "from-purple-50 to-pink-100",
   },
-};
+];
 
-
-
-
-// --- Main Component ---
 export default function SolarServicesShowcase() {
-  const [active, setActive] = useState<TabKey>("projects");
-  const idBase = useId();
-  const data = CONTENT[active];
-
-  const tabs: { key: TabKey; label: string; icon: React.ReactNode }[] = useMemo(() => ([
-    { key: "projects", label: "Solar Projects", icon: <SolarPanelIcon className="h-4 w-4" /> },
-    { key: "om", label: "O&M", icon: <Wrench className="h-4 w-4" /> },
-    { key: "consulting", label: "Consulting", icon: <Settings className="h-4 w-4" /> },
-    { key: "advisory", label: "Advisory", icon: <ClipboardList className="h-4 w-4" /> },
-  ]), []);
+  const [active, setActive] = useState("projects");
 
   return (
-    <section id="what-we-do" className="relative overflow-hidden bg-gradient-to-b from-amber-50/50 to-white py-10">
-      {/* <div className="absolute -top-32 -left-24 h-72 w-72 rounded-full bg-amber-300/50 blur-3xl" /> */}
-      {/* <div className="absolute -top-32 -right-24 h-72 w-72 rounded-full bg-amber-300/50 blur-3xl" /> */}
-
-      <div className="mx-auto max-w-7xl px-6">
-        {/* Header */}
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-amber-500/90 px-3 py-1 text-sm font-medium text-black ring-1 ring-amber-200">
-            <BadgeCheck className="h-4 w-4" />
-            What We Do
-          </span>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-            Outcome‑First Solar Services
-          </h2>
-          <p className="mt-3 text-neutral-700">
-            From EPC to O&M, from independent consulting to net‑zero advisory—choose the track that fits your stage.
+    <section className="relative py-16 overflow-hidden ">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full border-black/20 border-1 bg-orange-200 px-6 py-1 text-sm shadow-2xl shadow-black font-semibold text-orange-700"
+          >
+            <Sparkles className="w-4 h-4" /> What We Do
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-4 text-4xl md:text-5xl font-bold text-gray-900"
+          >
+            Smarter Solar, Simplified.
+          </motion.h2>
+          <p className="mt-3 text-gray-600 max-w-4xl mx-auto">
+            From EPC to O&M and from Consulting to Net-Zero — we deliver end-to-end solar solutions that scale with your goals.
           </p>
         </div>
 
         {/* Tabs */}
-        <div role="tablist" aria-label="Solar service categories" className="mt-5 flex flex-wrap justify-center gap-3">
-          {tabs.map((t) => {
-            const isActive = active === t.key;
-            return (
-              <button
-                key={t.key}
-                id={`${idBase}-${t.key}-tab`}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`${idBase}-${t.key}-panel`}
-                onClick={() => setActive(t.key)}
-                className={[
-                  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all",
-                  isActive ? "bg-amber-500 text-white shadow-lg shadow-amber-300" : "bg-white text-neutral-900 border border-black/50 ring-1 ring-neutral-200 hover:bg-amber-50",
-                ].join(" ")}
-              >
-                {t.icon}
-                {t.label}
-              </button>
-            );
-          })}
+        <div className="flex justify-center flex-wrap gap-3 mb-10">
+          {services.map((srv) => (
+            <button
+              key={srv.id}
+              onClick={() => setActive(srv.id)}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+                active === srv.id
+                  ? "bg-orange-500 text-white shadow-md"
+                  : "bg-white border border-gray-300 hover:bg-orange-50 text-gray-800"
+              }`}
+            >
+              {srv.title.split(" ")[0]}
+            </button>
+          ))}
         </div>
 
-        {/* Panel */}
-        <div id={`${idBase}-${active}-panel`} role="tabpanel" aria-labelledby={`${idBase}-${active}-tab`} className="relative mt-10 grid gap-8 lg:grid-cols-3">
-          {/* Left: Summary card */}
-          <div className="rounded-2xl border border-neutral-600/50 bg-white p-6 shadow-2xl">
-            <div className="flex items-start gap-3">
-              <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-100 text-amber-700">
-                {data.icon}
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-neutral-900">{data.heading}</h3>
-                <p className="mt-1 text-sm text-neutral-600">{data.intro}</p>
-              </div>
-            </div>
+        {/* Animated Panel */}
+        <div className="relative ">
+          <AnimatePresence mode="wait">
+            {services
+              .filter((s) => s.id === active)
+              .map((service) => (
+                <motion.div
+                  key={service.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -40 }}
+                  transition={{ duration: 0.5 }}
+                  className={`rounded-3xl shadow-2xl border-black/20 border-1 bg-linear-to-br ${service.gradient}  p-8 md:p-10 flex flex-col md:flex-row items-center gap-8`}
+                >
+                  {/* Left Side */}
+                  <div className="flex-1 space-y-5">
+                    <div className="flex items-center gap-3">
+                      {service.icon}
+                      <h3 className="text-2xl font-bold text-gray-900">
+                        {service.title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">
+                      {service.desc}
+                    </p>
 
-            {/* SEO tags / intents */}
-            <div className="mt-5 flex flex-wrap gap-2">
-              {data.seoTags.map((t) => (
-                <span key={t} className="inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-amber-300 px-3 py-1.5 text-xs text-neutral-900">
-                  <Globe2 className="h-3.5 w-3.5" />
-                  {t}
-                </span>
+                    <ul className="space-y-3">
+                      {service.features.map((f, i) => (
+                        <li key={i} className="flex items-center gap-2 text-gray-800">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="pt-4">
+                      <a
+                        href="#contact"
+                        className="inline-block bg-orange-500 hover:bg-orange-400 text-white font-semibold rounded-full px-6 py-2 shadow-md transition"
+                      >
+                        Book a Free Consultation →
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Right Side Illustration */}
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="flex-1 flex justify-center"
+                  >
+                    <img
+                      src={
+                        service.id === "projects"
+                          ? "https://www.solarpvmart.com/images/blogs/5/blog5.jpg"
+                          : service.id === "om"
+                          ? "https://waaree.com/wp-content/uploads/2024/07/technician-3936982_960_720.jpg"
+                          : service.id === "consulting"
+                          ? "https://waaree.com/wp-content/uploads/2024/03/solar_inverter_765a2184e3.jpg"
+                          : "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
+                      }
+                      alt={service.title}
+                      className="rounded-xl shadow-2xl shadow-black object-cover w-full h-[280px] md:h-[340px]"
+                    />
+                  </motion.div>
+                </motion.div>
               ))}
-            </div>
-
-        
-
-            {/* CTAs */}
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-amber-500 px-5 py-2.5 font-semibold text-white shadow transition hover:bg-amber-600">
-                Book a Free Site Audit <ArrowRight className="h-4 w-4" />
-              </a>
-              <a href="#projects" className="inline-flex items-center justify-center rounded-lg border border-neutral-500 bg-white px-5 py-2.5 font-semibold text-neutral-900 hover:bg-neutral-50">
-                View Recent Installs
-              </a>
-            </div>
-          </div>
-
-          {/* Right: Feature grid */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-2">
-            {data.points.map((p) => (
-              <div key={p.title} className="group rounded-xl border border-neutral-600/50 bg-white/90 p-5 shadow-xl backdrop-blur-xl transition hover:-translate-y-0.5 hover:shadow-2xl">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 rounded-md bg-emerald-50 p-2 text-emerald-700">
-                    <CheckCircle2 className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-neutral-900">{p.title}</h4>
-                    <p className="mt-1 text-sm text-neutral-700">{p.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          </AnimatePresence>
         </div>
-
-        {/* Process timeline */}
-        <div className="mt-12">
-          <h3 className="mb-4 text-center text-md font-semibold uppercase tracking-wider text-orange-600">How it works</h3>
-          <ol className="mx-auto grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              { icon: <MapPin className="h-4 w-4" />, t: "Site Survey", d: "On‑site assessment & shade study" },
-              { icon: <Grid className="h-4 w-4" />, t: "Design & BoQ", d: "Optimized strings & safety BoM" },
-              { icon: <ShieldCheck className="h-4 w-4" />, t: "Install", d: "Neat cabling, QA & safety checks" },
-              { icon: <Plug className="h-4 w-4" />, t: "Commission", d: "Net‑metering & performance handover" },
-               { icon: <Plug className="h-4 w-4" />, t: "Commission", d: "Net‑metering & performance handover" },
-            ].map((s, i) => (
-              <li key={i} className="rounded-xl border border-neutral-600/50 bg-white p-5 text-center shadow-sm">
-                <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-amber-700">{s.icon}</div>
-                <div className="font-semibold text-neutral-900">{s.t}</div>
-                <div className="mt-1 text-xs text-neutral-600">{s.d}</div>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        
       </div>
     </section>
   );

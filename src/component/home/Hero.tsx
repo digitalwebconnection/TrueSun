@@ -16,7 +16,6 @@ const FADE_MS = 1000;
 export default function HeroSection() {
   const [index, setIndex] = useState(0);
 
-  // Auto change background image
   useEffect(() => {
     const id = setInterval(
       () => setIndex((i) => (i + 1) % bgImages.length),
@@ -26,7 +25,12 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="relative py-20 overflow-hidden   ">
+    <section
+      className="
+        relative overflow-hidden
+        min-h-[70svh] sm:min-h-[80svh] md:min-h-[60svh]
+        py-18 sm:py-16 md:pt-25 
+      ">
       {/* ===== BACKGROUND SLIDES ===== */}
       <div className="absolute inset-0 -z-10">
         {bgImages.map((src, i) => {
@@ -34,10 +38,13 @@ export default function HeroSection() {
           return (
             <div
               key={i}
-              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[${FADE_MS}ms]`}
+              className="absolute inset-0 bg-cover bg-center will-change-transform"
               style={{
                 backgroundImage: `url(${src})`,
                 opacity: isActive ? 1 : 0,
+                transitionProperty: "opacity",
+                transitionTimingFunction: "ease",
+                transitionDuration: `${FADE_MS}ms`,
                 animation: isActive
                   ? `kenburnsZoom ${SLIDE_DURATION_MS + FADE_MS}ms linear forwards`
                   : "none",
@@ -47,6 +54,7 @@ export default function HeroSection() {
             </div>
           );
         })}
+        {/* Contrast overlay */}
         <div className="absolute inset-0 bg-black/70" />
       </div>
 
@@ -54,9 +62,9 @@ export default function HeroSection() {
       <FloatingIcons />
 
       {/* ===== CONTENT ===== */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 text-left">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6">
         <h1
-          className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight opacity-0 animate-slideInLeft"
+          className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-tight opacity-0 animate-slideInLeft"
           style={{ animationDelay: "200ms" }}
         >
           Powering Your Future <br className="hidden sm:inline" /> with{" "}
@@ -64,7 +72,7 @@ export default function HeroSection() {
         </h1>
 
         <p
-          className="mt-4 text-xl md:text-2xl text-gray-200 max-w-2xl opacity-0 animate-slideInLeft"
+          className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-gray-200 max-w-xl sm:max-w-2xl opacity-0 animate-slideInLeft"
           style={{ animationDelay: "600ms" }}
         >
           Start saving on electricity and reduce your carbon footprint today.
@@ -72,20 +80,24 @@ export default function HeroSection() {
         </p>
 
         <div
-          className="mt-8 flex gap-4 opacity-0 animate-slideInUp"
+          className="
+            mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full
+            max-w-md
+            opacity-0 animate-slideInUp
+          "
           style={{ animationDelay: "1000ms" }}
         >
-          <button className="px-8 py-3 text-lg font-bold text-gray-900 bg-orange-400 rounded-lg shadow-xl transition duration-300 transform hover:scale-[1.03] hover:bg-orange-300">
+          <button className="px-6 sm:px-8 py-3 text-base sm:text-lg font-bold text-gray-900 bg-orange-400 rounded-lg shadow-xl transition duration-300 transform hover:scale-[1.03] hover:bg-orange-300">
             Get A Free Quote
           </button>
-          <button className="px-8 py-3 text-lg font-bold text-white border-2 border-white rounded-lg hover:bg-white hover:text-gray-900 transition duration-300">
+          <button className="px-6 sm:px-8 py-3 text-base sm:text-lg font-bold text-white border-2 border-white rounded-lg hover:bg-white hover:text-gray-900 transition duration-300">
             Learn More
           </button>
         </div>
       </div>
 
-      {/* ===== SCROLL INDICATOR ===== */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+      {/* ===== SCROLL INDICATOR (desktop only to avoid mobile overlap) ===== */}
+      <div className="hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <svg
           className="w-8 h-8 text-white animate-bounce"
           fill="none"
@@ -94,6 +106,7 @@ export default function HeroSection() {
           strokeWidth="2"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
         >
           <path d="M19 9l-7 7-7-7"></path>
         </svg>
@@ -122,34 +135,35 @@ export default function HeroSection() {
           animation: slideInUp 0.8s ease-out forwards;
         }
       `}</style>
-    </div>
+    </section>
   );
 }
 
 /* ===================== FLOATING ICON COMPONENT ===================== */
 function FloatingIcons() {
+  // Fewer/lighter icons on mobile to prevent crowding
   const icons = [
-    { Icon: Sun, color: "text-yellow-400", size: 60, x: "10%", y: "20%" },
-    { Icon: Leaf, color: "text-green-400", size: 50, x: "70%", y: "30%" },
-    { Icon: Battery, color: "text-lime-300", size: 55, x: "40%", y: "70%" },
-    { Icon: Zap, color: "text-orange-400", size: 45, x: "20%", y: "60%" },
-    { Icon: Cloud, color: "text-sky-300", size: 65, x: "80%", y: "50%" },
+    { Icon: Sun, color: "text-yellow-400", size: 56, x: "8%", y: "18%", hideOnMobile: false },
+    { Icon: Leaf, color: "text-green-400", size: 44, x: "72%", y: "28%", hideOnMobile: true },
+    { Icon: Battery, color: "text-lime-300", size: 48, x: "42%", y: "68%", hideOnMobile: false },
+    { Icon: Zap, color: "text-orange-400", size: 40, x: "18%", y: "58%", hideOnMobile: true },
+    { Icon: Cloud, color: "text-sky-300", size: 52, x: "80%", y: "48%", hideOnMobile: true },
   ];
 
   return (
-    <div className="absolute inset-0 -z-0 overflow-hidden">
-      {icons.map(({ Icon, color, size, x, y }, i) => (
+    <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+      {icons.map(({ Icon, color, size, x, y, hideOnMobile }, i) => (
         <motion.div
           key={i}
-          className={`absolute ${color} opacity-40`}
+          className={`absolute ${color} opacity-40 ${hideOnMobile ? "hidden sm:block" : ""}`}
           style={{ left: x, top: y }}
           animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-            rotate: [0, 10, -10, 0],
+            y: [0, -16, 0],
+            x: [0, 8, 0],
+            rotate: [0, 8, -8, 0],
           }}
           transition={{
-            duration: 6 + i * 1.5,
+            duration: 6 + i * 1.2,
             repeat: Infinity,
             ease: "easeInOut",
           }}

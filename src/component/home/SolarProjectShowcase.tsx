@@ -1,16 +1,6 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { Zap, MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
-
-/**
- * SolarProjectShowcase — grid with popup details
- * - Shows 3 projects initially
- * - “View More Projects” reveals the rest (toggles to “View Less”)
- * - Premium card grid with hover elevation
- * - Click any card to open a full-detail popup (modal)
- * - Keyboard: Esc (close), ←/→ (prev/next)
- */
 
 const DATA = [
   {
@@ -61,7 +51,6 @@ export default function SolarProjectShowcase() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState<number>(3);
-
   const showingAll = visibleCount >= DATA.length;
 
   const close = () => setSelected(null);
@@ -83,7 +72,7 @@ export default function SolarProjectShowcase() {
   }, [selected]);
 
   return (
-    <section className="relative w-full bg-gradient-to-br from-white via-amber-50/40 to-emerald-50 py-10 px-6 overflow-hidden">
+    <section className="relative w-full bg-linear-to-br from-white via-amber-50/40 to-emerald-50 py-10 px-6 overflow-hidden">
       {/* Decorative gradient background */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_25%_20%,rgba(255,215,0,0.2),transparent_50%),radial-gradient(circle_at_75%_80%,rgba(0,120,90,0.15),transparent_60%)]" />
 
@@ -108,13 +97,12 @@ export default function SolarProjectShowcase() {
             <img
               src={project.img}
               alt={project.title}
-              className={`w-full h-64 object-cover transition-transform duration-700 ${
-                hovered === index ? "scale-110" : "scale-100"
-              }`}
+              className={`w-full h-64 object-cover transition-transform duration-700 ${hovered === index ? "scale-110" : "scale-100"
+                }`}
             />
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Text */}
             <div className="absolute bottom-5 left-5 right-5 text-white">

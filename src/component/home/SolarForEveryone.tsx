@@ -45,7 +45,7 @@ const CategoryCard: React.FC<CategoryCardProps> = React.memo(({ item, scale }) =
       // Apply dynamic scale and a subtle 3D rotateY
       style={{ transform: `scale(${scale}) rotateY(${rotation}deg)` }}
       className="flex flex-col items-center justify-start bg-white border-1 border-black/50 rounded-xl shadow-xl hover:shadow-2xl 
-                 w-[12rem] min-w-[12rem] transition-all duration-150 ease-out 
+                 w-48 min-w-48 transition-all duration-150 ease-out 
                  origin-center transform-gpu " // Added border for crispness
     >
       <img
@@ -144,9 +144,9 @@ export default function SolarShowcaseScroll() {
   // --- Render ---
   return (
     <section className="relative mx-auto max-w-7xl px-4 md:px-6 py-10 overflow-hidden bg-gray-50">
-      <header className="text-center mb-10">
+      <header className="text-center mb-5">
         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-          <span className="text-orange-600">Solar</span> For Every <span className="text-blue-700">Sector</span>
+          <span className="text-orange-700">Solar</span> For Every <span className="text-blue-800/90">Sector</span>
         </h2>
         <p className="mt-4 text-gray-600 text-xl max-w-4xl mx-auto">
           From residential rooftops to massive industrial complexes—clean energy is a seamless fit.
