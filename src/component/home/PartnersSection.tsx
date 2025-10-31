@@ -109,7 +109,7 @@ function Marquee({
         }}
       >
         {/* one long row that’s >100% width due to content; no fixed w-[200%] needed */}
-        <ul className="flex items-center gap-6 sm:gap-10 min-w-max">
+        <ul className="flex items-center gap-8 sm:gap-14 min-w-max">
           {sequence.map((item, idx) => (
             <li key={idx} className="shrink-0">
               <LogoBadge item={item} />

@@ -55,7 +55,7 @@ export default function HeroSection() {
           );
         })}
         {/* Contrast overlay */}
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-black/80" />
       </div>
 
       {/* ===== FLOATING SOLAR ICONS ===== */}

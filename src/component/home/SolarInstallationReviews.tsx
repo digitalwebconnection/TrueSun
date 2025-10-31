@@ -27,10 +27,10 @@ export default function ModernReviewSection() {
     <section className="bg-gray-50 py-10 sm:py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
         {/* Header Section */}
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-4 sm:text-5xl">
+        <h2 className="text-4xl font-extrabold text-gray-900  mb-4 sm:text-5xl">
           What Our <span className="text-indigo-600">Customers Say</span>
         </h2>
-        <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600  mb-12 max-w-3xl mx-auto">
           Hear from the people who trust our service and expertise.
         </p>
 

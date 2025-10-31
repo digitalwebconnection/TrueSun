@@ -92,7 +92,7 @@ export default function SolarProjectShowcase() {
             onMouseEnter={() => setHovered(index)}
             onMouseLeave={() => setHovered(null)}
             onClick={() => setSelected(index)}
-            className="group relative rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 bg-white/80 backdrop-blur-sm border border-neutral-100 hover:-translate-y-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="group relative rounded-3xl overflow-hidden shadow-black/30 shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/80 backdrop-blur-sm border-1 border-neutral-900/40 hover:-translate-y-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             <img
               src={project.img}
@@ -102,18 +102,18 @@ export default function SolarProjectShowcase() {
             />
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-linear-to-t from-black  to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
 
             {/* Text */}
             <div className="absolute bottom-5 left-5 right-5 text-white">
-              <h3 className="text-lg font-semibold drop-shadow-lg">{project.title}</h3>
-              <p className="text-sm text-white/90 mt-1">{project.desc}</p>
+              <h3 className="text-xl font-bold drop-shadow-lg">{project.title}</h3>
+              <p className="text-sm text-white mt-1">{project.desc}</p>
 
               <div className="flex items-center gap-3 mt-3 text-sm">
                 <span className="flex items-center gap-1 bg-amber-400/90 text-black font-semibold px-3 py-1 rounded-full">
                   <Zap className="h-4 w-4" /> {project.capacity}
                 </span>
-                <span className="flex items-center gap-1 bg-white/80 text-black/80 px-3 py-1 rounded-full">
+                <span className="flex items-center gap-1 bg-white text-black px-3 py-1 rounded-full">
                   <MapPin className="h-4 w-4" /> {project.location}
                 </span>
               </div>
