@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X, Sun } from "lucide-react";
+
+function cn(...c: (string | false | undefined)[]) {
+  return c.filter(Boolean).join(" ");
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,11 +17,17 @@ export default function Navbar() {
   const lastY = useRef(0);
   const ticking = useRef(false);
 
+  // Close menu on route change
+  const location = useLocation();
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Projects", href: "#projects" },
-    { name: "Careers", href: "#careers" },
+    { name: "About", to: "/about" },
+    { name: "Services", to: "/services" },
+    { name: "Projects", to: "/projects" },
+    { name: "Careers", to: "/careers" },
   ];
 
   // Hide on scroll down, show on scroll up
@@ -58,55 +69,68 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  const linkBase =
+    "transition-colors duration-300 hover:text-orange-500";
+  const activeClass =
+    "text-orange-500";
+
   return (
     <header
-      className={[
-        "fixed top-0 left-0 w-full z-50",
+      className={cn(
+        "fixed top-0 left-0 z-50 w-full",
         "transition-transform duration-300 ease-out",
-        hidden ? "-translate-y-full" : "translate-y-0",
-      ].join(" ")}
+        hidden ? "-translate-y-full" : "translate-y-0"
+      )}
       role="banner"
     >
       <div
-        className={[
+        className={cn(
           "bg-white/80 backdrop-blur-md",
-          elevated ? "shadow-sm ring-1 ring-black/5" : "shadow-none",
-        ].join(" ")}
+          elevated ? "shadow-sm ring-1 ring-black/5" : "shadow-none"
+        )}
       >
-        <div className="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Sun className="text-orange-500 w-7 h-7" />
+          <Link to="/" className="flex items-center gap-2" aria-label="Home">
+            <Sun className="h-7 w-7 text-orange-500" />
             <h1 className="text-xl font-bold text-gray-800">
               True<span className="text-orange-500">Sun</span>
             </h1>
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex gap-8 text-gray-800 font-medium items-center">
-            {navItems.map(({ name, href }, index) => (
-              <a
-                key={index}
-                href={href}
-                className="hover:text-orange-500 transition-colors duration-300"
+          <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
+            {navItems.map(({ name, to }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  cn(linkBase, isActive && activeClass)
+                }
               >
                 {name}
-              </a>
+              </NavLink>
             ))}
-            <a
-              href="#contact"
-              className="px-5 py-2 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400 transition"
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                cn(
+                  "rounded-full bg-orange-500 px-5 py-2 text-white shadow-md transition hover:bg-orange-400",
+                  isActive && "ring-2 ring-orange-300"
+                )
+              }
             >
               Contact Us
-            </a>
+            </NavLink>
           </nav>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen((o) => !o)}
-            className="md:hidden text-gray-800 focus:outline-none"
+            className="text-gray-800 md:hidden"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
+            aria-controls="mobile-nav"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -115,25 +139,28 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-lg border-t border-gray-200 animate-fadeIn">
-          <nav className="flex flex-col px-5 py-4 space-y-4 text-gray-700 font-medium">
-            {navItems.map(({ name, href }, index) => (
-              <a
-                key={index}
-                href={href}
-                className="hover:text-orange-500 transition-colors duration-200"
-                onClick={() => setIsOpen(false)}
+        <div
+          id="mobile-nav"
+          className="animate-fadeIn border-t border-gray-200 bg-white shadow-lg md:hidden"
+        >
+          <nav className="flex flex-col space-y-4 px-5 py-4 font-medium text-gray-700">
+            {navItems.map(({ name, to }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  cn("transition-colors duration-200 hover:text-orange-500", isActive && "text-orange-500")
+                }
               >
                 {name}
-              </a>
+              </NavLink>
             ))}
-            <a
-              href="#contact"
-              className="w-full text-center py-2 bg-orange-500 text-white rounded-full shadow-md hover:bg-orange-400 transition"
-              onClick={() => setIsOpen(false)}
+            <NavLink
+              to="/contact"
+              className="w-full rounded-full bg-orange-500 py-2 text-center text-white shadow-md transition hover:bg-orange-400"
             >
               Contact Us
-            </a>
+            </NavLink>
           </nav>
         </div>
       )}

@@ -29,7 +29,7 @@ export default function Scroll() {
   const duration = prefersReducedMotion ? 0 : Math.max(10, BASE_DURATION - (isSmall ? 8 : 0));
 
   return (
-    <main className="w-full bg-gradient-to-b from-white via-slate-50 to-white">
+    <main className="w-full bg-linear-to-b from-white via-slate-50 to-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-6">
         <header className="mb-6 sm:mb-10 text-center">
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
@@ -46,8 +46,8 @@ export default function Scroll() {
             <div className="relative overflow-hidden">
               <Marquee prefersReducedMotion={prefersReducedMotion} duration={duration} />
               {/* edge fades */}
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-white to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-white to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-16 bg-linear-to-r from-white to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-16 bg-linear-to-l from-white to-transparent" />
             </div>
           </div>
         </section>
