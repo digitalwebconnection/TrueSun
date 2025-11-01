@@ -3,12 +3,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
 import HomeMain from "./component/home/HomeMain";
+import MainAbout from "./component/abouus/MainAbout";
 // import WhatsAppChatbot from './component/WhatsAppChatbot'
 
 // Example placeholder pages
-function About() {
-  return <div className="pt-24 p-6 text-center text-gray-800">About Page</div>;
-}
+
 function Services() {
   return <div className="pt-24 p-6 text-center text-gray-800">Services Page</div>;
 }
@@ -28,7 +27,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomeMain />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<MainAbout/>} />
         <Route path="/services" element={<Services />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/careers" element={<Careers />} />

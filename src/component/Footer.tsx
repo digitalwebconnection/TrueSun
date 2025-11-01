@@ -131,7 +131,7 @@ export default function SolarFooter() {
                                     <Phone className="mt-0.5 h-4 w-4" /> +91 95195 18951
                                 </p>
                                 <p className="inline-flex items-start gap-2">
-                                    <Mail className="mt-0.5 h-4 w-4" /> hello@yoursolarbrand.com
+                                    <Mail className="mt-0.5 h-4 w-4" /> info@truesun.com
                                 </p>
                             </div>
                             <div className="mt-4 flex items-center gap-3 text-neutral-500">

@@ -78,7 +78,7 @@ export default function SolarServicesShowcase() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border-black/20 border-1 bg-orange-200 px-6 py-1 text-sm shadow-2xl shadow-black font-semibold text-orange-700"
+            className="inline-flex items-center gap-2 rounded-full border-black/20 border-2 bg-orange-200 px-6 py-1 text-sm shadow-2xl shadow-black font-semibold text-orange-700"
           >
             <Sparkles className="w-4 h-4" /> What We Do
           </motion.span>
@@ -101,11 +101,10 @@ export default function SolarServicesShowcase() {
             <button
               key={srv.id}
               onClick={() => setActive(srv.id)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-                active === srv.id
-                  ? "bg-orange-500 text-white shadow-md"
-                  : "bg-white border border-gray-300 hover:bg-orange-50 text-gray-800"
-              }`}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${active === srv.id
+                ? "bg-orange-500 text-white shadow-md"
+                : "bg-white border border-gray-500 hover:bg-orange-50 text-gray-800"
+                }`}
             >
               {srv.title.split(" ")[0]}
             </button>
@@ -124,7 +123,7 @@ export default function SolarServicesShowcase() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -40 }}
                   transition={{ duration: 0.5 }}
-                  className={`rounded-3xl shadow-2xl border-black/20 border-1 bg-linear-to-br ${service.gradient}  p-8 md:p-10 flex flex-col md:flex-row items-center gap-8`}
+                  className={`rounded-3xl shadow-2xl border-black/10 border-2 bg-linear-to-br ${service.gradient}  p-8 md:p-10 flex flex-col md:flex-row items-center gap-8`}
                 >
                   {/* Left Side */}
                   <div className="flex-1 space-y-5">
@@ -169,10 +168,10 @@ export default function SolarServicesShowcase() {
                         service.id === "projects"
                           ? "https://www.solarpvmart.com/images/blogs/5/blog5.jpg"
                           : service.id === "om"
-                          ? "https://waaree.com/wp-content/uploads/2024/07/technician-3936982_960_720.jpg"
-                          : service.id === "consulting"
-                          ? "https://waaree.com/wp-content/uploads/2024/03/solar_inverter_765a2184e3.jpg"
-                          : "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
+                            ? "https://waaree.com/wp-content/uploads/2024/07/technician-3936982_960_720.jpg"
+                            : service.id === "consulting"
+                              ? "https://waaree.com/wp-content/uploads/2024/03/solar_inverter_765a2184e3.jpg"
+                              : "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
                       }
                       alt={service.title}
                       className="rounded-xl shadow-2xl shadow-black object-cover w-full h-[280px] md:h-[340px]"

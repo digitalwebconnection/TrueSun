@@ -1,9 +1,13 @@
+import Aboutab from "./AboutAb"
+import AboutHero from "./HeroAb"
+
 
 const MainAbout = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <AboutHero/>
+      <Aboutab/>
+    </>
   )
 }
 
