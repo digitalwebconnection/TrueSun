@@ -11,7 +11,7 @@ import {
     Instagram,
     Linkedin,
     Youtube,
-    ArrowUpRight,
+    // ArrowUpRight,
     ShieldCheck,
     Sparkles,
     ChevronUp,
@@ -148,7 +148,7 @@ export default function SolarFooter() {
                                     <Youtube className="h-4 w-4" />
                                 </Social>
                             </div>
-                            <form className="mt-5 flex w-full max-w-5xl overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-white/5">
+                            {/* <form className="mt-5 flex w-full max-w-5xl overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-white/5">
                                 <input
                                     type="email"
                                     required
@@ -162,7 +162,7 @@ export default function SolarFooter() {
                                     Subscribe
                                     <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                                 </button>
-                            </form>
+                            </form> */}
                         </div>
                     </div>
 

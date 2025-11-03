@@ -1,29 +1,29 @@
 import { motion } from "framer-motion";
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Stagger text/CTA elements
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1, // Stagger text/CTA elements
+        },
     },
-  },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const statsContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08, // Subtle stagger for KPI cards
-      delayChildren: 0.8,    // Start showing stats after main content appears
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.08, // Subtle stagger for KPI cards
+            delayChildren: 0.8,    // Start showing stats after main content appears
+        },
     },
-  },
 };
 
 type Crumb = { label: string; href?: string };
@@ -62,13 +62,13 @@ function AboutHeroV2({
         <section className="relative overflow-hidden flex items-center bg-gray-900">
             {/* Background Image and Gradient Overlay */}
             <div className="absolute inset-0">
-                <img 
-                    src={backgroundUrl} 
-                    alt="Sustainable energy background" 
-                    className="h-full w-full object-cover opacity-30 sm:opacity-50" 
-                    onError={(e) => { 
-                        e.currentTarget.src = 'https://placehold.co/1920x1080/000/fff?text=Placeholder+Image'; 
-                        e.currentTarget.onerror = null; 
+                <img
+                    src={backgroundUrl}
+                    alt="Sustainable energy background"
+                    className="h-full w-full object-cover opacity-30 sm:opacity-50"
+                    onError={(e) => {
+                        e.currentTarget.src = 'https://placehold.co/1920x1080/000/fff?text=Placeholder+Image';
+                        e.currentTarget.onerror = null;
                     }}
                 />
                 <div className="absolute inset-0 bg-linear-to-br from-black/80 via-black/80 to-blue-950/60" />
@@ -91,7 +91,7 @@ function AboutHeroV2({
                     </motion.p>
 
                     {/* Title */}
-                    <motion.h1 
+                    <motion.h1
                         className="mt-2 text-5xl font-extrabold tracking-tight sm:text-7xl leading-tight"
                         variants={itemVariants}
                     >
@@ -99,7 +99,7 @@ function AboutHeroV2({
                     </motion.h1>
 
                     {/* Subtitle */}
-                    <motion.p 
+                    <motion.p
                         className="mt-6 max-w-3xl text-xl text-gray-200"
                         variants={itemVariants}
                     >
@@ -107,7 +107,7 @@ function AboutHeroV2({
                     </motion.p>
 
                     {/* CTAs */}
-                    <motion.div 
+                    <motion.div
                         className="mt-10 flex flex-col sm:flex-row gap-4"
                         variants={itemVariants}
                     >
@@ -125,9 +125,9 @@ function AboutHeroV2({
                         </a>
                     </motion.div>
                 </motion.div>
-                
+
                 {/* Stats Section - Animated & Dimensional */}
-                <motion.div 
+                <motion.div
                     className="mt-16 relative p-6 bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/10"
                     initial="hidden"
                     animate="visible"
@@ -163,7 +163,7 @@ export default function App() {
     return (
         <div className=" bg-gray-900 font-sans">
             <AboutHeroV2 />
-          
+
         </div>
     );
 }
