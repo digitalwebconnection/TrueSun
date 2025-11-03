@@ -62,7 +62,6 @@ export default function AboutTrueSun() {
       <CurvedSteps />
       <AlternatingTimeline />
       <FAQAccordion />
-      <CTASection />
     </section>
   );
 }
@@ -487,20 +486,4 @@ function PlusIcon() {
   );
 }
 
-function CTASection() {
-  return (
-    <div className="relative overflow-hidden py-16">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(251,191,36,0.15)_0,transparent_40%),radial-gradient(circle_at_80%_70%,rgba(16,185,129,0.15)_0,transparent_40%)]" />
-      <div className="mx-auto max-w-6xl px-6">
-        <motion.div {...fadeUpProps} className="rounded-3xl border border-amber-200 bg-white/80 p-8 text-center shadow-2xl backdrop-blur">
-          <h3 className="text-2xl font-bold">Ready to start your solar journey?</h3>
-          <p className="mt-2 text-gray-700">Get a free survey, transparent proposal, and guaranteed compliance—end to end.</p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <a href="#" className="rounded-xl bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-amber-700">Book Free Survey</a>
-            <a href="#" className="rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-50">Download Company Profile</a>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+
