@@ -28,8 +28,8 @@ export default function HeroSection() {
     <section
       className="
         relative overflow-hidden
-        min-h-[70svh] sm:min-h-[80svh] md:min-h-[60svh]
-        py-18 sm:py-16 md:pt-25 
+        min-h-[50svh] sm:min-h-[50svh] md:min-h-[60svh]
+        py-20 sm:py-16 md:pt-25 
       ">
       {/* ===== BACKGROUND SLIDES ===== */}
       <div className="absolute inset-0 -z-10">

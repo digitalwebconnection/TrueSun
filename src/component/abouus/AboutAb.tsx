@@ -69,6 +69,8 @@ export default function AboutTrueSun() {
 // ---------------------------
 // Sections (Varied "stretched" layouts, not all boxes)
 // ---------------------------
+
+// About TrueSun -----
 function HeroSplit() {
   return (
     <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-12 lg:px-8">
@@ -141,6 +143,8 @@ function HeroSplit() {
   );
 }
 
+
+// range of numaeric stats -----
 function StatsRibbon() {
   const stats = [
     { k: ">85 MWp", d: "installed capacity" },
@@ -166,6 +170,7 @@ function StatsRibbon() {
   );
 }
 
+// Solutions we offer
 function BentoSolutions() {
   const tiles = [
     {
@@ -276,7 +281,7 @@ function BentoSolutions() {
 }
 
 
-
+//  Why industry leaders
 function ZigZagWhyUs() {
   const points = [
     {
@@ -309,7 +314,7 @@ function ZigZagWhyUs() {
     <div className="relative bg-white py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div {...fadeUpProps} className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-5xl font-bold">
+          <h2 className="text-3xl md:text-5xl font-bold">
             Why industry leaders <span className="text-emerald-600">trust us</span>
           </h2>
           <p className="mt-4 text-gray-600">
@@ -341,7 +346,7 @@ function ZigZagWhyUs() {
               </div>
 
               {/* Image Box */}
-              <div className="relative h-64 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80">
+              <div className="relative h-44 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80">
                 <img
                   src={p.img}
                   alt={p.title}
@@ -373,6 +378,7 @@ function ZigZagWhyUs() {
   );
 }
 
+// How it works
 function CurvedSteps() { 
   const steps = [
     { n: 1, title: "Free Site Survey", desc: "Load assessment, shading, and roof structure check" },
@@ -385,7 +391,7 @@ function CurvedSteps() {
     <div className="relative bg-emerald-50/60 py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div {...fadeUpProps} className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-5xl font-bold">How it works</h2>
+          <h2 className=" text-3xl md:text-5xl font-bold">How it works</h2>
           <p className="mt-2 text-gray-800"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum, esse.</p>
         </motion.div>
 
@@ -405,6 +411,7 @@ function CurvedSteps() {
   );
 }
 
+// Our Journey Timeline -----
 function AlternatingTimeline() {
   const timeline = [
     { year: "2015", title: "Founded", desc: "TrueSun began with a vision to make solar accessible." },
@@ -438,6 +445,7 @@ function AlternatingTimeline() {
   );
 }
 
+// FAQs Accordion -----
 function FAQAccordion() {
   const faqs = [
     { q: "Can you help with subsidies?", a: "Yes, we handle end‑to‑end documentation and DISCOM coordination for applicable schemes." },
