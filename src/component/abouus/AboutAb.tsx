@@ -47,7 +47,7 @@ const useParallax = (distance: number) => {
 export default function AboutTrueSun() {
   const y = useParallax(120);
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-white via-amber-50/40 to-emerald-50/40 text-gray-900">
+    <section className="relative overflow-hidden bg-linear-to-br from-white via-amber-50/40 to-emerald-50/40 text-gray-900">
       {/* Soft nebula background */}
       <motion.div style={{ y }} className="pointer-events-none absolute inset-0 opacity-40">
         <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-yellow-200 blur-3xl" />
@@ -74,7 +74,7 @@ function HeroSplit() {
   return (
     <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-12 lg:px-8">
       {/* Diagonal top accent */}
-      <div className="pointer-events-none absolute -top-16 left-0 h-40 w-full -skew-y-3 bg-gradient-to-r from-yellow-200/60 to-green-200/60" />
+      <div className="pointer-events-none absolute -top-16 left-0 h-40 w-full -skew-y-3 bg-linear-to-r from-yellow-200/60 to-green-200/60" />
 
       <div className="relative grid items-center gap-12 lg:grid-cols-12">
         <motion.div {...fadeUpProps} className="lg:col-span-7">
@@ -82,7 +82,7 @@ function HeroSplit() {
             <Sparkles className="h-3.5 w-3.5" /> Trusted Solar Partner
           </div>
           <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            About <span className="bg-gradient-to-r from-amber-600 to-green-600 bg-clip-text text-transparent">TrueSun</span>
+            About <span className="bg-linear-to-r from-amber-600 to-green-600 bg-clip-text text-transparent">TrueSun</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-700">
             We democratize clean energy—bringing high‑performance solar to homes, businesses, and industries with speed, compliance, and lifetime support.
@@ -94,7 +94,7 @@ function HeroSplit() {
               { icon: GaugeCircle, label: "High Yield", sub: "AI‑aided design" },
               { icon: Users, label: "AMC & 24/7", sub: "Remote monitoring" },
             ].map((i, idx) => (
-              <motion.div key={idx} variants={childFade} initial="hidden" whileInView="show" viewport={{ once: true }} className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white/80 p-3 shadow-sm backdrop-blur">
+              <motion.div key={idx} variants={childFade} initial="hidden" whileInView="show" viewport={{ once: true }} className="flex items-center gap-3 rounded-xl border border-gray-600/40 bg-white/80 p-3 shadow-sm backdrop-blur">
                 <i.icon className="h-5 w-5 text-amber-600" />
                 <div>
                   <div className="text-sm font-semibold text-gray-900">{i.label}</div>
@@ -108,7 +108,7 @@ function HeroSplit() {
         {/* Glass card stack */}
         <motion.div variants={floatIn} initial="hidden" whileInView="show" viewport={{ once: true }} className="lg:col-span-5">
           <div className="relative mx-auto max-w-md">
-            <motion.div className="relative rounded-3xl border border-white/60 bg-white/70 p-6 shadow-2xl backdrop-blur-xl" {...boxTilt}>
+            <motion.div className="relative rounded-3xl border border-gray-900/20 bg-white/70 p-6 shadow-2xl  shadow-black/30 backdrop-blur-xl" {...boxTilt}>
               <div className="flex items-center gap-3">
                 <Leaf className="h-6 w-6 text-green-600" />
                 <h3 className="text-lg font-bold">Our Vision</h3>
@@ -150,7 +150,7 @@ function StatsRibbon() {
     { k: "15+", d: "states served" },
   ];
   return (
-    <div className="relative bg-gradient-to-r from-amber-100 via-white to-emerald-100 py-6">
+    <div className="relative bg-linear-to-r from-amber-100 via-white to-emerald-100 py-6">
       <div className="mx-auto max-w-7xl px-6">
         <motion.ul variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {stats.map((s, i) => (
@@ -162,38 +162,113 @@ function StatsRibbon() {
         </motion.ul>
       </div>
       {/* angled divider */}
-      <div className="pointer-events-none absolute -bottom-6 left-0 h-6 w-full -skew-y-2 bg-gradient-to-r from-amber-200/40 to-emerald-200/40" />
+      <div className="pointer-events-none absolute -bottom-6 left-0 h-6 w-full -skew-y-2 bg-linear-to-r from-amber-200/40 to-emerald-200/40" />
     </div>
   );
 }
 
 function BentoSolutions() {
   const tiles = [
-    { span: "col-span-2 row-span-2", title: "Residential Rooftop", bullets: ["3–10 kW", "On‑grid / Hybrid", "App monitoring"], Icon: Sun, tint: "from-amber-50 to-white", border: "border-amber-300" },
-    { span: "col-span-1 row-span-1", title: "Commercial", bullets: ["10–250 kW", "CAPEX / OPEX"], Icon: Building2, tint: "from-blue-50 to-white", border: "border-blue-300" },
-    { span: "col-span-1 row-span-2", title: "Industrial", bullets: ["250 kW–5 MW", "Harmonics audits"], Icon: Factory, tint: "from-emerald-50 to-white", border: "border-emerald-300" },
-    { span: "col-span-2 row-span-1", title: "Utility Scale", bullets: [">5 MWp", "SCADA & EPC"], Icon: Zap, tint: "from-violet-50 to-white", border: "border-violet-300" },
+    {
+      span: "col-span-2 row-span-2",
+      title: "Residential Rooftop",
+      bullets: ["3–10 kW", "On‑grid / Hybrid", "App monitoring"],
+      Icon: Sun,
+      tint: "from-amber-50/80 to-white/80",
+      border: "border-amber-300",
+      bgImg: "https://zodiacenergy.com/images/blog/why-summer-is-best-for-solar-installation.png",
+    },
+    {
+      span: "col-span-1 row-span-1",
+      title: "Commercial",
+      bullets: ["10–250 kW", "CAPEX / OPEX"],
+      Icon: Building2,
+      tint: "from-blue-50/80 to-white/80",
+      border: "border-blue-300",
+      bgImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeYDML9mgu4zcCB1HRkmpo1kXZRk2YSwOq1A&s",
+    },
+    {
+      span: "col-span-1 row-span-2",
+      title: "Industrial",
+      bullets: ["250 kW–5 MW", "Harmonics audits"],
+      Icon: Factory,
+      tint: "from-emerald-50/80 to-white/80",
+      border: "border-emerald-300",
+      bgImg: "https://sunapecopower.com/wp-content/uploads/2024/08/choose-and-install-solar-panels.png",
+    },
+    {
+      span: "col-span-2 row-span-1",
+      title: "Utility Scale",
+      bullets: [">5 MWp", "SCADA & EPC"],
+      Icon: Zap,
+      tint: "from-violet-50/80 to-white/80",
+      border: "border-violet-300",
+      bgImg: "https://www.solarpvmart.com/images/blogs/5/blog5.jpg",
+    },
   ];
+
   return (
     <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <motion.div {...fadeUpProps} className="mb-8 text-center">
-        <h2 className="text-3xl font-bold">Solutions we offer</h2>
-        <p className="mt-2 text-gray-600">A flexible bento layout that scales from homes to utilities</p>
+        <h2 className="text-3xl md:text-5xl font-bold">Solutions we offer</h2>
+        <p className="mt-2 text-gray-600">Our mission is to empower communities worldwide by providing accessible, reliable, and innovative renewable energy technology.</p>
       </motion.div>
-      <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid auto-rows-[12rem] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Make first tile span 2 columns on large for staggered feel */}
+
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="grid auto-rows-[14rem] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      >
         {tiles.map((t, i) => (
-          <motion.div key={i} variants={childFade} {...boxTilt} className={`group relative overflow-hidden rounded-3xl border ${t.border} bg-gradient-to-br ${t.tint} p-6 shadow-sm ${i === 0 ? "lg:col-span-2 lg:row-span-2" : t.span.split(" ").map((s) => "lg:" + s).join(" ")}`}>
-            <div className="flex items-center gap-3">
-              <t.Icon className="h-6 w-6 text-gray-800/80" />
-              <h3 className="text-lg font-semibold">{t.title}</h3>
+          <motion.div
+            key={i}
+            variants={childFade}
+            {...boxTilt}
+            className={`group relative overflow-hidden rounded-3xl border ${t.border} bg-linear-to-br ${t.tint} p-0 shadow-xl shadow-black/60 ${i === 0
+              ? "lg:col-span-2 lg:row-span-2"
+              : t.span.split(" ").map((s) => "lg:" + s).join(" ")
+              }`}
+          >
+            {/* Background image + subtle zoom on hover */}
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-cover bg-center  transition-transform duration-700 group-hover:scale-105"
+              style={{ backgroundImage: `url(${t.bgImg})` }}
+            />
+            {/* Readability overlay */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/75 to-black/60" />
+
+            {/* Foreground content */}
+            <div className="relative z-10 flex h-full flex-col justify-between p-6">
+              {/* Header */}
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-gray-900 shadow-sm backdrop-blur">
+                  <t.Icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-xl font-bold text-white drop-shadow-sm">{t.title}</h3>
+              </div>
+
+              {/* Bullets (2-col on md for neat alignment) */}
+              <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-white/90 sm:grid-cols-2">
+                {t.bullets.map((b, bi) => (
+                  <li key={bi} className="flex items-center gap-2">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/90" />
+                    <span className="leading-snug">{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Bottom meta / CTA row */}
+              <div className="mt-5 flex items-center justify-between">
+                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur">Learn more</span>
+                <Battery className="pointer-events-none h-6 w-6 rotate-12 text-white/60" />
+              </div>
             </div>
-            <ul className="mt-3 space-y-1 text-sm text-gray-700">
-              {t.bullets.map((b, bi) => (
-                <li key={bi} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-800/70" />{b}</li>
-              ))}
-            </ul>
-            <Battery className="pointer-events-none absolute -bottom-6 -right-6 h-24 w-24 rotate-12 text-gray-800/10" />
+
+            {/* Decorative corner icon for larger tiles */}
+            <Battery className="pointer-events-none absolute -bottom-6 -right-6 hidden h-24 w-24 rotate-12 text-white/20 lg:block" />
           </motion.div>
         ))}
       </motion.div>
@@ -201,37 +276,82 @@ function BentoSolutions() {
   );
 }
 
+
+
 function ZigZagWhyUs() {
   const points = [
-    { Icon: Award, title: "Certified Excellence", desc: "Tier‑1 components & BIS compliance ensure peak performance & safety." },
-    { Icon: Zap, title: "Smart Technology", desc: "AI‑assisted design + real‑time monitoring to maximize yield." },
-    { Icon: Users, title: "Lifetime Partnership", desc: "AMC plans, SLAs, and remote care—support that stays." },
-    { Icon: ShieldCheck, title: "Compliance Mastery", desc: "Net metering & subsidy documentation without headaches." },
+    {
+      Icon: Award,
+      title: "Certified Excellence",
+      desc: "Tier-1 components & BIS compliance ensure peak performance & safety.",
+      img: "https://m.media-amazon.com/images/I/71jTnZCRieL.jpg",
+    },
+    {
+      Icon: Zap,
+      title: "Smart Technology",
+      desc: "AI-assisted design + real-time monitoring to maximize yield.",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbDRkyDeVgWd43dS4l0RwXcAyRl2ARi6CR2w&s",
+    },
+    {
+      Icon: Users,
+      title: "Lifetime Partnership",
+      desc: "AMC plans, SLAs, and remote care—support that stays.",
+      img: "https://thumbs.dreamstime.com/b/business-handshake-near-solar-panel-small-plant-representing-green-energy-partnership-sustainability-eco-innovation-412197421.jpg",
+    },
+    {
+      Icon: ShieldCheck,
+      title: "Compliance Mastery",
+      desc: "Net metering & subsidy documentation without headaches.",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJugrOXJ6LpM6G6bBfae4Ww5QJuKq0wU7VRA&s",
+    },
   ];
+
   return (
     <div className="relative bg-white py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div {...fadeUpProps} className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-4xl font-bold">Why industry leaders <span className="text-emerald-600">trust us</span></h2>
-          <p className="mt-4 text-gray-600">A zig‑zag layout for visual rhythm, not more boxes.</p>
+          <h2 className="text-5xl font-bold">
+            Why industry leaders <span className="text-emerald-600">trust us</span>
+          </h2>
+          <p className="mt-4 text-gray-600">
+            A zig-zag layout for visual rhythm with immersive imagery.
+          </p>
         </motion.div>
 
-        <div className="space-y-16">
+        <div className="space-y-20">
           {points.map((p, i) => (
-            <motion.div key={i} variants={floatIn} initial="hidden" whileInView="show" viewport={{ once: true }} className={`grid items-center gap-10 lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-last" : ""}`}>
+            <motion.div
+              key={i}
+              variants={floatIn}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className={`grid items-center gap-10 lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-last" : ""
+                }`}
+            >
+              {/* Text Box */}
               <div className="relative">
-                <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-br from-amber-100/50 to-emerald-100/50 blur-xl" />
-                <div className="rounded-3xl border border-gray-200 bg-white/70 p-8 shadow-xl backdrop-blur" >
+                <div className="absolute -inset-4 -z-10 rounded-3xl bg-linear-to-br from-amber-100/50 to-emerald-100/50 blur-xl" />
+                <div className="rounded-3xl border border-gray-800/30 bg-white/80 p-8 shadow-xl shadow-black/40 backdrop-blur">
                   <div className="flex items-center gap-3">
                     <p.Icon className="h-7 w-7 text-emerald-600" />
                     <h3 className="text-xl font-bold">{p.title}</h3>
                   </div>
-                  <p className="mt-3 text-gray-700">{p.desc}</p>
+                  <p className="mt-3 text-gray-700 leading-relaxed">{p.desc}</p>
                 </div>
               </div>
-              <div className="relative h-56 w-full overflow-hidden rounded-3xl border border-dashed border-emerald-300/70 bg-gradient-to-br from-emerald-50 to-white">
-                {/* Decorative diagonal stripes */}
-                <div className="absolute inset-0 -skew-x-6 bg-[repeating-linear-gradient(45deg,transparent_0,transparent_8px,rgba(16,185,129,0.08)_8px,rgba(16,185,129,0.08)_16px)]" />
+
+              {/* Image Box */}
+              <div className="relative h-64 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
+                <div className="absolute bottom-4 left-4 rounded-xl bg-white/70 px-4 py-2 text-sm font-semibold text-gray-800 backdrop-blur">
+                  {p.title}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -239,14 +359,22 @@ function ZigZagWhyUs() {
       </div>
 
       {/* curved divider */}
-      <svg className="-mb-1 mt-20 block h-10 w-full text-emerald-50" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden>
-        <path fill="currentColor" d="M0,0 C320,40 1120,40 1440,0 L1440,40 L0,40 Z" />
+      <svg
+        className="-mb-1 mt-20 block h-10 w-full text-emerald-50"
+        viewBox="0 0 1440 40"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <path
+          fill="currentColor"
+          d="M0,0 C320,40 1120,40 1440,0 L1440,40 L0,40 Z"
+        />
       </svg>
     </div>
   );
 }
 
-function CurvedSteps() {
+function CurvedSteps() { 
   const steps = [
     { n: 1, title: "Free Site Survey", desc: "Load assessment, shading, and roof structure check" },
     { n: 2, title: "Design & Proposal", desc: "Energy yield, ROI, and bill‑saving report" },
@@ -255,18 +383,18 @@ function CurvedSteps() {
     { n: 5, title: "Handover & Training", desc: "App setup, performance KPIs, maintenance guide" },
   ];
   return (
-    <div className="relative bg-emerald-50/60 py-20">
+    <div className="relative bg-emerald-50/60 py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div {...fadeUpProps} className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold">How it works</h2>
-          <p className="mt-2 text-gray-600">A curved stepper path that guides the eye</p>
+          <h2 className="text-5xl font-bold">How it works</h2>
+          <p className="mt-2 text-gray-800"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum, esse.</p>
         </motion.div>
 
         <motion.ol variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="relative grid gap-6 md:grid-cols-5">
           {/* Curved path line */}
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 -z-10 hidden h-1 -translate-y-1/2 rounded bg-gradient-to-r from-amber-300 via-emerald-300 to-amber-300 md:block" />
+          <div className="pointer-events-none absolute left-0 right-0 top-1/2 -z-10 hidden h-1 -translate-y-1/2 rounded bg-linear-to-r from-amber-300 via-emerald-300 to-amber-300 md:block" />
           {steps.map((s, i) => (
-            <motion.li key={i} variants={childFade} className="relative rounded-2xl border border-emerald-200 bg-white p-6 text-center shadow-sm">
+            <motion.li key={i} variants={childFade} className="relative rounded-2xl border border-emerald-800/60 bg-white p-6 text-center shadow-xl shadow-black/20">
               <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700 ring-1 ring-amber-300">{s.n}</div>
               <div className="font-semibold text-gray-900">{s.title}</div>
               <p className="mt-1 text-sm text-gray-600">{s.desc}</p>
@@ -287,17 +415,17 @@ function AlternatingTimeline() {
     { year: "2024", title: "Market Leader", desc: "85+ MWp installed, 4.9/5 customer rating." },
   ];
   return (
-    <div className="mx-auto max-w-6xl px-6 py-20">
-      <motion.h2 {...fadeUpProps} className="mb-12 text-4xl font-bold text-gray-900">Our Journey</motion.h2>
+    <div className="mx-auto max-w-7xl px-6 py-20">
+      <motion.h2 {...fadeUpProps} className="mb-12 text-5xl font-bold text-center text-gray-900">Our Journey</motion.h2>
       <div className="relative">
         {/* central line */}
-        <div className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 rounded bg-gradient-to-b from-amber-300 via-emerald-300 to-amber-300" />
+        <div className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 rounded bg-linear-to-b from-amber-300 via-emerald-300 to-amber-300" />
         <motion.ul variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="space-y-8">
           {timeline.map((t, i) => (
             <motion.li key={i} variants={childFade} className={`relative flex ${i % 2 ? "md:justify-start" : "md:justify-end"}`}>
               <div className={`w-full md:w-1/2 ${i % 2 ? "md:pl-8" : "md:pr-8"}`}>
-                <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                  <div className="absolute -left-3 top-6 hidden h-6 w-6 rounded-full border-4 border-white bg-amber-500 shadow md:block" />
+                <div className="relative rounded-2xl border border-gray-900/30 bg-white p-6 shadow-xl shadow-black/20">
+                 
                   <div className="text-xs font-bold uppercase tracking-wider text-amber-700">{t.year}</div>
                   <div className="mt-1 text-xl font-semibold text-gray-900">{t.title}</div>
                   <p className="mt-1 text-gray-600">{t.desc}</p>
@@ -319,14 +447,14 @@ function FAQAccordion() {
     { q: "How soon can I go live?", a: "Residential systems often go live in 2‑4 weeks depending on approvals; commercial timelines vary." },
   ];
   return (
-    <div className="bg-gradient-to-br from-white via-amber-50/50 to-emerald-50/50 py-16">
+    <div className="bg-linear-to-br from-white via-amber-50/50 to-emerald-50/50 py-16">
       <div className="mx-auto max-w-5xl px-6">
         <motion.div {...fadeUpProps} className="mx-auto mb-8 max-w-2xl text-center">
           <h2 className="text-3xl font-bold">FAQs</h2>
           <p className="mt-2 text-gray-600">Quick answers to common questions</p>
         </motion.div>
 
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-200 bg-white">
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-800/20 bg-white">
           {faqs.map((f, i) => (
             <AccordionItem key={i} q={f.q} a={f.a} />
           ))}
@@ -347,7 +475,7 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
           <PlusIcon />
         </span>
       </summary>
-      <div className="bg-gradient-to-r from-white to-emerald-50/40 p-5 pt-0 text-gray-700">{a}</div>
+      <div className="bg-linear-to-r from-white to-emerald-50/40 p-5 pt-0 text-gray-700">{a}</div>
     </details>
   );
 }
