@@ -33,7 +33,7 @@ export default function ModernReviewSection() {
   ];
 
   const Card: React.FC<{ r: Review }> = ({ r }) => (
-    <div className="flex flex-col justify-between bg-white h-full p-5 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-indigo-200 transition duration-300 transform hover:-translate-y-1 border border-gray-100">
+    <div className="flex flex-col justify-between  bg-white h-full p-5 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-indigo-500/30 transition duration-300 transform hover:-translate-y-1 border border-gray-800/30">
       {/* Star Rating */}
       <div className="mb-2 flex items-center justify-center gap-0.5" aria-label={`${r.rating} out of 5 stars`}>
         {[...Array(5)].map((_, i) => (
@@ -51,7 +51,7 @@ export default function ModernReviewSection() {
       {/* Reviewer */}
       <div className="mt-auto pt-4 border-t border-gray-100">
         <div className="text-lg font-semibold text-gray-900">{r.name}</div>
-        <div className="text-sm text-indigo-600 font-medium">{r.location}</div>
+        <div className="text-sm text-orange-700 font-medium">{r.location}</div>
       </div>
     </div>
   );
@@ -67,7 +67,7 @@ export default function ModernReviewSection() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
         {/* Header */}
         <h2 className="text-4xl font-extrabold text-gray-900 mb-4 sm:text-5xl">
-          What Our <span className="text-indigo-600">Customers Say</span>
+          What Our <span className="text-orange-700">Customers Say</span>
         </h2>
         <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
           Hear from the people who trust our service and expertise.

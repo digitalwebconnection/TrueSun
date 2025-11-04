@@ -61,7 +61,7 @@ export default function AboutTrueSunNew() {
                 </div>
 
                 {/* === SECTION 3: WHO WE SERVE & CTA BLOCK (Bottom Aligned) === */}
-                <div className="mt-20 border-1 px-4 border-gray-600 py-5 rounded-xl shadow-xl">
+                <div className="mt-20 border-1 px-4 border-gray-600/30 py-5 rounded-xl shadow-xl">
                     <div className="grid lg:grid-cols-3 gap-10">
                         {/* Sector Pills */}
                         <div className="lg:col-span-2">
@@ -123,7 +123,7 @@ function SDGPill({ icon, label, color }: { icon: React.ReactNode; label: string,
 // Feature Card for the 3 Pillars
 function PillarCard({ Icon, title, desc, features }: { Icon: React.ElementType, title: string, desc: string, features: string[] }) {
     return (
-        <div className="group flex flex-col rounded-xl border border-gray-900/50 bg-orange-100/15 hover:bg-orange-500/25 p-6 text-center shadow-xl transition duration-300 hover:shadow-2xl hover:border-black/10 hover:scale-105">
+        <div className="group flex flex-col rounded-xl border border-gray-900/30 bg-orange-100/15 hover:bg-orange-500/25 p-6 text-center shadow-xl shadow-black/20 transition duration-300 hover:shadow-2xl hover:border-black/10 hover:scale-105">
             <div className={`mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 group-hover:bg-amber-200 transition duration-300`}>
                 <Icon className="h-7 w-7 text-amber-500" />
             </div>

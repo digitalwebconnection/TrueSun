@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Wrench,
-  Settings,
   ClipboardList,
   CheckCircle2,
   Sun,
@@ -39,19 +38,6 @@ const services = [
     gradient: "from-emerald-50 to-green-200",
   },
   {
-    id: "consulting",
-    icon: <Settings className="w-8 h-8 text-blue-500" />,
-    title: "Consulting & Design",
-    desc: "Independent solar project consultancy for investors, developers, and corporates — from feasibility to execution.",
-    features: [
-      "Financial & Policy Feasibility",
-      "Technology & Vendor Evaluation",
-      "Bidding & Tender Support",
-      "Cost Optimization Strategies",
-    ],
-    gradient: "from-blue-50 to-indigo-200",
-  },
-  {
     id: "advisory",
     icon: <ClipboardList className="w-8 h-8 text-purple-600" />,
     title: "ESG & Net-Zero Advisory",
@@ -69,8 +55,21 @@ const services = [
 export default function SolarServicesShowcase() {
   const [active, setActive] = useState("projects");
 
+  // 🌀 Auto-scroll every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => {
+        const currentIndex = services.findIndex((s) => s.id === prev);
+        const nextIndex = (currentIndex + 1) % services.length;
+        return services[nextIndex].id;
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="relative py-16 overflow-hidden ">
+    <section className="relative py-16 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -91,7 +90,8 @@ export default function SolarServicesShowcase() {
             Smarter Solar, Simplified.
           </motion.h2>
           <p className="mt-3 text-gray-600 max-w-4xl mx-auto">
-            From EPC to O&M and from Consulting to Net-Zero — we deliver end-to-end solar solutions that scale with your goals.
+            From EPC to O&M and from Consulting to Net-Zero — we deliver
+            end-to-end solar solutions that scale with your goals.
           </p>
         </div>
 
@@ -101,10 +101,11 @@ export default function SolarServicesShowcase() {
             <button
               key={srv.id}
               onClick={() => setActive(srv.id)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${active === srv.id
-                ? "bg-orange-500 text-white shadow-md"
-                : "bg-white border border-gray-500 hover:bg-orange-50 text-gray-800"
-                }`}
+              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+                active === srv.id
+                  ? "bg-orange-500 text-white shadow-md"
+                  : "bg-white border border-gray-500 hover:bg-orange-50 text-gray-800"
+              }`}
             >
               {srv.title.split(" ")[0]}
             </button>
@@ -112,7 +113,7 @@ export default function SolarServicesShowcase() {
         </div>
 
         {/* Animated Panel */}
-        <div className="relative ">
+        <div className="relative">
           <AnimatePresence mode="wait">
             {services
               .filter((s) => s.id === active)
@@ -139,7 +140,10 @@ export default function SolarServicesShowcase() {
 
                     <ul className="space-y-3">
                       {service.features.map((f, i) => (
-                        <li key={i} className="flex items-center gap-2 text-gray-800">
+                        <li
+                          key={i}
+                          className="flex items-center gap-2 text-gray-800"
+                        >
                           <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                           <span>{f}</span>
                         </li>
@@ -168,10 +172,10 @@ export default function SolarServicesShowcase() {
                         service.id === "projects"
                           ? "https://www.solarpvmart.com/images/blogs/5/blog5.jpg"
                           : service.id === "om"
-                            ? "https://waaree.com/wp-content/uploads/2024/07/technician-3936982_960_720.jpg"
-                            : service.id === "consulting"
-                              ? "https://waaree.com/wp-content/uploads/2024/03/solar_inverter_765a2184e3.jpg"
-                              : "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
+                          ? "https://waaree.com/wp-content/uploads/2024/07/technician-3936982_960_720.jpg"
+                          : service.id === "consulting"
+                          ? "https://waaree.com/wp-content/uploads/2024/03/solar_inverter_765a2184e3.jpg"
+                          : "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
                       }
                       alt={service.title}
                       className="rounded-xl shadow-2xl shadow-black object-cover w-full h-[280px] md:h-[340px]"

@@ -110,7 +110,7 @@ export default function ServicesSection({
                 key={s.title}
                 custom={i}
                 variants={fadeUp}
-                className="relative flex flex-col justify-between rounded-2xl bg-white border border-gray-500 shadow-black/20 hover:shadow-orange-300/80 shadow-xl p-4 md:p-5 transition-all duration-300  hover:-translate-y-1"
+                className="relative flex flex-col justify-between rounded-2xl bg-white border border-gray-500/50 shadow-black/20 hover:shadow-orange-300/80 shadow-xl p-4 md:p-5 transition-all duration-300  hover:-translate-y-1"
               >
                 {/* Icon + Text */}
                 <div>

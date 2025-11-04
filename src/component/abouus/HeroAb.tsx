@@ -28,15 +28,12 @@ const statsContainerVariants = {
 
 type Crumb = { label: string; href?: string };
 type KPI = { value: string; label: string };
-type CTA = { label: string; href?: string };
 
 interface AboutHeroProps {
     breadcrumbs?: Crumb[];
     eyebrow?: string;
     title?: string;
     subtitle?: string;
-    primaryCta?: CTA;
-    secondaryCta?: CTA;
     stats?: KPI[];
     backgroundUrl?: string;
 }
@@ -45,8 +42,7 @@ function AboutHeroV2({
     eyebrow = "ABOUT US: THE FUTURE OF SOLAR",
     title = "Driving Global Change with Sustainable Energy.",
     subtitle = "Our mission is to empower communities worldwide by providing accessible, reliable, and innovative renewable energy technology.",
-    primaryCta = { label: "Explore Our Technology", href: "#tech" },
-    secondaryCta = { label: "View Sustainability Report", href: "#report" },
+   
     stats = [
         { value: "15+", label: "Years in Industry" },
         { value: "5GW", label: "Capacity Installed" },
@@ -106,24 +102,7 @@ function AboutHeroV2({
                         {subtitle}
                     </motion.p>
 
-                    {/* CTAs */}
-                    <motion.div
-                        className="mt-10 flex flex-col sm:flex-row gap-4"
-                        variants={itemVariants}
-                    >
-                        <a
-                            href={primaryCta.href}
-                            className="rounded-full bg-blue-600 px-8 py-3 text-base font-semibold text-white shadow-lg hover:bg-blue-500 transition-all duration-300 transform hover:scale-[1.02]"
-                        >
-                            {primaryCta.label}
-                        </a>
-                        <a
-                            href={secondaryCta.href}
-                            className="rounded-full border border-white/40 px-8 py-3 text-base font-semibold text-white transition-all duration-300 hover:bg-white/10"
-                        >
-                            {secondaryCta.label}
-                        </a>
-                    </motion.div>
+                    
                 </motion.div>
 
                 {/* Stats Section - Animated & Dimensional */}
