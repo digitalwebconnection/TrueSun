@@ -8,12 +8,14 @@ import ServicesSection from './ServicesSection'
 import SimpleReviewSection from './SolarInstallationReviews'
 import Scroll from './PartnersSection'
 import SolarCalculatorSection from './SolarCalculatorSection'
+import TruesunStats from './TruesunStats'
 
 const HomeMain = () => {
     return (
         <>
             <HeroSection />
-            <SolarCalculatorSection/>
+            <SolarCalculatorSection />
+            <TruesunStats />
             <AboutTrueSun />
             <Scroll />
             <ServicesSection />

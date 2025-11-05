@@ -54,14 +54,12 @@ export default function AboutTrueSun() {
         <div className="absolute -bottom-20 right-10 h-96 w-96 rounded-full bg-green-200 blur-3xl" />
         <div className="absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-100 blur-3xl" />
       </motion.div>
-
       <HeroSplit />
       <StatsRibbon />
       <BentoSolutions />
       <ZigZagWhyUs />
       <CurvedSteps />
       <AlternatingTimeline />
-      <FAQAccordion />
     </section>
   );
 }
@@ -445,53 +443,8 @@ function AlternatingTimeline() {
   );
 }
 
-// FAQs Accordion -----
-function FAQAccordion() {
-  const faqs = [
-    { q: "Can you help with subsidies?", a: "Yes, we handle end‑to‑end documentation and DISCOM coordination for applicable schemes." },
-    { q: "Do you offer O&M?", a: "We provide AMC and remote monitoring with SLAs tailored to your plant size." },
-    { q: "What warranties do I get?", a: "Typically 25‑year performance on modules, 5‑10 years on inverters, and workmanship warranty." },
-    { q: "How soon can I go live?", a: "Residential systems often go live in 2‑4 weeks depending on approvals; commercial timelines vary." },
-  ];
-  return (
-    <div className="bg-linear-to-br from-white via-amber-50/50 to-emerald-50/50 py-16">
-      <div className="mx-auto max-w-5xl px-6">
-        <motion.div {...fadeUpProps} className="mx-auto mb-8 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold">FAQs</h2>
-          <p className="mt-2 text-gray-600">Quick answers to common questions</p>
-        </motion.div>
 
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-800/20 bg-white">
-          {faqs.map((f, i) => (
-            <AccordionItem key={i} q={f.q} a={f.a} />
-          ))}
-        </motion.div>
-      </div>
-    </div>
-  );
-}
 
-function AccordionItem({ q, a }: { q: string; a: string }) {
-  // Fixed: removed invalid `whileGroupOpen` from Framer Motion.
-  // Uses Tailwind's `group-open` variant to rotate the plus icon when <details> is open.
-  return (
-    <details className="group">
-      <summary className="flex cursor-pointer items-center justify-between gap-4 p-5 text-left text-base font-semibold text-gray-900">
-        {q}
-        <span className="rounded-full border border-gray-300 p-1 transition-transform duration-300 group-open:rotate-45">
-          <PlusIcon />
-        </span>
-      </summary>
-      <div className="bg-linear-to-r from-white to-emerald-50/40 p-5 pt-0 text-gray-700">{a}</div>
-    </details>
-  );
-}
-function PlusIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
+
 
 
