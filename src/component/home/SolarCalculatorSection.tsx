@@ -184,7 +184,7 @@ export default function SolarCalculatorMaharashtra() {
   }, [monthlyBill, tariff, city, applySubsidy]);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-amber-100 via-white to-gray-600/5 text-gray-800 py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full bg-linear-to-b from-amber-100 via-white to-gray-600/5 text-gray-800 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Header */}
         <header className="text-center space-y-3 max-w-5xl mx-auto">
