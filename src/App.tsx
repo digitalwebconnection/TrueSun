@@ -50,13 +50,13 @@ function App() {
         <Route path="/services" element={<Services />} />
 
         {/* Rooftop Solar Children */}
-        <Route path="/services/rooftop" element={<RooftopMain />} />
+        <Route path="/rooftop" element={<RooftopMain />} />
         <Route path="/services/rooftop/commercial" element={<CommercialMain />} />
         <Route path="/services/rooftop/industrial" element={<Industrial />} />
         <Route path="/services/rooftop/residential" element={<Residential />} />
 
         {/* Consulting Children */}
-        <Route path="/services/consulting" element={<ConsultingMain />} />
+        <Route path="/consulting" element={<ConsultingMain />} />
         {/* <Route path="/services/consulting/feasibility" element={<Feasibility />} />
         <Route path="/services/consulting/finance" element={<ProjectFinance />} />
         <Route path="/services/consulting/om" element={<OMAdvisory />} /> */}
