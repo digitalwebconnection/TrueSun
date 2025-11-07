@@ -1,6 +1,6 @@
 import "./App.css";
 import { Navigate } from "react-router-dom"
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
 import HomeMain from "./component/home/HomeMain";
@@ -38,7 +38,7 @@ function Contact() {
 
 function App() {
   return (
-     <HashRouter>
+    <BrowserRouter>
 
       <Navbar />
       <Routes>
@@ -50,13 +50,13 @@ function App() {
         <Route path="/services" element={<Services />} />
 
         {/* Rooftop Solar Children */}
-        <Route path="/rooftop" element={<RooftopMain />} />
+        <Route path="/services/rooftop" element={<RooftopMain />} />
         <Route path="/services/rooftop/commercial" element={<CommercialMain />} />
         <Route path="/services/rooftop/industrial" element={<Industrial />} />
         <Route path="/services/rooftop/residential" element={<Residential />} />
 
         {/* Consulting Children */}
-        <Route path="/consulting" element={<ConsultingMain />} />
+        <Route path="/services/consulting" element={<ConsultingMain />} />
         {/* <Route path="/services/consulting/feasibility" element={<Feasibility />} />
         <Route path="/services/consulting/finance" element={<ProjectFinance />} />
         <Route path="/services/consulting/om" element={<OMAdvisory />} /> */}
@@ -83,7 +83,7 @@ function App() {
         // or open after 12s idle
         autoOpenOnIdleMs={12000}
       />
-    </HashRouter>
+    </BrowserRouter>
 
   );
 }
