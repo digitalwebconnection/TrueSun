@@ -1,6 +1,6 @@
 import "./App.css";
 import { Navigate } from "react-router-dom"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
 import HomeMain from "./component/home/HomeMain";
@@ -38,7 +38,7 @@ function Contact() {
 
 function App() {
   return (
-    <BrowserRouter>
+     <HashRouter>
 
       <Navbar />
       <Routes>
@@ -83,7 +83,7 @@ function App() {
         // or open after 12s idle
         autoOpenOnIdleMs={12000}
       />
-    </BrowserRouter>
+    </HashRouter>
 
   );
 }
