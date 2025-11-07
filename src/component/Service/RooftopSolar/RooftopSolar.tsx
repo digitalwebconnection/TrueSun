@@ -86,11 +86,6 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
-/* =============================
-    COMPONENTS
-============================= */
-
-
 
 // Systems – interactive list block
 const SystemOptionBlock = ({
@@ -132,7 +127,7 @@ const SystemOptionBlock = ({
           {points.map((p, j) => (
             <li key={j} className="flex items-start gap-2">
               <span
-                className="mt-1 h-1.5 w-1.5 rounded-full flex-shrink-0"
+                className="mt-1 h-1.5 w-1.5 rounded-full shrink-0"
                 style={{ background: BRAND.primary }}
               />
               <span>{p}</span>
@@ -192,7 +187,7 @@ const FancyFeatureCard = ({
 }) => (
   <motion.article
     variants={itemRise}
-    className="group relative overflow-hidden rounded-3xl p-[1px] shadow-sm transition-all hover:-translate-y-1"
+    className="group relative overflow-hidden rounded-3xl p-px shadow-sm transition-all hover:-translate-y-1"
     style={{
       background:
         "linear-gradient(135deg, rgba(255,215,64,0.65), rgba(38,39,85,0.65))",
@@ -463,7 +458,7 @@ export default function RooftopSolarPage() {
                 transition={{ duration: 0.35 }}
                 className="relative overflow-hidden rounded-3xl ring-1 ring-slate-200 shadow-lg bg-slate-100"
               >
-                <div className="relative h-full w-full aspect-[16/10] sm:aspect-[4/3] md:aspect-[5/3] lg:aspect-video">
+                <div className="relative h-full w-full aspect-16/10 sm:aspect-4/3 md:aspect-5/3 lg:aspect-video">
                   <img
                     src={systemOptionsData[activeSystem].image}
                     alt={`Rooftop solar installation for ${systemOptionsData[activeSystem].title}`}
@@ -473,7 +468,7 @@ export default function RooftopSolarPage() {
                       (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/30 to-transparent" />
                 </div>
 
                 <div className="absolute inset-x-0 bottom-0 flex items-end p-5">
@@ -523,7 +518,7 @@ export default function RooftopSolarPage() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.2 }}
-              className="overflow-hidden rounded-3xl shadow-2xl shadow-black/50"
+              className="overflow-hidden rounded-3xl h-120 shadow-2xl shadow-black/50"
             >
               <div className="grid items-stretch gap-0 md:grid-cols-2 bg-white rounded-3xl">
                 {/* Left: Contact Form */}
@@ -554,11 +549,11 @@ export default function RooftopSolarPage() {
                 </motion.div>
 
                 {/* Right: Info Visual */}
-                <motion.div variants={itemRise} className="relative hidden md:block">
+                <motion.div variants={itemRise} className="relative hidden md:block ">
                   <img
                     src="https://truesun.in/wp-content/uploads/2022/02/1-2-768x768.png"
                     alt="Technician installing a solar panel"
-                    className="h-90 w-full object-cover"
+                    className="h-full w-full object-cover"
                     loading="lazy"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;

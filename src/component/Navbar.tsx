@@ -44,11 +44,11 @@ const SERVICES: ServiceGroup[] = [
     label: "Consulting",
     icon: <Users2 className="h-4 w-4" />,
     to: "/services/consulting",
-    children: [
-      { label: "Feasibility & DPR", to: "/services/consulting/feasibility" },
-      { label: "Project Finance", to: "/services/consulting/finance" },
-      { label: "O&M Advisory", to: "/services/consulting/om" },
-    ],
+    // children: [
+    //   { label: "Feasibility & DPR", to: "/services/consulting/feasibility" },
+    //   { label: "Project Finance", to: "/services/consulting/finance" },
+    //   { label: "O&M Advisory", to: "/services/consulting/om" },
+    // ],
   },
 ];
 
@@ -265,7 +265,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen((o) => !o)}
             className={cn(
-              "text-gray-800 md:hidden z-[60] relative transition-all duration-300 hover:text-orange-500",
+              "text-gray-800 md:hidden z-60 relative transition-all duration-300 hover:text-orange-500",
               isOpen ? "rotate-180" : "rotate-0"
             )}
             aria-label={isOpen ? "Close menu" : "Open menu"}
