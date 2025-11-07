@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Menu,
   X,
@@ -12,17 +12,17 @@ import {
   Users2,
 } from "lucide-react";
 
-/* Utility */
+/* ============================ Utilities ============================ */
 function cn(...c: (string | false | null | undefined)[]) {
   return c.filter(Boolean).join(" ");
 }
 
-/* ----------------------------- Services data ----------------------------- */
+/* ============================ Types & Data ============================ */
 type ChildLink = { label: string; to: string };
 type ServiceGroup = {
   key: string;
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   to?: string;
   children?: ChildLink[];
 };
@@ -52,12 +52,19 @@ const SERVICES: ServiceGroup[] = [
   },
 ];
 
-/* ----------------------------- Services menu ----------------------------- */
+/* ============================ Services Menu ============================ */
 function ServicesMenu() {
   const [open, setOpen] = useState(false);
   const [activeKey, setActiveKey] = useState<string>(SERVICES[0].key);
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Close the menu on route change
+  useEffect(() => {
+    if (open) setOpen(false);
+  }, [location.pathname]);
 
   // close on click-outside / ESC
   useEffect(() => {
@@ -98,11 +105,7 @@ function ServicesMenu() {
           "inline-flex items-center gap-1 font-medium text-gray-800 transition-colors hover:text-orange-500"
         )}
       >
-        <span className="inline-flex items-center gap-2">
-          {/* small box icon feel to match screenshot */}
-          {/* <span className="inline-block h-4 w-4 rounded bg-orange-100 ring-1 ring-orange-200" /> */}
-          Services
-        </span>
+        <span className="inline-flex items-center gap-2">Services</span>
         <ChevronDown
           className={cn("h-4 w-4 transition-transform", open ? "rotate-180" : "rotate-0")}
         />
@@ -117,30 +120,54 @@ function ServicesMenu() {
           "origin-top-left transition-all duration-150",
           open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         )}
+        role="menu"
+        aria-label="Services"
       >
         {/* left list (parents) */}
-        <div className="w-46 rounded-lg  p-1">
+        <div className="w-48 rounded-lg p-1">
           {SERVICES.map((s) => {
-            const isActive = s.key === activeKey;
-            return (
-              <button
-                key={s.key}
-                onMouseEnter={() => setActiveKey(s.key)}
-                onFocus={() => setActiveKey(s.key)}
-                onClick={() => {
-                  setOpen(false);
-                  if (s.to) window.location.href = s.to;
-                }}
-                className={cn(
-                  "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
-                  isActive
-                    ? "bg-orange-50 text-orange-600"
-                    : "text-gray-700 hover:bg-gray-50"
-                )}
-              >
+            const isActiveGroup =
+              s.to && (location.pathname === s.to || location.pathname.startsWith(`${s.to}/`));
+
+            const ParentInner = (
+              <>
                 <span className="text-orange-500">{s.icon}</span>
                 <span>{s.label}</span>
                 <ChevronRight className="ml-auto h-4 w-4 opacity-60" />
+              </>
+            );
+
+            return s.to ? (
+              <NavLink
+                key={s.key}
+                to={s.to}
+                onMouseEnter={() => setActiveKey(s.key)}
+                onFocus={() => setActiveKey(s.key)}
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  cn(
+                    "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
+                    (isActive || isActiveGroup || s.key === activeKey)
+                      ? "bg-orange-50 text-orange-600"
+                      : "text-gray-700 hover:bg-gray-50"
+                  )
+                }
+              >
+                {ParentInner}
+              </NavLink>
+            ) : (
+              <button
+                key={s.key}
+                type="button"
+                onMouseEnter={() => setActiveKey(s.key)}
+                onFocus={() => setActiveKey(s.key)}
+                onClick={() => setActiveKey(s.key)}
+                className={cn(
+                  "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
+                  s.key === activeKey ? "bg-orange-50 text-orange-600" : "text-gray-700 hover:bg-gray-50"
+                )}
+              >
+                {ParentInner}
               </button>
             );
           })}
@@ -149,35 +176,55 @@ function ServicesMenu() {
         {/* right list (children of active) */}
         <div className="ml-2 w-64 rounded-lg bg-white p-2 shadow-lg">
           {(active?.children ?? []).map((c) => (
-            <Link
+            <NavLink
               key={c.to}
               to={c.to}
               onClick={() => setOpen(false)}
-              className="block rounded-md px-3 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+              className={({ isActive }) =>
+                cn(
+                  "block rounded-md px-3 py-2 text-sm hover:bg-orange-50",
+                  isActive ? "text-orange-600" : "text-gray-700 hover:text-orange-600"
+                )
+              }
             >
               {c.label}
-            </Link>
+            </NavLink>
           ))}
+
+          {/* Optional: if no children, offer a “View details” link */}
+          {(!active?.children || active.children.length === 0) && active?.to && (
+            <button
+              className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+              onClick={() => {
+                navigate(active.to!);
+                setOpen(false);
+              }}
+            >
+              View {active.label}
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-/* ================================= NAVBAR ================================= */
+/* ============================ Navbar ============================ */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [elevated, setElevated] = useState(false);
-
   const lastY = useRef(0);
   const ticking = useRef(false);
 
   const location = useLocation();
+
+  // Close mobile drawer on route change
   useEffect(() => {
     if (isOpen) setIsOpen(false);
-  }, [location.pathname]); // keep your original behaviour
+  }, [location.pathname]);
 
+  // Hide-on-scroll + elevation
   useEffect(() => {
     lastY.current = window.scrollY || 0;
     const onScroll = () => {
@@ -200,9 +247,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isOpen]);
 
+  // Lock body scroll when drawer open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   const linkBase = "transition-colors duration-300 hover:text-orange-500";
@@ -232,13 +282,12 @@ export default function Navbar() {
             </h1>
           </Link>
 
-          {/* Desktop Menu (main structure unchanged; only Services becomes dropdown) */}
+          {/* Desktop Menu */}
           <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
             <NavLink to="/about" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
               About
             </NavLink>
 
-            {/* Services dropdown inserted here */}
             <ServicesMenu />
 
             <NavLink to="/projects" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
@@ -261,11 +310,11 @@ export default function Navbar() {
             </NavLink>
           </nav>
 
-          {/* Mobile Menu Button (unchanged) */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen((o) => !o)}
             className={cn(
-              "text-gray-800 md:hidden z-60 relative transition-all duration-300 hover:text-orange-500",
+              "text-gray-800 md:hidden relative transition-all duration-300 hover:text-orange-500",
               isOpen ? "rotate-180" : "rotate-0"
             )}
             aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -277,7 +326,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile overlay & drawer (unchanged from your code) */}
+      {/* Mobile overlay */}
       <div
         className={cn(
           "fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-40 transition-all duration-500 ease-in-out",
@@ -286,6 +335,8 @@ export default function Navbar() {
         onClick={() => setIsOpen(false)}
         aria-hidden={!isOpen}
       />
+
+      {/* Mobile drawer */}
       <div
         id="mobile-nav"
         className={cn(
@@ -317,7 +368,7 @@ export default function Navbar() {
         <nav className="flex bg-white -mt-5 flex-col space-y-2 p-6 font-semibold">
           {[
             { name: "About", to: "/about" },
-            { name: "Services", to: "/services" }, // keep simple link on mobile (per your request)
+            { name: "Services", to: "/services" }, // keep simple link on mobile
             { name: "Projects", to: "/projects" },
             { name: "Careers", to: "/careers" },
           ].map(({ name, to }, index) => (
