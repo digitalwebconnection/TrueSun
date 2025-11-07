@@ -1,8 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, Sun, ChevronDown, ChevronRight, Wrench, Users2 } from "lucide-react";
+import {
+  Menu,
+  X,
+  Sun,
+  ChevronDown,
+  ChevronRight,
+  Wrench,
+  Users2,
+} from "lucide-react";
 
 /* Utility */
 function cn(...c: (string | false | null | undefined)[]) {
@@ -36,6 +44,11 @@ const SERVICES: ServiceGroup[] = [
     label: "Consulting",
     icon: <Users2 className="h-4 w-4" />,
     to: "/services/consulting",
+    // children: [
+    //   { label: "Feasibility & DPR", to: "/services/consulting/feasibility" },
+    //   { label: "Project Finance", to: "/services/consulting/finance" },
+    //   { label: "O&M Advisory", to: "/services/consulting/om" },
+    // ],
   },
 ];
 
@@ -85,8 +98,14 @@ function ServicesMenu() {
           "inline-flex items-center gap-1 font-medium text-gray-800 transition-colors hover:text-orange-500"
         )}
       >
-        <span>Services</span>
-        <ChevronDown className={cn("h-4 w-4 transition-transform", open ? "rotate-180" : "rotate-0")} />
+        <span className="inline-flex items-center gap-2">
+          {/* small box icon feel to match screenshot */}
+          {/* <span className="inline-block h-4 w-4 rounded bg-orange-100 ring-1 ring-orange-200" /> */}
+          Services
+        </span>
+        <ChevronDown
+          className={cn("h-4 w-4 transition-transform", open ? "rotate-180" : "rotate-0")}
+        />
       </button>
 
       {/* dropdown */}
@@ -100,46 +119,29 @@ function ServicesMenu() {
         )}
       >
         {/* left list (parents) */}
-        <div className="w-48 rounded-lg p-1">
+        <div className="w-46 rounded-lg  p-1">
           {SERVICES.map((s) => {
             const isActive = s.key === activeKey;
-            const content = (
-              <>
+            return (
+              <button
+                key={s.key}
+                onMouseEnter={() => setActiveKey(s.key)}
+                onFocus={() => setActiveKey(s.key)}
+                onClick={() => {
+                  setOpen(false);
+                  if (s.to) window.location.href = s.to;
+                }}
+                className={cn(
+                  "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
+                  isActive
+                    ? "bg-orange-50 text-orange-600"
+                    : "text-gray-700 hover:bg-gray-50"
+                )}
+              >
                 <span className="text-orange-500">{s.icon}</span>
                 <span>{s.label}</span>
                 <ChevronRight className="ml-auto h-4 w-4 opacity-60" />
-              </>
-            );
-
-            return s.to ? (
-              <NavLink
-                key={s.key}
-                to={s.to}
-                // mousedown closes before navigation so click isn’t lost
-                onMouseDown={() => setOpen(false)}
-                onMouseEnter={() => setActiveKey(s.key)}
-                onFocus={() => setActiveKey(s.key)}
-                className={({ isActive: rrActive }) =>
-                  cn(
-                    "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
-                    (isActive || rrActive) ? "bg-orange-50 text-orange-600" : "text-gray-700 hover:bg-gray-50"
-                  )
-                }
-              >
-                {content}
-              </NavLink>
-            ) : (
-              <div
-                key={s.key}
-                onMouseEnter={() => setActiveKey(s.key)}
-                onFocus={() => setActiveKey(s.key)}
-                className={cn(
-                  "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
-                  isActive ? "bg-orange-50 text-orange-600" : "text-gray-700"
-                )}
-              >
-                {content}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -150,7 +152,7 @@ function ServicesMenu() {
             <Link
               key={c.to}
               to={c.to}
-              onMouseDown={() => setOpen(false)}
+              onClick={() => setOpen(false)}
               className="block rounded-md px-3 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
             >
               {c.label}
@@ -174,7 +176,7 @@ export default function Navbar() {
   const location = useLocation();
   useEffect(() => {
     if (isOpen) setIsOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname]); // keep your original behaviour
 
   useEffect(() => {
     lastY.current = window.scrollY || 0;
@@ -215,7 +217,12 @@ export default function Navbar() {
       )}
       role="banner"
     >
-      <div className={cn("bg-white/90 backdrop-blur-md", elevated ? "shadow-lg ring-1 ring-black/5" : "shadow-none")}>
+      <div
+        className={cn(
+          "bg-white/90 backdrop-blur-md",
+          elevated ? "shadow-lg ring-1 ring-black/5" : "shadow-none"
+        )}
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2" aria-label="Home">
@@ -225,12 +232,13 @@ export default function Navbar() {
             </h1>
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Desktop Menu (main structure unchanged; only Services becomes dropdown) */}
           <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
             <NavLink to="/about" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
               About
             </NavLink>
 
+            {/* Services dropdown inserted here */}
             <ServicesMenu />
 
             <NavLink to="/projects" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
@@ -253,7 +261,7 @@ export default function Navbar() {
             </NavLink>
           </nav>
 
-          {/* Mobile toggle */}
+          {/* Mobile Menu Button (unchanged) */}
           <button
             onClick={() => setIsOpen((o) => !o)}
             className={cn(
@@ -269,7 +277,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile overlay & drawer */}
+      {/* Mobile overlay & drawer (unchanged from your code) */}
       <div
         className={cn(
           "fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-40 transition-all duration-500 ease-in-out",
@@ -309,8 +317,7 @@ export default function Navbar() {
         <nav className="flex bg-white -mt-5 flex-col space-y-2 p-6 font-semibold">
           {[
             { name: "About", to: "/about" },
-            { name: "Rooftop Solar", to: "/services/rooftop" }, // go straight to a real page
-            { name: "Consulting", to: "/services/consulting" },
+            { name: "Services", to: "/services" }, // keep simple link on mobile (per your request)
             { name: "Projects", to: "/projects" },
             { name: "Careers", to: "/careers" },
           ].map(({ name, to }, index) => (
