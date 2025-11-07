@@ -1,5 +1,4 @@
 import "./App.css";
-import { Navigate } from "react-router-dom"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
@@ -8,13 +7,16 @@ import MainAbout from "./component/abouus/MainAbout";
 import RooftopMain from "./component/Service/RooftopSolar/RooftopMain";
 import ConsultingMain from "./component/Service/Consulting/ConsultingMain";
 import WhatsAppDockPro from "./component/WhatsAppChatbot";
-import CommercialMain from "./component/Service/RooftopSolar/Commercial/CommercialMain";
 
 // Placeholder pages for main and nested service sections
 function Services() {
   return <div className="pt-24 p-6 text-center text-gray-800">Services Page</div>;
 }
 
+
+function Commercial() {
+  return <div className="pt-24 p-6 text-center text-gray-800">Commercial Solar Systems</div>;
+}
 function Industrial() {
   return <div className="pt-24 p-6 text-center text-gray-800">Industrial Solar Solutions</div>;
 }
@@ -51,7 +53,7 @@ function App() {
 
         {/* Rooftop Solar Children */}
         <Route path="/services/rooftop" element={<RooftopMain />} />
-        <Route path="/services/rooftop/commercial" element={<CommercialMain />} />
+        <Route path="/services/rooftop/commercial" element={<Commercial />} />
         <Route path="/services/rooftop/industrial" element={<Industrial />} />
         <Route path="/services/rooftop/residential" element={<Residential />} />
 
@@ -65,24 +67,9 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
-        {/* fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <SolarFooter />
-      <WhatsAppDockPro
-        // enable/disable the whole feature
-        autoOpenEnabled={true}
-        // open only once per browser session
-        autoOpenOncePerSession={true}
-        // open after 3s (set undefined/0 to disable just this trigger)
-        autoOpenDelayMs={3000}
-        // also open on exit-intent (desktop)
-        autoOpenOnExitIntent={true}
-        // or open after user scrolls halfway down the page
-        autoOpenOnScrollPercent={50}
-        // or open after 12s idle
-        autoOpenOnIdleMs={12000}
-      />
+      <WhatsAppDockPro/>
     </BrowserRouter>
 
   );
