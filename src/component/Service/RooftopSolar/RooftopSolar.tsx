@@ -1,35 +1,37 @@
 "use client";
 
 import React from "react";
-import type { ReactNode } from "react"; // ✅ type-only import
 import { motion } from "framer-motion";
-import type { Variants } from "framer-motion"; // ✅ type-only import
+import type { Variants } from "framer-motion";
 import {
-  Wrench,
-  BadgeCheck,
-  ClipboardCheck,
+  Sun,
+  Home,
   Gauge,
   ShieldCheck,
+  Leaf,
+  Wrench,
+  ClipboardCheck,
   LineChart,
+  PhoneCall,
+  FileDown,
 } from "lucide-react";
 
 /* =============================
-   THEME TOKENS (easy customization)
+    THEME TOKENS
 ============================= */
 const BRAND = {
-  // You can swap to your brand tokens here
   primary: "#262755", // deep blue
-  accent: "#ffd740", // warm yellow
+  accent: "#ffd740",  // warm yellow
   surface: "#ffffff",
-  text: "#0f172a", // slate-900
+  text: "#0f172a",    // slate-900
   subtext: "#475569", // slate-600
 };
 
 /* =============================
-   ANIMATION VARIANTS
+    ANIMATION VARIANTS
 ============================= */
 const containerStagger: Variants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
     y: 0,
@@ -38,472 +40,550 @@ const containerStagger: Variants = {
 };
 
 const itemRise: Variants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
 };
 
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.6 } },
+const floatSlow: Variants = {
+  initial: { y: 0 },
+  animate: { y: [0, -12, 0], transition: { duration: 8, repeat: Infinity } },
 };
 
 /* =============================
-   PRIMITIVES
+    MINI UI PRIMITIVES
 ============================= */
-interface CardProps {
-  icon: ReactNode;
+const Section = ({
+  id,
+  children,
+  className = "",
+  bg = "bg-white",
+}: {
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+  bg?: string;
+}) => (
+  <section id={id} className={`relative ${bg} ${className}`}>
+    {children}
+  </section>
+);
+
+const Container = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${className}`}>
+    {children}
+  </div>
+);
+
+const Pill = ({ children }: { children: React.ReactNode }) => (
+  <span className="inline-flex items-center gap-2 rounded-full bg-white/90 px-8 py-2 text-xs font-semibold text-gray-800 ring-1 ring-black/10 shadow-sm">
+    {children}
+  </span>
+);
+
+/* =============================
+    COMPONENTS
+============================= */
+
+
+
+// Systems – interactive list block
+const SystemOptionBlock = ({
+  title,
+  points,
+  isActive,
+  onClick,
+}: {
+  title: string;
+  points: string[];
+  isActive: boolean;
+  onClick: () => void;
+}) => (
+  <motion.div variants={itemRise} className="w-full">
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center justify-between p-4 rounded-xl transition-colors duration-300 ${isActive
+          ? `bg-slate-900 text-white shadow-xl`
+          : `bg-white text-slate-900 hover:bg-slate-50 border border-slate-600`
+        }`}
+    >
+      <span className="text-left text-lg font-semibold">{title}</span>
+      <span
+        className={`px-3 py-1 text-xs font-bold rounded-full ${isActive ? "bg-amber-300 text-slate-900" : "bg-amber-200 text-slate-800"
+          }`}
+      >
+        On-Grid / Hybrid
+      </span>
+    </button>
+    {isActive && (
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mt-2 p-4 bg-white/70 rounded-xl shadow-inner border border-slate-100"
+      >
+        <ul className="space-y-2 text-sm text-slate-600">
+          {points.map((p, j) => (
+            <li key={j} className="flex items-start gap-2">
+              <span
+                className="mt-1 h-1.5 w-1.5 rounded-full flex-shrink-0"
+                style={{ background: BRAND.primary }}
+              />
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
+          <ShieldCheck className="h-4 w-4" /> 25-year panel warranty • 5-10 year inverter warranty
+        </div>
+      </motion.div>
+    )}
+  </motion.div>
+);
+
+// Process – horizontal stepper
+const ProcessStep = ({
+  index,
+  title,
+  desc,
+}: {
+  index: number;
   title: string;
   desc: string;
-}
+}) => (
+  <motion.div variants={itemRise} className="flex-1 min-w-[180px]">
+    <div className="relative pt-8 pb-4">
+      {/* Connector (hidden on small or last) */}
+      {index < 5 && (
+        <div className="absolute left-1/2 top-0 h-1/2 w-full -translate-x-1/2 md:top-auto md:h-1 md:w-1/2 md:left-full md:translate-x-0 md:-translate-y-1/2" />
+      )}
 
-const GlassCard: React.FC<CardProps> = ({ icon, title, desc }) => (
+      {/* Number bubble */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 h-10 w-10 flex items-center justify-center rounded-full text-base font-bold text-slate-900 ring-2 ring-offset-2 ring-slate-800/20 shadow-md"
+        style={{ background: BRAND.accent }}
+      >
+        {index}
+      </div>
+
+      <h4 className="mt-2 text-center text-base font-semibold text-slate-900">
+        {title}
+      </h4>
+      <p className="mt-2 text-center text-sm text-slate-600">{desc}</p>
+    </div>
+  </motion.div>
+);
+
+// Benefits – Fancy card used in redesigned grid
+const FancyFeatureCard = ({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) => (
   <motion.article
     variants={itemRise}
-    whileHover={{
-      y: -6,
-      scale: 1.01,
-      boxShadow:
-        "0 16px 40px -10px rgba(38,39,85,0.35), 0 6px 16px -6px rgba(0,0,0,0.08)",
+    className="group relative overflow-hidden rounded-3xl p-[1px] shadow-sm transition-all hover:-translate-y-1"
+    style={{
+      background:
+        "linear-gradient(135deg, rgba(255,215,64,0.65), rgba(38,39,85,0.65))",
     }}
-    className="group relative h-full rounded-2xl border border-white/60 bg-white/70 p-6 shadow-xl backdrop-blur-md transition-all duration-300"
   >
-    {/* spotlight hover */}
-    <div
-      aria-hidden
-      className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-      style={{
-        background:
-          `radial-gradient(600px circle at 100% 0%, ${BRAND.accent}26 0%, transparent 60%)`,
-      }}
-    />
-    <div className="relative z-10 flex items-start gap-4">
-      <span
-        className="rounded-xl p-3 shadow-inner ring-1"
-        style={{
-          background: `${BRAND.accent}1a`,
-          color: BRAND.accent,
-          boxShadow: `inset 0 0 24px ${BRAND.accent}22`,
-          borderColor: `${BRAND.accent}33`,
-        }}
-      >
-        {icon}
-      </span>
-      <div>
-        <h4 className="text-xl font-bold" style={{ color: BRAND.text }}>
-          {title}
-        </h4>
-        <p className="mt-2 text-base" style={{ color: BRAND.subtext }}>
-          {desc}
-        </p>
+    <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-white/95 p-6">
+      <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-amber-200/40 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="mb-4 flex items-center gap-3">
+        <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl ring-1 ring-slate-200 bg-amber-50/60">
+          {icon}
+        </span>
+        <h4 className="text-lg font-semibold text-slate-900">{title}</h4>
       </div>
+      <p className="text-sm leading-6 text-slate-700">{desc}</p>
+      <span className="mt-4 block h-0.5 w-14 origin-left scale-x-0 bg-amber-400 transition-transform duration-500 group-hover:scale-x-100" />
     </div>
   </motion.article>
 );
 
-interface StepProps {
-  idx: number;
-  total: number;
-  badge: string;
-  title: string;
-  text: string;
-}
-
-const TimelineStep: React.FC<StepProps> = ({ idx, total, badge, title, text }) => {
-  const isLast = idx === total - 1;
-  return (
-    <motion.div
-      variants={itemRise}
-      transition={{ delay: idx * 0.06, duration: 0.45 }}
-      className="relative"
-    >
-      {/* connector (desktop) */}
-      {!isLast && (
-        <div
-          aria-hidden
-          className="absolute right-[-16px] top-8 hidden h-[3px] w-[calc(100%+32px)] sm:block"
-          style={{
-            background: `linear-gradient(90deg, ${BRAND.accent}55, ${BRAND.accent})`,
-            boxShadow: `0 0 0 2px ${BRAND.accent}10`,
-          }}
-        />
-      )}
-
-      {/* node */}
-      <div className="flex items-start gap-3 sm:block sm:pt-12">
-        <div className="flex-shrink-0">
-          <div
-            className="flex h-10 w-10 items-center justify-center rounded-full font-bold shadow-lg ring-4 sm:h-12 sm:w-12"
-            style={{
-              background: BRAND.accent,
-              color: BRAND.primary,
-              boxShadow: `0 8px 24px ${BRAND.accent}66`,
-              borderColor: `${BRAND.accent}44`,
-            }}
-          >
-            {idx + 1}
-          </div>
-        </div>
-
-        {/* mobile connector */}
-        {!isLast && (
-          <div
-            className="absolute left-[20px] top-[40px] h-full w-0.5 sm:hidden"
-            aria-hidden
-            style={{ background: `${BRAND.accent}66` }}
-          />
-        )}
-
-        <div className="pb-10 sm:p-0">
-          <div
-            className="text-xs font-semibold uppercase tracking-wider"
-            style={{ color: BRAND.accent }}
-          >
-            {badge}
-          </div>
-          <h4 className="mt-1 text-xl font-bold" style={{ color: BRAND.text }}>
-            {title}
-          </h4>
-          <p className="mt-2 text-base" style={{ color: BRAND.subtext }}>
-            {text}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
 /* =============================
-   MAIN SECTION
+    PAGE
 ============================= */
-export default function SolutionsAndProcessV2() {
-  const solutions: CardProps[] = [
+export default function RooftopSolarPage() {
+  const [activeSystem, setActiveSystem] = React.useState(0);
+
+  const systemOptionsData = [
     {
-      icon: <Wrench className="h-6 w-6" />,
-      title: "Design & Engineering",
-      desc:
-        "Layout, string sizing, wind-load analysis, and structure design tailored to your roof and site constraints.",
+      title: "1–3 kW (Residential)",
+      points: [
+        "Covers lights, fans, fridge",
+        "Area: ~80–240 sq.ft",
+        "Payback: ~4–6 years",
+      ],
+      image:
+        "https://truesun.in/wp-content/uploads/2021/06/IMG_3732-768x432.jpg",
     },
     {
-      icon: <BadgeCheck className="h-6 w-6" />,
-      title: "Finance & Subsidies",
-      desc:
-        "MNRE/DISCOM documentation, subsidy guidance, and bank tie-ups for a smooth financial journey.",
+      title: "5–10 kW (Villas/SMBs)",
+      points: [
+        "Runs ACs & heavier loads",
+        "Area: ~400–800 sq.ft",
+        "Great for common-area bills",
+      ],
+      image:
+        "https://truesun.in/wp-content/uploads/2021/06/IMG_3743-768x432.jpg",
     },
     {
-      icon: <ClipboardCheck className="h-6 w-6" />,
-      title: "Installation & Commissioning",
-      desc:
-        "Rigorous QA–QC checklists, strict safety protocols, and grid-synced handover post commissioning.",
-    },
-    {
-      icon: <Gauge className="h-6 w-6" />,
-      title: "Net Metering & Approvals",
-      desc:
-        "End-to-end application, coordination, and compliance for swift DISCOM net-metering approvals.",
-    },
-    {
-      icon: <ShieldCheck className="h-6 w-6" />,
-      title: "Maintenance (O&M)",
-      desc:
-        "Scheduled cleaning, IV curve tests, thermal scans, and quick SLAs to ensure peak performance.",
-    },
-    {
-      icon: <LineChart className="h-6 w-6" />,
-      title: "Consulting & Feasibility",
-      desc:
-        "Yield assessments, DPRs, and ROI modeling for CAPEX/RESCO with realistic risk assumptions.",
+      title: "15–30 kW (Commercial/Societies)",
+      points: [
+        "High generation for shared loads",
+        "Area: ~1200–2400 sq.ft",
+        "Accelerated ROI at scale",
+      ],
+      image:
+        "https://truesun.in/wp-content/uploads/2021/06/IMG_3742-768x432.jpg",
     },
   ];
 
-  const steps = [
-    { badge: "Step 1", title: "Initial Feasibility", text: "Comprehensive load study, roof viability, and detailed shadow analysis." },
-    { badge: "Step 2", title: "Custom Proposal", text: "Clear sizing, projected savings, payback, and full compliance scope." },
-    { badge: "Step 3", title: "Regulatory Approvals", text: "Managing DISCOM documentation with on-time submission and coordination." },
-    { badge: "Step 4", title: "Installation & Testing", text: "Professional mounting, precise cabling, commissioning, and QA checks." },
-    { badge: "Step 5", title: "Handover & Support", text: "Monitoring app setup, team training, and AMC options." },
+  const processSteps = [
+    { index: 1, title: "Site Survey", desc: "Roof assessment, load analysis, and shading study." },
+    { index: 2, title: "Design & Quote", desc: "Panel layout, structure design, and proposal." },
+    { index: 3, title: "Supply & Delivery", desc: "Panels, inverters, cabling, and protection devices." },
+    { index: 4, title: "Installation", desc: "Mounting, wiring, earthing, testing, and commissioning." },
+    { index: 5, title: "Net-Metering", desc: "Documentation, inspection, training, and AMC options." },
   ];
 
-  // NEW: benefits, KPIs, badges, FAQ
-  const benefits = [
-    { k: "Up to 30% Higher Yield", v: "vs. baseline, with optimized stringing & tilt" },
-    { k: "< 45 Day Install", v: "typical 10–30 kW rooftop under standard approvals" },
-    { k: "Bank-grade DPR", v: "ROI models accepted by leading lenders" },
-    { k: "Tier-1 BOM", v: "Adani/Polycab panels & inverters on request" },
-  ];
-
-  const badges = ["MNRE Aligned", "ISO 9001", "IEC Compliant", "Safety First"];
-
-  const faqs = [
-    { q: "What size system do I need?", a: "We start with your last 12 months' bills, sanctioned load and roof area to size a system that targets 60–90% offset depending on your tariff and goals." },
-    { q: "How long is the payback?", a: "Typical residential payback ranges 3.5–5.5 years; commercial/industrial can be faster depending on tariff slab and usage profile." },
-    { q: "What is covered in O&M?", a: "Periodic cleaning, electrical health checks, IV-curve tests, thermal scans, performance reporting and rapid-response SLAs." },
-    { q: "Do you help with subsidies?", a: "Yes. We manage the complete MNRE/DISCOM process and documentation to accelerate approval." },
-  ];
+  const FALLBACK_IMG =
+    "https://images.unsplash.com/photo-1509395062183-67c5ad6faff9?q=80&w=1600&auto=format&fit=crop";
 
   return (
-    <section className="relative overflow-hidden pt-20" style={{ background: BRAND.surface }}>
-      {/* Background gradients */}
-      <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="pointer-events-none absolute -top-40 -right-20 -z-10 h-[520px] w-[520px] rounded-full blur-3xl"
-        style={{ background: `${BRAND.accent}33` }}
-      />
-      <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="pointer-events-none absolute -bottom-40 -left-20 -z-10 h-[560px] w-[560px] rounded-full blur-3xl"
-        style={{ background: `${BRAND.primary}22` }}
-      />
-
-      {/* Header */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <main className="max-w-7xl mx-auto bg-white text-slate-800">
+      {/* ================= HERO ================= */}
+      <Section id="hero" className="overflow-hidden">
         <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          className="mx-auto max-w-4xl text-center"
-        >
-          {/* Tip: Wire these fonts in your layout: Alegreya Sans SC for headings, Stencil for slogans */}
-          <motion.p
-            variants={itemRise}
-            className="text-sm font-semibold uppercase tracking-[0.2em]"
-            style={{ color: BRAND.accent }}
-          >
-            End-to-End Solar EPC
-          </motion.p>
-          <motion.h2
-            variants={itemRise}
-            className="mt-2 text-4xl font-extrabold sm:text-5xl"
-            style={{ color: BRAND.primary }}
-          >
-            Integrated <span style={{ color: BRAND.accent }}>Solutions</span>
-          </motion.h2>
-          <motion.p
-            variants={itemRise}
-            className="mx-auto mt-4 max-w-2xl text-lg"
-            style={{ color: BRAND.subtext }}
-          >
-            From design to maintenance, a refined, high-performance journey for every rooftop.
-          </motion.p>
-        </motion.div>
-
-        {/* NEW: KPI strip */}
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.25 }}
-          className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4"
-        >
-          {benefits.map((b) => (
-            <motion.div
-              key={b.k}
-              variants={itemRise}
-              className="rounded-2xl border bg-white/70 p-4 text-center shadow-sm backdrop-blur"
-              style={{ borderColor: `${BRAND.primary}14` }}
-            >
-              <div className="text-base font-semibold" style={{ color: BRAND.primary }}>
-                {b.k}
-              </div>
-              <div className="mt-1 text-sm" style={{ color: BRAND.subtext }}>
-                {b.v}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Capabilities Grid */}
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {solutions.map((s) => (
-            <GlassCard key={s.title} {...s} />
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Divider */}
-      <div className="mx-auto mt-20 h-px w-24" style={{ background: BRAND.accent }} />
-
-      {/* Process Timeline */}
-      <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          className="mx-auto max-w-4xl text-center"
-        >
-          <motion.p
-            variants={itemRise}
-            className="text-sm font-semibold uppercase tracking-[0.2em]"
-            style={{ color: BRAND.accent }}
-          >
-            The Solar Execution Roadmap
-          </motion.p>
-          <motion.h2
-            variants={itemRise}
-            className="mt-2 text-4xl font-extrabold sm:text-5xl"
-            style={{ color: BRAND.primary }}
-          >
-            Our <span style={{ color: BRAND.accent }}>5-Step Process</span>
-          </motion.h2>
-          <motion.p
-            variants={itemRise}
-            className="mx-auto mt-4 max-w-2xl text-lg"
-            style={{ color: BRAND.subtext }}
-          >
-            Built for predictability, transparency, and on-time delivery.
-          </motion.p>
-        </motion.div>
-
-        {/* progress rail (desktop) */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.0, ease: "easeInOut", delay: 0.15 }}
-          className="relative mx-auto mt-14 hidden h-1 w-full max-w-5xl origin-left rounded-full sm:block"
-          style={{
-            background: `linear-gradient(90deg, ${BRAND.primary}22, ${BRAND.accent}77)`,
-            boxShadow: `0 8px 24px ${BRAND.accent}33`,
-          }}
+          className="pointer-events-none absolute -top-40 -left-24 h-[520px] w-[520px] rounded-full blur-3xl"
+          style={{ background: "radial-gradient(circle at 50% 50%, #ffd74066, transparent 65%)" }}
+          variants={floatSlow}
+          initial="initial"
+          animate="animate"
           aria-hidden
         />
-
-        {/* steps */}
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-5"
-        >
-          {steps.map((s, idx) => (
-            <TimelineStep
-              key={s.badge}
-              idx={idx}
-              total={steps.length}
-              badge={s.badge}
-              title={s.title}
-              text={s.text}
-            />
-          ))}
-        </motion.div>
-      </div>
-
-      {/* NEW: Compliance & trust badges */}
-      <div className="mx-auto max-w-7xl px-6 pb-8 lg:px-8">
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid items-center gap-3 sm:grid-cols-4"
-        >
-          {badges.map((b) => (
-            <motion.div
-              key={b}
-              variants={itemRise}
-              className="rounded-xl border bg-white/60 px-4 py-3 text-center text-sm font-semibold backdrop-blur"
-              style={{ borderColor: `${BRAND.primary}14`, color: BRAND.primary }}
-            >
-              {b}
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* NEW: CTA banner */}
-      <div className="relative mx-auto mb-16 max-w-6xl overflow-hidden rounded-3xl px-6 py-10 sm:px-10">
-        <div className="absolute inset-0 -z-10" style={{
-          background: `linear-gradient(135deg, ${BRAND.primary}, ${BRAND.accent})`,
-          opacity: 0.92,
-        }} />
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center"
-        >
-          <motion.h3 variants={itemRise} className="text-2xl font-extrabold text-white sm:text-3xl">
-            Ready to cut your bills and carbon?
-          </motion.h3>
-          <motion.a
-            variants={itemRise}
-            href="#contact"
-            className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-bold text-gray-900 shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl"
+        <Container className="relative py-10 md:py-24">
+          <motion.div
+            variants={containerStagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid items-start gap-12 md:grid-cols-12"
           >
-            Get a Free Rooftop Assessment
-          </motion.a>
-        </motion.div>
-      </div>
+            {/* left copy */}
+            <motion.div variants={itemRise} className="md:col-span-6">
+              <Pill>
+                <Sun className="h-4 w-4" /> Rooftop Solar Panel Installation
+              </Pill>
+              <h1
+                className="mt-4 text-4xl font-extrabold leading-tight text-slate-900 sm:text-6xl"
+                style={{ lineHeight: 1.1 }}
+              >
+                Go Rooftop Solar. <span style={{ color: BRAND.primary }}>Cut Bills.</span> Power Up.
+              </h1>
+              <p className="mt-4 max-w-xl text-lg text-slate-600">
+                End-to-end design, supply, and installation for homes, housing societies, schools, shops, and SMBs. We
+                handle MNRE-aligned components, net-metering assistance, and post-install AMC.
+              </p>
 
-      {/* NEW: FAQ */}
-      <div className="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
-        <motion.div
-          variants={containerStagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          className="mx-auto mb-8 max-w-3xl text-center"
-        >
-          <motion.h3 variants={itemRise} className="text-3xl font-extrabold" style={{ color: BRAND.primary }}>
-            Frequently Asked Questions
-          </motion.h3>
-          <motion.p variants={itemRise} className="mt-2 text-base" style={{ color: BRAND.subtext }}>
-            Quick answers to the most common solar queries.
-          </motion.p>
-        </motion.div>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-slate-900 shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                  style={{ background: BRAND.accent }}
+                >
+                  <PhoneCall className="h-4 w-4" /> Get a Free Site Assessment
+                </a>
+                <a
+                  href="#brochure"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition-all duration-300 hover:border-slate-900"
+                >
+                  <FileDown className="h-4 w-4" /> Download Brochure
+                </a>
+              </div>
 
-        <div className="divide-y rounded-2xl border bg-white/70 backdrop-blur" style={{ borderColor: `${BRAND.primary}14` }}>
-          {faqs.map((f, i) => (
-            <FAQRow key={i} q={f.q} a={f.a} />
-          ))}
+              <div className="mt-6 flex flex-wrap gap-4 text-sm font-medium">
+                <span className="text-slate-800 flex items-center gap-1">
+                  <LineChart className="h-4 w-4" /> Up to 80% Bill Savings
+                </span>
+                <span className="text-slate-800 flex items-center gap-1">
+                  <ShieldCheck className="h-4 w-4" /> 25-Year Panel Warranty
+                </span>
+              </div>
+            </motion.div>
+
+            {/* right visual */}
+            <motion.div variants={itemRise} className="md:col-span-6 md:col-start-7 relative">
+              <div className="relative overflow-hidden rounded-3xl ring-2 ring-slate-900/50 shadow-2xl shadow-black/80">
+                <img
+                  src="https://truesun.in/wp-content/uploads/2021/06/IMG-20210406-WA0009-768x575.jpg"
+                  alt="Rooftop solar panels on a residential home"
+                  className="w-full object-cover h-[420px]"
+                  loading="eager"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
+                  }}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* ============== SECTION 2: BENEFITS (Redesigned) ============== */}
+      <Section id="benefits" className="relative overflow-hidden py-8 md:py-10">
+        {/* soft patterned background */}
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute left-1/2 top-0 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-amber-200/20 blur-3xl" />
+          <div className="absolute bottom-[-10%] right-[-10%] h-[420px] w-[420px] rounded-full bg-[rgba(38,39,85,0.08)] blur-3xl" />
         </div>
-      </div>
-    </section>
+
+        <Container>
+          <motion.div
+            variants={containerStagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="mx-auto max-w-7xl"
+          >
+            {/* header row */}
+            <div className="grid items-end gap-6 md:grid-cols-[1.2fr,0.8fr]">
+              <div>
+                <p className="inline-flex items-center gap-2 rounded-full border border-amber-300/50 bg-amber-50/60 px-3 py-1 text-xs font-semibold text-slate-800">
+                  <Sun className="h-4 w-4" /> Key Advantages
+                </p>
+                <h2 className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
+                  Why Choose Rooftop Solar?
+                </h2>
+                <p className="mt-3 text-slate-600">
+                  High-efficiency modules, smart inverters, and quality BOS deliver dependable generation year after year.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-sm text-slate-700">
+                <div className="rounded-2xl border border-slate-800 bg-white/80 p-4 text-center">
+                  <div className="text-2xl font-extrabold text-slate-900">25+ yrs</div>
+                  <div className="mt-1 text-xs text-slate-500">Panel performance warranty</div>
+                </div>
+                <div className="rounded-2xl border border-slate-800 bg-white/80 p-4 text-center">
+                  <div className="text-2xl font-extrabold text-slate-900">80%*</div>
+                  <div className="mt-1 text-xs text-slate-500">Potential bill reduction</div>
+                </div>
+              </div>
+            </div>
+
+            {/* cards grid */}
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <FancyFeatureCard
+                icon={<Gauge className="h-6 w-6 text-slate-900" />}
+                title="Lower Electricity Bills"
+                desc="Offset grid usage with clean solar energy; enjoy accelerated payback with net metering."
+              />
+              <FancyFeatureCard
+                icon={<ShieldCheck className="h-6 w-6 text-slate-900" />}
+                title="Reliable & Safe"
+                desc="Tier-1 panels, BIS/MNRE-aligned inverters, DC protection, and surge safety as standard."
+              />
+              <FancyFeatureCard
+                icon={<Leaf className="h-6 w-6 text-slate-900" />}
+                title="Sustainable"
+                desc="Reduce carbon footprint and support India’s green transition with every kilowatt installed."
+              />
+              <FancyFeatureCard
+                icon={<Home className="h-6 w-6 text-slate-900" />}
+                title="Perfect for Any Roof"
+                desc="Concrete, metal, or tile — engineered structures ensure optimal tilt and wind resistance."
+              />
+              <FancyFeatureCard
+                icon={<Wrench className="h-6 w-6 text-slate-900" />}
+                title="End-to-End EPC"
+                desc="Site survey, design, supply, installation, net-metering, and preventive maintenance."
+              />
+              <FancyFeatureCard
+                icon={<ClipboardCheck className="h-6 w-6 text-slate-900" />}
+                title="Hassle-Free Documentation"
+                desc="Assistance with DISCOM formalities, subsidy guidance, and warranties in one place."
+              />
+            </div>
+
+            {/* foot note */}
+            <p className="mt-6 text-center text-xs text-slate-500">
+              *Actual savings depend on tariff, usage profile, and DISCOM regulations.
+            </p>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* ============== SECTION 3: SYSTEM OPTIONS (Fixed Images) ============== */}
+      <Section id="systems" className="py-8 md:py-10">
+        <Container>
+          <motion.div
+            variants={containerStagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-4xl font-extrabold text-slate-900">Tailored Solar Solutions</h2>
+              <p className="mt-3 text-lg text-slate-600">
+                Select the system size that best fits your energy consumption and roof area.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-8 md:grid-cols-2">
+              {/* Left: Interactive List/Tabs */}
+              <div className="space-y-4">
+                {systemOptionsData.map((card, i) => (
+                  <SystemOptionBlock
+                    key={i}
+                    title={card.title}
+                    points={card.points}
+                    isActive={activeSystem === i}
+                    onClick={() => setActiveSystem(i)}
+                  />
+                ))}
+              </div>
+
+              {/* Right: Visual for the Active System */}
+              <motion.div
+                key={activeSystem}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35 }}
+                className="relative overflow-hidden rounded-3xl ring-1 ring-slate-200 shadow-lg bg-slate-100"
+              >
+                <div className="relative h-full w-full aspect-[16/10] sm:aspect-[4/3] md:aspect-[5/3] lg:aspect-video">
+                  <img
+                    src={systemOptionsData[activeSystem].image}
+                    alt={`Rooftop solar installation for ${systemOptionsData[activeSystem].title}`}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/30 to-transparent" />
+                </div>
+
+                <div className="absolute inset-x-0 bottom-0 flex items-end p-5">
+                  <div className="rounded-xl bg-white/90 px-4 py-2 text-sm font-semibold text-slate-900 ring-1 ring-black/70 shadow-sm">
+                    {systemOptionsData[activeSystem].title}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* ============== SECTION 4: PROCESS (Horizontal Stepper) ============== */}
+      <Section id="process" className="py-8 md:py-10" bg="bg-[rgb(240,244,250)]">
+        <Container>
+          <motion.div
+            variants={containerStagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-4xl font-extrabold text-slate-900">Simplified, 5-Step Installation</h2>
+              <p className="mt-3 text-lg text-slate-600">
+                Our EPC process is transparent, fully compliant, and always on schedule for a seamless transition to
+                solar power.
+              </p>
+            </div>
+
+            <div className="mt-12 flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-stretch relative">
+              <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 bg-slate-200 md:hidden" />
+              {processSteps.map((step) => (
+                <ProcessStep key={step.index} index={step.index} title={step.title} desc={step.desc} />
+              ))}
+            </div>
+          </motion.div>
+        </Container>
+      </Section>
+
+      {/* ============== SECTION 5: CTA / CONTACT ============== */}
+      <Section id="contact" className="py-8 md:py-10">
+        <div >
+          <Container>
+            <motion.div
+              variants={containerStagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+              className="overflow-hidden rounded-3xl shadow-2xl shadow-black/50"
+            >
+              <div className="grid items-stretch gap-0 md:grid-cols-2 bg-white rounded-3xl">
+                {/* Left: Contact Form */}
+                <motion.div
+                  variants={itemRise}
+                  className="p-8 md:p-12"
+                  style={{ background: BRAND.accent }}
+                >
+                  <h3 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+                    Ready to Cut Your Bills?
+                  </h3>
+                  <p className="mt-3 text-lg text-slate-800">
+                    Book a free site assessment. Our engineers will evaluate your roof and share a customized energy
+                    report and proposal.
+                  </p>
+
+                  <form onSubmit={(e) => e.preventDefault()} className="mt-6 grid gap-4 ">
+                    <input className="rounded-xl border border-slate-900 px-5 py-3 text-sm outline-none focus:ring-4 focus:ring-white/50" placeholder="Your Name" />
+                    <input className="rounded-xl border border-slate-900 px-5 py-3 text-sm outline-none focus:ring-4 focus:ring-white/50" placeholder="Phone Number" />
+                    <input className="rounded-xl border border-slate-900 px-5 py-3 text-sm outline-none focus:ring-4 focus:ring-white/50" placeholder="City / Area (e.g., Ahmedabad, GJ)" />
+
+                    <button
+                      className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-4 text-base font-semibold text-white shadow-xl transition-transform hover:scale-[1.01]"
+                    >
+                      <PhoneCall className="h-4 w-4" /> Request Call Back Now
+                    </button>
+                  </form>
+                </motion.div>
+
+                {/* Right: Info Visual */}
+                <motion.div variants={itemRise} className="relative hidden md:block">
+                  <img
+                    src="https://truesun.in/wp-content/uploads/2022/02/1-2-768x768.png"
+                    alt="Technician installing a solar panel"
+                    className="h-90 w-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = FALLBACK_IMG;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
+                    <div className="text-white p-6 space-y-3">
+                      <div className="text-xl font-bold border-b-2 pb-2 mb-4">Why Choose Us?</div>
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="h-5 w-5" /> BIS/MNRE-Aligned Components
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Gauge className="h-5 w-5" /> Full Net-Metering Support
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Wrench className="h-5 w-5" /> Post-Installation AMC & Remote Monitoring
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </Container>
+        </div>
+      </Section>
+    </main>
   );
 }
-
-// Simple FAQ row with motion expand
-const FAQRow: React.FC<{ q: string; a: string }> = ({ q, a }) => {
-  const [open, setOpen] = React.useState(false);
-  return (
-    <div className="px-5 py-4">
-      <button
-        className="flex w-full items-center justify-between gap-4 text-left"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span className="text-base font-semibold" style={{ color: BRAND.primary }}>{q}</span>
-        <motion.span
-          animate={{ rotate: open ? 45 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="text-2xl leading-none"
-          style={{ color: BRAND.accent }}
-        >
-          +
-        </motion.span>
-      </button>
-      <motion.div
-        initial={false}
-        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.25 }}
-        className="overflow-hidden pr-10"
-      >
-        <p className="pt-2 text-sm" style={{ color: BRAND.subtext }}>{a}</p>
-      </motion.div>
-    </div>
-  );
-};
