@@ -7,23 +7,15 @@ import MainAbout from "./component/abouus/MainAbout";
 import RooftopMain from "./component/Service/RooftopSolar/RooftopMain";
 import ConsultingMain from "./component/Service/Consulting/ConsultingMain";
 import WhatsAppDockPro from "./component/WhatsAppChatbot";
+import CommercialMain from "./component/Service/RooftopSolar/Commercial/CommercialMain";
+import IndustrialMain from "./component/Service/RooftopSolar/Industrial/IndustrialMain";
+import Residentialmain from "./component/Service/RooftopSolar/Residential/Residentialmain";
+import CarbonFootprintingmain from "./component/Service/Consulting/Carbon-Footprinting/CarbonFootprintingmain";
 
 // Placeholder pages for main and nested service sections
 function Services() {
   return <div className="pt-24 p-6 text-center text-gray-800">Services Page</div>;
 }
-
-
-function Commercial() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Commercial Solar Systems</div>;
-}
-function Industrial() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Industrial Solar Solutions</div>;
-}
-function Residential() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Residential Solar Systems</div>;
-}
-
 
 
 
@@ -53,15 +45,14 @@ function App() {
 
         {/* Rooftop Solar Children */}
         <Route path="/services/rooftop" element={<RooftopMain />} />
-        <Route path="/services/rooftop/commercial" element={<Commercial />} />
-        <Route path="/services/rooftop/industrial" element={<Industrial />} />
-        <Route path="/services/rooftop/residential" element={<Residential />} />
+        <Route path="/services/rooftop/commercial" element={<CommercialMain/>} />
+        <Route path="/services/rooftop/industrial" element={<IndustrialMain/>} />
+        <Route path="/services/rooftop/residential" element={<Residentialmain/>} />
 
         {/* Consulting Children */}
         <Route path="/services/consulting" element={<ConsultingMain />} />
-        {/* <Route path="/services/consulting/feasibility" element={<Feasibility />} />
-        <Route path="/services/consulting/finance" element={<ProjectFinance />} />
-        <Route path="/services/consulting/om" element={<OMAdvisory />} /> */}
+        <Route path="/services/consulting/Carbon-Footprinting" element={<CarbonFootprintingmain/>} />
+   
 
         {/* Other Main Pages */}
         <Route path="/projects" element={<Projects />} />

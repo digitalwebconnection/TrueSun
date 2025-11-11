@@ -44,11 +44,9 @@ const SERVICES: ServiceGroup[] = [
     label: "Consulting",
     icon: <Users2 className="h-4 w-4" />,
     to: "/services/consulting",
-    // children: [
-    //   { label: "Feasibility & DPR", to: "/services/consulting/feasibility" },
-    //   { label: "Project Finance", to: "/services/consulting/finance" },
-    //   { label: "O&M Advisory", to: "/services/consulting/om" },
-    // ],
+    children: [
+      { label: "Carbon Footprinting", to: "/services/consulting/Carbon-Footprinting" },
+    ],
   },
 ];
 
