@@ -11,18 +11,10 @@ import CommercialMain from "./component/Service/RooftopSolar/Commercial/Commerci
 import IndustrialMain from "./component/Service/RooftopSolar/Industrial/IndustrialMain";
 import Residentialmain from "./component/Service/RooftopSolar/Residential/Residentialmain";
 import CarbonFootprintingmain from "./component/Service/Consulting/Carbon-Footprinting/CarbonFootprintingmain";
-
-// Placeholder pages for main and nested service sections
-function Services() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Services Page</div>;
-}
+import Projectsmain from "./component/Projects/Projectsmain";
 
 
 
-// Other main pages
-function Projects() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Projects Page</div>;
-}
 function Careers() {
   return <div className="pt-24 p-6 text-center text-gray-800">Careers Page</div>;
 }
@@ -41,7 +33,7 @@ function App() {
         <Route path="/about" element={<MainAbout />} />
 
         {/* Top-level Services */}
-        <Route path="/services" element={<Services />} />
+        {/* <Route path="/services" element={<Services />} /> */}
 
         {/* Rooftop Solar Children */}
         <Route path="/services/rooftop" element={<RooftopMain />} />
@@ -55,7 +47,7 @@ function App() {
    
 
         {/* Other Main Pages */}
-        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects" element={<Projectsmain />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>

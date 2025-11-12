@@ -11,10 +11,9 @@ import {
     Instagram,
     Linkedin,
     Youtube,
-    // ArrowUpRight,
+    Code2,
     ShieldCheck,
     Sparkles,
-    ChevronUp,
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ React Router import
 
@@ -83,7 +82,6 @@ export default function SolarFooter() {
                             <nav className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
                                 <FooterLink to="/about">About Us</FooterLink>
                                 <FooterLink to="/projects">Projects</FooterLink>
-                                <FooterLink to="/services">Services</FooterLink>
                                 <FooterLink to="/subsidy">Subsidy & Policy</FooterLink>
                                 <FooterLink to="/blog">Blog</FooterLink>
                                 <FooterLink to="/careers">Careers</FooterLink>
@@ -96,11 +94,11 @@ export default function SolarFooter() {
                                 Solutions
                             </h4>
                             <nav className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-                                <FooterLink to="/home-solar">Home Solar</FooterLink>
-                                <FooterLink to="/society-solar">Housing Societies</FooterLink>
-                                <FooterLink to="/commercial">Commercial</FooterLink>
-                                <FooterLink to="/industrial">Industrial</FooterLink>
-                                <FooterLink to="/maintenance">O&M</FooterLink>
+                                <a >Home Solar</a>
+                                <a >Housing Societies</a>
+                                <a >Commercial</a>
+                                <a >Industrial</a>
+                                <a >O&M</a>
                             </nav>
                         </div>
 
@@ -110,11 +108,11 @@ export default function SolarFooter() {
                                 Resources
                             </h4>
                             <nav className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-                                <FooterLink to="/roi">ROI Calculator</FooterLink>
-                                <FooterLink to="/downloads">Downloads</FooterLink>
-                                <FooterLink to="/faq">FAQs</FooterLink>
-                                <FooterLink to="/warranty">Warranty</FooterLink>
-                                <FooterLink to="/support">Support</FooterLink>
+                                <a >ROI Calculator</a>
+                                <a >Downloads</a>
+                                <a >FAQs</a>
+                                <a >Warranty</a>
+                                <a >Support</a>
                             </nav>
                         </div>
 
@@ -148,21 +146,7 @@ export default function SolarFooter() {
                                     <Youtube className="h-4 w-4" />
                                 </Social>
                             </div>
-                            {/* <form className="mt-5 flex w-full max-w-5xl overflow-hidden rounded-xl border border-amber-200 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-white/5">
-                                <input
-                                    type="email"
-                                    required
-                                    placeholder="Join our newsletter"
-                                    className="w-full bg-transparent px-3 py-2 text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none dark:text-white"
-                                />
-                                <button
-                                    type="submit"
-                                    className="group inline-flex items-center gap-2 bg-amber-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-600"
-                                >
-                                    Subscribe
-                                    <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                                </button>
-                            </form> */}
+
                         </div>
                     </div>
 
@@ -178,24 +162,17 @@ export default function SolarFooter() {
 
                     {/* Bottom bar */}
                     <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-amber-200/60 pt-6 text-sm text-neutral-600 dark:border-white/10 dark:text-neutral-400 md:flex-row">
-                        <p>© {new Date().getFullYear()} TrueSun. All rights reserved.</p>
-                        <div className="flex items-center gap-5 me-10">
+                        <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-orange-600"> TrueSun</span>. All rights reserved.</p>
+                        <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 pb-12 md:pb-0  text-white text-sm">
+                            <Code2 className="w-6 h-6 text-orange-600" />
+                            <p>Developed by <span className="font-semibold text-orange-600">Digital Web Connection</span></p>
+                        </p>
+                        <div className="flex items-center gap-5 me-35">
                             <FooterLink to="/privacy">Privacy Policy</FooterLink>
                             <FooterLink to="/terms">Terms</FooterLink>
-                            <FooterLink to="/sitemap">Sitemap</FooterLink>
                         </div>
                     </div>
                 </div>
-
-                {/* Back to top */}
-                <a
-                    href="#top"
-                    aria-label="Back to top"
-                    className="group absolute right-6 bottom-6 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white/90 px-3 py-2 text-xs font-semibold text-neutral-900 shadow-sm backdrop-blur transition dark:border-white/10 dark:bg-white/10 dark:text-white"
-                >
-                    <ChevronUp className="h-4 w-4" />
-                    Top
-                </a>
             </div>
         </footer>
     );
