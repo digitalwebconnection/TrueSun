@@ -50,9 +50,9 @@ export default function AboutTrueSun() {
     <section className="relative overflow-hidden bg-linear-to-br from-white via-amber-50/40 to-emerald-50/40 text-gray-900">
       {/* Soft nebula background */}
       <motion.div style={{ y }} className="pointer-events-none absolute inset-0 opacity-40">
-        <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-yellow-200 blur-3xl" />
-        <div className="absolute -bottom-20 right-10 h-96 w-96 rounded-full bg-green-200 blur-3xl" />
-        <div className="absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-100 blur-3xl" />
+        <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-yellow-400 blur-3xl" />
+        <div className="absolute -bottom-20 right-10 h-96 w-96 rounded-full bg-green-400 blur-3xl" />
+        <div className="absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-300 blur-3xl" />
       </motion.div>
       <HeroSplit />
       <StatsRibbon />

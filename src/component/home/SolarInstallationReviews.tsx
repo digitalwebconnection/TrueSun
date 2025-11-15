@@ -7,7 +7,7 @@ interface Review {
   comment: string;
 }
 
-export default function ModernReviewSection() {
+export default function  ModernReviewSection() {
   const reviews: Review[] = [
     {
       name: "Raj Sharma",

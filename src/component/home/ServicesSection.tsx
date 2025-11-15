@@ -3,12 +3,8 @@ import {
   Sun,
   Home,
   Building2,
-  Lightbulb,
-  Droplets,
-  FileCheck,
   Landmark,
   Gauge,
-  Wrench,
   ChevronRight,
 } from "lucide-react";
 
@@ -34,31 +30,26 @@ const SERVICES = [
     desc: "Robust arrays with advanced protections, string design, and SCADA-ready monitoring.",
     icon: Gauge,
   },
-  {
-    title: "Solar Street Lighting",
-    desc: "Dusk-to-dawn, low-maintenance street lights with smart controllers and Li-ion batteries.",
-    icon: Lightbulb,
-  },
-  {
-    title: "Solar Water Pumping",
-    desc: "DC/AC pumps for farms and industry with VFDs, remote panels, and subsidy guidance.",
-    icon: Droplets,
-  },
-  {
-    title: "O&M, Cleaning & Monitoring",
-    desc: "Preventive maintenance, performance audits, IV-curve testing, and remote dashboards.",
-    icon: Wrench,
-  },
-  {
-    title: "Net-Metering & Approvals",
-    desc: "End-to-end DISCOM liaison, feasibility, meter installation, and commissioning paperwork.",
-    icon: FileCheck,
-  },
-  {
+{
     title: "Govt. Subsidy Assistance",
     desc: "Eligibility checks, documentation, and claim support for central/state incentive schemes.",
     icon: Landmark,
   },
+  // {
+  //   title: "O&M, Cleaning & Monitoring",
+  //   desc: "Preventive maintenance, performance audits, IV-curve testing, and remote dashboards.",
+  //   icon: Wrench,
+  // },
+  // {
+  //   title: "Net-Metering & Approvals",
+  //   desc: "End-to-end DISCOM liaison, feasibility, meter installation, and commissioning paperwork.",
+  //   icon: FileCheck,
+  // },
+  // {
+  //   title: "Govt. Subsidy Assistance",
+  //   desc: "Eligibility checks, documentation, and claim support for central/state incentive schemes.",
+  //   icon: Landmark,
+  // },
 ];
 
 const fadeUp = {

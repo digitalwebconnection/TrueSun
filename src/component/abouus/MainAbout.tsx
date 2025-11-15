@@ -1,13 +1,13 @@
 
 import  Aboutab  from "./AboutAb"
-import AboutHero from "./HeroAb"
+// import AboutHero from "./HeroAb"
 import OurTeamSection from "./OurTeamSection"
 
 
 const MainAbout = () => {
   return (
     <>
-      <AboutHero />
+      {/* <AboutHero /> */}
       <Aboutab />
       <OurTeamSection/>
     </>

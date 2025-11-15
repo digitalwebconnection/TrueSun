@@ -32,10 +32,8 @@ const SERVICES: ServiceGroup[] = [
     key: "rooftop",
     label: "Rooftop Solar",
     icon: <Wrench className="h-4 w-4" />,
-    to: "/services/rooftop",
     children: [
-      { label: "Commercial", to: "/services/rooftop/commercial" },
-      { label: "Industrial", to: "/services/rooftop/industrial" },
+      { label: "C&I", to: "/services/rooftop/C&I" },
       { label: "Residential", to: "/services/rooftop/residential" },
     ],
   },
@@ -43,9 +41,11 @@ const SERVICES: ServiceGroup[] = [
     key: "consulting",
     label: "Consulting",
     icon: <Users2 className="h-4 w-4" />,
-    to: "/services/consulting",
     children: [
-      { label: "Carbon Footprinting", to: "/services/consulting/Carbon-Footprinting" },
+      {
+        label: "Carbon Footprinting",
+        to: "/services/consulting/carbon-footprinting",
+      },
     ],
   },
 ];
@@ -54,49 +54,34 @@ const SERVICES: ServiceGroup[] = [
 function ServicesMenu() {
   const [open, setOpen] = useState(false);
   const [activeKey, setActiveKey] = useState<string>(SERVICES[0].key);
-  const btnRef = useRef<HTMLButtonElement | null>(null);
-  const panelRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Close the menu on route change
+  const active = SERVICES.find((s) => s.key === activeKey);
+
+  // Close dropdown on route change
   useEffect(() => {
-    if (open) setOpen(false);
+    setOpen(false);
   }, [location.pathname]);
 
-  // close on click-outside / ESC
+  // Click outside to close
   useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      if (!open) return;
-      const t = e.target as Node;
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(t) &&
-        btnRef.current &&
-        !btnRef.current.contains(t)
-      ) {
+    const handleClick = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      if (!containerRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("mousedown", onDocClick);
-    document.addEventListener("keydown", onEsc);
-    return () => {
-      document.removeEventListener("mousedown", onDocClick);
-      document.removeEventListener("keydown", onEsc);
-    };
-  }, [open]);
-
-  const active = SERVICES.find((s) => s.key === activeKey);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       <button
-        ref={btnRef}
         type="button"
-        onMouseEnter={() => setOpen(true)}
-        onFocus={() => setOpen(true)}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen((o) => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
         className={cn(
@@ -105,104 +90,93 @@ function ServicesMenu() {
       >
         <span className="inline-flex items-center gap-2">Services</span>
         <ChevronDown
-          className={cn("h-4 w-4 transition-transform", open ? "rotate-180" : "rotate-0")}
+          className={cn(
+            "h-4 w-4 transition-transform",
+            open ? "rotate-180" : "rotate-0"
+          )}
         />
       </button>
 
-      {/* dropdown */}
-      <div
-        ref={panelRef}
-        onMouseLeave={() => setOpen(false)}
-        className={cn(
-          "absolute left-0 top-full mt-3 flex rounded-xl p-2 shadow-2xl ring-1 ring-black/5 bg-white",
-          "origin-top-left transition-all duration-150",
-          open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
-        )}
-        role="menu"
-        aria-label="Services"
-      >
-        {/* left list (parents) */}
-        <div className="w-48 rounded-lg p-1">
-          {SERVICES.map((s) => {
-            const isActiveGroup =
-              s.to && (location.pathname === s.to || location.pathname.startsWith(`${s.to}/`));
+      {open && (
+        <div
+          className={cn(
+            "absolute left-0 top-full mt-3 flex rounded-xl p-2 shadow-2xl ring-1 ring-black/5 bg-white z-[100]"
+          )}
+          role="menu"
+          aria-label="Services"
+        >
+          {/* Left panel: parent items */}
+          <div className="w-48 rounded-lg p-1">
+            {SERVICES.map((s) => {
+              const ParentInner = (
+                <>
+                  <span className="text-orange-500">{s.icon}</span>
+                  <span>{s.label}</span>
+                  <ChevronRight className="ml-auto h-4 w-4 opacity-60" />
+                </>
+              );
 
-            const ParentInner = (
-              <>
-                <span className="text-orange-500">{s.icon}</span>
-                <span>{s.label}</span>
-                <ChevronRight className="ml-auto h-4 w-4 opacity-60" />
-              </>
-            );
+              return (
+                <button
+                  key={s.key}
+                  type="button"
+                  onMouseEnter={() => setActiveKey(s.key)}
+                  onFocus={() => setActiveKey(s.key)}
+                  onClick={() => {
+                    setActiveKey(s.key);
+                    if (!s.children?.length && s.to) {
+                      navigate(s.to);
+                      setOpen(false);
+                    }
+                  }}
+                  className={cn(
+                    "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
+                    s.key === activeKey
+                      ? "bg-orange-50 text-orange-600"
+                      : "text-gray-700 hover:bg-gray-50"
+                  )}
+                >
+                  {ParentInner}
+                </button>
+              );
+            })}
+          </div>
 
-            return s.to ? (
+          {/* Right panel: children */}
+          <div className="ml-2 w-64 rounded-lg bg-white p-2 shadow-lg">
+            {(active?.children ?? []).map((c) => (
               <NavLink
-                key={s.key}
-                to={s.to}
-                onMouseEnter={() => setActiveKey(s.key)}
-                onFocus={() => setActiveKey(s.key)}
+                key={c.to}
+                to={c.to}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   cn(
-                    "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
-                    (isActive || isActiveGroup || s.key === activeKey)
-                      ? "bg-orange-50 text-orange-600"
-                      : "text-gray-700 hover:bg-gray-50"
+                    "block rounded-md px-3 py-2 text-sm hover:bg-orange-50",
+                    isActive
+                      ? "text-orange-600"
+                      : "text-gray-700 hover:text-orange-600"
                   )
                 }
               >
-                {ParentInner}
+                {c.label}
               </NavLink>
-            ) : (
+            ))}
+
+            {/* Optional: when a parent has no children, show a link */}
+            {(!active?.children || active.children.length === 0) && active?.to && (
               <button
-                key={s.key}
-                type="button"
-                onMouseEnter={() => setActiveKey(s.key)}
-                onFocus={() => setActiveKey(s.key)}
-                onClick={() => setActiveKey(s.key)}
-                className={cn(
-                  "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
-                  s.key === activeKey ? "bg-orange-50 text-orange-600" : "text-gray-700 hover:bg-gray-50"
-                )}
+                className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                onClick={() => {
+                  navigate(active.to!);
+                  setOpen(false);
+                }}
               >
-                {ParentInner}
+                View {active.label}
               </button>
-            );
-          })}
+            )}
+          </div>
         </div>
-
-        {/* right list (children of active) */}
-        <div className="ml-2 w-64 rounded-lg bg-white p-2 shadow-lg">
-          {(active?.children ?? []).map((c) => (
-            <NavLink
-              key={c.to}
-              to={c.to}
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                cn(
-                  "block rounded-md px-3 py-2 text-sm hover:bg-orange-50",
-                  isActive ? "text-orange-600" : "text-gray-700 hover:text-orange-600"
-                )
-              }
-            >
-              {c.label}
-            </NavLink>
-          ))}
-
-          {/* Optional: if no children, offer a “View details” link */}
-          {(!active?.children || active.children.length === 0) && active?.to && (
-            <button
-              className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
-              onClick={() => {
-                navigate(active.to!);
-                setOpen(false);
-              }}
-            >
-              View {active.label}
-            </button>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -220,7 +194,7 @@ export default function Navbar() {
   // Close mobile drawer on route change
   useEffect(() => {
     if (isOpen) setIsOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, isOpen]);
 
   // Hide-on-scroll + elevation
   useEffect(() => {
@@ -282,16 +256,31 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
-            <NavLink to="/about" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
+            <NavLink
+              to="/about"
+              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+            >
               About
             </NavLink>
 
             <ServicesMenu />
 
-            <NavLink to="/projects" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
+            <NavLink
+              to="/solar-finance"
+              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+            >
+              Solar Finance
+            </NavLink>
+            <NavLink
+              to="/projects"
+              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+            >
               Projects
             </NavLink>
-            <NavLink to="/careers" className={({ isActive }) => cn(linkBase, isActive && activeClass)}>
+            <NavLink
+              to="/careers"
+              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+            >
               Careers
             </NavLink>
 
@@ -348,7 +337,11 @@ export default function Navbar() {
             isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
           )}
         >
-          <Link to="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
+          <Link
+            to="/"
+            className="flex items-center gap-2"
+            onClick={() => setIsOpen(false)}
+          >
             <Sun className="h-8 w-8 text-orange-600" />
             <h2 className="text-2xl font-extrabold text-gray-900">
               True<span className="text-orange-600">Sun</span>
@@ -366,7 +359,8 @@ export default function Navbar() {
         <nav className="flex bg-white -mt-5 flex-col space-y-2 p-6 font-semibold">
           {[
             { name: "About", to: "/about" },
-            { name: "Services", to: "/services" }, // keep simple link on mobile
+            { name: "Services", to: "/services" }, // simple link on mobile
+            { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
             { name: "Careers", to: "/careers" },
           ].map(({ name, to }, index) => (
@@ -379,7 +373,7 @@ export default function Navbar() {
                   "text-xl py-4 px-3 rounded-lg transition-all duration-300 ease-out transform",
                   "text-gray-700 hover:bg-orange-50 hover:text-orange-600 hover:scale-105",
                   isActive ? "bg-orange-100 text-orange-600" : "",
-                  isOpen ? `translate-x-0 opacity-100` : "translate-x-4 opacity-0"
+                  isOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
                 )
               }
               style={{ transitionDelay: isOpen ? `${index * 100}ms` : "0ms" }}
@@ -396,7 +390,7 @@ export default function Navbar() {
               "hover:bg-orange-600 hover:scale-105 focus:ring-4 focus:ring-orange-300",
               isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             )}
-            style={{ transitionDelay: isOpen ? "1000ms" : "3500ms" }}
+            style={{ transitionDelay: isOpen ? "1000ms" : "0ms" }}
           >
             Get a Free Quote
           </NavLink>

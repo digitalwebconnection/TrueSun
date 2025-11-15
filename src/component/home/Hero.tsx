@@ -1,13 +1,9 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Sun, Leaf, Battery, Zap, Cloud } from "lucide-react";
 
 const bgImages = [
   "https://cdn.hswstatic.com/gif/solar-cells.jpg",
   "https://waaree.com/wp-content/uploads/2025/07/Solar-panels-online-scaled.jpg",
-  "https://www.tatapower.com/adobe/dynamicmedia/deliver/dm-aid--8e730649-cfe6-4c4b-8eb1-fc4c2952568d/img2.png?preferwebp=true&quality=85",
+  "https://waaree.com/wp-content/uploads/2025/11/How-to-Choose-the-Right-Solar-Panel-for-Your-Home-1.jpg",
 ];
 
 const SLIDE_DURATION_MS = 6000;
@@ -25,152 +21,117 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section
-      className="
-        relative overflow-hidden
-        min-h-[50svh] sm:min-h-[50svh] md:min-h-[60svh]
-        py-20 sm:py-16 md:pt-25 
-      ">
-      {/* ===== BACKGROUND SLIDES ===== */}
-      <div className="absolute inset-0 -z-10">
-        {bgImages.map((src, i) => {
-          const isActive = i === index;
-          return (
-            <div
-              key={i}
-              className="absolute inset-0 bg-cover bg-center will-change-transform"
-              style={{
-                backgroundImage: `url(${src})`,
-                opacity: isActive ? 1 : 0,
-                transitionProperty: "opacity",
-                transitionTimingFunction: "ease",
-                transitionDuration: `${FADE_MS}ms`,
-                animation: isActive
-                  ? `kenburnsZoom ${SLIDE_DURATION_MS + FADE_MS}ms linear forwards`
-                  : "none",
-              }}
-            >
-              <div className="absolute inset-0 bg-yellow-500/10 mix-blend-multiply" />
-            </div>
-          );
-        })}
-        {/* Contrast overlay */}
-        <div className="absolute inset-0 bg-black/80" />
-      </div>
+    <section className="relative overflow-hidden bg-white">
+      <div className="mx-auto flex flex-col lg:flex-row min-h-[60svh] lg:min-h-[70svh]">
+        {/* ============= LEFT CONTENT ============= */}
+        <div className="w-full lg:w-1/2 px-4 sm:px-8 lg:px-10 py-14 lg:py-20 flex flex-col justify-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600 mb-3">
+            Save More • Go Solar
+          </p>
 
-      {/* ===== FLOATING SOLAR ICONS ===== */}
-      <FloatingIcons />
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
+            Cut Your Power Bills.
+            <br />
+            <span className="text-emerald-600">Choose Clean Solar Energy.</span>
+          </h1>
 
-      {/* ===== CONTENT ===== */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <h1
-          className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white leading-tight opacity-0 animate-slideInLeft"
-          style={{ animationDelay: "200ms" }}
-        >
-          Powering Your Future <br className="hidden sm:inline" /> with{" "}
-          <span className="text-orange-400">Solar Energy</span>
-        </h1>
+          <p className="mt-4 text-sm sm:text-base text-slate-600 max-w-xl">
+            Switch from rising electricity costs to predictable, low monthly
+            bills. Our solar solutions help you save money, protect the planet,
+            and enjoy reliable power for years to come.
+          </p>
 
-        <p
-          className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-gray-200 max-w-xl sm:max-w-2xl opacity-0 animate-slideInLeft"
-          style={{ animationDelay: "600ms" }}
-        >
-          Start saving on electricity and reduce your carbon footprint today.
-          Get a free, no-obligation quote.
-        </p>
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-500">
+            <span className="inline-flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              Up to 80% savings on electricity bills*
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-orange-500" />
+              25+ years performance life
+            </span>
+          </div>
 
-        <div
-          className="
-            mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full
-            max-w-md
-            opacity-0 animate-slideInUp
-          "
-          style={{ animationDelay: "1000ms" }}
-        >
-          <button className="px-6 sm:px-8 py-3 text-base sm:text-lg font-bold text-gray-900 bg-orange-400 rounded-lg shadow-xl transition duration-300 transform hover:scale-[1.03] hover:bg-orange-300">
-            Get A Free Quote
-          </button>
-          <button className="px-6 sm:px-8 py-3 text-base sm:text-lg font-bold text-white border-2 border-white rounded-lg hover:bg-white hover:text-gray-900 transition duration-300">
-            Learn More
-          </button>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <button className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-7 py-3 text-sm sm:text-base font-semibold text-white shadow-md hover:bg-emerald-400 transition">
+              Get Your Savings Estimate
+              <span className="text-lg leading-none">→</span>
+            </button>
+            <p className="text-xs sm:text-sm text-slate-500">
+              Takes less than 60 seconds. No obligation.
+            </p>
+          </div>
+        </div>
+
+        {/* ============= RIGHT IMAGE SIDE ============= */}
+        <div className="relative w-full lg:w-1/2 min-h-80 lg:min-h-[500px] overflow-hidden">
+          {/* Background slider */}
+          <div className="absolute inset-0">
+            {bgImages.map((src, i) => {
+              const isActive = i === index;
+              return (
+                <div
+                  key={i}
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${src})`,
+                    opacity: isActive ? 1 : 0,
+                    transitionProperty: "opacity",
+                    transitionTimingFunction: "ease",
+                    transitionDuration: `${FADE_MS}ms`,
+                    animation: isActive
+                      ? `kenburnsZoom ${
+                          SLIDE_DURATION_MS + FADE_MS
+                        }ms linear forwards`
+                      : "none",
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          {/* Soft gradient overlay for better contrast */}
+          <div className="absolute inset-0 bg-gradient-to-l from-emerald-500/45 via-emerald-500/10 to-transparent" />
+
+          {/* Decorative shapes */}
+          {/* Top-middle angled bar */}
+          <div
+            className="absolute top-0 left-1/2 h-24 w-28 bg-emerald-500 hidden sm:block"
+            style={{
+              transform: "translateX(-50%) skewX(-30deg)",
+            }}
+          />
+          {/* Right big diagonal shape */}
+          <div
+            className="absolute bottom-0 right-0 h-64 w-64 bg-orange-500/80 hidden sm:block"
+            style={{
+              clipPath: "polygon(40% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            }}
+          />
+
+          {/* Floating savings badge */}
+          <div className="absolute bottom-6 left-6 max-w-xs rounded-2xl bg-white/85 px-4 py-3 shadow-xl backdrop-blur-sm">
+            <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-600">
+              Savings & Sustainability
+            </p>
+            <p className="mt-1 text-sm font-semibold text-slate-900">
+              “This system paid back its cost in just a few years.”
+            </p>
+            <p className="mt-1 text-[11px] text-slate-500">
+              Real-world savings with clean, renewable solar energy for homes
+              and businesses.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* ===== SCROLL INDICATOR (desktop only to avoid mobile overlap) ===== */}
-      <div className="hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
-        <svg
-          className="w-8 h-8 text-white animate-bounce"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </div>
-
-      {/* ===== CUSTOM ANIMATIONS ===== */}
+      {/* ============= CUSTOM KEYFRAMES ============= */}
       <style>{`
         @keyframes kenburnsZoom {
           0% { transform: scale(1) translateZ(0); }
-          100% { transform: scale(1.08) translateZ(0); }
-        }
-
-        @keyframes slideInLeft {
-          0% { opacity: 0; transform: translateX(-50px); }
-          100% { opacity: 1; transform: translateX(0); }
-        }
-        .animate-slideInLeft {
-          animation: slideInLeft 1s ease-out forwards;
-        }
-
-        @keyframes slideInUp {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-slideInUp {
-          animation: slideInUp 0.8s ease-out forwards;
+          100% { transform: scale(1.07) translateZ(0); }
         }
       `}</style>
     </section>
-  );
-}
-
-/* ===================== FLOATING ICON COMPONENT ===================== */
-function FloatingIcons() {
-  // Fewer/lighter icons on mobile to prevent crowding
-  const icons = [
-    { Icon: Sun, color: "text-yellow-400", size: 56, x: "8%", y: "18%", hideOnMobile: false },
-    { Icon: Leaf, color: "text-green-400", size: 44, x: "72%", y: "28%", hideOnMobile: true },
-    { Icon: Battery, color: "text-lime-300", size: 48, x: "42%", y: "68%", hideOnMobile: false },
-    { Icon: Zap, color: "text-orange-400", size: 40, x: "18%", y: "58%", hideOnMobile: true },
-    { Icon: Cloud, color: "text-sky-300", size: 52, x: "80%", y: "48%", hideOnMobile: true },
-  ];
-
-  return (
-    <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
-      {icons.map(({ Icon, color, size, x, y, hideOnMobile }, i) => (
-        <motion.div
-          key={i}
-          className={`absolute ${color} opacity-40 ${hideOnMobile ? "hidden sm:block" : ""}`}
-          style={{ left: x, top: y }}
-          animate={{
-            y: [0, -16, 0],
-            x: [0, 8, 0],
-            rotate: [0, 8, -8, 0],
-          }}
-          transition={{
-            duration: 6 + i * 1.2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <Icon size={size} strokeWidth={1.5} />
-        </motion.div>
-      ))}
-    </div>
   );
 }
