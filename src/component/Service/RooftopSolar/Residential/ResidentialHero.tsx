@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Sun, Leaf, Zap, ArrowRight } from "lucide-react";
+import { Sun, Leaf, Zap, ArrowRight, Home, Building2 } from "lucide-react";
 
 // --------------------- FIXED VARIANT ---------------------
 const textVariant: Variants = {
@@ -12,7 +12,7 @@ const textVariant: Variants = {
     transition: {
       delay: i * 0.2,
       duration: 0.7,
-      ease: [0.25, 0.1, 0.25, 1], // ✅ use cubic-bezier array instead of "easeOut"
+      ease: [0.25, 0.1, 0.25, 1],
     },
   }),
 };
@@ -30,6 +30,7 @@ export default function ResidentialHero() {
       <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/70 to-black/80"></div>
 
       <div className="relative container max-w-7xl mx-auto px-6 md:px-0 py-18 lg:py-26 flex flex-col lg:flex-row items-center gap-10">
+        
         {/* LEFT CONTENT */}
         <motion.div
           className="text-center lg:text-left lg:w-1/2 text-white"
@@ -67,6 +68,7 @@ export default function ResidentialHero() {
             </button>
           </motion.div>
 
+          {/* FEATURE ICONS */}
           <motion.div
             custom={4}
             variants={textVariant}
@@ -82,6 +84,28 @@ export default function ResidentialHero() {
               <Zap className="text-yellow-300" /> <span>High Efficiency</span>
             </div>
           </motion.div>
+
+          {/* ---------------- SERVICE TAGS ADDED HERE ---------------- */}
+          <motion.div
+            custom={5}
+            variants={textVariant}
+            className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-white"
+          >
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20">
+              <Building2 className="text-blue-300" /> 
+              <span>Housing Societies</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20">
+              <Home className="text-green-300" /> 
+              <span>Villas</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20">
+              <Home className="text-amber-300" /> 
+              <span>Bungalows</span>
+            </div>
+          </motion.div>
+          {/* ---------------------------------------------------------- */}
+
         </motion.div>
 
         {/* RIGHT IMAGE */}
@@ -97,7 +121,6 @@ export default function ResidentialHero() {
               alt="Residential Solar Installation"
               className="w-[480px] max-w-full rounded-2xl shadow-2xl shadow-black"
             />
-          
           </div>
         </motion.div>
       </div>

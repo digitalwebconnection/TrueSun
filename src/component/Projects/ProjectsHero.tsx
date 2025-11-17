@@ -1,5 +1,4 @@
-"use client";
-import { motion } from "framer-motion";
+
 import {
   Building2,
   Factory,
@@ -7,214 +6,81 @@ import {
   Sun,
   ArrowRight,
   Layers,
-  Search,
-  CheckCircle2,
-  MapPin,
 } from "lucide-react";
 
-export default function ProjectsHero() {
-  const tags = [
-    { label: "Residential", icon: Home },
-    { label: "Commercial", icon: Building2 },
-    { label: "Industrial", icon: Factory },
-    { label: "CSR & Institutions", icon: Layers },
-  ];
+// --- Configuration Data ---
+const tags = [
+  { label: "Residential", icon: Home, color: "text-orange-300" },
+  { label: "Commercial", icon: Building2, color: "text-sky-300" },
+  { label: "Industrial", icon: Factory, color: "text-emerald-300" },
+  { label: "CSR & Institutions", icon: Layers, color: "text-purple-300" },
+];
 
-  const stats = [
-    { label: "MW+ Commissioned", value: "120+" },
-    { label: "Projects Delivered", value: "950+" },
-    { label: "Cities Covered", value: "70+" },
-  ];
-
+export default function AppSimple() {
   return (
-    <section className="relative overflow-hidden">
-      {/* ───────────── Background Layers ───────────── */}
-      <motion.div
-        className="absolute inset-0 z-0 bg-cover bg-center"
+    <section className="relative  flex flex-col justify-center items-center text-white p-6 overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://housing.com/news/wp-content/uploads/2024/01/Solar-panels-for-home-F.jpg')",
+            "url('https://waaree.com/wp-content/uploads/2025/11/How-to-Choose-the-Right-Solar-Panel-for-Your-Home-1.jpg')",
         }}
-        initial={{ scale: 1.05, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 2.2, ease: [0.25, 1, 0.5, 1] }}
-      />
+      >
+        <div className="absolute inset-0 bg-black opacity-70"></div> {/* Dark overlay */}
+      </div>
 
-      {/* Black gradient overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/70 to-black/60 z-1" />
+      {/* Content container aligned left */}
+      <div className="relative z-10 w-full max-w-7xl text-left rounded-lg p-4 sm:py-6 md:py-4">
 
-      {/* Floating glowing orb (parallax accent) */}
-      <motion.div
-        className="absolute -top-32 left-1/2 h-160 w-160 -translate-x-1/2 rounded-full bg-linear-to-tr from-amber-300/30 via-sky-200/20 to-emerald-200/30 blur-3xl"
-        animate={{
-          y: [0, 30, 0],
-          opacity: [0.4, 0.6, 0.4],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+        {/* --- Eyebrow and Title (Updated Content) --- */}
+        <div className="inline-flex items-center mb-6 text-amber-300 font-semibold uppercase tracking-widest text-xs px-3 py-1 border border-amber-300/50 rounded-full bg-black/30">
+          <Sun className="h-4 w-4 mr-2" />
+          TrueSun Project Portfolio in Maharashtra
+        </div>
 
-      {/* Subtle grid overlay */}
-      {/* <div
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:24px_24px] z-2"
-        aria-hidden
-      /> */}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
+          Powering Maharashtra with <span className="text-teal-300">Sustainable Solar Solutions</span>
+        </h1>
 
-      {/* ───────────── Content ───────────── */}
-      <div className="relative z-3 mx-auto max-w-7xl px-6 pt-20 pb-14 sm:pt-24 sm:pb-10 lg:px-0 text-white">
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur"
-        >
-          <Sun className="h-3.5 w-3.5 text-amber-300" />
-          <span>TrueSun Projects Portfolio</span>
-        </motion.div>
+        <p className="text-lg text-gray-200 max-w-2xl mb-10 drop-shadow">
+          As a leading provider in Maharashtra, **TrueSun** delivers over 120+ MW of high-performance solar installations, driving energy independence and measurable results across the state.
+        </p>
 
-        {/* Title & subtitle */}
-        <motion.h1
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15 }}
-          className="text-4xl font-extrabold sm:text-5xl lg:text-6xl drop-shadow-[0_3px_16px_rgba(0,0,0,0.75)]"
-        >
-          Powered by the Sun, Built to Last
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.25 }}
-          className="mt-4 max-w-3xl text-base leading-7 text-white/90 sm:text-lg drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"
-        >
-          Explore our commissioned solar installations across residential,
-          commercial, and industrial segments — engineered for performance,
-          reliability, and measurable savings.
-        </motion.p>
-
-        {/* Buttons + Search */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.35 }}
-          className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-        >
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
+        {/* --- CTA Buttons (Left aligned) --- */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-10">
+          <a
             href="#case-studies"
-            className="inline-flex items-center justify-center rounded-2xl bg-linear    -to-r from-sky-600 to-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 px-8 py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
           >
-            View Case Studies
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </motion.a>
+            Explore Projects
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </a>
 
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
+          <a
             href="#contact"
-            className="inline-flex items-center justify-center rounded-2xl border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/20"
+            className="inline-flex items-center justify-center rounded-xl border border-white/40 px-8 py-3 text-base font-semibold text-white/90 transition hover:bg-white/10 shadow-md w-fit"
           >
-            Get a Project Quote
-          </motion.a>
+            Get a Quote
+          </a>
+        </div>
 
-          <div className="relative w-full sm:ml-4 sm:w-80">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
-            <input
-              type="search"
-              placeholder="Search by city, size, or client"
-              className="w-full rounded-xl border border-white/20 bg-white/10 py-3 pl-10 pr-3 text-sm text-white placeholder:text-white/80 shadow-sm backdrop-blur focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/30"
-            />
-          </div>
-        </motion.div>
-
-        {/* Tags */}
-        <motion.ul
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.08, delayChildren: 0.45 } },
-          }}
-          className="mt-8 flex flex-wrap gap-3"
-        >
-          {tags.map(({ label, icon: Icon }) => (
-            <motion.li
-              key={label}
-              variants={{
-                hidden: { opacity: 0, y: 8 },
-                show: { opacity: 1, y: 0 },
-              }}
-            >
-              <motion.button
-                whileHover={{ scale: 1.08, backgroundColor: "rgba(255,255,255,0.2)" }}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur"
-              >
-                <Icon className="h-4 w-4" />
-                {label}
-              </motion.button>
-            </motion.li>
-          ))}
-        </motion.ul>
-
-        {/* Stats with stagger fade */}
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.12, delayChildren: 0.6 } },
-          }}
-          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3"
-        >
-          {stats.map((s) => (
-            <motion.div
-              key={s.label}
-              variants={{
-                hidden: { opacity: 0, y: 12 },
-                show: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.6 }}
-              className="rounded-2xl border border-white/20 bg-white/10 p-5 text-white backdrop-blur hover:bg-white/20 transition"
-            >
-              <div className="text-3xl font-extrabold">{s.value}</div>
-              <div className="mt-1 text-sm font-medium text-white/85">{s.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Trust bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="mt-10 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-5 backdrop-blur"
-        >
-          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-3 text-emerald-100">
-              <CheckCircle2 className="h-5 w-5" />
-              <p className="text-sm font-semibold">
-                MNRE guidelines compliant • Adani & Polycab partner ecosystem • Pan-India service network
-              </p>
+        {/* --- Project Tags Area (Left aligned) --- */}
+        <div className="max-w-3xl mt-8">
+            <h3 className="text-lg font-semibold text-gray-100 mb-4 drop-shadow">Filter by Segment:</h3>
+            <div className="flex flex-wrap gap-3">
+                {tags.map((tag) => (
+                  <button
+                    key={tag.label}
+                    type="button"
+                    className={`inline-flex items-center gap-2 rounded-full border border-gray-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10 bg-black/20 ${tag.color}`}
+                  >
+                    <tag.icon className="h-4 w-4" />
+                    {tag.label}
+                  </button>
+                ))}
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-sm text-emerald-50/90">
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1">
-                <MapPin className="h-4 w-4" />
-                Maharashtra
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1">Thane</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1">Mumbai</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1">Nagpur</span>
-            </div>
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

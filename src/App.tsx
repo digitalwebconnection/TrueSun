@@ -13,12 +13,10 @@ import CarbonFootprintingmain from "./component/Service/Consulting/Carbon-Footpr
 import Projectsmain from "./component/Projects/Projectsmain";
 import MainCI from "./component/Service/RooftopSolar/C&I/MainC&I";
 import SolarfinanceMain from "./component/Solar-finance/Solar-financeMain";
+import Careersmain from "./component/Careers/Careersmain";
 
 
 
-function Careers() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Careers Page</div>;
-}
 function Contact() {
   return <div className="pt-24 p-6 text-center text-gray-800">Contact Page</div>;
 }
@@ -49,7 +47,7 @@ function App() {
         {/* Other Main Pages */}
         <Route path="/Solar-finance" element={<SolarfinanceMain/>}/>
         <Route path="/projects" element={<Projectsmain />} />
-        <Route path="/careers" element={<Careers />} />
+        <Route path="/careers" element={<Careersmain/>} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <SolarFooter />

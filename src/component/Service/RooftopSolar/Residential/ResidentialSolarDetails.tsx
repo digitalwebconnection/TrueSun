@@ -1,7 +1,7 @@
 "use client";
 
-import type { FC } from "react";
-import type { SVGProps, ComponentType, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+import type { SVGProps, ComponentType } from "react";
 import {
   Sun,
   Home,
@@ -19,18 +19,9 @@ import {
   FileText,
 } from "lucide-react";
 
-/**
- * Residential Solar Details Page — TypeScript-Safe Version (React + Tailwind)
- * Fixes:
- * - Typed props for all subcomponents (Icon, children, etc.).
- * - Typed event handlers to remove implicit any.
- * - Arrays typed to avoid `never[]` issues.
- */
+/* ───────────────────────────────── Types ───────────────────────────────── */
 
-// Common icon type for lucide icons
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;
-
-
 
 interface BenefitItem {
   icon: IconType;
@@ -49,321 +40,581 @@ interface FAQItem {
   a: string;
 }
 
+/* ───────────────────────────── SEO-focused Content ─────────────────────── */
+
 const benefitItems: BenefitItem[] = [
   {
     icon: Gauge,
-    title: "Up to 80–90% bill reduction",
-    desc: "Societies and homes switching to solar consistently slash monthly electricity costs.",
+    title: "Reduce electricity bills by 80–90%",
+    desc: "Residential solar rooftop systems for apartments, villas and bungalows can offset most of your monthly power consumption.",
   },
   {
     icon: ShieldCheck,
-    title: "Non-penetrating structures",
-    desc: "Modern, ballast-based mounts prevent roof damage and leakage—top-floor residents stay worry‑free.",
+    title: "Roof-safe mounting for societies & homes",
+    desc: "We use non-penetrating and engineered structures so housing societies and bungalow roofs stay safe and leak-free.",
   },
   {
     icon: Sun,
-    title: "Shade & roof protection",
-    desc: "Panels act as an extra canopy, reducing heat gain and improving roof longevity.",
+    title: "Better comfort with cooler roofs",
+    desc: "Solar panels work as an additional shade layer, reducing direct heat gain and improving comfort on top floors.",
   },
   {
     icon: Building2,
-    title: "Elevated structures for CHS",
-    desc: "Use the terrace as a common space under elevated arrays while generating solar power.",
+    title: "Optimised for housing societies (CHS)",
+    desc: "Common-area loads like lifts, pumps and lights are planned to maximise savings for cooperative housing societies.",
+  },
+  {
+    icon: Home,
+    title: "Tailor-made for villas & bungalows",
+    desc: "We design solar plants that match your sanctioned load, lifestyle and aesthetics for premium homes and villas.",
   },
   {
     icon: Clock,
-    title: "< 4 years payback",
-    desc: "Typical residential/CHS systems recover cost in ~36–48 months depending on tariff & usage.",
+    title: "Payback in 3–4 years",
+    desc: "Most residential solar panel installations recover their cost in under 4 years depending on tariff and usage pattern.",
   },
   {
     icon: IndianRupee,
-    title: "Flexible finance options",
-    desc: "Capex not feasible? Opt for bank loans (incl. cooperative banks) or EMI support routes.",
+    title: "EMI, loans & flexible finance",
+    desc: "If upfront investment is a concern, we assist with bank finance and EMI-friendly options for societies and individual homes.",
   },
   {
     icon: FileText,
-    title: "Approvals & compliance",
-    desc: "End‑to‑end handling of DISCOM permissions, net‑metering, safety, and statutory paperwork.",
-  },
-  {
-    icon: Wrench,
-    title: "O&M and remote support",
-    desc: "Proactive maintenance, periodic cleaning schedules, and performance monitoring for uptime.",
+    title: "End-to-end approvals & paperwork",
+    desc: "From DISCOM permissions and net-metering to safety compliance, we manage the complete documentation for you.",
   },
 ];
 
 const processSteps: ProcessStep[] = [
-  { step: 1, title: "Site survey & load study", text: "Shade analysis, roof integrity check, sanctioned load review, and detailed bill assessment." },
-  { step: 2, title: "System design & proposal", text: "Module layout, string design, inverter sizing, and energy yield with RoI projections." },
-  { step: 3, title: "Regulatory & net‑metering", text: "Filing with DISCOM, safety compliance (earthing/SPD), and meter change coordination." },
-  { step: 4, title: "Supply, install & commission", text: "BoS procurement, structure installation, wiring, testing, and grid synchronization." },
-  { step: 5, title: "Handover & O&M", text: "Documentation, app onboarding for monitoring, cleaning & preventive maintenance plan." },
+  {
+    step: 1,
+    title: "Solar site survey & load analysis",
+    text: "We visit your housing society, villa or bungalow, assess shade, roof strength, sanctioned load and past electricity bills.",
+  },
+  {
+    step: 2,
+    title: "System design & savings proposal",
+    text: "We create a rooftop layout, select modules and inverters, and share expected generation, savings and payback period.",
+  },
+  {
+    step: 3,
+    title: "Approvals, net-metering & safety design",
+    text: "Our team handles DISCOM applications, safety checks, earthing, lightning protection and net-metering formalities.",
+  },
+  {
+    step: 4,
+    title: "Installation & commissioning",
+    text: "Structures, wiring, inverters, DCDB/ACDB and protections are installed, tested and synchronised with the grid.",
+  },
+  {
+    step: 5,
+    title: "Monitoring, O&M & long-term support",
+    text: "You get app-based monitoring, cleaning schedules and preventive maintenance so your solar plant keeps performing for years.",
+  },
 ];
 
 const faqs: FAQItem[] = [
   {
-    q: "Is my home suitable for solar?",
-    a: "Homes with year‑round sun exposure and accessible rooftops are ideal. A quick shade/structure check during survey confirms feasibility.",
+    q: "Do you work with both housing societies and independent homes?",
+    a: "Yes. We specialise in solar panel installation for cooperative housing societies (CHS), gated communities, villas and independent bungalows.",
   },
   {
-    q: "Grid vs. backup: will I still have power at night?",
-    a: "Grid‑tied systems export excess by day and import at night. For backup during outages, add a hybrid inverter + battery bank.",
+    q: "Is my terrace strong enough for a solar plant?",
+    a: "During the site survey we check roof condition, load-bearing capacity and shade. Only after confirming feasibility do we move forward with design.",
   },
   {
-    q: "Will the roof leak or get damaged?",
-    a: "Non‑penetrating, ballast‑based structures prevent waterproofing issues. For penetrative mounts, we use chemical anchors and sealants as per IS/IEC guidelines.",
+    q: "Will solar panels give me backup during power cuts?",
+    a: "Standard grid-tied solar systems do not provide backup. For backup during power cuts, we recommend a hybrid inverter with battery storage.",
   },
   {
-    q: "What warranties do I get?",
-    a: "Typical: 12‑year product + 25‑year linear performance on modules; 5–10 years on inverters; 5 years workmanship (configurable).",
+    q: "Can a housing society take a loan for solar?",
+    a: "Many societies finance solar through cooperative banks or specialised loans. We support with technical details and documentation for the bank.",
   },
   {
-    q: "How fast is payback?",
-    a: "Usually under 4 years, depending on your tariff slab, sanctioned load, and consumption profile.",
+    q: "How much maintenance do solar panels need?",
+    a: "Solar plants mainly need periodic cleaning and routine health checks. We offer maintenance plans and remote monitoring support.",
   },
 ];
 
+/* ───────────────────────────── Main Page Component ─────────────────────── */
+
 const ResidentialSolarDetailsPage: FC = () => {
- 
   return (
-    <main className="max-w-7xl mx-auto bg-linear-to-b from-slate-50 to-white text-slate-900">
-      {/* Hero */}
+    <main className="max-w-7xl mx-auto bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900">
+      {/* HERO – SEO-friendly keyword rich */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.15),transparent_60%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.14),transparent_60%)]" />
         <div className="max-w-7xl mx-auto px-6 pt-14 pb-10 lg:pt-20 lg:pb-16">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
+            {/* Left - copy */}
             <div className="flex-1">
-              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 text-sm font-medium">
-                <Sun className="h-4 w-4" /> Residential & CHS Rooftop Solar
+              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 text-xs sm:text-sm font-medium">
+                <Sun className="h-4 w-4" />
+                Residential Solar Panel Installation for Housing Societies, Villas & Bungalows
               </span>
-              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-                Solar for the Residential Sector — Cut Bills, Protect Roofs, Power Communities
+
+              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                Solar for Homes, Housing Societies, Villas & Bungalows
               </h1>
+
               <p className="mt-4 text-slate-700 leading-relaxed max-w-2xl">
-                Solar plants can meet common‑area loads (lifts, pumps, lighting) in Cooperative Housing Societies (CHS) and significantly
-                reduce household bills. Many CHS report 80–90% savings—and some TrueSun installations have even achieved <strong>zero bills</strong>.
-                We deliver end‑to‑end solutions: design & safety, installation & commissioning, and ongoing O&M.
+                We design and install grid-tied rooftop solar plants for cooperative housing societies, premium villas and independent bungalows.
+                With real experience in{" "}
+                <strong>housing society solar projects, villa solar plants and bungalow rooftop installations</strong>,
+                we focus on long-term savings, safety and clean aesthetics.
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#enquire" className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 font-semibold shadow-sm">
-                  <Phone className="h-5 w-5" /> Book a Free Site Survey
+
+              {/* Who we work with – pill style */}
+              <div className="mt-5 flex flex-wrap gap-2 text-sm">
+                <Tag icon={Building2}>Cooperative Housing Societies (CHS)</Tag>
+                <Tag icon={Home}>Villas & Independent Bungalows</Tag>
+                <Tag icon={Zap}>High-usage Residential Consumers</Tag>
+              </div>
+
+              {/* CTA strip */}
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="#enquire"
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 text-sm sm:text-base font-semibold shadow-sm"
+                >
+                  <Phone className="h-5 w-5" />
+                  Book a Free Solar Site Visit
                 </a>
-                <a href="#benefits" className="inline-flex items-center gap-2 rounded-xl bg-white ring-1 ring-slate-200 px-5 py-3 font-semibold shadow-sm text-slate-900">
-                  <Leaf className="h-5 w-5" /> See Benefits
+                <a
+                  href="#benefits"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-slate-900 px-6 py-3 text-sm sm:text-base font-semibold border border-slate-200"
+                >
+                  <Leaf className="h-5 w-5 text-emerald-600" />
+                  View Residential Solar Benefits
                 </a>
               </div>
+
+              {/* Simple stats strip */}
+              <div className="mt-8 flex flex-wrap gap-6 text-sm">
+                <StatInline label="Typical savings" value="80–90% bill reduction" />
+                <StatInline label="Payback period" value="3–4 years" />
+                <StatInline label="Segments served" value="Societies, villas, bungalows" />
+              </div>
             </div>
+
+            {/* Right - abstract visual */}
             <div className="flex-1">
-              <div className="grid grid-cols-2 gap-4 mt-6 lg:mt-0">
-                <StatCard icon={Gauge} label="Bill Savings" value="80–90%" />
-                <StatCard icon={Clock} label="Payback" value="< 4 yrs" />
-                <StatCard icon={ShieldCheck} label="Roof Safety" value="Non‑penetrating" />
-                <StatCard icon={Zap} label="Net‑Metering" value="Enabled" />
+              <div className="relative mt-4 lg:mt-0">
+                <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-200/40 via-sky-200/30 to-amber-200/40 blur-3xl -z-10" />
+                <div className="rounded-3xl bg-white/70 backdrop-blur shadow-lg border border-slate-200 px-5 py-5 sm:px-7 sm:py-7">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                    Residential Solar Snapshot
+                  </p>
+                  <ul className="mt-4 space-y-3 text-sm text-slate-700">
+                    <Li>
+                      Multiple completed{" "}
+                      <strong>housing society solar panel installations</strong> with common-area bill reductions.
+                    </Li>
+                    <Li>
+                      Experience in{" "}
+                      <strong>villa and bungalow solar design</strong> with clean cable routing and premium finish.
+                    </Li>
+                    <Li>
+                      Net-metered rooftop plants delivering stable generation and long-term energy security.
+                    </Li>
+                  </ul>
+                  <div className="mt-5 grid grid-cols-2 gap-3 text-xs sm:text-sm">
+                    <Kpi label="Residential kWp Delivered" value="1000+ kWp (cumulative)" />
+                    <Kpi label="Average plant uptime" value="> 98%" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section id="benefits" className="py-14 lg:py-20">
+      {/* BENEFITS */}
+      <section id="benefits" className="py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold">Benefits of Going Solar (Homes & CHS)</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            Benefits of Residential Solar Panel Installation for Housing Societies, Villas & Bungalows
+          </h2>
           <p className="mt-2 text-slate-600 max-w-3xl">
-            Solar panels are best suited for rooftops with ample sun exposure through the year. Grid‑linked systems provide seamless backup from the
-            utility when the sun isn’t shining, while optional batteries add outage resilience.
+            Whether you live in a cooperative housing society, a gated villa community or an independent bungalow, rooftop solar can cut your
+            electricity bills, protect your roof and make your property more future-ready.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <dl className="mt-8 divide-y divide-slate-200 rounded-3xl bg-white/70 backdrop-blur border border-slate-100">
             {benefitItems.map((b, i) => (
-              <div key={i} className="rounded-2xl border border-slate-600/50 bg-white p-5 shadow-sm hover:shadow-md transition">
-                <b.icon className="h-7 w-7 text-emerald-600" />
-                <h3 className="mt-3 font-semibold">{b.title}</h3>
-                <p className="mt-1 text-sm text-slate-600">{b.desc}</p>
+              <div key={i} className="flex flex-col sm:flex-row gap-4 px-5 py-4 sm:px-7 sm:py-5">
+                <div className="flex items-center gap-3 min-w-[210px]">
+                  <b.icon className="h-6 w-6 text-emerald-600 shrink-0" />
+                  <dt className="font-semibold text-slate-900">{b.title}</dt>
+                </div>
+                <dd className="text-sm text-slate-700">{b.desc}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
-      {/* CHS vs Home */}
-      <section className="py-7 bg-slate-50">
+      {/* WHO WE SERVE – New Attractive Section */}
+      <section className="py-14 lg:py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="rounded-2xl border bg-white border-slate-600/50 p-6">
-              <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold">
-                <Building2 className="h-5 w-5" /> Cooperative Housing Societies (CHS)
+          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-emerald-950 via-slate-950 to-sky-950 text-emerald-50 px-6 py-10 sm:px-10 sm:py-12">
+            {/* Soft glow background accents */}
+            <div className="pointer-events-none absolute -left-10 top-0 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl" />
+            <div className="pointer-events-none absolute -right-10 bottom-0 h-60 w-60 rounded-full bg-sky-500/25 blur-3xl" />
+
+            <div className="relative grid gap-10 lg:grid-cols-[1.05fr,1.1fr] items-center">
+              {/* Left – headline & copy */}
+              <div>
+                <p className="inline-flex items-center gap-2 rounded-full bg-emerald-900/70 px-3 py-1 text-[11px] sm:text-xs font-semibold tracking-wide uppercase">
+                  <Sun className="h-4 w-4 text-amber-300" />
+                  Residential Solar • Housing Societies • Villas • Bungalows
+                </p>
+
+                <h2 className="mt-4 text-2xl sm:text-3xl lg:text-[2.1rem] font-bold leading-snug">
+                  Solar Panel Installation for
+                  <span className="text-emerald-300"> Housing Societies</span>,{" "}
+                  <span className="text-emerald-200">Villas</span> &{" "}
+                  <span className="text-emerald-200">Independent Bungalows</span>
+                </h2>
+
+                <p className="mt-3 text-sm sm:text-base text-emerald-100/90 max-w-xl">
+                  We have hands-on experience implementing rooftop solar projects in cooperative housing societies, gated villas and independent
+                  bungalows. From shadow analysis and structure design to approvals, installation and maintenance, everything is done keeping
+                  long-term performance, safety and aesthetics in mind.
+                </p>
+
+                {/* Experience / trust chips */}
+                <div className="mt-5 flex flex-wrap gap-2 text-[11px] sm:text-xs">
+                  <Chip icon={Building2}>Completed CHS Rooftop Projects</Chip>
+                  <Chip icon={Home}>Premium Villas & Bungalows</Chip>
+                  <Chip icon={Zap}>High-usage Residential Consumers</Chip>
+                </div>
+
+                {/* SEO inline stats for dark section */}
+                <div className="mt-6 flex flex-wrap gap-6 text-xs sm:text-sm">
+                  <StatInlineDark label="Typical savings" value="80–90% lower electricity bills" />
+                  <StatInlineDark label="Payback" value="3–4 years on average" />
+                  <StatInlineDark label="Segments served" value="Societies, villas, bungalows" />
+                </div>
               </div>
-              <ul className="mt-4 space-y-3 text-slate-700">
-                <Li>Common loads: lifts, water pumps, passage & campus lighting.</Li>
-                <Li>Elevated structures keep terraces usable for residents.</Li>
-                <Li>Centralized plant & metering, simplified O&M, app monitoring.</Li>
-                <Li>Loan routes via society/cooperative banks; equal member benefit policy.</Li>
-                <Li>Professional design with structural safety, earthing & lightning protection.</Li>
-              </ul>
-            </div>
-            <div className="rounded-2xl border bg-white border-slate-600/50 p-6">
-              <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold">
-                <Home className="h-5 w-5" /> Individual Homes
+
+              {/* Right – two glass panels */}
+              <div className="space-y-4">
+                {/* Housing Societies card */}
+                <div className="relative rounded-2xl border border-emerald-500/30 bg-white/5 backdrop-blur-md px-4 py-4 sm:px-5 sm:py-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="inline-flex items-center gap-2 text-sm font-semibold">
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20">
+                        <Building2 className="h-4 w-4 text-emerald-300" />
+                      </span>
+                      <span>Cooperative Housing Societies (CHS)</span>
+                    </div>
+                    <span className="rounded-full bg-emerald-900/70 px-2.5 py-1 text-[10px] uppercase tracking-wide text-emerald-100">
+                      Common Area Savings
+                    </span>
+                  </div>
+
+                  <ul className="mt-3 space-y-1.5 text-xs sm:text-sm text-emerald-50/90">
+                    <LiDark>Solar for lifts, water pumps, parking and campus lighting.</LiDark>
+                    <LiDark>Elevated structures so residents still enjoy terrace access.</LiDark>
+                    <LiDark>Central plant monitoring with app-based energy tracking.</LiDark>
+                    <LiDark>Support with society resolutions, documentation & bank loans.</LiDark>
+                  </ul>
+                </div>
+
+                {/* Villas & Bungalows card */}
+                <div className="relative rounded-2xl border border-sky-500/30 bg-white/5 backdrop-blur-md px-4 py-4 sm:px-5 sm:py-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="inline-flex items-center gap-2 text-sm font-semibold">
+                      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/20">
+                        <Home className="h-4 w-4 text-sky-300" />
+                      </span>
+                      <span>Villas, Bungalows & Independent Homes</span>
+                    </div>
+                    <span className="rounded-full bg-sky-900/70 px-2.5 py-1 text-[10px] uppercase tracking-wide text-sky-100">
+                      Tailor-made Design
+                    </span>
+                  </div>
+
+                  <ul className="mt-3 space-y-1.5 text-xs sm:text-sm text-emerald-50/90">
+                    <LiDark>Right-sized plants based on bills, sanctioned load and tariff.</LiDark>
+                    <LiDark>Neat conduit work and low-profile structures for premium look.</LiDark>
+                    <LiDark>Hybrid / battery-ready options for outage-prone locations.</LiDark>
+                    <LiDark>Long-term O&M support to keep generation and savings stable.</LiDark>
+                  </ul>
+                </div>
               </div>
-              <ul className="mt-4 space-y-3 text-slate-700">
-                <Li>Optimized array for your sanctioned load and bill pattern.</Li>
-                <Li>Hybrid options with batteries for outage‑proof living.</Li>
-                <Li>Clean cable management and aesthetic, low‑profile mounting.</Li>
-                <Li>Fast permissions, net‑metering, and safe commissioning.</Li>
-                <Li>Long‑term performance guaranteed with periodic O&M.</Li>
-              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tech Specs */}
-      <section className="py-7">
+      {/* TECH SPECS */}
+      <section className="py-10">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold">What We Install (Typical Specifications)</h2>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
-            <SpecCard icon={Sun} title="Solar Modules" points={["Mono‑PERC / TOPCon", "545–620 Wp class (as per roof)", "25‑yr performance warranty"]} />
-            <SpecCard icon={BatteryCharging} title="Inverters" points={["String / Hybrid (3–25 kW)", "98%+ efficiency, Wi‑Fi app", "Battery‑ready options"]} />
-            <SpecCard icon={Wrench} title="Structures & BoS" points={["Non‑penetrating/Elevated", "Alu/GI, SS fasteners", "SPD, earthing, DCDB/ACDB"]} />
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            Typical Residential Solar Plant Specifications
+          </h2>
+          <p className="mt-2 text-slate-600 max-w-3xl text-sm">
+            Exact specifications depend on your site and DISCOM norms, but most housing society, villa and bungalow solar projects use
+            similar building blocks.
+          </p>
+
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <SpecStrip
+              icon={Sun}
+              title="Solar Modules"
+              points={[
+                "Mono-PERC / TOPCon technology",
+                "545–620 Wp class (as per roof layout)",
+                "25-year performance warranty",
+              ]}
+            />
+            <SpecStrip
+              icon={BatteryCharging}
+              title="Inverters"
+              points={[
+                "String / Hybrid inverters (3–25 kW+)",
+                "98%+ efficiency, Wi-Fi/app monitoring",
+                "Battery-ready options for backup",
+              ]}
+            />
+            <SpecStrip
+              icon={Wrench}
+              title="Structures & BoS"
+              points={[
+                "Non-penetrating & elevated structures as per need",
+                "GI/Aluminium structures with SS hardware",
+                "Earthing, lightning protection, DCDB/ACDB, SPDs",
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      {/* Finance & Subsidy */}
-      <section className="py-7 bg-slate-50">
+      {/* FINANCE & PAYBACK */}
+      <section className="py-10 bg-emerald-950/95 text-emerald-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold">Finance, Payback & Subsidy</h2>
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-slate-600/50 bg-white p-6">
-              <h3 className="font-semibold inline-flex items-center gap-2"><IndianRupee className="h-5 w-5 text-emerald-600" /> EMI & Loans</h3>
-              <p className="mt-2 text-slate-700">If Capex is a concern, opt for bank EMIs. Societies can leverage cooperative bank financing; we support documentation.</p>
-            </div>
-            <div className="rounded-2xl border border-slate-600/50 bg-white p-6">
-              <h3 className="font-semibold inline-flex items-center gap-2"><Gauge className="h-5 w-5 text-emerald-600" /> Payback</h3>
-              <p className="mt-2 text-slate-700">Most systems recover cost in under 4 years. High tariffs and daytime usage accelerate RoI. Post‑payback, enjoy decade‑long savings.</p>
-            </div>
-            <div className="rounded-2xl border border-slate-600/50 bg-white p-6">
-              <h3 className="font-semibold inline-flex items-center gap-2"><FileText className="h-5 w-5 text-emerald-600" /> Subsidy</h3>
-              <p className="mt-2 text-slate-700">Eligible residential rooftop projects may avail central/state subsidies as per current MNRE/Discom norms. We guide end‑to‑end application.</p>
-            </div>
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            Finance, Payback & Subsidy for Residential Solar
+          </h2>
+          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 text-sm">
+            <Ribbon icon={IndianRupee} title="EMI & Loan Support">
+              We assist housing societies and homeowners with bank documentation, EMI structures and basic project financials so solar becomes
+              cash-flow friendly from Day 1.
+            </Ribbon>
+            <Ribbon icon={Gauge} title="3–4 Year Payback">
+              With rising tariffs, residential solar rooftop projects usually recover their cost in around 3–4 years, after which you enjoy
+              predominantly free power.
+            </Ribbon>
+            <Ribbon icon={FileText} title="Subsidy Guidance">
+              Eligible residential rooftop projects may get central/state subsidies as per current MNRE and DISCOM policies. We guide you through
+              eligibility and application steps.
+            </Ribbon>
           </div>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="py-7">
+      {/* PROCESS – timeline */}
+      <section className="py-10">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold">How It Works</h2>
-          <ol className="mt-6 grid grid-cols-1 lg:grid-cols-5 gap-5">
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            Our Residential Solar Installation Process
+          </h2>
+          <p className="mt-2 text-slate-600 text-sm max-w-3xl">
+            A simple, transparent process from first discussion to live generation for your housing society, villa or bungalow.
+          </p>
+
+          <ol className="mt-7 relative border-l border-slate-200 space-y-6 pl-4 sm:pl-6">
             {processSteps.map((s) => (
-              <li key={s.step} className="rounded-2xl border border-slate-600/50 bg-white p-6">
-                <div className="text-emerald-700 font-bold">Step {s.step}</div>
-                <div className="font-semibold mt-1">{s.title}</div>
-                <p className="mt-2 text-sm text-slate-600">{s.text}</p>
+              <li key={s.step} className="relative">
+                <div className="absolute -left-2 sm:-left-3 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[11px] font-bold text-white">
+                  {s.step}
+                </div>
+                <div className="ml-3 sm:ml-4">
+                  <div className="font-semibold text-slate-900">{s.title}</div>
+                  <p className="mt-1 text-sm text-slate-700">{s.text}</p>
+                </div>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* Proof & Highlights */}
-      <section className="py-7 bg-slate-50">
+      {/* WHY US */}
+      <section className="py-10 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl font-bold">Why TrueSun for Residential & CHS</h2>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <Highlight icon={ShieldCheck} text="Safety‑first designs with certified BoS and protections" />
-            <Highlight icon={Zap} text="Proven field performance; some sites report zero bills" />
-            <Highlight icon={FileText} text="Regulatory, net‑metering & legal approvals handled" />
-            <Highlight icon={CheckCircle} text="Clean install, tidy routing, labeled combiner boxes" />
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            Why Choose Us for Housing Society, Villa & Bungalow Solar
+          </h2>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-sm">
+            <HighlightLine icon={ShieldCheck} text="Safety-first engineering with certified components and protections." />
+            <HighlightLine icon={Zap} text="Proven performance on live residential rooftop solar plants." />
+            <HighlightLine icon={FileText} text="Approvals, net-metering and legal documentation handled end-to-end." />
+            <HighlightLine icon={CheckCircle} text="Neat installation finish with labelled cabling and panels." />
           </div>
         </div>
       </section>
 
       {/* FAQs */}
-      <section className="py-7">
+      <section className="py-10">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-2xl sm:text-3xl text-center font-bold">FAQs</h2>
-          <div className="mt-6 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+          <h2 className="text-2xl sm:text-3xl text-center font-bold">Residential Solar FAQs</h2>
+          <p className="mt-2 text-center text-slate-600 text-sm">
+            Common questions from housing societies, villa owners and bungalow owners planning to install rooftop solar.
+          </p>
+          <div className="mt-6 divide-y divide-slate-200 rounded-3xl border border-slate-200 bg-white/80 backdrop-blur">
             {faqs.map((f, i) => (
-              <details key={i} className="group p-6">
+              <details key={i} className="group p-5 sm:p-6">
                 <summary className="flex w-full cursor-pointer list-none items-center justify-between">
-                  <span className="font-semibold text-slate-900">{f.q}</span>
+                  <span className="font-semibold text-slate-900 text-sm sm:text-base">{f.q}</span>
                   <span className="ml-4 text-slate-500 group-open:hidden">+</span>
                   <span className="ml-4 text-slate-500 hidden group-open:inline">−</span>
                 </summary>
-                <p className="mt-2 text-slate-900">{f.a}</p>
+                <p className="mt-2 text-slate-800 text-sm">{f.a}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ENQUIRY SECTION */}
+      <section id="enquire" className="py-10 bg-emerald-50/80">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            Ready to Install Solar for Your Housing Society, Villa or Bungalow?
+          </h2>
+          <p className="mt-2 text-slate-700 text-sm sm:text-base">
+            Share your location, recent electricity bills and roof photographs. Our team will suggest the right residential solar
+            solution with an estimate of savings and payback.
+          </p>
+          <a
+            href="tel:+91XXXXXXXXXX"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-3 text-sm sm:text-base font-semibold shadow-sm"
+          >
+            <Phone className="h-5 w-5" />
+            Call Now to Discuss Your Rooftop
+          </a>
+        </div>
+      </section>
     </main>
   );
 };
 
 export default ResidentialSolarDetailsPage;
 
-// ——————————————————
-// Small UI primitives (typed)
-// ——————————————————
-interface StatCardProps {
-  icon: IconType;
+/* ───────────────────────────── UI Primitives ───────────────────────────── */
+
+interface StatInlineProps {
   label: string;
   value: ReactNode;
 }
-const StatCard: FC<StatCardProps> = ({ icon: Icon, label, value }) => {
-  return (
-    <div className="rounded-2xl border border-slate-600/50 bg-white p-5 shadow-sm">
-      <div className="flex items-center gap-3">
-        <Icon className="h-6 w-6 text-emerald-600" />
-        <div>
-          <div className="text-sm text-slate-600">{label}</div>
-          <div className="text-xl font-bold">{value}</div>
-        </div>
-      </div>
-    </div>
-  );
-};
+const StatInline: FC<StatInlineProps> = ({ label, value }) => (
+  <div className="flex flex-col">
+    <span className="text-xs uppercase tracking-wide text-slate-500">{label}</span>
+    <span className="text-sm font-semibold text-slate-900">{value}</span>
+  </div>
+);
+
+interface StatInlineDarkProps {
+  label: string;
+  value: ReactNode;
+}
+const StatInlineDark: FC<StatInlineDarkProps> = ({ label, value }) => (
+  <div className="flex flex-col">
+    <span className="text-[11px] uppercase tracking-wide text-emerald-200/80">{label}</span>
+    <span className="text-sm font-semibold text-emerald-50">{value}</span>
+  </div>
+);
+
+interface TagProps {
+  icon: IconType;
+  children: ReactNode;
+}
+const Tag: FC<TagProps> = ({ icon: Icon, children }) => (
+  <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 border border-slate-200 text-[11px] sm:text-xs font-medium text-slate-800">
+    <Icon className="h-3.5 w-3.5 text-emerald-600" />
+    {children}
+  </span>
+);
 
 const Li: FC<React.PropsWithChildren> = ({ children }) => (
   <li className="flex items-start gap-2">
-    <CheckCircle className="mt-0.5 h-5 w-5 text-emerald-600 shrink-0" />
+    <CheckCircle className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
     <span>{children}</span>
   </li>
 );
 
-interface SpecCardProps {
+const LiDark: FC<React.PropsWithChildren> = ({ children }) => (
+  <li className="flex items-start gap-2">
+    <CheckCircle className="mt-0.5 h-3.5 w-3.5 text-emerald-300 shrink-0" />
+    <span>{children}</span>
+  </li>
+);
+
+interface KpiProps {
+  label: string;
+  value: string;
+}
+const Kpi: FC<KpiProps> = ({ label, value }) => (
+  <div>
+    <div className="text-[11px] uppercase tracking-wide text-slate-500">{label}</div>
+    <div className="text-sm font-semibold text-slate-900">{value}</div>
+  </div>
+);
+
+interface SpecStripProps {
   icon: IconType;
   title: string;
   points: string[];
 }
-const SpecCard: FC<SpecCardProps> = ({ icon: Icon, title, points }) => {
-  return (
-    <div className="rounded-2xl border border-slate-600/50 bg-white p-6">
-      <div className="inline-flex items-center gap-2">
-        <Icon className="h-6 w-6 text-emerald-600" />
-        <h3 className="font-semibold">{title}</h3>
-      </div>
-      <ul className="mt-3 space-y-2 text-slate-700 text-sm">
-        {points.map((p, i) => (
-          <Li key={i}>{p}</Li>
-        ))}
-      </ul>
+const SpecStrip: FC<SpecStripProps> = ({ icon: Icon, title, points }) => (
+  <div className="relative rounded-3xl bg-white/80 backdrop-blur border border-slate-100 px-5 py-5 sm:px-6 sm:py-6">
+    <div className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+      <Icon className="h-5 w-5 text-emerald-600" />
+      {title}
     </div>
-  );
-};
-
-interface HighlightProps {
-  icon: IconType;
-  text: string;
-}
-const Highlight: FC<HighlightProps> = ({ icon: Icon, text }) => (
-  <div className="rounded-2xl border border-slate-600/50 bg-white p-5 flex items-start gap-3">
-    <Icon className="h-6 w-6 text-emerald-600" />
-    <p className="text-sm text-slate-700">{text}</p>
+    <ul className="mt-3 space-y-1 text-sm text-slate-700">
+      {points.map((p, i) => (
+        <Li key={i}>{p}</Li>
+      ))}
+    </ul>
   </div>
 );
 
+interface RibbonProps {
+  icon: IconType;
+  title: string;
+  children: ReactNode;
+}
+const Ribbon: FC<RibbonProps> = ({ icon: Icon, title, children }) => (
+  <div className="relative rounded-3xl bg-emerald-900/60 px-5 py-5 sm:px-6 sm:py-6 border border-emerald-800/70">
+    <div className="inline-flex items-center gap-2 text-sm font-semibold">
+      <Icon className="h-5 w-5 text-emerald-300" />
+      {title}
+    </div>
+    <p className="mt-2 text-[13px] leading-relaxed text-emerald-50">{children}</p>
+  </div>
+);
 
+interface HighlightLineProps {
+  icon: IconType;
+  text: string;
+}
+const HighlightLine: FC<HighlightLineProps> = ({ icon: Icon, text }) => (
+  <div className="flex items-start gap-3 text-slate-800">
+    <Icon className="h-5 w-5 text-emerald-600 mt-0.5" />
+    <p className="text-sm">{text}</p>
+  </div>
+);
+
+interface ChipProps {
+  icon: IconType;
+  children: ReactNode;
+}
+const Chip: FC<ChipProps> = ({ icon: Icon, children }) => (
+  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 border border-emerald-500/40 text-emerald-50">
+    <Icon className="h-3.5 w-3.5 text-emerald-300" />
+    <span>{children}</span>
+  </span>
+);
