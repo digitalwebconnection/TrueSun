@@ -56,7 +56,7 @@ const ContactPage = () => {
                 </div>
 
                 {/* Email */}
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
+                <div className="rounded-2xl border border-slate-600/50 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
                     <p className="text-xs uppercase tracking-wide text-slate-500">Email</p>
                     <h3 className="mt-2 text-lg font-semibold text-slate-900">
                         Project & Partnerships
@@ -81,7 +81,7 @@ const ContactPage = () => {
                 </div>
 
                 {/* Address */}
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
+                <div className="rounded-2xl border border-slate-600/50 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
                     <p className="text-xs uppercase tracking-wide text-slate-500">Office</p>
                     <h3 className="mt-2 text-lg font-semibold text-slate-900">Visit TrueSun</h3>
                     <p className="mt-2 text-sm text-slate-600">
@@ -99,7 +99,7 @@ const ContactPage = () => {
             {/* ========= FORM + MAP ========= */}
             <div className="max-w-6xl mx-auto px-6 grid gap-12 lg:grid-cols-2">
                 {/* ---- FORM ---- */}
-                <div className="p-6 border border-slate-200 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
+                <div className="p-6 border border-slate-600/50 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h2 className="text-2xl font-semibold text-slate-900">
                         Send us your requirement
                     </h2>
@@ -163,7 +163,7 @@ const ContactPage = () => {
                                 Requirement Type
                             </label>
                             <select
-                                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+                                className="w-full rounded-lg border border-slate-600/50  px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
                             >
                                 <option>Rooftop – Residential</option>
                                 <option>Rooftop – Commercial</option>
@@ -198,7 +198,7 @@ const ContactPage = () => {
 
                         <button
                             type="submit"
-                            className="mt-2 bg-linear-to-r from-blue-600 via-amber-500 to-emerald-500 text-white px-6 py-2.5 rounded-full text-sm font-medium shadow-md hover:shadow-lg hover:brightness-105 transition-all duration-300"
+                            className="mt-2 bg-linear-to-r from-blue-900 via-blue-7 00 to-blue-500 text-white px-6 py-2.5 rounded-full text-sm font-medium shadow-md hover:shadow-lg hover:brightness-105 transition-all duration-300"
                         >
                             Submit enquiry
                         </button>
@@ -212,7 +212,7 @@ const ContactPage = () => {
 
                 {/* ---- MAP + DETAILS ---- */}
                 <div className="space-y-6">
-                    <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
+                    <div className="rounded-2xl overflow-hidden border border-slate-600/50 shadow-sm bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
                         <div className="aspect-4/3 w-full">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.6698030560838!2d72.87295050000002!3d19.122136299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c83cc36fad13%3A0x66f93803f8a326db!2sTRUESUN%20ENERGY%20SOLUTIONS%20PRIVATE%20LIMITED!5e0!3m2!1sen!2sin!4v1763466856754!5m2!1sen!2sin"
@@ -223,7 +223,7 @@ const ContactPage = () => {
                         </div>
                     </div>
 
-                    <div className="p-6 border border-slate-200 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
+                    <div className="p-6 border border-slate-900/50 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
                         <h3 className="text-lg font-semibold text-slate-900">
                             Areas We Serve
                         </h3>
