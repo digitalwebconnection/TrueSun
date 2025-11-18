@@ -51,7 +51,7 @@ export default function AppSimple() {
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
             href="#case-studies"
-            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 px-8 py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
+            className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-teal-500 to-emerald-600 px-8 py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
           >
             Explore Projects
             <ArrowRight className="ml-2 h-5 w-5" />

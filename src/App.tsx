@@ -14,12 +14,11 @@ import Projectsmain from "./component/Projects/Projectsmain";
 import MainCI from "./component/Service/RooftopSolar/C&I/MainC&I";
 import SolarfinanceMain from "./component/Solar-finance/Solar-financeMain";
 import Careersmain from "./component/Careers/Careersmain";
+import ContactUsMain from "./component/ContactUs/ContactUsMain";
 
 
 
-function Contact() {
-  return <div className="pt-24 p-6 text-center text-gray-800">Contact Page</div>;
-}
+
 
 function App() {
   return (
@@ -48,7 +47,7 @@ function App() {
         <Route path="/Solar-finance" element={<SolarfinanceMain/>}/>
         <Route path="/projects" element={<Projectsmain />} />
         <Route path="/careers" element={<Careersmain/>} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<ContactUsMain />} />
       </Routes>
       <SolarFooter />
       <WhatsAppDockPro/>
