@@ -1,7 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import {
   Menu,
   X,
@@ -50,7 +60,7 @@ const SERVICES: ServiceGroup[] = [
   },
 ];
 
-/* ============================ Services Menu ============================ */
+/* ============================ Services Menu (Desktop) ============================ */
 function ServicesMenu() {
   const [open, setOpen] = useState(false);
   const [activeKey, setActiveKey] = useState<string>(SERVICES[0].key);
@@ -73,6 +83,7 @@ function ServicesMenu() {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
@@ -88,7 +99,9 @@ function ServicesMenu() {
           "inline-flex items-center gap-1 font-medium text-gray-800 transition-colors hover:text-orange-500"
         )}
       >
-        <span className="inline-flex items-center gap-2">Services</span>
+        <span className="inline-flex items-center gap-2">
+          Services
+        </span>
         <ChevronDown
           className={cn(
             "h-4 w-4 transition-transform",
@@ -100,7 +113,7 @@ function ServicesMenu() {
       {open && (
         <div
           className={cn(
-            "absolute left-0 top-full mt-3 flex rounded-xl p-2 shadow-2xl ring-1 ring-black/5 bg-white z-[100]"
+            "absolute left-0 top-full mt-3 flex rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black/5 z-[100]"
           )}
           role="menu"
           aria-label="Services"
@@ -162,18 +175,19 @@ function ServicesMenu() {
               </NavLink>
             ))}
 
-            {/* Optional: when a parent has no children, show a link */}
-            {(!active?.children || active.children.length === 0) && active?.to && (
-              <button
-                className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
-                onClick={() => {
-                  navigate(active.to!);
-                  setOpen(false);
-                }}
-              >
-                View {active.label}
-              </button>
-            )}
+            {/* If parent has no children, show CTA to its page */}
+            {(!active?.children || active.children.length === 0) &&
+              active?.to && (
+                <button
+                  className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                  onClick={() => {
+                    navigate(active.to!);
+                    setOpen(false);
+                  }}
+                >
+                  View {active.label}
+                </button>
+              )}
           </div>
         </div>
       )}
@@ -183,9 +197,9 @@ function ServicesMenu() {
 
 /* ============================ Navbar ============================ */
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [elevated, setElevated] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // mobile drawer state
+  const [hidden, setHidden] = useState(false); // hide-on-scroll
+  const [elevated, setElevated] = useState(false); // shadow when scrolling
   const lastY = useRef(0);
   const ticking = useRef(false);
 
@@ -193,33 +207,46 @@ export default function Navbar() {
 
   // Close mobile drawer on route change
   useEffect(() => {
-    if (isOpen) setIsOpen(false);
-  }, [location.pathname, isOpen]);
+    setIsOpen(false);
+  }, [location.pathname]);
 
-  // Hide-on-scroll + elevation
+  // Hide-on-scroll + elevation (desktop & mobile)
   useEffect(() => {
     lastY.current = window.scrollY || 0;
+
     const onScroll = () => {
       if (ticking.current) return;
       ticking.current = true;
+
       window.requestAnimationFrame(() => {
         const y = window.scrollY || 0;
         const diff = y - lastY.current;
+
+        // add small shadow when not at very top
         setElevated(y > 4);
+
+        // only auto-hide if drawer closed (mobile)
         if (!isOpen) {
           const THRESHOLD = 8;
-          if (diff > THRESHOLD) setHidden(true);
-          else if (diff < -THRESHOLD) setHidden(false);
+          if (diff > THRESHOLD) {
+            // scrolling down
+            setHidden(true);
+          } else if (diff < -THRESHOLD) {
+            // scrolling up
+            setHidden(false);
+          }
         }
+
         lastY.current = y;
         ticking.current = false;
       });
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [isOpen]);
 
-  // Lock body scroll when drawer open
+  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -227,7 +254,8 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const linkBase = "transition-colors duration-300 hover:text-orange-500";
+  const linkBase =
+    "transition-colors duration-300 hover:text-orange-500";
   const activeClass = "text-orange-500";
 
   return (
@@ -239,6 +267,7 @@ export default function Navbar() {
       )}
       role="banner"
     >
+      {/* Top shell with blur + optional shadow */}
       <div
         className={cn(
           "bg-white/90 backdrop-blur-md",
@@ -247,7 +276,11 @@ export default function Navbar() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2" aria-label="Home">
+          <Link
+            to="/"
+            className="flex items-center gap-2"
+            aria-label="Home"
+          >
             <Sun className="h-7 w-7 text-orange-500" />
             <h1 className="text-xl font-bold text-gray-800">
               True<span className="text-orange-500">Sun</span>
@@ -258,7 +291,9 @@ export default function Navbar() {
           <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
             <NavLink
               to="/about"
-              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+              className={({ isActive }) =>
+                cn(linkBase, isActive && activeClass)
+              }
             >
               About
             </NavLink>
@@ -267,19 +302,27 @@ export default function Navbar() {
 
             <NavLink
               to="/solar-finance"
-              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+              className={({ isActive }) =>
+                cn(linkBase, isActive && activeClass)
+              }
             >
               Solar Finance
             </NavLink>
+
             <NavLink
               to="/projects"
-              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+              className={({ isActive }) =>
+                cn(linkBase, isActive && activeClass)
+              }
             >
               Projects
             </NavLink>
+
             <NavLink
               to="/careers"
-              className={({ isActive }) => cn(linkBase, isActive && activeClass)}
+              className={({ isActive }) =>
+                cn(linkBase, isActive && activeClass)
+              }
             >
               Careers
             </NavLink>
@@ -301,7 +344,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen((o) => !o)}
             className={cn(
-              "text-gray-800 md:hidden relative transition-all duration-300 hover:text-orange-500",
+              "relative text-gray-800 transition-all duration-300 hover:text-orange-500 md:hidden",
               isOpen ? "rotate-180" : "rotate-0"
             )}
             aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -313,11 +356,13 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile overlay */}
+      {/* Mobile overlay (dark background behind drawer) */}
       <div
         className={cn(
-          "fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden z-40 transition-all duration-500 ease-in-out",
-          isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+          "fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden transition-all duration-500 ease-in-out",
+          isOpen
+            ? "opacity-100 scale-100"
+            : "opacity-0 scale-95 pointer-events-none"
         )}
         onClick={() => setIsOpen(false)}
         aria-hidden={!isOpen}
@@ -327,14 +372,17 @@ export default function Navbar() {
       <div
         id="mobile-nav"
         className={cn(
-          "fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl transition-all duration-500 ease-in-out md:hidden z-50",
+          "fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-white shadow-2xl transition-all duration-500 ease-in-out md:hidden",
           isOpen ? "translate-x-0 scale-100" : "translate-x-full scale-95"
         )}
       >
+        {/* Drawer header with logo + close btn */}
         <div
           className={cn(
-            "flex items-center justify-between px-6 py-4 border-b border-gray-100 transition-all duration-500 ease-out",
-            isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+            "flex items-center justify-between border-b border-gray-100 px-6 py-4 transition-all duration-500 ease-out",
+            isOpen
+              ? "translate-y-0 opacity-100"
+              : "-translate-y-4 opacity-0"
           )}
         >
           <Link
@@ -347,19 +395,22 @@ export default function Navbar() {
               True<span className="text-orange-600">Sun</span>
             </h2>
           </Link>
+
           <button
             onClick={() => setIsOpen(false)}
-            className="text-gray-800 p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:rotate-90"
+            className="rounded-full p-2 text-gray-800 transition-all duration-200 hover:bg-gray-100 hover:rotate-90"
             aria-label="Close menu"
           >
             <X size={28} />
           </button>
         </div>
 
-        <nav className="flex bg-white -mt-5 flex-col space-y-2 p-6 font-semibold">
+        {/* Drawer links */}
+        <nav className="flex -mt-5 flex-col space-y-2 bg-white p-6 font-semibold">
           {[
             { name: "About", to: "/about" },
-            { name: "Services", to: "/services" }, // simple link on mobile
+            // for mobile we keep Services as a simple link, or you can build a collapsible
+            { name: "Services", to: "/services" },
             { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
             { name: "Careers", to: "/careers" },
@@ -370,25 +421,32 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className={({ isActive }) =>
                 cn(
-                  "text-xl py-4 px-3 rounded-lg transition-all duration-300 ease-out transform",
+                  "transform rounded-lg px-3 py-4 text-xl transition-all duration-300 ease-out",
                   "text-gray-700 hover:bg-orange-50 hover:text-orange-600 hover:scale-105",
                   isActive ? "bg-orange-100 text-orange-600" : "",
-                  isOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                  isOpen
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-4 opacity-0"
                 )
               }
-              style={{ transitionDelay: isOpen ? `${index * 100}ms` : "0ms" }}
+              style={{
+                transitionDelay: isOpen ? `${index * 100}ms` : "0ms",
+              }}
             >
               {name}
             </NavLink>
           ))}
 
+          {/* CTA button */}
           <NavLink
             to="/contact"
             onClick={() => setIsOpen(false)}
             className={cn(
-              "mt-6 w-full rounded-xl bg-orange-500 py-3 text-center text-lg text-white shadow-xl transition-all duration-300 ease-out transform",
+              "mt-6 w-full transform rounded-xl bg-orange-500 py-3 text-center text-lg text-white shadow-xl transition-all duration-300 ease-out",
               "hover:bg-orange-600 hover:scale-105 focus:ring-4 focus:ring-orange-300",
-              isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              isOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-4 opacity-0"
             )}
             style={{ transitionDelay: isOpen ? "1000ms" : "0ms" }}
           >
