@@ -19,7 +19,7 @@ import { Link } from "react-router-dom"; // ✅ React Router import
 
 export default function SolarFooter() {
     return (
-        <footer className="relative mt-10 text-neutral-800 dark:text-neutral-100">
+        <footer className="relative mt-10 text-neutral-800 bg-black dark:text-neutral-100">
             {/* Decorative top curve */}
             <div className="pointer-events-none relative -mb-1 h-20 w-full overflow-hidden">
                 <svg
@@ -36,7 +36,7 @@ export default function SolarFooter() {
             </div>
 
             {/* Main footer */}
-            <div className="relative overflow-hidden bg-amber-50/80 backdrop-blur dark:bg-[#0B0D0F]">
+            <div className="relative overflow-hidden bg-black backdrop-blur dark:bg-[#0B0D0F]">
                 <div className="mx-auto max-w-7xl px-6 pb-10">
                     <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12">
                         {/* Brand */}
