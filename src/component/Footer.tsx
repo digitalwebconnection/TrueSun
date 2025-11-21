@@ -30,7 +30,7 @@ export default function SolarFooter() {
                 >
                     <path
                         d="M0,100 Q40,0 120,0 H1320 Q1400,0 1440,100 L1440,150 L0,150 Z"
-                        className="fill-amber-50 dark:fill-[#0B0D0F]"
+                        className="fill-black dark:fill-[#0B0D0F]"
                     />
                 </svg>
             </div>
@@ -49,12 +49,12 @@ export default function SolarFooter() {
                                     <h3 className="text-lg font-bold tracking-tight">
                                         True<span className="text-amber-500">Sun</span>
                                     </h3>
-                                    <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                                    <p className="text-xs text-neutral-100 dark:text-neutral-400">
                                         Rooftop EPC • O&M • Consulting
                                     </p>
                                 </div>
                             </div>
-                            <p className="mt-4 max-w-md text-sm text-neutral-600 dark:text-neutral-300">
+                            <p className="mt-4 max-w-md text-sm text-neutral-100 dark:text-neutral-300">
                                 We design and deliver high-yield, safe rooftop solar systems for
                                 homes, societies, and businesses. Clean energy made effortless —
                                 from design to net-metering.
@@ -76,10 +76,10 @@ export default function SolarFooter() {
 
                         {/* Quick Links */}
                         <div className="lg:col-span-2">
-                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-neutral-900 dark:text-white">
+                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Quick Links
                             </h4>
-                            <nav className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                            <nav className="grid gap-2 text-sm text-neutral-300">
                                 <FooterLink to="/about">About Us</FooterLink>
                                 <FooterLink to="/projects">Projects</FooterLink>
                                 <FooterLink to="/subsidy">Subsidy & Policy</FooterLink>
@@ -90,10 +90,10 @@ export default function SolarFooter() {
 
                         {/* Solutions */}
                         <div className="lg:col-span-2">
-                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-neutral-900 dark:text-white">
+                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Solutions
                             </h4>
-                            <nav className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                            <nav className="grid gap-2 text-sm text-neutral-300">
                                 <a >Home Solar</a>
                                 <a >Housing Societies</a>
                                 <a >Commercial</a>
@@ -104,10 +104,10 @@ export default function SolarFooter() {
 
                         {/* Resources */}
                         <div className="lg:col-span-2">
-                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-neutral-900 dark:text-white">
+                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Resources
                             </h4>
-                            <nav className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                            <nav className="grid gap-2 text-sm text-neutral-300">
                                 <a >ROI Calculator</a>
                                 <a >Downloads</a>
                                 <a >FAQs</a>
@@ -118,10 +118,10 @@ export default function SolarFooter() {
 
                         {/* Contact */}
                         <div className="lg:col-span-2">
-                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-neutral-900 dark:text-white">
+                            <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Contact
                             </h4>
-                            <div className="grid gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                            <div className="grid gap-2 text-sm text-neutral-300">
                                 <p className="inline-flex items-start gap-2">
                                     <MapPin className="mt-0.5 h-4 w-4" /> Mumbai • Pune • Nagpur
                                 </p>
@@ -151,7 +151,7 @@ export default function SolarFooter() {
                     </div>
 
                     {/* Badges */}
-                    <div className="mt-12 rounded-2xl border border-amber-200/60 bg-white/70 p-4 backdrop-blur dark:border-white/10 dark:bg-white/5">
+                    <div className="mt-12 rounded-2xl border   p-4 backdrop-blur border-white/10 bg-white/10">
                         <div className="grid items-center gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             <Badge text="MNRE Approved" />
                             <Badge text="ISO 9001:2015" />
@@ -161,7 +161,7 @@ export default function SolarFooter() {
                     </div>
 
                     {/* Bottom bar */}
-                    <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-amber-200/60 pt-6 text-sm text-neutral-600 dark:border-white/10 dark:text-neutral-400 md:flex-row">
+                    <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm  border-white/10 text-neutral-400 md:flex-row">
                         <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-orange-600"> TrueSun</span>. All rights reserved.</p>
                         <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 pb-12 md:pb-0  text-white text-sm">
                             <Code2 className="w-6 h-6 text-orange-600" />
