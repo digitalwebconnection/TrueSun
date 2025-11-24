@@ -15,6 +15,7 @@ import MainCI from "./component/Service/RooftopSolar/C&I/MainC&I";
 import SolarfinanceMain from "./component/Solar-finance/Solar-financeMain";
 import Careersmain from "./component/Careers/Careersmain";
 import ContactUsMain from "./component/ContactUs/ContactUsMain";
+import LeadPopup from "./component/LeadPopup";
 
 
 
@@ -51,6 +52,7 @@ function App() {
       </Routes>
       <SolarFooter />
       <WhatsAppDockPro/>
+      <LeadPopup/>
     </BrowserRouter>
 
   );

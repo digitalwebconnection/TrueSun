@@ -4,11 +4,18 @@ import { useMemo, useState } from "react";
 import { Zap, IndianRupee, Download, TrendingUp, DollarSign } from "lucide-react";
 
 /* ===================== Helpers ===================== */
+// For on-screen display (cards)
 const fmtINR = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
   maximumFractionDigits: 0,
 });
+
+// For PDF only – simple ASCII, no ₹ or special spaces
+function fmtINRForPdf(value: number): string {
+  if (!Number.isFinite(value)) return "-";
+  return "Rs " + value.toLocaleString("en-IN"); // e.g. "Rs 1,82,000"
+}
 
 const CITY_SUN = { Maharashtra: 5.4 } as const;
 type City = keyof typeof CITY_SUN;
@@ -53,7 +60,7 @@ async function makePdfTable(payload: {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
   doc.text(
-    `Location: ${payload.city}   |   Avg Sun Hours: ${payload.sunHours} kWh/m²/day`,
+    `Location: ${payload.city}   |   Avg Sun Hours: ${payload.sunHours} kWh/m2/day`,
     40,
     60
   );
@@ -67,14 +74,30 @@ async function makePdfTable(payload: {
     startY: 92,
     head: [["Summary", ""]],
     body: [
-      ["Monthly Electricity Bill", fmtINR.format(payload.inputs.monthlyBill)],
-      ["Electricity Tariff", `₹${payload.inputs.tariff}/kWh`],
-      ["Estimated Monthly Consumption", `${payload.results.monthlyKWh} kWh`],
-      ["Apply Subsidy", payload.inputs.applySubsidy ? "Yes" : "No"],
+      [
+        "Monthly Electricity Bill",
+        fmtINRForPdf(payload.inputs.monthlyBill),
+      ],
+      [
+        "Electricity Tariff",
+        `Rs ${payload.inputs.tariff}/kWh`,
+      ],
+      [
+        "Estimated Monthly Consumption",
+        `${payload.results.monthlyKWh} kWh`,
+      ],
+      [
+        "Apply Subsidy",
+        payload.inputs.applySubsidy ? "Yes" : "No",
+      ],
     ],
     theme: "grid",
     styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: "bold" },
+    headStyles: {
+      fillColor: [240, 240, 240],
+      textColor: 0,
+      fontStyle: "bold",
+    },
     columnStyles: {
       0: { cellWidth: 260 },
       1: { cellWidth: 260 },
@@ -91,15 +114,25 @@ async function makePdfTable(payload: {
   autoTable(doc, {
     startY: y1 + 8,
     head: [["System Size (kW)", "Est. Generation", "Yield", "Payback"]],
-    body: [[
-      `${payload.results.recommendedKw.toFixed(2)} kW`,
-      `${payload.results.monthlyGen} kWh/month`,
-      `${payload.results.kWhPerKwMonth} kWh/kW/month`,
-      `${Number.isFinite(payload.results.paybackYears) ? payload.results.paybackYears.toFixed(1) : "—"} years`,
-    ]],
+    body: [
+      [
+        `${payload.results.recommendedKw.toFixed(2)} kW`,
+        `${payload.results.monthlyGen} kWh/month`,
+        `${payload.results.kWhPerKwMonth} kWh/kW/month`,
+        `${
+          Number.isFinite(payload.results.paybackYears)
+            ? payload.results.paybackYears.toFixed(1)
+            : "—"
+        } years`,
+      ],
+    ],
     theme: "grid",
     styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: "bold" },
+    headStyles: {
+      fillColor: [240, 240, 240],
+      textColor: 0,
+      fontStyle: "bold",
+    },
     margin: { left: 40, right: 40 },
   });
 
@@ -113,14 +146,18 @@ async function makePdfTable(payload: {
     startY: y2 + 8,
     head: [["Category", "Value"]],
     body: [
-      ["Gross CAPEX", fmtINR.format(payload.results.capex)],
-      ["Subsidy Applied", fmtINR.format(payload.results.subsidy)],
-      ["Net Cost", fmtINR.format(payload.results.netCapex)],
-      ["Monthly Savings", fmtINR.format(payload.results.monthlySavings)],
+      ["Gross CAPEX", fmtINRForPdf(payload.results.capex)],
+      ["Subsidy Applied", fmtINRForPdf(payload.results.subsidy)],
+      ["Net Cost", fmtINRForPdf(payload.results.netCapex)],
+      ["Monthly Savings", fmtINRForPdf(payload.results.monthlySavings)],
     ],
     theme: "grid",
     styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: "bold" },
+    headStyles: {
+      fillColor: [240, 240, 240],
+      textColor: 0,
+      fontStyle: "bold",
+    },
     columnStyles: {
       0: { cellWidth: 260 },
       1: { cellWidth: 260 },
@@ -159,7 +196,10 @@ export default function SolarCalculatorMaharashtra() {
     const monthlyKWh = monthlyBill > 0 && tariff > 0 ? monthlyBill / tariff : 0;
     const targetKWh = monthlyKWh * TARGET_OFFSET;
     const kWhPerKwMonth = sunHours * 30 * PR;
-    const recommendedKw = kWhPerKwMonth > 0 ? clamp(targetKWh / kWhPerKwMonth, 0.3, 25) : 0;
+    const recommendedKw =
+      kWhPerKwMonth > 0
+        ? clamp(targetKWh / kWhPerKwMonth, 0.3, 25)
+        : 0;
 
     const capex = Math.round(recommendedKw * COST_PER_KW);
     const subsidy = applySubsidy ? subsidyForKw(recommendedKw) : 0;
@@ -167,7 +207,8 @@ export default function SolarCalculatorMaharashtra() {
     const monthlyGen = Math.round(recommendedKw * kWhPerKwMonth);
     const monthlySavings = Math.round(monthlyGen * tariff);
     const annualSavingsNet = monthlySavings * 12;
-    const paybackYears = annualSavingsNet > 0 ? netCapex / annualSavingsNet : Infinity;
+    const paybackYears =
+      annualSavingsNet > 0 ? netCapex / annualSavingsNet : Infinity;
 
     return {
       sunHours,
@@ -189,10 +230,12 @@ export default function SolarCalculatorMaharashtra() {
         {/* Header */}
         <header className="text-center space-y-3 max-w-5xl mx-auto">
           <h1 className="text-4xl sm:text-5xl max-w-xl mx-auto font-extrabold text-gray-900">
-            Calculate Your Saving With <span className="text-orange-600">TrueSun</span>
+            Calculate Your Saving With{" "}
+            <span className="text-orange-600">TrueSun</span>
           </h1>
           <p className="text-gray-600 text-base sm:text-lg">
-            Estimate your solar system size, cost, subsidy, and payback period for homes in Maharashtra.
+            Estimate your solar system size, cost, subsidy, and payback
+            period for homes in Maharashtra.
           </p>
         </header>
 
@@ -206,34 +249,48 @@ export default function SolarCalculatorMaharashtra() {
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">City / Location</label>
-                <div className="p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800">Maharashtra</div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  City / Location
+                </label>
+                <div className="p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800">
+                  Maharashtra
+                </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  Average Sun Hours: <b>{CITY_SUN[city]} kWh/m²/day</b>
+                  Average Sun Hours:{" "}
+                  <b>{CITY_SUN[city]} kWh/m²/day</b>
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Monthly Electricity Bill (₹)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Monthly Electricity Bill (₹)
+                </label>
                 <input
                   type="number"
                   value={monthlyBill}
-                  onChange={(e) => setMonthlyBill(Number(e.target.value || 0))}
+                  onChange={(e) =>
+                    setMonthlyBill(Number(e.target.value || 0))
+                  }
                   className="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Electricity Tariff (₹/kWh)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Electricity Tariff (₹/kWh)
+                </label>
                 <input
                   type="number"
                   step="0.1"
                   value={tariff}
-                  onChange={(e) => setTariff(Number(e.target.value || 0))}
+                  onChange={(e) =>
+                    setTariff(Number(e.target.value || 0))
+                  }
                   className="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Estimated consumption: <b>{result.monthlyKWh} kWh</b>
+                  Estimated consumption:{" "}
+                  <b>{result.monthlyKWh} kWh</b>
                 </p>
               </div>
 
@@ -242,10 +299,15 @@ export default function SolarCalculatorMaharashtra() {
                   id="subsidy-checkbox"
                   type="checkbox"
                   checked={applySubsidy}
-                  onChange={(e) => setApplySubsidy(e.target.checked)}
+                  onChange={(e) =>
+                    setApplySubsidy(e.target.checked)
+                  }
                   className="w-4 h-4 text-amber-500 border-gray-300 rounded focus:ring-amber-400"
                 />
-                <label htmlFor="subsidy-checkbox" className="text-sm text-gray-700 select-none">
+                <label
+                  htmlFor="subsidy-checkbox"
+                  className="text-sm text-gray-700 select-none"
+                >
                   Apply PM Surya Ghar Subsidy
                 </label>
               </div>
@@ -264,23 +326,34 @@ export default function SolarCalculatorMaharashtra() {
                 <div className="flex items-center gap-2 text-sm font-medium">
                   <Zap className="w-5 h-5" /> Recommended System Size
                 </div>
-                <div className="text-5xl font-extrabold mt-2 leading-none">{result.recommendedKw}</div>
-                <div className="text-xl font-semibold opacity-90">kW</div>
+                <div className="text-5xl font-extrabold mt-2 leading-none">
+                  {result.recommendedKw}
+                </div>
+                <div className="text-xl font-semibold opacity-90">
+                  kW
+                </div>
                 <p className="text-xs opacity-80 mt-2">
-                  Est. monthly generation: <b>{result.monthlyGen} kWh</b>
+                  Est. monthly generation:{" "}
+                  <b>{result.monthlyGen} kWh</b>
                 </p>
               </div>
 
               <div className="md:col-span-2 p-6 rounded-2xl bg-gray-50 border border-gray-800/10 shadow-xl shadow-black/5">
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                  <IndianRupee className="w-5 h-5 text-blue-500" /> Payback Period
+                  <IndianRupee className="w-5 h-5 text-blue-500" />{" "}
+                  Payback Period
                 </div>
                 <div className="text-5xl font-extrabold text-blue-500 mt-2 leading-none">
-                  {Number.isFinite(result.paybackYears) ? result.paybackYears.toFixed(1) : "—"}
+                  {Number.isFinite(result.paybackYears)
+                    ? result.paybackYears.toFixed(1)
+                    : "—"}
                 </div>
-                <div className="text-xl font-semibold text-gray-700">Years</div>
+                <div className="text-xl font-semibold text-gray-700">
+                  Years
+                </div>
                 <p className="text-xs text-gray-500 mt-2">
-                  Actual results may vary depending on location and tariff escalation.
+                  Actual results may vary depending on location and
+                  tariff escalation.
                 </p>
               </div>
             </div>
@@ -288,19 +361,31 @@ export default function SolarCalculatorMaharashtra() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
               <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
                 <div className="text-xs text-gray-500">Gross CAPEX</div>
-                <div className="text-lg font-bold text-gray-800 mt-1">{fmtINR.format(result.capex)}</div>
+                <div className="text-lg font-bold text-gray-800 mt-1">
+                  {fmtINR.format(result.capex)}
+                </div>
               </div>
               <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
-                <div className="text-xs text-gray-500">Subsidy Applied</div>
-                <div className="text-lg font-bold text-green-600 mt-1">{fmtINR.format(result.subsidy)}</div>
+                <div className="text-xs text-gray-500">
+                  Subsidy Applied
+                </div>
+                <div className="text-lg font-bold text-green-600 mt-1">
+                  {fmtINR.format(result.subsidy)}
+                </div>
               </div>
               <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
                 <div className="text-xs text-gray-500">Net Cost</div>
-                <div className="text-lg font-bold text-indigo-600 mt-1">{fmtINR.format(result.netCapex)}</div>
+                <div className="text-lg font-bold text-indigo-600 mt-1">
+                  {fmtINR.format(result.netCapex)}
+                </div>
               </div>
               <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
-                <div className="text-xs text-gray-500">Monthly Savings</div>
-                <div className="text-lg font-bold text-amber-600 mt-1">{fmtINR.format(result.monthlySavings)}</div>
+                <div className="text-xs text-gray-500">
+                  Monthly Savings
+                </div>
+                <div className="text-lg font-bold text-amber-600 mt-1">
+                  {fmtINR.format(result.monthlySavings)}
+                </div>
               </div>
             </div>
           </section>

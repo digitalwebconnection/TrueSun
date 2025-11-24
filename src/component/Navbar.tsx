@@ -113,7 +113,7 @@ function ServicesMenu() {
       {open && (
         <div
           className={cn(
-            "absolute left-0 top-full mt-3 flex rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black/5 z-[100]"
+            "absolute left-0 top-full mt-3 flex rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black/5 z-100"
           )}
           role="menu"
           aria-label="Services"
