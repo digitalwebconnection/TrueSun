@@ -195,6 +195,100 @@ function ServicesMenu() {
   );
 }
 
+/* ============================ Mobile Services Menu ============================ */
+function MobileServicesMenu({
+  isOpen,
+  closeDrawer,
+}: {
+  isOpen: boolean;
+  closeDrawer: () => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div className="mt-2">
+      {/* Parent "Services" row */}
+      <button
+        type="button"
+        onClick={() => setExpanded((prev) => !prev)}
+        className={cn(
+          "flex w-full items-center justify-between rounded-lg px-3 py-4 text-xl font-semibold text-gray-700 transition-all duration-300 ease-out",
+          "hover:bg-orange-50 hover:text-orange-600 hover:scale-105",
+          expanded ? "bg-orange-50 text-orange-600" : "",
+          isOpen
+            ? "translate-x-0 opacity-100"
+            : "translate-x-4 opacity-0"
+        )}
+        style={{
+          transitionDelay: isOpen ? "200ms" : "0ms",
+        }}
+      >
+        <span>Services</span>
+        <ChevronDown
+          className={cn(
+            "h-5 w-5 transition-transform duration-300",
+            expanded ? "rotate-180" : "rotate-0"
+          )}
+        />
+      </button>
+
+      {/* Children container */}
+      <div
+        className={cn(
+          "overflow-hidden transition-all duration-300 ease-out",
+          expanded ? "max-h-[480px] opacity-100 mt-1" : "max-h-0 opacity-0"
+        )}
+      >
+        <div className="space-y-3 pl-2">
+          {SERVICES.map((group) => (
+            <div key={group.key} className="border-l border-orange-100 pl-3">
+              <div className="mb-1 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
+                <span className="text-orange-500">{group.icon}</span>
+                <span>{group.label}</span>
+              </div>
+
+              <div className="space-y-1">
+                {group.children?.map((child) => (
+                  <NavLink
+                    key={child.to}
+                    to={child.to}
+                    onClick={closeDrawer}
+                    className={({ isActive }) =>
+                      cn(
+                        "block rounded-md px-3 py-2 text-base transition-all duration-200",
+                        "text-gray-700 hover:bg-orange-50 hover:text-orange-600",
+                        isActive ? "bg-orange-100 text-orange-600" : ""
+                      )
+                    }
+                  >
+                    {child.label}
+                  </NavLink>
+                ))}
+
+                {!group.children?.length && group.to && (
+                  <NavLink
+                    to={group.to}
+                    onClick={closeDrawer}
+                    className={({ isActive }) =>
+                      cn(
+                        "block rounded-md px-3 py-2 text-base transition-all duration-200",
+                        "text-gray-700 hover:bg-orange-50 hover:text-orange-600",
+                        isActive ? "bg-orange-100 text-orange-600" : ""
+                      )
+                    }
+                  >
+                    View {group.label}
+                  </NavLink>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ============================ Navbar ============================ */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false); // mobile drawer state
@@ -409,8 +503,6 @@ export default function Navbar() {
         <nav className="flex -mt-5 flex-col space-y-2 bg-white p-6 font-semibold">
           {[
             { name: "About", to: "/about" },
-            // for mobile we keep Services as a simple link, or you can build a collapsible
-            { name: "Services", to: "/services" },
             { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
             { name: "Careers", to: "/careers" },
@@ -436,6 +528,12 @@ export default function Navbar() {
               {name}
             </NavLink>
           ))}
+
+          {/* Mobile Services Accordion (shows children) */}
+          <MobileServicesMenu
+            isOpen={isOpen}
+            closeDrawer={() => setIsOpen(false)}
+          />
 
           {/* CTA button */}
           <NavLink
