@@ -100,7 +100,7 @@ function ServicesMenu() {
         )}
       >
         <span className="inline-flex items-center gap-2">
-          Services
+         Our Services
         </span>
         <ChevronDown
           className={cn(
@@ -223,7 +223,7 @@ function MobileServicesMenu({
           transitionDelay: isOpen ? "200ms" : "0ms",
         }}
       >
-        <span>Services</span>
+        <span>Our Services</span>
         <ChevronDown
           className={cn(
             "h-5 w-5 transition-transform duration-300",
@@ -384,6 +384,14 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
             <NavLink
+              to="/"
+              className={({ isActive }) =>
+                cn(linkBase, isActive && activeClass)
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
               to="/about"
               className={({ isActive }) =>
                 cn(linkBase, isActive && activeClass)
@@ -420,7 +428,14 @@ export default function Navbar() {
             >
               Careers
             </NavLink>
-
+            <NavLink
+              to="/blog"
+              className={({ isActive }) =>
+                cn(linkBase, isActive && activeClass)
+              }
+            >
+              Blog
+            </NavLink>
             <NavLink
               to="/contact"
               className={({ isActive }) =>
@@ -502,9 +517,11 @@ export default function Navbar() {
         {/* Drawer links */}
         <nav className="flex -mt-5 flex-col space-y-2 bg-white p-6 font-semibold">
           {[
+             { name: "Home", to: "/" },
             { name: "About", to: "/about" },
             { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
+             { name: "Blog", to: "/blog" },
             { name: "Careers", to: "/careers" },
           ].map(({ name, to }, index) => (
             <NavLink

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
 const bgImages = [
-  "https://cdn.hswstatic.com/gif/solar-cells.jpg",
-  "https://waaree.com/wp-content/uploads/2025/07/Solar-panels-online-scaled.jpg",
-  "https://waaree.com/wp-content/uploads/2025/11/How-to-Choose-the-Right-Solar-Panel-for-Your-Home-1.jpg",
+  "https://t3.ftcdn.net/jpg/01/57/42/86/360_F_157428613_ZhDS00sqo623F3JH7cWhFvAK6o2FIWXh.jpg",
+  "https://australianpremiumsolar.co.in/wp-content/uploads/2024/06/cleaning-solar-panel.jpg",
+  "https://galaxysolarenergy.com/wp-content/uploads/2020/04/solar-rooftop-systems.jpg",
+  "https://waareertl.com/wp-content/uploads/2024/05/Rooftop-Solar-System-Installation-in-India.jpg",
+  "https://energyportal.in/images/solar/rooftop-solar01.jpg",
+  "https://www.noidapower.com/assets/img/inner/solarto-2.jpg",
 ];
 
 const SLIDE_DURATION_MS = 6000;

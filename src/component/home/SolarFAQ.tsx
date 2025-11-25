@@ -34,7 +34,7 @@ export default function PremiumFAQ({ items = DEFAULT_ITEMS }) {
   const [openItem, setOpenItem] = useState<string | null>(null);
 
   return (
-    <section className="mx-auto max-w-3  xl px-4 py-12">
+    <section className="mx-auto max-w-3xl px-4 py-12">
       <header className="mb-10 text-center">
         <h2 className="text-3xl font-extrabold text-gray-900">
           Frequently Asked Questions

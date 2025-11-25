@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useMotionValue, animate } from "framer-motion";
 import type { MotionProps, Variants, Easing } from "framer-motion";
-import { Sun, Zap, Leaf, Users, Award, CheckCircle, Factory, Building2, Battery, ShieldCheck, GaugeCircle, Sparkles } from "lucide-react";
+import { Sun, Zap, Leaf, Users, Award, CheckCircle , Building2, Factory, ShieldCheck, GaugeCircle, Sparkles } from "lucide-react";
+import React from "react";
 
 // ---------------------------
-// Motion Setup
+// Motion Setup & Keyframes
 // ---------------------------
 const EASE: Easing = [0.25, 0.46, 0.45, 0.94];
 
@@ -31,11 +32,24 @@ const floatIn: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
+// Subtle continuous floating motion for timeline/stats
+const float: Variants = {
+  initial: { y: 0 },
+  animate: {
+    y: ["-2px", "2px", "-2px"],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  },
+};
+
 const boxTilt: MotionProps = {
   whileHover: { y: -4, rotateX: -2, rotateY: 2, transition: { type: "spring", stiffness: 250, damping: 20 } },
 };
 
-// Parallax util
+// Parallax util (using fewer dependencies)
 const useParallax = (distance: number) => {
   const { scrollYProgress } = useScroll();
   return useTransform(scrollYProgress, [0, 1], [0, -distance]);
@@ -48,229 +62,184 @@ export default function AboutTrueSun() {
   const y = useParallax(120);
   return (
     <section className="relative overflow-hidden bg-linear-to-br from-white via-amber-50/40 to-emerald-50/40 text-gray-900">
-      {/* Soft nebula background */}
-      <motion.div style={{ y }} className="pointer-events-none absolute inset-0 opacity-40">
-        <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-yellow-400 blur-3xl" />
-        <div className="absolute -bottom-20 right-10 h-96 w-96 rounded-full bg-green-400 blur-3xl" />
-        <div className="absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-300 blur-3xl" />
+      {/* Soft nebula background with Pulse Animation */}
+      <motion.div style={{ y }} className="pointer-events-none absolute inset-0">
+        {/* Added animate-pulse-bg class for custom keyframe animation */}
+        <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-yellow-400 blur-3xl opacity-40 animate-pulse-bg" />
+        <div className="absolute -bottom-20 right-10 h-96 w-96 rounded-full bg-green-400 blur-3xl opacity-40 animate-pulse-bg [--animation-delay:2s]" />
+        <div className="absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-300 blur-3xl opacity-40 animate-pulse-bg [--animation-delay:4s]" />
       </motion.div>
+      
       <HeroSplit />
       <StatsRibbon />
-      <BentoSolutions />
       <ZigZagWhyUs />
       <CurvedSteps />
       <AlternatingTimeline />
+
+      {/* Custom Styles and Keyframes */}
+      <style>
+        {`
+          @keyframes pulseBg {
+            0% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.05); opacity: 0.55; }
+            100% { transform: scale(1); opacity: 0.4; }
+          }
+          .animate-pulse-bg {
+            animation: pulseBg 10s ease-in-out infinite;
+            animation-delay: var(--animation-delay, 0s);
+          }
+        `}
+      </style>
     </section>
   );
 }
 
-// ---------------------------
-// Sections (Varied "stretched" layouts, not all boxes)
-// ---------------------------
-
 // About TrueSun -----
 function HeroSplit() {
   return (
-    <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-12 lg:px-8">
-      {/* Diagonal top accent */}
-      <div className="pointer-events-none absolute -top-16 left-0 h-40 w-full -skew-y-3 bg-linear-to-r from-yellow-200/60 to-green-200/60" />
+    <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-18 lg:px-8">
+      {/* Heading */}
+      <motion.div {...fadeUpProps} className="relative mx-auto max-w-7xl text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/70 bg-white/80 px-4 py-1.5 text-xs font-semibold text-amber-700 shadow-sm backdrop-blur">
+          <Sparkles className="h-3.5 w-3.5" />
+          Trusted Solar Partner for Homes & Businesses
+        </div>
 
-      <div className="relative grid items-center gap-12 lg:grid-cols-12">
-        <motion.div {...fadeUpProps} className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-white/70 px-4 py-1.5 text-xs font-semibold text-amber-700 shadow-sm backdrop-blur">
-            <Sparkles className="h-3.5 w-3.5" /> Trusted Solar Partner
-          </div>
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            About <span className="bg-linear-to-r from-amber-600 to-green-600 bg-clip-text text-transparent">TrueSun</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-gray-700">
-            We democratize clean energy—bringing high‑performance solar to homes, businesses, and industries with speed, compliance, and lifetime support.
-          </p>
-          <div className="mt-8 grid w-full grid-cols-2 gap-3 sm:max-w-xl">
-            {[
-              { icon: Sun, label: "MNRE & ALMM", sub: "Tier‑1 components" },
-              { icon: ShieldCheck, label: "Zero‑Hassle", sub: "Net metering + subsidy" },
-              { icon: GaugeCircle, label: "High Yield", sub: "AI‑aided design" },
-              { icon: Users, label: "AMC & 24/7", sub: "Remote monitoring" },
-            ].map((i, idx) => (
-              <motion.div key={idx} variants={childFade} initial="hidden" whileInView="show" viewport={{ once: true }} className="flex items-center gap-3 rounded-xl border border-gray-600/40 bg-white/80 p-3 shadow-sm backdrop-blur">
-                <i.icon className="h-5 w-5 text-amber-600" />
-                <div>
-                  <div className="text-sm font-semibold text-gray-900">{i.label}</div>
-                  <div className="text-xs text-gray-600">{i.sub}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
+          About{" "}
+          <span className="bg-linear-to-r from-amber-600 to-green-600 bg-clip-text text-transparent">
+            TrueSun
+          </span>
+        </h1>
 
-        {/* Glass card stack */}
-        <motion.div variants={floatIn} initial="hidden" whileInView="show" viewport={{ once: true }} className="lg:col-span-5">
-          <div className="relative mx-auto max-w-md">
-            <motion.div className="relative rounded-3xl border border-gray-900/20 bg-white/70 p-6 shadow-2xl  shadow-black/30 backdrop-blur-xl" {...boxTilt}>
-              <div className="flex items-center gap-3">
-                <Leaf className="h-6 w-6 text-green-600" />
-                <h3 className="text-lg font-bold">Our Vision</h3>
-              </div>
-              <p className="mt-3 text-sm leading-relaxed text-gray-700">
-                Lead India toward <span className="font-semibold text-green-700">net‑zero</span>—500+ MWp by 2030 via smart grids, storage, and community solar.
-              </p>
-              <ul className="mt-4 space-y-2 text-sm">
-                {[
-                  "Innovative smart grid integration",
-                  "Battery storage solutions",
-                  "Community solar initiatives",
-                ].map((t, i) => (
-                  <li key={i} className="flex items-start gap-2"><CheckCircle className="mt-0.5 h-4 w-4 text-green-600" /> <span>{t}</span></li>
-                ))}
-              </ul>
-            </motion.div>
-            <motion.div className="absolute -right-6 -bottom-6 hidden w-[88%] rounded-3xl border border-amber-200 bg-amber-50/70 p-4 shadow-xl backdrop-blur xl:block" {...boxTilt}>
-              <div className="flex items-center gap-3">
-                <Sun className="h-5 w-5 text-amber-600" />
-                <h4 className="text-sm font-bold">Our Mission</h4>
-              </div>
-              <p className="mt-1 text-xs text-gray-700">
-                Make solar accessible to every household—fast surveys, compliant installs, lifetime care.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-
-// range of numaeric stats -----
-function StatsRibbon() {
-  const stats = [
-    { k: ">85 MWp", d: "installed capacity" },
-    { k: "1,000+", d: "sites energized" },
-    { k: "4.9/5", d: "customer rating" },
-    { k: "15+", d: "states served" },
-  ];
-  return (
-    <div className="relative bg-linear-to-r from-amber-100 via-white to-emerald-100 py-6">
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.ul variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {stats.map((s, i) => (
-            <motion.li key={i} variants={childFade} className="rounded-2xl border border-amber-200 bg-white/70 p-5 text-center shadow-sm backdrop-blur">
-              <div className="text-2xl font-extrabold tracking-tight text-gray-900">{s.k}</div>
-              <div className="text-xs text-gray-600">{s.d}</div>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </div>
-      {/* angled divider */}
-      <div className="pointer-events-none absolute -bottom-6 left-0 h-6 w-full -skew-y-2 bg-linear-to-r from-amber-200/40 to-emerald-200/40" />
-    </div>
-  );
-}
-
-// Solutions we offer
-function BentoSolutions() {
-  const tiles = [
-    {
-      span: "col-span-2 row-span-2",
-      title: "Residential Rooftop",
-      bullets: ["3–10 kW", "On‑grid / Hybrid", "App monitoring"],
-      Icon: Sun,
-      tint: "from-amber-50/80 to-white/80",
-      border: "border-amber-300",
-      bgImg: "https://zodiacenergy.com/images/blog/why-summer-is-best-for-solar-installation.png",
-    },
-    {
-      span: "col-span-1 row-span-1",
-      title: "Commercial",
-      bullets: ["10–250 kW", "CAPEX / OPEX"],
-      Icon: Building2,
-      tint: "from-blue-50/80 to-white/80",
-      border: "border-blue-300",
-      bgImg: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeYDML9mgu4zcCB1HRkmpo1kXZRk2YSwOq1A&s",
-    },
-    {
-      span: "col-span-1 row-span-2",
-      title: "Industrial",
-      bullets: ["250 kW–5 MW", "Harmonics audits"],
-      Icon: Factory,
-      tint: "from-emerald-50/80 to-white/80",
-      border: "border-emerald-300",
-      bgImg: "https://sunapecopower.com/wp-content/uploads/2024/08/choose-and-install-solar-panels.png",
-    },
-    {
-      span: "col-span-2 row-span-1",
-      title: "Utility Scale",
-      bullets: [">5 MWp", "SCADA & EPC"],
-      Icon: Zap,
-      tint: "from-violet-50/80 to-white/80",
-      border: "border-violet-300",
-      bgImg: "https://www.solarpvmart.com/images/blogs/5/blog5.jpg",
-    },
-  ];
-
-  return (
-    <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-      <motion.div {...fadeUpProps} className="mb-8 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold">Solutions we offer</h2>
-        <p className="mt-2 text-gray-600">Our mission is to empower communities worldwide by providing accessible, reliable, and innovative renewable energy technology.</p>
+        <p className="mx-auto mt-4 max-w-5xl text-lg text-gray-700">
+          We turn rooftops and land into long-term energy assets—delivering
+          compliant, data-driven solar that pays back faster and performs
+          reliably for decades.
+        </p>
       </motion.div>
 
+      {/* 1. Mission & Vision */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="grid auto-rows-[14rem] grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        className="relative mt-10 grid items-stretch gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]"
       >
-        {tiles.map((t, i) => (
-          <motion.div
-            key={i}
-            variants={childFade}
-            {...boxTilt}
-            className={`group relative overflow-hidden rounded-3xl border ${t.border} bg-linear-to-br ${t.tint} p-0 shadow-xl shadow-black/60 ${i === 0
-              ? "lg:col-span-2 lg:row-span-2"
-              : t.span.split(" ").map((s) => "lg:" + s).join(" ")
-              }`}
-          >
-            {/* Background image + subtle zoom on hover */}
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-cover bg-center  transition-transform duration-700 group-hover:scale-105"
-              style={{ backgroundImage: `url(${t.bgImg})` }}
-            />
-            {/* Readability overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/75 to-black/60" />
-
-            {/* Foreground content */}
-            <div className="relative z-10 flex h-full flex-col justify-between p-6">
-              {/* Header */}
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-gray-900 shadow-sm backdrop-blur">
-                  <t.Icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-xl font-bold text-white drop-shadow-sm">{t.title}</h3>
-              </div>
-
-              {/* Bullets (2-col on md for neat alignment) */}
-              <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-white/90 sm:grid-cols-2">
-                {t.bullets.map((b, bi) => (
-                  <li key={bi} className="flex items-center gap-2">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/90" />
-                    <span className="leading-snug">{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Bottom meta / CTA row */}
-              <div className="mt-5 flex items-center justify-between">
-                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur">Learn more</span>
-                <Battery className="pointer-events-none h-6 w-6 rotate-12 text-white/60" />
-              </div>
+        {/* Vision card */}
+        <motion.div
+          variants={childFade}
+          className="relative overflow-hidden rounded-3xl border border-emerald-500/70 bg-linear-to-br from-white/90 via-emerald-100/90 to-emerald-100/80 p-6 shadow-xl shadow-emerald-900/15 backdrop-blur"
+          {...boxTilt}
+        >
+          <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-200/40 blur-2xl" />
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-md">
+              <Leaf className="h-5 w-5" />
             </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                Our Vision
+              </p>
+              <h3 className="text-lg font-bold text-gray-900">
+                Lead India towards a truly net-zero future
+              </h3>
+            </div>
+          </div>
 
-            {/* Decorative corner icon for larger tiles */}
-            <Battery className="pointer-events-none absolute -bottom-6 -right-6 hidden h-24 w-24 rotate-12 text-white/20 lg:block" />
+          <p className="relative mt-3 text-sm leading-relaxed text-gray-700">
+            Build a 500+ MWp distributed solar portfolio by 2030—across homes,
+            businesses, industries, and communities—seamlessly integrated with
+            smart grids, storage, and digital monitoring.
+          </p>
+
+          <ul className="relative mt-4 space-y-2 text-sm text-gray-700">
+            {[
+              "Net-zero ready solar across residential, commercial & industrial segments.",
+              "Smart-grid, storage and community-solar ready architectures.",
+              "Systems engineered to perform for 25+ years with minimal downtime.",
+            ].map((t, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <CheckCircle className="mt-0.5 h-4 w-4 text-emerald-600" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Mission card */}
+        <motion.div
+          variants={childFade}
+          className="relative overflow-hidden rounded-3xl border border-amber-600/70 bg-linear-to-br from-white/95 via-amber-50/90 to-amber-100/80 p-6 shadow-xl shadow-amber-900/10 backdrop-blur"
+          {...boxTilt}
+        >
+          <div className="absolute -left-12 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full bg-amber-200/60 blur-2xl" />
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-md">
+              <Sun className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
+                Our Mission
+              </p>
+              <h4 className="text-base font-bold text-gray-900">
+                Make high-performance solar effortless for every customer
+              </h4>
+            </div>
+          </div>
+
+          <p className="relative mt-3 text-sm leading-relaxed text-gray-800">
+            Turn solar into a simple, predictable service—fast surveys,
+            transparent proposals, compliant installations and lifetime
+            monitoring so every unit of sunlight becomes measurable savings.
+          </p>
+
+          <ul className="relative mt-4 space-y-2 text-sm text-gray-800">
+            {[
+              "Single-window experience from site survey to grid synchronization.",
+              "Standardised installation playbooks, safety audits & quality checks.",
+              "Obsessive post-installation care: AMC, 24/7 monitoring and SLA-backed support.",
+            ].map((t, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <CheckCircle className="mt-0.5 h-4 w-4 text-amber-600" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </motion.div>
+
+      {/* 2. Feature points (Enhanced hover) */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="relative mt-10 grid w-full gap-4 sm:max-w-7xl sm:grid-cols-4"
+      >
+        {[
+          { icon: Sun, label: "MNRE & ALMM", sub: "Tier-1, BIS-certified components" },
+          { icon: ShieldCheck, label: "Zero-Hassle", sub: "Net-metering, subsidy & DISCOM paperwork" },
+          { icon: GaugeCircle, label: "High Yield", sub: "AI-aided design & performance tuning" },
+          { icon: Users, label: "AMC & 24/7", sub: "Remote monitoring with SLA-backed support" },
+        ].map((i, idx) => (
+          <motion.div
+            key={idx}
+            variants={childFade}
+            whileHover={{ y: -6, scale: 1.02 }} // Added lift/scale on hover
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="flex cursor-pointer items-center gap-3 rounded-2xl border border-gray-800/20 bg-white/90 p-3 shadow-sm shadow-gray-900/5 backdrop-blur"
+          >
+            <div className="flex items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
+              <i.icon className="h-13 w-13 p-2" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-gray-900">
+                {i.label}
+              </div>
+              <div className="text-xs text-gray-600">{i.sub}</div>
+            </div>
           </motion.div>
         ))}
       </motion.div>
@@ -278,8 +247,116 @@ function BentoSolutions() {
   );
 }
 
+// range of numeric stats -----
+type StatItem = {
+  value: number;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+  isDecimal?: boolean;
+};
 
-//  Why industry leaders
+function StatsRibbon() {
+  const stats: StatItem[] = [
+    { value: 85, prefix: ">", suffix: " MWp", label: "installed capacity" },
+    { value: 1000, suffix: "+", label: "sites energized" },
+    { value: 4.9, suffix: "/5", label: "customer rating", isDecimal: true },
+    { value: 15, suffix: "+", label: "states served" },
+  ];
+
+  return (
+    <div className="relative py-2">
+      {/* soft glow background */}
+      <div className="pointer-events-none absolute inset-x-0 -top-10 h-24 bg-linear-to-b from-amber-100/60 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 -bottom-10 h-24 bg-linear-to-t from-emerald-100/60 via-transparent to-transparent" />
+
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="relative overflow-hidden rounded-3xl border border-amber-100/80 bg-linear-to-r from-amber-50/90 via-white/95 to-emerald-50/90 px-5 py-6 shadow-lg shadow-emerald-900/5 backdrop-blur">
+          {/* subtle inner highlight */}
+          <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/60" />
+
+          {/* ribbon header */}
+          <div className="relative mb-5 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-500/90 text-[11px] font-bold text-white shadow-sm">
+                ★
+              </span>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
+                Performance at a glance
+              </p>
+            </div>
+          </div>
+
+          {/* stats grid */}
+          <motion.ul
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="relative grid grid-cols-2 gap-4 sm:grid-cols-4"
+          >
+            {stats.map((s, i) => (
+              <StatCard key={i} index={i} stat={s} />
+            ))}
+          </motion.ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ stat, index }: { stat: StatItem; index: number }) {
+  const { value, prefix = "", suffix = "", label, isDecimal } = stat;
+
+  const ref = React.useRef<HTMLLIElement | null>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) =>
+    isDecimal ? latest.toFixed(1) : Math.floor(latest).toLocaleString()
+  );
+
+  React.useEffect(() => {
+    if (inView) {
+      const controls = animate(count, value, {
+        duration: 1.8,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      });
+      return controls.stop;
+    }
+  }, [inView, value, count]);
+
+  return (
+    <motion.li
+      ref={ref}
+      // FIXED: Combined the entrance animation (childFade) and the continuous animation (float)
+      // by placing the float variants directly on the element and using initial="hidden" 
+      // and whileInView/animate to control the sequence.
+      variants={{ ...childFade, ...float }}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.6 }}
+      animate="animate"
+      className="group relative cursor-default rounded-2xl bg-white/85 px-5 py-4 text-center shadow-sm shadow-gray-900/5 ring-1 ring-black/40 backdrop-blur"
+    >
+      {/* vertical divider for larger screens */}
+      {index !== 0 && (
+        <span className="pointer-events-none absolute inset-y-3 left-0 hidden w-px bg-linear-to-b from-transparent via-amber-100 to-transparent sm:block" />
+      )}
+
+      <div className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        {prefix}
+        <motion.span>{rounded}</motion.span>
+        {suffix}
+      </div>
+      <div className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
+        {label}
+      </div>
+    </motion.li>
+  );
+}
+
+//  Why industry leaders
 function ZigZagWhyUs() {
   const points = [
     {
@@ -312,11 +389,11 @@ function ZigZagWhyUs() {
     <div className="relative bg-white py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div {...fadeUpProps} className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-3xl md:text-5xl font-bold">
+          <h2 className="text-3xl font-bold md:text-5xl">
             Why industry leaders <span className="text-emerald-600">trust us</span>
           </h2>
           <p className="mt-4 text-gray-600">
-            A zig-zag layout for visual rhythm with immersive imagery.
+            A relentless focus on compliance, quality, and guaranteed long-term performance.
           </p>
         </motion.div>
 
@@ -328,33 +405,50 @@ function ZigZagWhyUs() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className={`grid items-center gap-10 lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-last" : ""
-                }`}
+              // Added 'group' class to the parent container for better hover effects
+              className={`group grid items-center gap-10 lg:grid-cols-2 ${
+                i % 2 ? "lg:[&>*:first-child]:order-last" : ""
+              }`}
             >
-              {/* Text Box */}
-              <div className="relative">
+              {/* Text Box (Enhanced Hover) */}
+              <motion.div
+                className="relative"
+                whileHover={{ rotate: i % 2 === 0 ? 0.5 : -0.5 }} // Slight rotation on hover
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              >
                 <div className="absolute -inset-4 -z-10 rounded-3xl bg-linear-to-br from-amber-100/50 to-emerald-100/50 blur-xl" />
                 <div className="rounded-3xl border border-gray-800/30 bg-white/80 p-8 shadow-xl shadow-black/40 backdrop-blur">
                   <div className="flex items-center gap-3">
                     <p.Icon className="h-7 w-7 text-emerald-600" />
                     <h3 className="text-xl font-bold">{p.title}</h3>
                   </div>
-                  <p className="mt-3 text-gray-700 leading-relaxed">{p.desc}</p>
+                  <p className="mt-3 leading-relaxed text-gray-700">{p.desc}</p>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Image Box */}
-              <div className="relative h-44 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80">
+              {/* Image Box (Enhanced InView effect) */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9, rotate: i % 2 === 0 ? -3 : 3, y: 30 },
+                  show: { opacity: 1, scale: 1, rotate: 0, y: 0, transition: { duration: 0.8, ease: EASE, delay: 0.2 } }
+                }}
+                className="relative h-44 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80"
+              >
                 <img
                   src={p.img}
                   alt={p.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  // Retained: group-hover scale effect on image
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://placehold.co/800x400/34D399/10B981?text=Image+Placeholder';
+                    e.currentTarget.onerror = null;
+                  }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
                 <div className="absolute bottom-4 left-4 rounded-xl bg-white/70 px-4 py-2 text-sm font-semibold text-gray-800 backdrop-blur">
                   {p.title}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -377,7 +471,7 @@ function ZigZagWhyUs() {
 }
 
 // How it works
-function CurvedSteps() { 
+function CurvedSteps() {
   const steps = [
     { n: 1, title: "Free Site Survey", desc: "Load assessment, shading, and roof structure check" },
     { n: 2, title: "Design & Proposal", desc: "Energy yield, ROI, and bill‑saving report" },
@@ -389,16 +483,30 @@ function CurvedSteps() {
     <div className="relative bg-emerald-50/60 py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div {...fadeUpProps} className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className=" text-3xl md:text-5xl font-bold">How it works</h2>
-          <p className="mt-2 text-gray-800"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum, esse.</p>
+          <h2 className=" text-3xl font-bold md:text-5xl">Our Hassle-Free Process</h2>
+          <p className="mt-2 text-gray-800"> Your solar journey, simplified into five clear, coordinated steps for maximum efficiency.</p>
         </motion.div>
 
-        <motion.ol variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="relative grid gap-6 md:grid-cols-5">
+        <motion.ol
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="relative grid gap-6 md:grid-cols-5"
+        >
           {/* Curved path line */}
           <div className="pointer-events-none absolute left-0 right-0 top-1/2 -z-10 hidden h-1 -translate-y-1/2 rounded bg-linear-to-r from-amber-300 via-emerald-300 to-amber-300 md:block" />
           {steps.map((s, i) => (
-            <motion.li key={i} variants={childFade} className="relative rounded-2xl border border-emerald-800/60 bg-white p-6 text-center shadow-xl shadow-black/20">
-              <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700 ring-1 ring-amber-300">{s.n}</div>
+            <motion.li
+              key={i}
+              variants={childFade}
+              whileHover={{ y: -8, scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }} // Added strong hover effect
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="relative cursor-pointer rounded-2xl border border-emerald-800/60 bg-white p-6 text-center shadow-xl shadow-black/20"
+            >
+              <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700 ring-1 ring-amber-300">
+                {s.n}
+              </div>
               <div className="font-semibold text-gray-900">{s.title}</div>
               <p className="mt-1 text-sm text-gray-600">{s.desc}</p>
             </motion.li>
@@ -412,39 +520,129 @@ function CurvedSteps() {
 // Our Journey Timeline -----
 function AlternatingTimeline() {
   const timeline = [
-    { year: "2015", title: "Founded", desc: "TrueSun began with a vision to make solar accessible." },
-    { year: "2017", title: "1st 100 Projects", desc: "Crossed 10 MWp milestone in just 2 years." },
-    { year: "2019", title: "National Expansion", desc: "Expanded to 15+ states across India." },
-    { year: "2022", title: "50 MWp Achieved", desc: "Touched 1,000+ homes & businesses." },
-    { year: "2024", title: "Market Leader", desc: "85+ MWp installed, 4.9/5 customer rating." },
+    {
+      year: "2015",
+      title: "Founded",
+      desc: "TrueSun began with a clear vision—to make high-quality solar accessible, transparent, and trusted.",
+    },
+    {
+      year: "2017",
+      title: "1st 100 Projects",
+      desc: "Crossed the 10 MWp mark with 100+ commissioned systems across homes and small businesses.",
+    },
+    {
+      year: "2019",
+      title: "National Expansion",
+      desc: "Scaled operations to 15+ states, building a pan-India partner and installer network.",
+    },
+    {
+      year: "2022",
+      title: "50 MWp Achieved",
+      desc: "Surpassed 50 MWp and energized 1,000+ rooftops, factories, and commercial sites.",
+    },
+    {
+      year: "2024",
+      title: "Market Leader",
+      desc: "Crossed 85+ MWp with a 4.9/5 customer rating and industry-leading repeat business.",
+    },
   ];
+
+  const icons = [Sparkles, Award, Building2, Factory, GaugeCircle];
+
   return (
-    <div className="mx-auto max-w-7xl px-6 py-20">
-      <motion.h2 {...fadeUpProps} className="mb-12 text-5xl font-bold text-center text-gray-900">Our Journey</motion.h2>
-      <div className="relative">
-        {/* central line */}
-        <div className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 rounded bg-linear-to-b from-amber-300 via-emerald-300 to-amber-300" />
-        <motion.ul variants={staggerContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="space-y-8">
-          {timeline.map((t, i) => (
-            <motion.li key={i} variants={childFade} className={`relative flex ${i % 2 ? "md:justify-start" : "md:justify-end"}`}>
-              <div className={`w-full md:w-1/2 ${i % 2 ? "md:pl-8" : "md:pr-8"}`}>
-                <div className="relative rounded-2xl border border-gray-900/30 bg-white p-6 shadow-xl shadow-black/20">
-                 
-                  <div className="text-xs font-bold uppercase tracking-wider text-amber-700">{t.year}</div>
-                  <div className="mt-1 text-xl font-semibold text-gray-900">{t.title}</div>
-                  <p className="mt-1 text-gray-600">{t.desc}</p>
-                </div>
-              </div>
-            </motion.li>
-          ))}
-        </motion.ul>
+    <div className="relative bg-emerald-50/60 py-20">
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.h2
+          {...fadeUpProps}
+          className="mb-3 text-center text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900"
+        >
+          Our Journey
+        </motion.h2>
+        <motion.p
+          {...fadeUpProps}
+          className="mx-auto mb-12 max-w-2xl text-center text-sm md:text-base text-gray-600"
+        >
+          From a single vision in 2015 to a multi-MWp portfolio today, every
+          milestone pushed TrueSun closer to a net-zero India.
+        </motion.p>
+
+        <div className="relative">
+          {/* central gradient spine */}
+          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-linear-to-b from-amber-600 via-emerald-600 to-amber-400" />
+
+          {/* subtle glow behind spine */}
+          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-24 -translate-x-1/2 bg-gradient-to-b from-amber-100/40 via-emerald-50/10 to-emerald-100/40 blur-2xl" />
+
+          <motion.ul
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.4 }}
+            className="space-y-10 md:space-y-12"
+          >
+            {timeline.map((t, i) => {
+              const Icon = icons[i % icons.length];
+              const isLeft = i % 2 === 0;
+
+              return (
+                <motion.li
+                  key={i}
+                  variants={childFade}
+                  className={`relative flex ${
+                    isLeft ? "md:justify-end" : "md:justify-start"
+                  }`}
+                >
+                  {/* marker on central line */}
+                  <div className="pointer-events-none absolute z-50 left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
+                    <span className="absolute inline-flex h-5 w-5 rounded-full bg-emerald-800/90 opacity-70 animate-ping" />
+                    <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-emerald-600 shadow-md shadow-emerald-500/50" />
+                  </div>
+
+                  <div
+                    className={`w-full md:w-1/2 ${
+                      isLeft ? "md:pr-10" : "md:pl-10"
+                    }`}
+                  >
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.01 }}
+                      transition={{ type: "spring", stiffness: 220, damping: 20 }}
+                      className="relative overflow-hidden rounded-3xl border border-gray-900/30 bg-white/95 p-6 shadow-lg shadow-emerald-900/10 backdrop-blur"
+                    >
+                      {/* corner glow */}
+                      <div className="pointer-events-none absolute -top-10 -right-10 h-24 w-24 rounded-full bg-amber-200/40 blur-2xl" />
+                      <div className="pointer-events-none absolute -bottom-10 -left-10 h-24 w-24 rounded-full bg-emerald-200/40 blur-2xl" />
+
+                      {/* top row: year + icon */}
+                      <div className="relative mb-3 flex items-center justify-between gap-3">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-amber-50/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
+                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                          {t.year}
+                        </div>
+                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 shadow-sm">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                      </div>
+
+                      <h3 className="relative text-lg md:text-xl font-semibold text-gray-900">
+                        {t.title}
+                      </h3>
+                      <p className="mt-2 text-sm md:text-[15px] leading-relaxed text-gray-600">
+                        {t.desc}
+                      </p>
+
+                      {/* small footer tag */}
+                      <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-gray-50 px-3 py-1 text-[11px] font-medium text-gray-500">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        Milestone in the TrueSun growth story
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.li>
+              );
+            })}
+          </motion.ul>
+        </div>
       </div>
     </div>
   );
 }
-
-
-
-
-
-

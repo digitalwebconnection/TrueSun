@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
 import {
-  ArrowRight,
   CreditCard,
   CircleDollarSign,
   Handshake,
@@ -12,7 +10,6 @@ import {
   TrendingUp,
   Zap,
   DollarSign,
-  Calculator,
   ShieldCheck,
   BadgeCheck,
   Award,
@@ -110,7 +107,7 @@ export default function SolarFinancePage() {
 
       <OverviewSection />
       <FinanceSnapshot />
-      <SavingsCalculator />
+
 
       <FinanceOptionsSection />
       <FinanceComparisonTable />
@@ -154,13 +151,12 @@ function HeroCTA() {
         variants={fadeUp}
         className="relative overflow-hidden rounded-2xl border border-slate-600/30 bg-white p-5 shadow-xl"
       >
-        <div className="grid grid-cols-2 gap-4 text-sm">
-          <MiniKPI icon={<ShieldCheck className="h-4 w-4" />} label="Tier-1 Hardware" value="25-yr Warranty" />
-          <MiniKPI icon={<LineChart className="h-4 w-4" />} label="Cash-flow" value="Positive from Day 1*" />
-          <MiniKPI icon={<Wallet className="h-4 w-4" />} label="Zero-CAPEX" value="PPA / RESCO" />
-          <MiniKPI icon={<ClipboardCheck className="h-4 w-4" />} label="Trusted Partners" value="Banks + NBFCs" />
+        <div className="grid grid-cols-4 gap-4 text-sm">
+          <MiniKPI icon={<ShieldCheck className="h-6 w-6" />} label="Tier-1 Hardware" value="25-yr Warranty" />
+          <MiniKPI icon={<LineChart className="h-6 w-6" />} label="Cash-flow" value="Positive from Day 1*" />
+          <MiniKPI icon={<Wallet className="h-6 w-6" />} label="Zero-CAPEX" value="PPA / RESCO" />
+          <MiniKPI icon={<ClipboardCheck className="h-6 w-6" />} label="Trusted Partners" value="Banks + NBFCs" />
         </div>
-        <p className="mt-3 text-xs text-slate-500">*Subject to tariff, site, and financing terms.</p>
       </motion.div>
     </AnimatedSection>
   );
@@ -168,7 +164,7 @@ function HeroCTA() {
 
 function TrustBadges() {
   return (
-    <AnimatedSection className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <AnimatedSection className="grid grid-cols-2 sm:grid-cols-4 gap-8">
       <Badge icon={<BadgeCheck className="h-5 w-5" />} text="MNRE Aligned" />
       <Badge icon={<Award className="h-5 w-5" />} text="ISO Practices" />
       <Badge icon={<CheckCircle2 className="h-5 w-5" />} text="650+ Projects" />
@@ -191,10 +187,23 @@ function OverviewSection() {
       </motion.p>
 
       <motion.div className="grid gap-6 sm:grid-cols-3 pt-2" variants={stagger}>
-        <OverviewCard icon={<Home className="h-6 w-6" />} title="Residential" desc="Cut bills and hedge against tariff hikes." />
-        <OverviewCard icon={<Building2 className="h-6 w-6" />} title="Commercial (SME)" desc="Stabilise daytime energy costs." />
-        <OverviewCard icon={<Factory className="h-6 w-6" />} title="Industrial" desc="Offset process loads for major OPEX cuts." />
+        <OverviewCard
+          icon={<Home className="h-6 w-6" />}
+          title="Residential"
+          desc="Lower bills, boost savings, and power your home with clean, reliable rooftop solar."
+        />
+        <OverviewCard
+          icon={<Building2 className="h-6 w-6" />}
+          title="Commercial (SME)"
+          desc="Reduce daytime energy costs, improve margins, and unlock operational efficiency."
+        />
+        <OverviewCard
+          icon={<Factory className="h-6 w-6" />}
+          title="Industrial"
+          desc="Offset heavy process loads, cut OPEX significantly, and stabilize long-term energy demand."
+        />
       </motion.div>
+
     </AnimatedSection>
   );
 }
@@ -231,93 +240,7 @@ function FinanceSnapshot() {
 
 /* ===================== SAVINGS CALCULATOR ===================== */
 
-function SavingsCalculator() {
-  const [bill, setBill] = useState(8000);
-  const [rate, setRate] = useState(10); // interest %
-  const [tenure, setTenure] = useState(72); // months
 
-  // simple assumptions (illustrative only)
-  const monthlyGenerationKWh = useMemo(() => Math.max(250, Math.min(1800, Math.round(bill / 6))), [bill]); // proxy
-  const tariff = 9; // ₹/kWh
-  const savings = monthlyGenerationKWh * tariff;
-
-  // mock EMI using flat-rate-ish approx (for UX demo)
-  const principal = Math.max(1.6, (bill * 36) / 100000) * 100000; // ~ system size proxy
-  const monthlyRate = rate / 12 / 100;
-  const emi = Math.round((principal * monthlyRate * Math.pow(1 + monthlyRate, tenure)) / (Math.pow(1 + monthlyRate, tenure) - 1) || 0);
-
-  const positive = savings >= emi;
-
-  return (
-    <AnimatedSection id="calculator" className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-xl">
-      <motion.div variants={fadeUp} className="flex items-center justify-between gap-4 flex-wrap">
-        <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <Calculator className="h-6 w-6 text-emerald-600" /> Quick Savings Calculator
-        </h3>
-        <span className={`text-sm font-semibold ${positive ? "text-emerald-700" : "text-slate-600"}`}>
-          {positive ? "Cash-flow Positive" : "Close to Break-even"}
-        </span>
-      </motion.div>
-
-      <div className="mt-5 grid gap-6 md:grid-cols-[1.1fr,0.9fr]">
-        {/* Controls */}
-        <div className="space-y-6">
-          <LabeledSlider label="Your monthly bill (₹)" min={2000} max={150000} step={500} value={bill} onChange={setBill} />
-          <div className="grid grid-cols-2 gap-4">
-            <LabeledSlider label="Interest rate (%)" min={6} max={16} step={0.5} value={rate} onChange={setRate} />
-            <LabeledSlider label="Tenure (months)" min={36} max={120} step={6} value={tenure} onChange={setTenure} />
-          </div>
-          <p className="text-xs text-slate-500">This is an illustrative tool. Exact values depend on site, shadow, tariff, and final lender terms.</p>
-        </div>
-
-        {/* Results */}
-        <motion.div variants={fadeUp} className="grid gap-4">
-          <ResultCard label="Approx. Monthly EMI" value={`₹${emi.toLocaleString()}/mo`} tone="indigo" icon={<TrendingUp className="h-4 w-4" />} />
-          <ResultCard label="Est. Monthly Savings" value={`₹${savings.toLocaleString()}/mo`} tone="emerald" icon={<Zap className="h-4 w-4" />} />
-          <ResultCard label="Cashflow (Savings − EMI)" value={`₹${(savings - emi).toLocaleString()}/mo`} tone={positive ? "emerald" : "slate"} icon={<Wallet className="h-4 w-4" />} />
-          <a href="/contact" className="mt-1 inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 font-semibold text-white hover:bg-emerald-700 transition">
-            Get a custom EMI plan <ArrowRight className="h-4 w-4" />
-          </a>
-        </motion.div>
-      </div>
-    </AnimatedSection>
-  );
-}
-
-function LabeledSlider({
-  label, min, max, step, value, onChange,
-}: { label: string; min: number; max: number; step?: number; value: number; onChange: (v: number) => void; }) {
-  return (
-    <label className="block">
-      <div className="mb-1 flex items-center justify-between">
-        <span className="text-sm font-medium text-slate-700">{label}</span>
-        <span className="text-sm font-semibold text-slate-900">{value}</span>
-      </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step ?? 1}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-emerald-600"
-      />
-    </label>
-  );
-}
-
-function ResultCard({ label, value, tone, icon }: { label: string; value: string; tone: "emerald" | "indigo" | "slate"; icon: React.ReactNode }) {
-  const color = tone === "emerald" ? "emerald" : tone === "indigo" ? "indigo" : "slate";
-  return (
-    <div className={`flex items-center justify-between rounded-xl border p-4 bg-${color}-50 border-${color}-200`}>
-      <div className="flex items-center gap-2 text-slate-700">
-        <div className={`h-8 w-8 rounded-lg bg-white/70 border border-white/60 flex items-center justify-center`}>{icon}</div>
-        <span className="text-sm">{label}</span>
-      </div>
-      <span className={`text-sm font-bold text-${color}-700`}>{value}</span>
-    </div>
-  );
-}
 
 /* ===================== FINANCE OPTIONS + COMPARISON ===================== */
 
@@ -365,7 +288,7 @@ function FinanceComparisonTable() {
   ];
 
   return (
-    <AnimatedSection className="overflow-hidden rounded-2xl border border-slate-600/50 bg-white shadow-xl">
+    <AnimatedSection className="overflow-hidden p-5 rounded-2xl border border-slate-600/50 bg-white shadow-xl">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead className="bg-slate-50 text-slate-600">
@@ -388,7 +311,7 @@ function FinanceComparisonTable() {
           </tbody>
         </table>
       </div>
-      <p className="px-4 py-3 text-xs text-slate-500">*Accounting treatment depends on jurisdiction and contract structure.</p>
+      {/* <p className="px-4 py-3 text-xs text-slate-500">*Accounting treatment depends on jurisdiction and contract structure.</p> */}
     </AnimatedSection>
   );
 }
@@ -429,7 +352,7 @@ function ProcessTimeline() {
   return (
     <AnimatedSection className="space-y-6">
       <motion.h2 className="text-3xl font-bold text-slate-900 text-center" variants={fadeUp}>
-        Simple Finance + Solar Process 
+        Simple Finance + Solar Process
       </motion.h2>
       <div className="grid md:grid-cols-6 gap-4">
         {steps.map((s, i) => (
@@ -450,7 +373,7 @@ function ProcessTimeline() {
 
 function OverviewCard({ icon, title, desc }: OverviewCardProps) {
   return (
-    <motion.div className="relative rounded-xl border border-slate-600/30 bg-white p-5 shadow-sm transition duration-300 overflow-hidden" variants={fadeUp} whileHover={{ y: -4 }}>
+    <motion.div className="relative rounded-xl border border-slate-900/60 bg-white p-5 shadow-sm transition duration-300 overflow-hidden" variants={fadeUp} whileHover={{ y: -4 }}>
       <div className="flex gap-3 items-center text-lg font-bold text-slate-900">
         <span className="h-10 w-10 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shrink-0">{icon}</span>
         {title}
