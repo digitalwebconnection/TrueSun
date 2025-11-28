@@ -56,10 +56,7 @@ export default function HeroSection() {
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <button className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-7 py-3 text-sm sm:text-base font-semibold text-white shadow-md hover:bg-emerald-400 transition">
-              Get Your Savings Estimate
-              <span className="text-lg leading-none">→</span>
-            </button>
+            
             <p className="text-xs sm:text-sm text-slate-500">
               Takes less than 60 seconds. No obligation.
             </p>
@@ -94,7 +91,7 @@ export default function HeroSection() {
           </div>
 
           {/* Soft gradient overlay for better contrast */}
-          <div className="absolute inset-0 bg-gradient-to-l from-emerald-500/45 via-emerald-500/10 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-l from-emerald-500/45 via-emerald-500/10 to-transparent" />
 
           {/* Decorative shapes */}
           {/* Top-middle angled bar */}

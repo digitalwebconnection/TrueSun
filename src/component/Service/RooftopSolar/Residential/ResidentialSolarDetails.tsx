@@ -13,7 +13,6 @@ import {
   Wrench,
   Clock,
   IndianRupee,
-  Leaf,
   CheckCircle,
   Phone,
   FileText,
@@ -140,7 +139,7 @@ const faqs: FAQItem[] = [
 
 const ResidentialSolarDetailsPage: FC = () => {
   return (
-    <main className="max-w-7xl mx-auto bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900">
+    <main className="max-w-7xl mx-auto bg-linear-to-b from-slate-50 via-white to-slate-50 text-slate-900">
       {/* HERO – SEO-friendly keyword rich */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.14),transparent_60%)]" />
@@ -171,24 +170,7 @@ const ResidentialSolarDetailsPage: FC = () => {
                 <Tag icon={Zap}>High-usage Residential Consumers</Tag>
               </div>
 
-              {/* CTA strip */}
-              <div className="mt-7 flex flex-wrap gap-3">
-                <a
-                  href="#enquire"
-                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 text-sm sm:text-base font-semibold shadow-sm"
-                >
-                  <Phone className="h-5 w-5" />
-                  Book a Free Solar Site Visit
-                </a>
-                <a
-                  href="#benefits"
-                  className="inline-flex items-center gap-2 rounded-full bg-white/80 hover:bg-white text-slate-900 px-6 py-3 text-sm sm:text-base font-semibold border border-slate-200"
-                >
-                  <Leaf className="h-5 w-5 text-emerald-600" />
-                  View Residential Solar Benefits
-                </a>
-              </div>
-
+            
               {/* Simple stats strip */}
               <div className="mt-8 flex flex-wrap gap-6 text-sm">
                 <StatInline label="Typical savings" value="80–90% bill reduction" />
@@ -200,7 +182,7 @@ const ResidentialSolarDetailsPage: FC = () => {
             {/* Right - abstract visual */}
             <div className="flex-1">
               <div className="relative mt-4 lg:mt-0">
-                <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-200/40 via-sky-200/30 to-amber-200/40 blur-3xl -z-10" />
+                <div className="absolute -inset-4 bg-linear-to-tr from-emerald-200/40 via-sky-200/30 to-amber-200/40 blur-3xl -z-10" />
                 <div className="rounded-3xl bg-white/70 backdrop-blur shadow-lg border border-slate-200 px-5 py-5 sm:px-7 sm:py-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
                     Residential Solar Snapshot
@@ -257,7 +239,7 @@ const ResidentialSolarDetailsPage: FC = () => {
       {/* WHO WE SERVE – New Attractive Section */}
       <section className="py-14 lg:py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-emerald-950 via-slate-950 to-sky-950 text-emerald-50 px-6 py-10 sm:px-10 sm:py-12">
+          <div className="relative overflow-hidden rounded-4xl bg-linear-to-r from-emerald-950 via-slate-950 to-sky-950 text-emerald-50 px-6 py-10 sm:px-10 sm:py-12">
             {/* Soft glow background accents */}
             <div className="pointer-events-none absolute -left-10 top-0 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl" />
             <div className="pointer-events-none absolute -right-10 bottom-0 h-60 w-60 rounded-full bg-sky-500/25 blur-3xl" />

@@ -13,7 +13,6 @@ const ContactHero = () => {
                 <div className="absolute inset-0 bg-[#050814]/70" />
             </div>
 
-
             {/* Content */}
             <div className="relative max-w-5xl  px-6 ">
                 {/* Badge - Specific to the Contact Page */}
@@ -39,7 +38,6 @@ const ContactHero = () => {
                 {/* CTA Buttons - Clear Next Steps */}
                 <div className="flex flex-wrap  gap-4 mt-10">
                     <a
-                        href="#contact"
                         className="bg-sky-500 text-white font-semibold px-7 py-3 rounded-full shadow-xl shadow-sky-500/30 hover:bg-sky-600 transition"
                     >
                         Get a Free Project Analysis

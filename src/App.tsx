@@ -15,7 +15,10 @@ import MainCI from "./component/Service/RooftopSolar/C&I/MainC&I";
 import SolarfinanceMain from "./component/Solar-finance/Solar-financeMain";
 import Careersmain from "./component/Careers/Careersmain";
 import ContactUsMain from "./component/ContactUs/ContactUsMain";
-import LeadPopup from "./component/LeadPopup";
+import ServiceMain from "./component/Service/ServiceMain";
+import ScrollToTop from "./component/ScrollToTop";
+import BlogMain from "./component/blog/BlogMain";
+// import LeadPopup from "./component/LeadPopup";
 
 
 
@@ -24,7 +27,7 @@ import LeadPopup from "./component/LeadPopup";
 function App() {
   return (
     <BrowserRouter>
-
+      <ScrollToTop />
       <Navbar />
       <Routes>
         {/* Home & Main */}
@@ -32,7 +35,7 @@ function App() {
         <Route path="/about" element={<MainAbout />} />
 
         {/* Top-level Services */}
-        {/* <Route path="/services" element={<Services />} /> */}
+        <Route path="/services" element={<ServiceMain />} />
 
         {/* Rooftop Solar Children */}
         {/* <Route path="/services/rooftop" element={<RooftopMain />} /> */}
@@ -48,11 +51,12 @@ function App() {
         <Route path="/Solar-finance" element={<SolarfinanceMain/>}/>
         <Route path="/projects" element={<Projectsmain />} />
         <Route path="/careers" element={<Careersmain/>} />
+                <Route path="/blog" element={<BlogMain/>} />
         <Route path="/contact" element={<ContactUsMain />} />
       </Routes>
       <SolarFooter />
       <WhatsAppDockPro/>
-      <LeadPopup/>
+      {/* <LeadPopup/> */}
     </BrowserRouter>
 
   );

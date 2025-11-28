@@ -7,6 +7,8 @@ import {
   ArrowRight,
   Layers,
 } from "lucide-react";
+import { useState } from "react";
+import LeadPopup from "../LeadPopup";
 
 // --- Configuration Data ---
 const tags = [
@@ -17,6 +19,7 @@ const tags = [
 ];
 
 export default function AppSimple() {
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
   return (
     <section className="relative  flex flex-col justify-center items-center text-white p-6 overflow-hidden">
       {/* Background Image with Overlay */}
@@ -50,7 +53,7 @@ export default function AppSimple() {
         {/* --- CTA Buttons (Left aligned) --- */}
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
-            href="#case-studies"
+         
             className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-teal-500 to-emerald-600 px-8 py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
           >
             Explore Projects
@@ -58,7 +61,7 @@ export default function AppSimple() {
           </a>
 
           <a
-            href="#contact"
+              onClick={() => setOpenLeadPopup(true)}
             className="inline-flex items-center justify-center rounded-xl border border-white/40 px-8 py-3 text-base font-semibold text-white/90 transition hover:bg-white/10 shadow-md w-fit"
           >
             Get a Quote
@@ -81,6 +84,10 @@ export default function AppSimple() {
                 ))}
             </div>
         </div>
+          {/* Popup Mount */}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
       </div>
     </section>
   );

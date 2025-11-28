@@ -89,19 +89,31 @@ function ServicesMenu() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative flex items-center gap-1">
+      {/* Text: navigates to /services page */}
+      <NavLink
+        to="/services"
+        className={({ isActive }) =>
+          cn(
+            "font-medium text-gray-800 transition-colors hover:text-orange-500",
+            isActive && "text-orange-500"
+          )
+        }
+      >
+        Our Services
+      </NavLink>
+
+      {/* Small arrow button: only toggles dropdown */}
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
+        aria-label="Toggle services menu"
         className={cn(
-          "inline-flex items-center gap-1 font-medium text-gray-800 transition-colors hover:text-orange-500"
+          "inline-flex items-center justify-center rounded-full p-1 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors"
         )}
       >
-        <span className="inline-flex items-center gap-2">
-         Our Services
-        </span>
         <ChevronDown
           className={cn(
             "h-4 w-4 transition-transform",
@@ -429,7 +441,7 @@ export default function Navbar() {
               Careers
             </NavLink>
             <NavLink
-              to="/blog"
+              to=""
               className={({ isActive }) =>
                 cn(linkBase, isActive && activeClass)
               }
@@ -517,11 +529,11 @@ export default function Navbar() {
         {/* Drawer links */}
         <nav className="flex -mt-5 flex-col space-y-2 bg-white p-6 font-semibold">
           {[
-             { name: "Home", to: "/" },
+            { name: "Home", to: "/" },
             { name: "About", to: "/about" },
             { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
-             { name: "Blog", to: "/blog" },
+            { name: "Blog", to: "/blog" },
             { name: "Careers", to: "/careers" },
           ].map(({ name, to }, index) => (
             <NavLink

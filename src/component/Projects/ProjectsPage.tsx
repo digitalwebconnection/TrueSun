@@ -358,7 +358,7 @@ function ProjectModal({
         </div>
 
         {/* Body */}
-        <div className="grid max-h-[28rem] gap-6 overflow-y-auto p-5 sm:p-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div className="grid max-h-112 gap-6 overflow-y-auto p-5 sm:p-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           {/* LEFT SIDE – STORY & NARRATIVE */}
           <div className="space-y-4">
             {/* Client info */}

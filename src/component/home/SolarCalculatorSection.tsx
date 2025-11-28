@@ -1,7 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Zap, IndianRupee, Download, TrendingUp, DollarSign } from "lucide-react";
+import {
+  Zap,
+  IndianRupee,
+  Download,
+  TrendingUp,
+  DollarSign,
+} from "lucide-react";
+import LeadPopup from "../../component/LeadPopup"; // adjust the path if needed
 
 /* ===================== Helpers ===================== */
 // For on-screen display (cards)
@@ -74,22 +81,10 @@ async function makePdfTable(payload: {
     startY: 92,
     head: [["Summary", ""]],
     body: [
-      [
-        "Monthly Electricity Bill",
-        fmtINRForPdf(payload.inputs.monthlyBill),
-      ],
-      [
-        "Electricity Tariff",
-        `Rs ${payload.inputs.tariff}/kWh`,
-      ],
-      [
-        "Estimated Monthly Consumption",
-        `${payload.results.monthlyKWh} kWh`,
-      ],
-      [
-        "Apply Subsidy",
-        payload.inputs.applySubsidy ? "Yes" : "No",
-      ],
+      ["Monthly Electricity Bill", fmtINRForPdf(payload.inputs.monthlyBill)],
+      ["Electricity Tariff", `Rs ${payload.inputs.tariff}/kWh`],
+      ["Estimated Monthly Consumption", `${payload.results.monthlyKWh} kWh`],
+      ["Apply Subsidy", payload.inputs.applySubsidy ? "Yes" : "No"],
     ],
     theme: "grid",
     styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
@@ -185,6 +180,7 @@ export default function SolarCalculatorMaharashtra() {
   const [monthlyBill, setMonthlyBill] = useState<number>(3000);
   const [tariff, setTariff] = useState<number>(9);
   const [applySubsidy, setApplySubsidy] = useState<boolean>(true);
+  const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
   // constants
   const PR = 0.75;
@@ -193,7 +189,8 @@ export default function SolarCalculatorMaharashtra() {
 
   const result = useMemo(() => {
     const sunHours = CITY_SUN[city];
-    const monthlyKWh = monthlyBill > 0 && tariff > 0 ? monthlyBill / tariff : 0;
+    const monthlyKWh =
+      monthlyBill > 0 && tariff > 0 ? monthlyBill / tariff : 0;
     const targetKWh = monthlyKWh * TARGET_OFFSET;
     const kWhPerKwMonth = sunHours * 30 * PR;
     const recommendedKw =
@@ -225,44 +222,45 @@ export default function SolarCalculatorMaharashtra() {
   }, [monthlyBill, tariff, city, applySubsidy]);
 
   return (
-    <div className="min-h-screen w-full bg-linear-to-b from-amber-100 via-white to-gray-600/5 text-gray-800 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-12">
+    <div id="calculator"
+ className="min-h-screen w-full bg-linear-to-b from-amber-100 via-white to-gray-600/5 text-gray-800 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
-        <header className="text-center space-y-3 max-w-5xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl max-w-xl mx-auto font-extrabold text-gray-900">
+        <header  className="mx-auto max-w-5xl space-y-3 text-center">
+          <h1 className="mx-auto max-w-xl text-4xl font-extrabold text-gray-900 sm:text-5xl">
             Calculate Your Saving With{" "}
             <span className="text-orange-600">TrueSun</span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">
-            Estimate your solar system size, cost, subsidy, and payback
-            period for homes in Maharashtra.
+          <p className="text-base text-gray-600 sm:text-lg">
+            Estimate your solar system size, cost, subsidy, and payback period
+            for homes in Maharashtra.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Inputs */}
-          <section className="lg:col-span-1 bg-white rounded-2xl p-6 md:p-8 space-y-6 border border-gray-800/10 shadow-xl shadow-black/5 h-fit">
-            <h2 className="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-green-500" />
+          <section className="h-fit space-y-6 rounded-2xl border border-gray-800/10 bg-white p-6 shadow-xl shadow-black/5 md:p-8 lg:col-span-1">
+            <h2 className="flex items-center gap-2 border-b border-gray-200 pb-4 text-2xl font-semibold text-gray-800">
+              <DollarSign className="h-5 w-5 text-green-500" />
               Your Parameters
             </h2>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   City / Location
                 </label>
-                <div className="p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800">
+                <div className="rounded-xl border border-gray-300 bg-gray-50 p-3 text-gray-800">
                   Maharashtra
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="mt-1 text-xs text-gray-500">
                   Average Sun Hours:{" "}
                   <b>{CITY_SUN[city]} kWh/m²/day</b>
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Monthly Electricity Bill (₹)
                 </label>
                 <input
@@ -271,12 +269,12 @@ export default function SolarCalculatorMaharashtra() {
                   onChange={(e) =>
                     setMonthlyBill(Number(e.target.value || 0))
                   }
-                  className="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition"
+                  className="w-full rounded-xl border border-gray-300 bg-gray-50 p-3 text-gray-800 transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1 block text-sm font-medium text-gray-700">
                   Electricity Tariff (₹/kWh)
                 </label>
                 <input
@@ -286,9 +284,9 @@ export default function SolarCalculatorMaharashtra() {
                   onChange={(e) =>
                     setTariff(Number(e.target.value || 0))
                   }
-                  className="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition"
+                  className="w-full rounded-xl border border-gray-300 bg-gray-50 p-3 text-gray-800 transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="mt-1 text-xs text-gray-500">
                   Estimated consumption:{" "}
                   <b>{result.monthlyKWh} kWh</b>
                 </p>
@@ -299,14 +297,12 @@ export default function SolarCalculatorMaharashtra() {
                   id="subsidy-checkbox"
                   type="checkbox"
                   checked={applySubsidy}
-                  onChange={(e) =>
-                    setApplySubsidy(e.target.checked)
-                  }
-                  className="w-4 h-4 text-amber-500 border-gray-300 rounded focus:ring-amber-400"
+                  onChange={(e) => setApplySubsidy(e.target.checked)}
+                  className="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-400"
                 />
                 <label
                   htmlFor="subsidy-checkbox"
-                  className="text-sm text-gray-700 select-none"
+                  className="select-none text-sm text-gray-700"
                 >
                   Apply PM Surya Ghar Subsidy
                 </label>
@@ -315,35 +311,33 @@ export default function SolarCalculatorMaharashtra() {
           </section>
 
           {/* Results */}
-          <section className="lg:col-span-2 bg-white rounded-2xl p-6 md:p-8 space-y-8 border border-gray-800/10 shadow-xl shadow-black/5">
-            <h2 className="text-2xl font-semibold text-gray-800 border-b border-gray-200 pb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-500" />
+          <section className="space-y-8 rounded-2xl border border-gray-800/10 bg-white p-6 shadow-xl shadow-black/5 md:p-8 lg:col-span-2">
+            <h2 className="flex items-center gap-2 border-b border-gray-200 pb-4 text-2xl font-semibold text-gray-800">
+              <TrendingUp className="h-5 w-5 text-blue-500" />
               Projected Investment & Savings
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-1 p-6 rounded-xl bg-orange-600 text-white shadow-md">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              <div className="rounded-xl bg-orange-600 p-6 text-white shadow-md">
                 <div className="flex items-center gap-2 text-sm font-medium">
-                  <Zap className="w-5 h-5" /> Recommended System Size
+                  <Zap className="h-5 w-5" /> Recommended System Size
                 </div>
-                <div className="text-5xl font-extrabold mt-2 leading-none">
+                <div className="mt-2 text-5xl font-extrabold leading-none">
                   {result.recommendedKw}
                 </div>
-                <div className="text-xl font-semibold opacity-90">
-                  kW
-                </div>
-                <p className="text-xs opacity-80 mt-2">
+                <div className="text-xl font-semibold opacity-90">kW</div>
+                <p className="mt-2 text-xs opacity-80">
                   Est. monthly generation:{" "}
                   <b>{result.monthlyGen} kWh</b>
                 </p>
               </div>
 
-              <div className="md:col-span-2 p-6 rounded-2xl bg-gray-50 border border-gray-800/10 shadow-xl shadow-black/5">
+              <div className="md:col-span-2 rounded-2xl border border-gray-800/10 bg-gray-50 p-6 shadow-xl shadow-black/5">
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                  <IndianRupee className="w-5 h-5 text-blue-500" />{" "}
-                  Payback Period
+                  <IndianRupee className="h-5 w-5 text-blue-500" /> Payback
+                  Period
                 </div>
-                <div className="text-5xl font-extrabold text-blue-500 mt-2 leading-none">
+                <div className="mt-2 text-5xl font-extrabold leading-none text-blue-500">
                   {Number.isFinite(result.paybackYears)
                     ? result.paybackYears.toFixed(1)
                     : "—"}
@@ -351,39 +345,35 @@ export default function SolarCalculatorMaharashtra() {
                 <div className="text-xl font-semibold text-gray-700">
                   Years
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
-                  Actual results may vary depending on location and
-                  tariff escalation.
+                <p className="mt-2 text-xs text-gray-500">
+                  Actual results may vary depending on location and tariff
+                  escalation.
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-              <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
+            <div className="grid grid-cols-2 gap-4 pt-4 lg:grid-cols-4">
+              <div className="rounded-xl border border-gray-800/10 bg-gray-50 p-4 shadow-lg shadow-black/10">
                 <div className="text-xs text-gray-500">Gross CAPEX</div>
-                <div className="text-lg font-bold text-gray-800 mt-1">
+                <div className="mt-1 text-lg font-bold text-gray-800">
                   {fmtINR.format(result.capex)}
                 </div>
               </div>
-              <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
-                <div className="text-xs text-gray-500">
-                  Subsidy Applied
-                </div>
-                <div className="text-lg font-bold text-green-600 mt-1">
+              <div className="rounded-xl border border-gray-800/10 bg-gray-50 p-4 shadow-lg shadow-black/10">
+                <div className="text-xs text-gray-500">Subsidy Applied</div>
+                <div className="mt-1 text-lg font-bold text-green-600">
                   {fmtINR.format(result.subsidy)}
                 </div>
               </div>
-              <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
+              <div className="rounded-xl border border-gray-800/10 bg-gray-50 p-4 shadow-lg shadow-black/10">
                 <div className="text-xs text-gray-500">Net Cost</div>
-                <div className="text-lg font-bold text-indigo-600 mt-1">
+                <div className="mt-1 text-lg font-bold text-indigo-600">
                   {fmtINR.format(result.netCapex)}
                 </div>
               </div>
-              <div className="p-4 rounded-xl bg-gray-50 border border-gray-800/10 shadow-lg shadow-black/10">
-                <div className="text-xs text-gray-500">
-                  Monthly Savings
-                </div>
-                <div className="text-lg font-bold text-amber-600 mt-1">
+              <div className="rounded-xl border border-gray-800/10 bg-gray-50 p-4 shadow-lg shadow-black/10">
+                <div className="text-xs text-gray-500">Monthly Savings</div>
+                <div className="mt-1 text-lg font-bold text-amber-600">
                   {fmtINR.format(result.monthlySavings)}
                 </div>
               </div>
@@ -393,9 +383,13 @@ export default function SolarCalculatorMaharashtra() {
 
         {/* Buttons */}
         <div className="flex flex-wrap justify-center gap-6 pt-4">
-          <button className="px-10 py-4 bg-amber-500 text-white rounded-full text-lg font-bold hover:bg-amber-400 transition transform hover:scale-105 shadow-md">
-            Get a Personalized Quote
+          <button
+            onClick={() => setOpenLeadPopup(true)}
+            className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/50 transition hover:shadow-lg hover:brightness-105"
+          >
+            Book a Free Site Visit
           </button>
+
           <button
             onClick={async () => {
               const doc = await makePdfTable({
@@ -406,12 +400,17 @@ export default function SolarCalculatorMaharashtra() {
               });
               doc.save(`solar-quote-${city}-${Date.now()}.pdf`);
             }}
-            className="px-10 py-4 border border-orange-600 text-orange-600 bg-amber-50 rounded-full text-lg font-medium hover:bg-indigo-50 transition flex items-center gap-3"
+            className="flex items-center gap-3 rounded-full border border-orange-600 bg-amber-50 px-10 py-4 text-lg font-medium text-orange-600 transition hover:bg-indigo-50"
           >
-            <Download className="w-5 h-5" /> Download Report
+            <Download className="h-5 w-5" /> Download Report
           </button>
         </div>
       </div>
+
+      {/* Popup Mount */}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   CreditCard,
   CircleDollarSign,
@@ -7,23 +8,9 @@ import {
   Home,
   Building2,
   Factory,
-  TrendingUp,
-  Zap,
-  DollarSign,
-  ShieldCheck,
-  BadgeCheck,
-  Award,
-  CheckCircle2,
-  CalendarClock,
-  ClipboardCheck,
-  Wrench,
-  Wallet,
-  LineChart,
-  Sparkles,
-  Users2,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-
+import LeadPopup from "../../component/LeadPopup";
 /* ===================== TYPES ===================== */
 
 interface OverviewCardProps {
@@ -33,44 +20,21 @@ interface OverviewCardProps {
 }
 
 interface OptionCardProps {
-  tag?: string;
-  color?: string;
   title: string;
-  icon: React.ReactNode;
+  subtitle?: string;
+  icon?: React.ReactNode;
   points: string[];
-}
-
-interface ScenarioCardProps {
-  tag: string;
-  title: string;
-  systemCost: string;
-  emi: string;
-  savings: string;
-  tenure: string;
-  icon: React.ReactNode;
-  gradient: string;
 }
 
 /* ===================== ANIMATION HELPERS ===================== */
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-};
-
-const floatVariants: Variants = {
-  initial: { y: 0 },
-  animate: { y: [0, -8, 0], transition: { duration: 4, repeat: Infinity, ease: "easeInOut" } },
-};
-
-const cardHover: Variants = {
-  initial: { y: 0, scale: 1 },
-  hover: { scale: 1.03, y: -8, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)", transition: { duration: 0.25 } },
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 function AnimatedSection({
@@ -83,7 +47,14 @@ function AnimatedSection({
   className?: string;
 }) {
   return (
-    <motion.section id={id} className={className} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={fadeUp}>
+    <motion.section
+      id={id}
+      className={className}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeUp}
+    >
       {children}
     </motion.section>
   );
@@ -93,278 +64,223 @@ function AnimatedSection({
 
 export default function SolarFinancePage() {
   return (
-    <main
-      className="
-        relative mx-auto max-w-7xl pb-24 pt-12 space-y-10
-        px-6 md:px-0
-        overflow-x-clip
-      "
-    >
-      <BGDecoration />
-
-      <HeroCTA />
-      <TrustBadges />
-
+    <main className="relative mx-auto max-w-7xl space-y-12 px-4 pb-20 pt-12 md:px-0">
       <OverviewSection />
-      <FinanceSnapshot />
-
-
       <FinanceOptionsSection />
-      <FinanceComparisonTable />
-
-      <ExampleScenariosSection />
-      <ProcessTimeline />
+      <ProcessAndCTA />
     </main>
   );
 }
 
-function BGDecoration() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-    >
-      <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full bg-emerald-300/20 blur-3xl" />
-      <div className="absolute top-1/3 right-0 translate-x-1/3 h-72 w-72 rounded-full bg-sky-300/20 blur-3xl" />
-      <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-amber-300/20 blur-3xl" />
-      <div className="absolute inset-0 [background:radial-gradient(circle_at_1px_1px,var(--color-slate-300)_1px,transparent_1px)]/25 bg-size-[20px_20px]" />
-      <div className="absolute inset-x-0 -top-16 h-40 bg-linear-to-b from-white to-transparent" />
-    </div>
-  );
-}
-
-/* ===================== HERO + TRUST ===================== */
-
-function HeroCTA() {
-  return (
-    <AnimatedSection className="grid gap-6 md:grid-cols-[1.1fr,0.9fr] items-center">
-      <div className="space-y-4">
-        <motion.h1 className="text-4xl text-center md:text-5xl font-extrabold tracking-tight text-slate-900" variants={fadeUp}>
-          Solar Finance that <span className="text-emerald-600">pays for itself</span>
-        </motion.h1>
-        <motion.p className="text-lg text-center mx-auto text-slate-700 max-w-5xl" variants={fadeUp}>
-          Turn high electricity bills into predictable monthly payments. Own the system or pay only for the energy—your call.
-        </motion.p>
-      </div>
-
-      <motion.div
-        variants={fadeUp}
-        className="relative overflow-hidden rounded-2xl border border-slate-600/30 bg-white p-5 shadow-xl"
-      >
-        <div className="grid grid-cols-4 gap-4 text-sm">
-          <MiniKPI icon={<ShieldCheck className="h-6 w-6" />} label="Tier-1 Hardware" value="25-yr Warranty" />
-          <MiniKPI icon={<LineChart className="h-6 w-6" />} label="Cash-flow" value="Positive from Day 1*" />
-          <MiniKPI icon={<Wallet className="h-6 w-6" />} label="Zero-CAPEX" value="PPA / RESCO" />
-          <MiniKPI icon={<ClipboardCheck className="h-6 w-6" />} label="Trusted Partners" value="Banks + NBFCs" />
-        </div>
-      </motion.div>
-    </AnimatedSection>
-  );
-}
-
-function TrustBadges() {
-  return (
-    <AnimatedSection className="grid grid-cols-2 sm:grid-cols-4 gap-8">
-      <Badge icon={<BadgeCheck className="h-5 w-5" />} text="MNRE Aligned" />
-      <Badge icon={<Award className="h-5 w-5" />} text="ISO Practices" />
-      <Badge icon={<CheckCircle2 className="h-5 w-5" />} text="650+ Projects" />
-      <Badge icon={<ShieldCheck className="h-5 w-5" />} text="Performance O&M" />
-    </AnimatedSection>
-  );
-}
-
-/* ===================== OVERVIEW ===================== */
+/* ===================== OVERVIEW (WITH SIMPLE IMAGE-STYLE EXPLANATION) ===================== */
 
 function OverviewSection() {
   return (
-    <AnimatedSection id="overview" className="space-y-4 text-center">
-      <motion.h2 className="text-3xl font-bold text-slate-900" variants={fadeUp}>
-        How Solar Finance Works 💡
-      </motion.h2>
-      <motion.p className="text-lg text-slate-700 max-w-3xl mx-auto" variants={fadeUp}>
-        Instead of paying the entire cost upfront, convert it into monthly payments. Your{" "}
-        <span className="font-extrabold text-emerald-600">bill savings help pay for the system</span>—often making cash-flow positive from day one.
-      </motion.p>
-
-      <motion.div className="grid gap-6 sm:grid-cols-3 pt-2" variants={stagger}>
-        <OverviewCard
-          icon={<Home className="h-6 w-6" />}
-          title="Residential"
-          desc="Lower bills, boost savings, and power your home with clean, reliable rooftop solar."
-        />
-        <OverviewCard
-          icon={<Building2 className="h-6 w-6" />}
-          title="Commercial (SME)"
-          desc="Reduce daytime energy costs, improve margins, and unlock operational efficiency."
-        />
-        <OverviewCard
-          icon={<Factory className="h-6 w-6" />}
-          title="Industrial"
-          desc="Offset heavy process loads, cut OPEX significantly, and stabilize long-term energy demand."
-        />
-      </motion.div>
-
-    </AnimatedSection>
-  );
-}
-
-/* ===================== FINANCE SNAPSHOT (INFOGRAPHIC CARDS) ===================== */
-
-function FinanceSnapshot() {
-  const items = [
-    { icon: <TrendingUp className="h-5 w-5" />, label: "Typical ROI", value: "20–28% IRR" },
-    { icon: <CalendarClock className="h-5 w-5" />, label: "Payback", value: "~4–5 years" },
-    { icon: <Zap className="h-5 w-5" />, label: "Savings", value: "₹6k–65k / mo" },
-    { icon: <DollarSign className="h-5 w-5" />, label: "EMI Range", value: "₹5k–50k / mo" },
-  ];
-  return (
-    <AnimatedSection className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-      {items.map((it, i) => (
-        <motion.div
-          key={i}
+    <AnimatedSection id="overview" className="space-y-6">
+      <div className="text-center space-y-3">
+        <motion.h2
+          className="text-2xl font-bold text-slate-900 sm:text-3xl"
           variants={fadeUp}
-          className="flex items-center gap-3 rounded-xl border border-slate-600/30 bg-white p-4 shadow-sm"
         >
-          <div className="h-10 w-10 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
-            {it.icon}
-          </div>
-          <div>
-            <div className="text-xs text-slate-500">{it.label}</div>
-            <div className="text-base font-semibold text-slate-900">{it.value}</div>
-          </div>
-        </motion.div>
-      ))}
+          How Solar Finance Works 💡
+        </motion.h2>
+
+        <motion.p
+          className="mx-auto max-w-3xl text-sm sm:text-base text-slate-700"
+          variants={fadeUp}
+        >
+          Instead of paying the entire amount at once, you spread it across{" "}
+          <span className="font-semibold text-emerald-600">
+            small, predictable monthly payments
+          </span>
+          . A big part of that EMI is covered by the money you save on your
+          electricity bill.
+        </motion.p>
+      </div>
+
+      {/* Text + Image-style layout */}
+      <div className="grid gap-6 md:grid-cols-2 md:items-start">
+        {/* LEFT – cards for segments */}
+        <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1">
+          <OverviewCard
+            icon={<Home className="h-5 w-5" />}
+            title="Homes"
+            desc="Reduce your light bill and own the rooftop system for 20+ years."
+          />
+
+          <OverviewCard
+            icon={<Building2 className="h-5 w-5" />}
+            title="Shops & Offices"
+            desc="Cut daytime power costs and keep your monthly cashflow predictable."
+          />
+
+          <OverviewCard
+            icon={<Factory className="h-5 w-5" />}
+            title="Small Industries"
+            desc="Lower per-unit energy cost for machines and production loads."
+          />
+
+          <OverviewCard
+            icon={<Home className="h-5 w-5" />}
+            title="Villas & Bungalows"
+            desc="Premium rooftop solar setups with maximum savings and clean design."
+          />
+
+          
+        </div>
+
+
+        {/* RIGHT – simple visual explanation “like an image” */}
+        <SimpleVisualCard />
+      </div>
     </AnimatedSection>
   );
 }
 
-/* ===================== SAVINGS CALCULATOR ===================== */
-
-
-
-/* ===================== FINANCE OPTIONS + COMPARISON ===================== */
+/* ===================== FINANCE OPTIONS ===================== */
 
 function FinanceOptionsSection() {
   return (
     <AnimatedSection id="options" className="space-y-6 text-center">
-      <motion.h2 className="text-3xl font-bold text-slate-900" variants={fadeUp}>
-        Finance Options with Truesun 🤝
+      <motion.h2
+        className="text-2xl font-bold text-slate-900 sm:text-3xl"
+        variants={fadeUp}
+      >
+        Three Simple Ways to Finance Solar
       </motion.h2>
-      <motion.p className="text-lg text-slate-700 max-w-3xl mx-auto" variants={fadeUp}>
-        Choose between owning the plant (CAPEX) or paying only for energy (PPA/RESCO). Mix across sites if needed.
+
+      <motion.p
+        className="mx-auto max-w-3xl text-sm sm:text-base text-slate-700"
+        variants={fadeUp}
+      >
+        No long paragraphs, no confusing terms. Just three clear models you can
+        understand in one glance.
       </motion.p>
 
-      <motion.div className="grid gap-6 md:grid-cols-3 pt-2" variants={stagger}>
+      <div className="grid gap-5 pt-2 md:grid-cols-3">
         <OptionCard
-          tag="Most Preferred"
-          color="border-emerald-400 bg-emerald-50 shadow-lg shadow-emerald-200/50"
-          title="Loan / EMI (CAPEX)"
-          icon={<CircleDollarSign className="h-6 w-6 text-emerald-600" />}
-          points={["Own from day one", "Savings help cover EMI", "Depreciation & tax (where applicable)"]}
+          title="EMI / Loan Financing"
+          subtitle="Most common for homes"
+          icon={<CircleDollarSign className="h-5 w-5 text-emerald-600" />}
+          points={[
+            "Low monthly payments",
+            "Bank & NBFC tie-ups",
+            "3–5 year repayment",
+          ]}
         />
-        <OptionCard
-          title="PPA / RESCO"
-          icon={<Handshake className="h-6 w-6 text-sky-600" />}
-          points={["Zero CAPEX", "Pay per kWh at agreed tariff", "Off-balance sheet for many businesses"]}
-        />
-        <OptionCard
-          title="Hybrid / Mix"
-          icon={<CreditCard className="h-6 w-6 text-amber-600" />}
-          points={["Own some, PPA some", "Useful across multi-site portfolios", "Optimise risk & payback"]}
-        />
-      </motion.div>
-    </AnimatedSection>
-  );
-}
 
-function FinanceComparisonTable() {
-  const rows = [
-    { key: "Ownership", capex: "You", ppa: "RESCO/Lessor", hybrid: "Split" },
-    { key: "Upfront Cost", capex: "Medium–High", ppa: "Zero CAPEX", hybrid: "Low–Medium" },
-    { key: "Monthly Outgo", capex: "EMI", ppa: "₹/kWh tariff", hybrid: "Both" },
-    { key: "Balance Sheet", capex: "Asset on books", ppa: "Off-balance sheet*", hybrid: "Partial" },
-    { key: "Tax Benefits", capex: "Depreciation (as applicable)", ppa: "N/A", hybrid: "Partial" },
-    { key: "Best For", capex: "Owners & long-term ROI", ppa: "Cash-conscious expansion", hybrid: "Mixed portfolios" },
-  ];
+        <OptionCard
+          title="Zero Upfront (OPEX Model)"
+          subtitle="Great for commercial & industries"
+          icon={<Handshake className="h-5 w-5 text-sky-600" />}
+          points={[
+            "No investment to start",
+            "Pay per unit of energy",
+            "Solar remains off your balance sheet",
+          ]}
+        />
 
-  return (
-    <AnimatedSection className="overflow-hidden p-5 rounded-2xl border border-slate-600/50 bg-white shadow-xl">
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-slate-600">
-            <tr>
-              <th className="px-4 py-3">Criteria</th>
-              <th className="px-4 py-3">CAPEX</th>
-              <th className="px-4 py-3">PPA / RESCO</th>
-              <th className="px-4 py-3">Hybrid</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.key} className="border-t border-slate-100">
-                <td className="px-4 py-3 font-medium text-slate-800">{r.key}</td>
-                <td className="px-4 py-3">{r.capex}</td>
-                <td className="px-4 py-3">{r.ppa}</td>
-                <td className="px-4 py-3">{r.hybrid}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <OptionCard
+          title="Subsidy + Loan Combo"
+          subtitle="Ideal for homes & small businesses"
+          icon={<CreditCard className="h-5 w-5 text-amber-600" />}
+          points={[
+            "Use state / MNRE subsidies",
+            "Lower overall loan amount",
+            "Best for budget-conscious buyers",
+          ]}
+        />
       </div>
-      {/* <p className="px-4 py-3 text-xs text-slate-500">*Accounting treatment depends on jurisdiction and contract structure.</p> */}
     </AnimatedSection>
   );
 }
 
-/* ===================== EXAMPLES ===================== */
+/* ===================== PROCESS + FINAL CTA ===================== */
 
-function ExampleScenariosSection() {
-  return (
-    <AnimatedSection id="examples" className="space-y-6 relative">
-      <div className="absolute inset-0 bg-linear-to-br from-emerald-50 via-sky-50 to-amber-50 rounded-3xl -z-10 opacity-50 overflow-hidden" />
-      <motion.h2 className="text-3xl md:text-4xl font-bold text-slate-900 text-center" variants={fadeUp}>
-        Illustrative EMI & Savings Scenarios 📊
-      </motion.h2>
-      <motion.p className="text-lg text-slate-700 max-w-3xl mx-auto text-center" variants={fadeUp}>
-        Indicative examples. Exacts vary by site, tariff, and finance rate.
-      </motion.p>
+function ProcessAndCTA() {
 
-      <motion.div className="grid gap-8 md:grid-cols-3 pt-6" variants={stagger}>
-        <ScenarioCard tag="Home" title="5 kW Residential" systemCost="₹3.2L" emi="₹5,500 / month" savings="₹6,000–7,000 / month" tenure="6 years" icon={<Home className="h-8 w-8" />} gradient="from-emerald-400 to-green-500" />
-        <ScenarioCard tag="Shop / Office" title="15 kW Commercial" systemCost="₹9.0L" emi="₹15,000 / month" savings="₹16,000–19,000 / month" tenure="6–7 years" icon={<Building2 className="h-8 w-8" />} gradient="from-sky-400 to-blue-500" />
-        <ScenarioCard tag="Small Industry" title="50 kW Industrial" systemCost="₹30L" emi="₹50,000 / month" savings="₹55,000–65,000 / month" tenure="7 years" icon={<Factory className="h-8 w-8" />} gradient="from-amber-400 to-orange-500" />
-      </motion.div>
-    </AnimatedSection>
-  );
-}
 
-/* ===================== PROCESS TIMELINE ===================== */
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
-function ProcessTimeline() {
   const steps = [
-    { icon: <ClipboardCheck className="h-5 w-5" />, title: "Share Bills", desc: "Upload recent bills + roof details" },
-    { icon: <Wrench className="h-5 w-5" />, title: "Design", desc: "Sizing, yield estimate & savings" },
-    { icon: <Wallet className="h-5 w-5" />, title: "Choose Finance", desc: "CAPEX / EMI / PPA" },
-    { icon: <Users2 className="h-5 w-5" />, title: "Eligibility", desc: "Lender/RESCO checks" },
-    { icon: <Factory className="h-5 w-5" />, title: "Install", desc: "Commission & inspect" },
-    { icon: <Sparkles className="h-5 w-5" />, title: "Start Saving", desc: "Lower bills immediately" },
+    "Share last 2–3 electricity bills",
+    "We design system size & savings",
+    "You choose EMI / OPEX / subsidy mix",
+    "Finance approval and solar installation",
+    "Start using solar and watch bills drop",
   ];
+
   return (
-    <AnimatedSection className="space-y-6">
-      <motion.h2 className="text-3xl font-bold text-slate-900 text-center" variants={fadeUp}>
-        Simple Finance + Solar Process
-      </motion.h2>
-      <div className="grid md:grid-cols-6 gap-4">
-        {steps.map((s, i) => (
-          <motion.div key={i} variants={fadeUp} className="relative rounded-2xl border border-slate-600/50 bg-white p-4 shadow-sm">
-            <div className="mb-2 flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">{s.icon}</div>
-              <div className="text-sm font-semibold text-slate-900">{i + 1}. {s.title}</div>
-            </div>
-            <p className="text-xs text-slate-600">{s.desc}</p>
-          </motion.div>
-        ))}
+    <AnimatedSection className="space-y-10">
+      {/* Simple process list */}
+      <div className="space-y-4">
+        <motion.h2
+          className="text-center text-2xl font-bold text-slate-900 sm:text-3xl"
+          variants={fadeUp}
+        >
+          Simple 5-Step Process
+        </motion.h2>
+        <motion.p
+          className="mx-auto max-w-2xl text-center text-sm sm:text-base text-slate-700"
+          variants={fadeUp}
+        >
+          No complicated paperwork from your side. We guide you from first bill
+          to first unit of solar.
+        </motion.p>
+
+        <ul className="mx-auto max-w-2xl space-y-3 text-sm text-slate-700">
+          {steps.map((step, index) => (
+            <motion.li
+              key={step}
+              variants={fadeUp}
+              className="flex items-start gap-3 rounded-xl bg-slate-50 px-3 py-2"
+            >
+              <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-xs font-semibold text-emerald-700">
+                {index + 1}
+              </span>
+              <span>{step}</span>
+            </motion.li>
+          ))}
+        </ul>
       </div>
+
+      {/* Final CTA */}
+      <div
+        id="contact-finance"
+        className="rounded-3xl  px-4 py-8 text-center sm:px-8"
+      >
+        <motion.h2
+          className="text-2xl font-bold sm:text-3xl"
+          variants={fadeUp}
+        >
+          Want solar but worried about the cost?
+        </motion.h2>
+
+        <motion.p
+          className="mx-auto mt-3 max-w-4xl text-sm sm:text-base "
+          variants={fadeUp}
+        >
+          Tell us your monthly bill and type of property. We’ll suggest the
+          cleanest, simplest finance option — with numbers you can understand in
+          under 5 minutes.
+        </motion.p>
+
+        <motion.div
+          className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+          variants={fadeUp}
+        ><button
+            onClick={() => setOpenLeadPopup(true)}
+            className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/50 transition hover:shadow-lg hover:brightness-105"
+          >
+            Talk to Finance Expert
+          </button>
+          
+        </motion.div>
+      </div>
+      {/* Popup Mount */}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
     </AnimatedSection>
   );
 }
@@ -373,28 +289,48 @@ function ProcessTimeline() {
 
 function OverviewCard({ icon, title, desc }: OverviewCardProps) {
   return (
-    <motion.div className="relative rounded-xl border border-slate-900/60 bg-white p-5 shadow-sm transition duration-300 overflow-hidden" variants={fadeUp} whileHover={{ y: -4 }}>
-      <div className="flex gap-3 items-center text-lg font-bold text-slate-900">
-        <span className="h-10 w-10 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-600 shrink-0">{icon}</span>
+    <motion.div
+      className="rounded-xl border border-slate-800/30 bg-white p-4 text-left shadow-sm"
+      variants={fadeUp}
+      whileHover={{ y: -2 }}
+    >
+      <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+          {icon}
+        </span>
         {title}
       </div>
-      <p className="text-sm text-slate-600 mt-3 leading-relaxed">{desc}</p>
+      <p className="text-xs sm:text-sm text-slate-600">{desc}</p>
     </motion.div>
   );
 }
 
-function OptionCard({ tag, color, title, icon, points }: OptionCardProps) {
+function OptionCard({ title, subtitle, icon, points }: OptionCardProps) {
   return (
-    <motion.div className={`group relative rounded-xl p-5 border bg-white shadow-xl transition duration-300 ${color || "border-slate-600/50"} overflow-hidden`} variants={fadeUp} whileHover={{ y: -6, scale: 1.01 }} transition={{ type: "spring", stiffness: 200, damping: 18 }}>
-      {tag && <span className="relative z-1 text-xs bg-emerald-100 px-3 py-1 rounded-full text-emerald-800 font-bold tracking-wider">{tag}</span>}
-      <div className="relative z-1 flex items-center gap-3 mt-4 text-xl font-bold text-slate-900">
-        <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center shrink-0">{icon}</div>
-        {title}
+    <motion.div
+      className="rounded-xl border border-slate-800/40 bg-white p-5 hover:border-orange-500 text-left shadow-sm"
+      variants={fadeUp}
+      whileHover={{ y: -2 }}
+    >
+      <div className="mb-3 flex items-center gap-2">
+        {icon && (
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 text-slate-700">
+            {icon}
+          </span>
+        )}
+        <div>
+          <div className="text-sm font-semibold text-slate-900">
+            {title}
+          </div>
+          {subtitle && (
+            <div className="text-[11px] text-slate-500">{subtitle}</div>
+          )}
+        </div>
       </div>
-      <ul className="relative z-1 mt-5 text-sm text-slate-700 space-y-2.5">
-        {points.map((p, i) => (
-          <li key={i} className="flex gap-3 items-start">
-            <span className="h-2 w-2 mt-1.5 rounded-full bg-emerald-500 shrink-0" />
+      <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700">
+        {points.map((p) => (
+          <li key={p} className="flex gap-2">
+            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
             <span>{p}</span>
           </li>
         ))}
@@ -403,60 +339,68 @@ function OptionCard({ tag, color, title, icon, points }: OptionCardProps) {
   );
 }
 
-function MiniKPI({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="h-9 w-9 rounded-lg bg-emerald-50 border border-emerald-600 flex items-center justify-center text-emerald-700">{icon}</div>
-      <div>
-        <div className="text-xs text-slate-600">{label}</div>
-        <div className="text-sm font-semibold text-slate-900">{value}</div>
-      </div>
-    </div>
-  );
-}
+/* ===================== SIMPLE VISUAL CARD (IMAGE-STYLE) ===================== */
 
-function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
+function SimpleVisualCard() {
   return (
-    <div className="flex items-center gap-2 rounded-xl border border-slate-600/30 bg-white px-4 py-3 shadow-sm">
-      <div className="h-8 w-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-700">{icon}</div>
-      <span className="text-sm font-medium text-slate-800">{text}</span>
-    </div>
-  );
-}
+    <motion.div
+      variants={fadeUp}
+      className="rounded-2xl border border-slate-600/50 bg-white p-4 shadow-sm"
+    >
+      {/* You can replace this whole block with a real <img> later */}
+      Example:
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4TsER3PzZHDjRoTsa8OQRDDOlSLZsn7lreQ&s"
+        alt="How solar finance works - simple explanation"
+        className="w-full h-50 rounded-xl object-cover"
+      />
 
-function KPI({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="h-8 w-8 rounded-lg bg-white/70 border border-white/60 backdrop-blur flex items-center justify-center">
-        {icon}
-      </div>
-      <div>
-        <div className="text-xs text-slate-600">{label}</div>
-        <div className="text-sm font-semibold text-slate-900">{value}</div>
-      </div>
-    </div>
-  );
-}
-
-function ScenarioCard({ tag, title, systemCost, emi, savings, tenure, icon, gradient }: ScenarioCardProps) {
-  return (
-    <motion.div className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-xl border border-slate-600/50" variants={cardHover} initial="initial" whileHover="hover">
-      <motion.div className={`absolute inset-0 bg-linear-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-      <motion.div className="absolute top-4 right-4 text-white/80" variants={floatVariants} initial="initial" animate="animate">{icon}</motion.div>
-      <div className="relative z-10">
-        <div className="flex justify-between items-center mb-4">
-          <span className="bg-slate-100 px-3 py-1 rounded-full text-xs text-slate-700 font-semibold">{tag}</span>
-          <span className="text-sm font-semibold text-slate-600">{tenure} Tenure</span>
+   
+      <div className="space-y-3 rounded-xl bg-slate-50 p-3 text-xs sm:text-sm text-slate-700">
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-slate-600">Today</span>
+          <div className="flex-1 mx-3 h-1.5 rounded-full bg-red-100">
+            <div className="h-full w-3/4 rounded-full bg-red-400" />
+          </div>
+          <span className="font-semibold text-red-600">
+            Full bill: ₹10,000
+          </span>
         </div>
-        <h3 className="text-xl font-bold text-slate-900">{title}</h3>
-        <div className="border-b border-slate-100 my-4" />
-        <div className="grid grid-cols-1 gap-4">
-          <KPI icon={<DollarSign className="h-4 w-4" />} label="System Cost" value={systemCost} />
-          <KPI icon={<TrendingUp className="h-4 w-4" />} label="Approx. Monthly EMI" value={emi} />
-          <KPI icon={<Zap className="h-4 w-4" />} label="Est. Savings / Month" value={savings} />
+
+        <div className="text-center text-[11px] text-slate-500">
+          ↓ Switch to solar finance
         </div>
+
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-slate-600">After Solar</span>
+          <div className="flex-1 mx-3 space-y-1">
+            <div className="flex items-center gap-2">
+              <div className="h-1.5 w-full rounded-full bg-emerald-100">
+                <div className="h-full w-2/5 rounded-full bg-emerald-500" />
+              </div>
+              <span className="text-[11px] text-emerald-700">
+                New bill ~₹4k
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-1.5 w-full rounded-full bg-amber-100">
+                <div className="h-full w-1/3 rounded-full bg-amber-400" />
+              </div>
+              <span className="text-[11px] text-amber-700">
+                EMI paid from savings
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p className="pt-1 text-[11px] text-slate-500">
+          This is just a visual idea. Exact numbers change by city, tariff and
+          plant size — but the concept stays simple:{" "}
+          <span className="font-semibold text-emerald-700">
+            pay EMI from the money you save.
+          </span>
+        </p>
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-emerald-200/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
     </motion.div>
   );
 }

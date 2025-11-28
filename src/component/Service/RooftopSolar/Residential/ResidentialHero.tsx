@@ -3,6 +3,8 @@
 import { motion, type Variants } from "framer-motion";
 import { Sun, Leaf, Zap, ArrowRight, Home, Building2 } from "lucide-react";
 
+import LeadPopup from "../../../LeadPopup";
+import { useState } from "react";
 // --------------------- FIXED VARIANT ---------------------
 const textVariant: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -18,6 +20,7 @@ const textVariant: Variants = {
 };
 
 export default function ResidentialHero() {
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
   return (
     <section
       className="relative overflow-hidden bg-center bg-cover bg-no-repeat"
@@ -60,12 +63,10 @@ export default function ResidentialHero() {
             variants={textVariant}
             className="flex justify-center lg:justify-start gap-4"
           >
-            <button className="flex items-center gap-2 bg-amber-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-amber-600 transition-all duration-300 shadow-lg">
+            <button   onClick={() => setOpenLeadPopup(true)} className="flex items-center gap-2 bg-amber-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-amber-600 transition-all duration-300 shadow-lg">
               Get Free Quote <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="flex items-center gap-2 border border-gray-300 text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition-all duration-300">
-              Learn More
-            </button>
+        
           </motion.div>
 
           {/* FEATURE ICONS */}
@@ -124,6 +125,11 @@ export default function ResidentialHero() {
           </div>
         </motion.div>
       </div>
+
+        {/* Popup Mount */}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef, useState, useEffect } from "react";
+import LeadPopup from "../../../LeadPopup";
 import {
   motion,
   AnimatePresence,
@@ -124,6 +125,7 @@ export default function CIHeroSection() {
   const [active, setActive] = useState<SegmentKey>("industrial");
   const [autoRotate, setAutoRotate] = useState(true);
   const segment = SEGMENTS[active];
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
   // 🔁 Auto-rotate between Industrial & Commercial
   useEffect(() => {
@@ -268,9 +270,9 @@ export default function CIHeroSection() {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <MagneticButton href="#contact">Get a C&amp;I Solar Proposal</MagneticButton>
+              <MagneticButton href="">Get a C&amp;I Solar Proposal</MagneticButton>
               <a
-                href="#calc"
+                 onClick={() => setOpenLeadPopup(true)}
                 className="inline-flex items-center justify-center rounded-xl border border-white/30 px-5 py-3 text-white/90 hover:bg-white/10 backdrop-blur-sm transition active:scale-[0.98]"
               >
                 Estimate ROI in 60 seconds
@@ -309,6 +311,10 @@ export default function CIHeroSection() {
           <VisualCard segmentKey={active} segment={segment} />
         </div>
       </div>
+        {/* Popup Mount */}
+            {openLeadPopup && (
+              <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+            )}
     </section>
   );
 }

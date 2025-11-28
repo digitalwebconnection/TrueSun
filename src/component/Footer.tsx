@@ -19,7 +19,7 @@ import { Link } from "react-router-dom"; // ✅ React Router import
 
 export default function SolarFooter() {
     return (
-        <footer className="relative mt-10 text-neutral-800 bg-black dark:text-neutral-100">
+        <footer className="relative mt-10 text-neutral-800 bg-white dark:text-neutral-100">
             {/* Decorative top curve */}
             <div className="pointer-events-none relative -mb-1 h-20 w-full overflow-hidden">
                 <svg

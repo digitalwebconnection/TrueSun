@@ -31,8 +31,7 @@ export default function NetZeroCommandCenterAddOn({
     accent = "emerald",
     title = "carbon compounds",
     subtitle = "Live emissions, reduction opportunities, and supplier insights — all in one clear view.",
-    primaryCta = { label: "Open Calculator", href: "#calculator" },
-    secondaryCta = { label: "Download Whitepaper", href: "#methodology" },
+
 }: Props) {
     const accentGradient = accentCls(accent);
 
@@ -101,20 +100,13 @@ export default function NetZeroCommandCenterAddOn({
                             className="mt-8 flex flex-wrap gap-3"
                         >
                             <a
-                                href={primaryCta.href}
+                                href="/#calculator"
                                 className={`inline-flex items-center gap-2 rounded-full bg-${accent}-600 px-5 py-3 text-base font-semibold text-white shadow-lg transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-${accent}-500`}
                             >
                                 <Calculator className="h-5 w-5" />
-                                {primaryCta.label}
+                                Calculator
                             </a>
 
-                            <a
-                                href={secondaryCta.href}
-                                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                            >
-                                <Download className="h-4 w-4" />
-                                {secondaryCta.label}
-                            </a>
                         </motion.div>
 
                         {/* Small feature list */}

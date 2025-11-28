@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useInView, useMotionValue, animate } from "framer-motion";
 import type { MotionProps, Variants, Easing } from "framer-motion";
-import { Sun, Zap, Leaf, Users, Award, CheckCircle , Building2, Factory, ShieldCheck, GaugeCircle, Sparkles } from "lucide-react";
+import { Sun, Zap, Leaf, Users, Award, CheckCircle , ShieldCheck, GaugeCircle, Sparkles } from "lucide-react";
 import React from "react";
 
 // ---------------------------
@@ -74,7 +74,7 @@ export default function AboutTrueSun() {
       <StatsRibbon />
       <ZigZagWhyUs />
       <CurvedSteps />
-      <AlternatingTimeline />
+      {/* <AlternatingTimeline /> */}
 
       {/* Custom Styles and Keyframes */}
       <style>
@@ -517,132 +517,4 @@ function CurvedSteps() {
   );
 }
 
-// Our Journey Timeline -----
-function AlternatingTimeline() {
-  const timeline = [
-    {
-      year: "2015",
-      title: "Founded",
-      desc: "TrueSun began with a clear vision—to make high-quality solar accessible, transparent, and trusted.",
-    },
-    {
-      year: "2017",
-      title: "1st 100 Projects",
-      desc: "Crossed the 10 MWp mark with 100+ commissioned systems across homes and small businesses.",
-    },
-    {
-      year: "2019",
-      title: "National Expansion",
-      desc: "Scaled operations to 15+ states, building a pan-India partner and installer network.",
-    },
-    {
-      year: "2022",
-      title: "50 MWp Achieved",
-      desc: "Surpassed 50 MWp and energized 1,000+ rooftops, factories, and commercial sites.",
-    },
-    {
-      year: "2024",
-      title: "Market Leader",
-      desc: "Crossed 85+ MWp with a 4.9/5 customer rating and industry-leading repeat business.",
-    },
-  ];
 
-  const icons = [Sparkles, Award, Building2, Factory, GaugeCircle];
-
-  return (
-    <div className="relative bg-emerald-50/60 py-20">
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.h2
-          {...fadeUpProps}
-          className="mb-3 text-center text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900"
-        >
-          Our Journey
-        </motion.h2>
-        <motion.p
-          {...fadeUpProps}
-          className="mx-auto mb-12 max-w-2xl text-center text-sm md:text-base text-gray-600"
-        >
-          From a single vision in 2015 to a multi-MWp portfolio today, every
-          milestone pushed TrueSun closer to a net-zero India.
-        </motion.p>
-
-        <div className="relative">
-          {/* central gradient spine */}
-          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-linear-to-b from-amber-600 via-emerald-600 to-amber-400" />
-
-          {/* subtle glow behind spine */}
-          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-24 -translate-x-1/2 bg-gradient-to-b from-amber-100/40 via-emerald-50/10 to-emerald-100/40 blur-2xl" />
-
-          <motion.ul
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.4 }}
-            className="space-y-10 md:space-y-12"
-          >
-            {timeline.map((t, i) => {
-              const Icon = icons[i % icons.length];
-              const isLeft = i % 2 === 0;
-
-              return (
-                <motion.li
-                  key={i}
-                  variants={childFade}
-                  className={`relative flex ${
-                    isLeft ? "md:justify-end" : "md:justify-start"
-                  }`}
-                >
-                  {/* marker on central line */}
-                  <div className="pointer-events-none absolute z-50 left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
-                    <span className="absolute inline-flex h-5 w-5 rounded-full bg-emerald-800/90 opacity-70 animate-ping" />
-                    <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-emerald-600 shadow-md shadow-emerald-500/50" />
-                  </div>
-
-                  <div
-                    className={`w-full md:w-1/2 ${
-                      isLeft ? "md:pr-10" : "md:pl-10"
-                    }`}
-                  >
-                    <motion.div
-                      whileHover={{ y: -4, scale: 1.01 }}
-                      transition={{ type: "spring", stiffness: 220, damping: 20 }}
-                      className="relative overflow-hidden rounded-3xl border border-gray-900/30 bg-white/95 p-6 shadow-lg shadow-emerald-900/10 backdrop-blur"
-                    >
-                      {/* corner glow */}
-                      <div className="pointer-events-none absolute -top-10 -right-10 h-24 w-24 rounded-full bg-amber-200/40 blur-2xl" />
-                      <div className="pointer-events-none absolute -bottom-10 -left-10 h-24 w-24 rounded-full bg-emerald-200/40 blur-2xl" />
-
-                      {/* top row: year + icon */}
-                      <div className="relative mb-3 flex items-center justify-between gap-3">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-amber-50/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
-                          <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-                          {t.year}
-                        </div>
-                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 shadow-sm">
-                          <Icon className="h-5 w-5" />
-                        </div>
-                      </div>
-
-                      <h3 className="relative text-lg md:text-xl font-semibold text-gray-900">
-                        {t.title}
-                      </h3>
-                      <p className="mt-2 text-sm md:text-[15px] leading-relaxed text-gray-600">
-                        {t.desc}
-                      </p>
-
-                      {/* small footer tag */}
-                      <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-gray-50 px-3 py-1 text-[11px] font-medium text-gray-500">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        Milestone in the TrueSun growth story
-                      </div>
-                    </motion.div>
-                  </div>
-                </motion.li>
-              );
-            })}
-          </motion.ul>
-        </div>
-      </div>
-    </div>
-  );
-}

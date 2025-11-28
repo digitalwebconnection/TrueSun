@@ -16,16 +16,6 @@ import {
   Mail,
 } from "lucide-react";
 
-/* =============================================================
-   WhatsAppDockPro — with multi-trigger Auto-Open
-   Triggers (configurable via props):
-   - Delay (ms)
-   - Exit intent (desktop)
-   - Scroll % (0-100)
-   - Idle (ms)
-   - Once per session guard
-============================================================= */
-
 function isMobileDevice() {
   if (typeof navigator === "undefined") return false;
   const ua = (navigator.userAgent || "").toLowerCase();
@@ -58,14 +48,6 @@ export type WhatsAppDockProps = {
   quickReplies?: QuickReply[];
   footerText?: string;
   showTypingIndicator?: boolean;
-
-  /* ---- NEW Auto-open controls ---- */
-  autoOpenEnabled?: boolean;          // master toggle
-  autoOpenOncePerSession?: boolean;   // default true
-  autoOpenDelayMs?: number;           // e.g. 3000; set 0/undefined to disable this trigger
-  autoOpenOnExitIntent?: boolean;     // open when mouse leaves top
-  autoOpenOnScrollPercent?: number;   // 0..100, e.g. 50; undefined to disable
-  autoOpenOnIdleMs?: number;          // ms of inactivity; undefined to disable
 };
 
 /* Variants */
@@ -78,7 +60,7 @@ const quickReplyVariants: Variants = {
   }),
 };
 
-/* Confetti model */
+/* Confetti */
 type Particle = {
   id: number;
   x: number;
@@ -87,7 +69,7 @@ type Particle = {
   rot: number;
   vx: number;
   vy: number;
-  life: number; // ms
+  life: number;
   hue: number;
 };
 
@@ -107,14 +89,6 @@ export default function WhatsAppDockPro({
   ],
   footerText = "Call: +91 98765 43210 · info@truesunsolar.com",
   showTypingIndicator = true,
-
-  /* Auto-open defaults */
-  autoOpenEnabled = true,
-  autoOpenOncePerSession = true,
-  autoOpenDelayMs = 3000,
-  autoOpenOnExitIntent = false,
-  autoOpenOnScrollPercent,
-  autoOpenOnIdleMs,
 }: WhatsAppDockProps) {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -123,100 +97,17 @@ export default function WhatsAppDockPro({
   const [particles, setParticles] = useState<Particle[]>([]);
   const prefersReducedMotion = useReducedMotion();
 
-  // panel tilt
   const panelRef = useRef<HTMLDivElement | null>(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
 
-  // magnetic button
   const fabRef = useRef<HTMLButtonElement | null>(null);
   const [fabOffset, setFabOffset] = useState({ x: 0, y: 0 });
-
-  // auto-open helpers
-  const sessionKey = `wa_dock_opened_${phoneNumber}`;
-  const openedRef = useRef(false);
 
   useEffect(() => {
     setIsMobile(isMobileDevice() || (typeof window !== "undefined" && window.innerWidth < 768));
   }, []);
 
-  // Guarded opener
-  const triggerAutoOpen = useCallback(
-    (reason: string) => {
-      if (!autoOpenEnabled) return;
-      if (openedRef.current) return;
-      if (autoOpenOncePerSession && typeof window !== "undefined" && sessionStorage.getItem(sessionKey)) return;
-      openedRef.current = true;
-      setOpen(true);
-      if (autoOpenOncePerSession && typeof window !== "undefined") {
-        sessionStorage.setItem(sessionKey, reason || "1");
-      }
-    },
-    [autoOpenEnabled, autoOpenOncePerSession, sessionKey]
-  );
-
-  // Delay trigger
-  useEffect(() => {
-    if (!autoOpenEnabled) return;
-    if (!autoOpenDelayMs) return;
-    if (typeof window === "undefined") return;
-    const t = setTimeout(() => triggerAutoOpen("delay"), autoOpenDelayMs);
-    return () => clearTimeout(t);
-  }, [autoOpenEnabled, autoOpenDelayMs, triggerAutoOpen]);
-
-  // Exit-intent trigger (desktop only)
-  useEffect(() => {
-    if (!autoOpenEnabled || !autoOpenOnExitIntent) return;
-    if (typeof window === "undefined") return;
-    const onMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0) triggerAutoOpen("exit-intent");
-    };
-    window.addEventListener("mouseout", onMouseLeave);
-    return () => window.removeEventListener("mouseout", onMouseLeave);
-  }, [autoOpenEnabled, autoOpenOnExitIntent, triggerAutoOpen]);
-
-  // Scroll % trigger
-  useEffect(() => {
-    if (!autoOpenEnabled) return;
-    if (autoOpenOnScrollPercent == null) return;
-    if (typeof window === "undefined") return;
-
-    const onScroll = () => {
-      const doc = document.documentElement;
-      const scrollTop = doc.scrollTop || document.body.scrollTop;
-      const scrollHeight = doc.scrollHeight - doc.clientHeight;
-      const percent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-      if (percent >= autoOpenOnScrollPercent) {
-        triggerAutoOpen("scroll");
-        window.removeEventListener("scroll", onScroll);
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [autoOpenEnabled, autoOpenOnScrollPercent, triggerAutoOpen]);
-
-  // Idle trigger
-  useEffect(() => {
-    if (!autoOpenEnabled) return;
-    if (!autoOpenOnIdleMs) return;
-    if (typeof window === "undefined") return;
-
-    let idleTimer: number | null = null;
-    const reset = () => {
-      if (idleTimer) window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(() => triggerAutoOpen("idle"), autoOpenOnIdleMs);
-    };
-
-    const events: (keyof WindowEventMap)[] = ["mousemove", "keydown", "scroll", "touchstart"];
-    events.forEach((ev) => window.addEventListener(ev, reset, { passive: true }));
-    reset();
-
-    return () => {
-      if (idleTimer) window.clearTimeout(idleTimer);
-      events.forEach((ev) => window.removeEventListener(ev, reset));
-    };
-  }, [autoOpenEnabled, autoOpenOnIdleMs, triggerAutoOpen]);
-
-  // Typing indicator
+  // typing animation
   useEffect(() => {
     if (open && showTypingIndicator) {
       setShowTyping(true);
@@ -233,7 +124,7 @@ export default function WhatsAppDockPro({
     else window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  /* ---------- Fancy interactions (unchanged below) ---------- */
+  /* ---- Interactions remain untouched ---- */
 
   const handleMouseMovePanel = useCallback(
     (e: React.MouseEvent) => {
@@ -249,6 +140,7 @@ export default function WhatsAppDockPro({
     },
     [prefersReducedMotion]
   );
+
   const handleMouseLeavePanel = useCallback(() => setTilt({ rx: 0, ry: 0 }), []);
 
   const handleMouseMoveFab = useCallback(
@@ -265,6 +157,7 @@ export default function WhatsAppDockPro({
     },
     [prefersReducedMotion]
   );
+
   const handleMouseLeaveFab = useCallback(() => setFabOffset({ x: 0, y: 0 }), []);
 
   const burstConfetti = useCallback(
@@ -288,21 +181,13 @@ export default function WhatsAppDockPro({
       });
       setParticles((p) => p.concat(news));
       setTimeout(() => {
-        setParticles((p) => p.filter((pt) => Date.now() - (pt.id - (pt.id % 1000)) < pt.life));
+        setParticles((p) => p.filter(() => false));
       }, 1600);
     },
     [prefersReducedMotion]
   );
 
   const [ripple, setRipple] = useState<{ x: number; y: number; key: number } | null>(null);
-
-  const onQuickReplyClick = (label: string, value?: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setRipple({ x, y, key: Date.now() });
-    openWhatsApp(value || label);
-  };
 
   const sendBtnRef = useRef<HTMLButtonElement | null>(null);
   const onSend = () => {
@@ -313,9 +198,17 @@ export default function WhatsAppDockPro({
     openWhatsApp();
   };
 
+  const onQuickReplyClick = (label: string, value?: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setRipple({ x, y, key: Date.now() });
+    openWhatsApp(value || label);
+  };
+
   return (
     <>
-      {/* ===== Chat Window ===== */}
+      {/* Chat window */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -327,106 +220,86 @@ export default function WhatsAppDockPro({
             transition={{ duration: 0.28, ease: EASE_OUT }}
             style={{ perspective: 1000 }}
           >
-            {/* Aurora blobs (decor) */}
-            {!prefersReducedMotion && (
-              <>
-                <motion.div
-                  aria-hidden
-                  className="absolute -bottom-10 -left-10 h-44 w-44 rounded-full blur-3xl"
-                  style={{ background: `${brand.from}33` }}
-                  animate={{ x: [0, 8, -6, 0], y: [0, -6, 6, 0] }}
-                  transition={{ repeat: Infinity, duration: 10, ease: EASE_IN_OUT }}
-                />
-                <motion.div
-                  aria-hidden
-                  className="absolute -top-10 -right-8 h-40 w-40 rounded-full blur-3xl"
-                  style={{ background: `${brand.to}2e` }}
-                  animate={{ x: [0, -6, 8, 0], y: [0, 6, -6, 0] }}
-                  transition={{ repeat: Infinity, duration: 11, ease: EASE_IN_OUT }}
-                />
-              </>
-            )}
+            <motion.div
+              aria-hidden
+              className="absolute -bottom-10 -left-10 h-44 w-44 rounded-full blur-3xl"
+              style={{ background: `${brand.from}33` }}
+              animate={{ x: [0, 8, -6, 0], y: [0, -6, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 10, ease: EASE_IN_OUT }}
+            />
 
-            {/* Tilt wrapper */}
+            <motion.div
+              aria-hidden
+              className="absolute -top-10 -right-8 h-40 w-40 rounded-full blur-3xl"
+              style={{ background: `${brand.to}2e` }}
+              animate={{ x: [0, -6, 8, 0], y: [0, 6, -6, 0] }}
+              transition={{ repeat: Infinity, duration: 11, ease: EASE_IN_OUT }}
+            />
+
             <motion.div
               ref={panelRef}
               onMouseMove={handleMouseMovePanel}
               onMouseLeave={handleMouseLeavePanel}
               style={{ transformStyle: "preserve-3d", rotateX: tilt.rx, rotateY: tilt.ry }}
             >
-              {/* Gradient border + breathing glow */}
               <motion.div
                 className="relative p-[1.2px] rounded-2xl"
                 style={{
                   backgroundImage: `linear-gradient(120deg, ${brand.from}, ${brand.to})`,
                   backgroundSize: "200% 100%",
-                  boxShadow: `0 0 0 0 ${brand.ring}30`,
                 }}
-                animate={
-                  prefersReducedMotion
-                    ? undefined
-                    : {
-                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                        boxShadow: [
-                          `0 0 0 0 ${brand.ring}26`,
-                          `0 0 0 10px ${brand.ring}10`,
-                          `0 0 0 0 ${brand.ring}26`,
-                        ],
-                      }
-                }
-                transition={{ repeat: prefersReducedMotion ? 0 : Infinity, duration: 8, ease: "linear" }}
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
               >
-                {/* Panel */}
-                <div className="w-[94vw] max-w-[360px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_18px_60px_rgba(7,27,15,0.25)] backdrop-blur supports-backdrop-filter:bg-white/90">
-                  {/* Header with shimmer */}
+                <div className="w-[94vw] max-w-[360px] overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_18px_60px_rgba(7,27,15,0.25)] backdrop-blur">
+                  {/* header */}
                   <motion.div
                     className="flex items-center gap-3 px-4 py-3 text-white"
                     style={{
                       backgroundImage: `linear-gradient(90deg, ${brand.from}, ${brand.to})`,
                       backgroundSize: "200% 100%",
                     }}
-                    animate={prefersReducedMotion ? undefined : { backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                    transition={{ repeat: prefersReducedMotion ? 0 : Infinity, duration: 10, ease: "linear" }}
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
                   >
                     <motion.div
                       className="h-9 w-9 rounded-full ring-2 grid place-items-center overflow-hidden"
                       whileHover={{ scale: 1.08, rotate: 1.5 }}
                       transition={{ type: "spring", stiffness: 320, damping: 18 }}
-                      style={{ transformStyle: "preserve-3d", transform: "translateZ(20px)" }}
                     >
                       {logoUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
                         <img src={logoUrl} alt="Logo" className="h-9 w-9 object-cover" />
                       ) : (
                         <MessageCircle className="h-5 w-5" />
                       )}
                     </motion.div>
-                    <div className="min-w-0" style={{ transform: "translateZ(16px)" }}>
+
+                    <div className="min-w-0">
                       <div className="text-sm font-semibold truncate">{companyName}</div>
                       <div className="text-[11px] text-white/90">{subtitle}</div>
                     </div>
-                    <button
-                      onClick={() => setOpen(false)}
-                      className="ml-auto rounded-md p-1 hover:bg-white/10 transition-colors"
-                      aria-label="Close chat"
-                      style={{ transform: "translateZ(12px)" }}
-                    >
+
+                    <button onClick={() => setOpen(false)} className="ml-auto rounded-md p-1 hover:bg-white/10">
                       <X className="h-4 w-4" />
                     </button>
                   </motion.div>
 
-                  {/* Chat intro */}
+                  {/* Intro */}
                   <div className="px-4 pt-3">
                     <motion.div
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.25, ease: EASE_OUT }}
-                      className="relative rounded-xl border border-black/45 bg-white/80 p-3 text-[13px] text-gray-800 overflow-hidden"
+                      className="relative rounded-xl border border-black/45 bg-white/80 p-3 text-[13px] text-gray-800"
                     >
                       👋 Hi! We can help with pricing, subsidy eligibility, and site visits.
                     </motion.div>
 
-                    {/* Typing dots */}
+                    {/* Typing */}
                     <AnimatePresence>
                       {showTyping && (
                         <motion.div
@@ -452,7 +325,7 @@ export default function WhatsAppDockPro({
                     </AnimatePresence>
                   </div>
 
-                  {/* Quick Replies with ripple */}
+                  {/* quick replies */}
                   <motion.div
                     className="relative px-4 py-3 flex flex-wrap gap-2"
                     initial="hidden"
@@ -467,7 +340,7 @@ export default function WhatsAppDockPro({
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={onQuickReplyClick(label, value)}
-                        className="relative overflow-hidden group inline-flex items-center gap-1.5 rounded-full border border-gray-800/50 bg-white px-3 py-1.5 text-xs text-gray-700 transition hover:bg-gray-50"
+                        className="relative overflow-hidden inline-flex items-center gap-1.5 rounded-full border border-gray-800/50 bg-white px-3 py-1.5 text-xs text-gray-700"
                       >
                         {/* ripple */}
                         <AnimatePresence>
@@ -481,7 +354,6 @@ export default function WhatsAppDockPro({
                                 width: 4,
                                 height: 4,
                                 background: `${brand.from}33`,
-                                pointerEvents: "none",
                               }}
                               initial={{ opacity: 0.6, scale: 1 }}
                               animate={{ opacity: 0, scale: 18 }}
@@ -490,51 +362,36 @@ export default function WhatsAppDockPro({
                             />
                           )}
                         </AnimatePresence>
-                        <motion.span className="inline-block" whileHover={{ rotate: 8 }} transition={{ type: "spring", stiffness: 400, damping: 18 }}>
-                          {icon}
-                        </motion.span>
+
+                        <motion.span className="inline-block">{icon}</motion.span>
                         <span>{label}</span>
                       </motion.button>
                     ))}
                   </motion.div>
 
-                  {/* Input */}
+                  {/* input */}
                   <div className="px-4 pb-4">
                     <div className="flex items-end gap-2">
                       <textarea
                         rows={2}
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Type your message…"
-                        className="flex-1 rounded-xl border border-gray-400 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-gray-300 transition-colors"
+                        className="flex-1 rounded-xl border border-gray-400 bg-white px-3 py-2 text-sm text-gray-900"
                       />
                       <motion.button
                         ref={sendBtnRef}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={onSend}
-                        className="relative h-11 w-11 rounded-xl text-white grid place-items-center shadow-lg transition overflow-hidden"
+                        className="relative h-11 w-11 rounded-xl text-white grid place-items-center shadow-lg"
                         style={{ backgroundImage: `linear-gradient(135deg, ${brand.from}, ${brand.to})` }}
                       >
-                        {/* sheen sweep */}
-                        {!prefersReducedMotion && (
-                          <motion.span
-                            aria-hidden
-                            className="absolute -inset-1 opacity-0 pointer-events-none"
-                            style={{
-                              background:
-                                "linear-gradient(120deg, transparent 40%, rgba(255,255,255,.4) 50%, transparent 60%)",
-                            }}
-                            animate={{ x: ["-120%", "120%"], opacity: [0, 1, 0] }}
-                            transition={{ repeat: Infinity, duration: 2.2, ease: EASE_IN_OUT }}
-                          />
-                        )}
                         <Send className="h-5 w-5 relative z-10" />
                       </motion.button>
                     </div>
                   </div>
 
-                  {/* Footer */}
+                  {/* footer */}
                   <div className="px-4 pb-3 border-t border-gray-100 pt-2">
                     <div className="flex items-center gap-2 text-xs text-gray-600">
                       <Phone className="h-3 w-3" />
@@ -549,7 +406,7 @@ export default function WhatsAppDockPro({
         )}
       </AnimatePresence>
 
-      {/* Confetti layer */}
+      {/* confetti */}
       <AnimatePresence>
         {particles.length > 0 && (
           <div className="pointer-events-none fixed inset-0 z-60">
@@ -566,7 +423,6 @@ export default function WhatsAppDockPro({
                   height: p.r * 6,
                   borderRadius: 2,
                   background: `hsl(${p.hue} 85% 55%)`,
-                  boxShadow: "0 0 8px rgba(0,0,0,.08)",
                 }}
               />
             ))}
@@ -581,38 +437,19 @@ export default function WhatsAppDockPro({
         whileTap={{ scale: 0.97 }}
         onMouseMove={handleMouseMoveFab}
         onMouseLeave={handleMouseLeaveFab}
-        animate={
-          prefersReducedMotion
-            ? { x: fabOffset.x, y: fabOffset.y }
-            : {
-                x: fabOffset.x,
-                y: fabOffset.y,
-                rotate: [0, 1.2, 0, -1.2, 0],
-                boxShadow: [
-                  `0 12px 28px ${brand.ring}40`,
-                  `0 12px 28px ${brand.ring}70`,
-                  `0 12px 28px ${brand.ring}40`,
-                ],
-              }
-        }
-        transition={{ repeat: prefersReducedMotion ? 0 : Infinity, duration: 3.2, ease: EASE_IN_OUT }}
+        animate={{
+          x: fabOffset.x,
+          y: fabOffset.y,
+        }}
+        transition={{ duration: 0.3 }}
         onClick={() => setOpen((v) => !v)}
         className="fixed right-6 bottom-6 z-50 inline-flex items-center gap-2 rounded-full px-4 py-3 text-white shadow-lg"
         style={{ backgroundImage: `linear-gradient(135deg, ${brand.from}, ${brand.to})` }}
-        aria-label={open ? "Close WhatsApp chat" : "Open WhatsApp chat"}
       >
         <MessageCircle className="h-5 w-5" />
         <span className="hidden sm:inline text-sm font-semibold">
           {open ? "Close" : "Chat with us"}
         </span>
-        {!open && (
-          <motion.span
-            className="ml-1 h-2 w-2 rounded-full bg-white/90"
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3, ease: EASE_OUT }}
-          />
-        )}
       </motion.button>
     </>
   );

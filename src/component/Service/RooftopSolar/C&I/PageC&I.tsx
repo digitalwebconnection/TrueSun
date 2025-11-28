@@ -123,22 +123,7 @@ export default function SolarNovaIndustrialPage() {
                 Replace volatile grid tariffs with predictable solar generation. Built for offices, hospitals, schools,
                 malls, and factories that work hardest in daylight.
               </motion.p>
-              <motion.div variants={item} className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="#quote"
-                  className="rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
-                  style={{ background: THEME.accent }}
-                >
-                  Get Free Assessment
-                </a>
-                <a
-                  href="#benefits"
-                  className="rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold"
-                  style={{ color: THEME.ink }}
-                >
-                  See how it works
-                </a>
-              </motion.div>
+             
 
               {/* KPI strip */}
               <motion.div variants={container} className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -493,13 +478,7 @@ export default function SolarNovaIndustrialPage() {
               High peak load and large rooftops make solar perfect for factories and warehouses. Reduce your carbon
               footprint while boosting profitability.
             </p>
-            <a
-              href="#quote"
-              className="inline-flex items-center gap-2 rounded-xl px-4 py-2 font-semibold text-black shadow transition hover:-translate-y-px"
-              style={{ background: "#f59e0b" }}
-            >
-              Get my savings estimate <ChevronRight className="h-4 w-4" />
-            </a>
+           
           </motion.div>
           <motion.div variants={item} className="grid grid-cols-2 gap-3">
             {[
