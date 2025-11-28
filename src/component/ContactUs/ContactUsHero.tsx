@@ -17,7 +17,7 @@ const ContactHero = () => {
             <div className="relative max-w-5xl  px-6 ">
                 {/* Badge - Specific to the Contact Page */}
                 <div className="inline-block px-4 py-1 rounded-full bg-white/10 border border-white/15 text-xs tracking-wide uppercase mb-6">
-                    Contact Creasun Energy
+                    Contact Truesun Energy
                 </div>
 
                 {/* Heading - Emphasizing the Engineering/Savings Hook */}
