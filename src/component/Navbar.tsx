@@ -441,7 +441,7 @@ export default function Navbar() {
               Careers
             </NavLink>
             <NavLink
-              to=""
+              to="/blog"
               className={({ isActive }) =>
                 cn(linkBase, isActive && activeClass)
               }
