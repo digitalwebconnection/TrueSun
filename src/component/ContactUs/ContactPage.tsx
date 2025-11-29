@@ -39,13 +39,13 @@ const ContactPage = () => {
                     </p>
                     <div className="mt-4 space-y-1 text-sm">
                         <a
-                            href="tel:+919999999999"
+                            href="tel:+918850845149"
                             className="text-blue-600 hover:underline inline-flex items-center gap-1"
                         >
-                            <span>📞</span> +91 99999 99999
+                            <span>📞</span> +918850845149
                         </a>
                         <a
-                            href="https://wa.me/919999999999"
+                            href="https://wa.me/918850845149"
                             target="_blank"
                             rel="noreferrer"
                             className="text-emerald-600 hover:underline inline-flex items-center gap-1"
@@ -66,17 +66,12 @@ const ContactPage = () => {
                     </p>
                     <div className="mt-4 text-sm space-y-1">
                         <a
-                            href="mailto:hello@truesunenergy.com"
+                            href="mailto:Support@truesun.in"
                             className="text-blue-600 hover:underline break-all"
                         >
-                            hello@truesunenergy.com
+                            Support@truesun.in
                         </a>
-                        <a
-                            href="mailto:projects@truesunenergy.com"
-                            className="text-blue-600 hover:underline break-all"
-                        >
-                            projects@truesunenergy.com
-                        </a>
+
                     </div>
                 </div>
 
@@ -88,7 +83,9 @@ const ContactPage = () => {
                         Meet our engineering team and discuss your requirement.
                     </p>
                     <p className="mt-4 text-sm text-slate-700">
-                        400, 74/II, “C” Cross Road, Opp Gate No 2, 093, M.I.D.C, Seepz, Andheri East, Mumbai, Maharashtra 400093
+                        Birla Centurion, Wing - B, 3rd Floor,
+                        Pandurang Budhkar Marg, Century Mills,
+                        Worli, Mumbai, Maharashtra 400030
                     </p>
                     <p className="mt-3 text-xs text-slate-500">
                         Appointments preferred · Parking available

@@ -20,7 +20,7 @@ const blogPosts = [
         readTime: "5 min read",
         date: "Oct 28, 2025",
         image:
-            "https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1600",
+            "https://goldisolar.com/wp-content/uploads/2022/07/money-1200x675.jpg",
     },
     {
         id: "factory-savings-case-study",
@@ -31,7 +31,7 @@ const blogPosts = [
         readTime: "6 min read",
         date: "Sep 12, 2025",
         image:
-            "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1600",
+            "https://waaree.com/wp-content/uploads/2025/07/Solar-panels-online-scaled.jpg",
     },
     {
         id: "residential-checklist",
@@ -42,7 +42,7 @@ const blogPosts = [
         readTime: "4 min read",
         date: "Aug 20, 2025",
         image:
-            "https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1600",
+            "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQUgCK-VC-jswJTvEj9c8hOSaPiX3ZaS991z4lvGRI0N9ulo7ph",
     },
     {
         id: "esg-co2-tracking",
@@ -53,7 +53,7 @@ const blogPosts = [
         readTime: "5 min read",
         date: "Aug 02, 2025",
         image:
-            "https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1600",
+            "https://cdn.mos.cms.futurecdn.net/eAd6TJHmtNL8gKaCfpsMi.jpg",
     },
     {
         id: "discom-approvals",
@@ -64,7 +64,7 @@ const blogPosts = [
         readTime: "7 min read",
         date: "Jul 15, 2025",
         image:
-            "https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=1600",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHq58zf19iQE-vqxA3vYTHC8SE2k6FfrWgT29eHADjDfhlW1Yx",
     },
     {
         id: "winter-solar-performance",
@@ -75,7 +75,7 @@ const blogPosts = [
         readTime: "3 min read",
         date: "Jun 28, 2025",
         image:
-            "https://images.unsplash.com/photo-1607522370275-f143588bf457?q=80&w=1600",
+            "https://enerparc.in/wp-content/uploads/2024/09/Engineering-Procurement-and-Construction.webp",
     },
 ];
 
@@ -104,12 +104,12 @@ export default function SolarBlogPage() {
   {/* Background image */}
   <div className="absolute inset-0">
     <img
-      src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1800"
+      src="https://images.indianexpress.com/2025/08/Solar-Panels-1.jpg"
       alt="Solar panels at sunset"
       className="h-full w-full object-cover"
     />
     {/* Dark gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/85 to-slate-900/40" />
+    <div className="absolute inset-0 bg-linear-to-br from-slate-950/90 via-slate-900/85 to-slate-900/40" />
   </div>
 
   {/* Subtle corner glow */}

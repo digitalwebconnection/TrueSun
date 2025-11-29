@@ -4,9 +4,7 @@ import React from "react";
 import {
     Mail,
     MapPin,
-    Phone,
     Leaf,
-    SunMedium,
     Facebook,
     Instagram,
     Linkedin,
@@ -14,6 +12,7 @@ import {
     Code2,
     ShieldCheck,
     Sparkles,
+    Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ React Router import
 
@@ -42,13 +41,16 @@ export default function SolarFooter() {
                         {/* Brand */}
                         <div className="lg:col-span-4">
                             <div className="flex items-center gap-3">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500 text-white shadow">
-                                    <SunMedium className="h-5 w-5" />
-                                </div>
+
                                 <div>
-                                    <h3 className="text-lg font-bold tracking-tight">
-                                        True<span className="text-amber-500">Sun</span>
-                                    </h3>
+                                    <Link
+                                        to="/"
+                                        className="flex items-center gap-2 w-40"
+                                        aria-label="Home"
+                                    >
+                                        <img src="https://truesun.in/wp-content/uploads/2018/01/cropped-final_logo-1.png" alt="" />
+
+                                    </Link>
                                     <p className="text-xs text-neutral-100 dark:text-neutral-400">
                                         Rooftop EPC • O&M • Consulting
                                     </p>
@@ -117,19 +119,21 @@ export default function SolarFooter() {
                         </div>
 
                         {/* Contact */}
-                        <div className="lg:col-span-2">
+                        <div className="lg:col-span-2 ms-0 md:-ms-20">
                             <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Contact
                             </h4>
                             <div className="grid gap-2 text-sm text-neutral-300">
                                 <p className="inline-flex items-start gap-2">
-                                    <MapPin className="mt-0.5 h-4 w-4" /> Mumbai • Pune • Nagpur
+                                    <MapPin className="mt-0.5 h-4 w-4" />Birla Centurion, Wing - B, 3rd Floor,
+                                    Pandurang Budhkar Marg, Century Mills, 
+                                    Worli, Mumbai, Maharashtra 400030
                                 </p>
                                 <p className="inline-flex items-start gap-2">
-                                    <Phone className="mt-0.5 h-4 w-4" /> +91 95195 18951
+                                    <Phone className="mt-0.5 h-4 w-4" /> +91 88508 45149
                                 </p>
                                 <p className="inline-flex items-start gap-2">
-                                    <Mail className="mt-0.5 h-4 w-4" /> info@truesun.com
+                                    <Mail className="mt-0.5 h-4 w-4" />Support@truesun.in
                                 </p>
                             </div>
                             <div className="mt-4 flex items-center gap-3 text-neutral-500">
@@ -163,11 +167,11 @@ export default function SolarFooter() {
                     {/* Bottom bar */}
                     <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm  border-white/10 text-neutral-400 md:flex-row">
                         <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-orange-600"> TrueSun</span>. All rights reserved.</p>
-                        <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 pb-12 md:pb-0  text-white text-sm">
+                        <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 ms-3 md:ms-0   text-white text-[13px] md:text-sm">
                             <Code2 className="w-6 h-6 text-orange-600" />
                             <p>Developed by <span className="font-semibold text-orange-600">Digital Web Connection</span></p>
                         </p>
-                        <div className="flex items-center gap-5 me-35">
+                        <div className="flex items-center gap-5 me-20 md:me-35">
                             <FooterLink to="/privacy">Privacy Policy</FooterLink>
                             <FooterLink to="/terms">Terms</FooterLink>
                         </div>

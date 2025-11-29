@@ -74,7 +74,7 @@ type Particle = {
 };
 
 export default function WhatsAppDockPro({
-  phoneNumber = "919876543210",
+  phoneNumber = "918850845149",
   companyName = "TrueSun Solar",
   subtitle = "Your Solar Experts",
   prefill = "Hello! I’m interested in installing solar panels. Please share more details.",
@@ -87,7 +87,7 @@ export default function WhatsAppDockPro({
     { label: "Residential", icon: <Home className="h-3.5 w-3.5" /> },
     { label: "Commercial", icon: <Building2 className="h-3.5 w-3.5" /> },
   ],
-  footerText = "Call: +91 98765 43210 · info@truesunsolar.com",
+  footerText = "Call: +91 88508 45149 · Support@truesun.in",
   showTypingIndicator = true,
 }: WhatsAppDockProps) {
   const [open, setOpen] = useState(false);

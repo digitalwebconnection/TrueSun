@@ -11,14 +11,14 @@ export default function  ModernReviewSection() {
   const reviews: Review[] = [
     {
       name: "Raj Sharma",
-      location: "Ahmedabad, GJ",
+      location: " Mumbai, Maharashtra",
       rating: 5,
       comment:
         "Excellent installation service. The team was professional and completed the work on time. Highly recommend!",
     },
     {
       name: "Megha Patel",
-      location: "Vadodara, GJ",
+      location: " Mumbai, Maharashtra",
       rating: 5,
       comment:
         "Smooth installation process and good support after setup. Just took a day extra due to rain.",

@@ -208,6 +208,7 @@ function ServicesMenu() {
 }
 
 /* ============================ Mobile Services Menu ============================ */
+/* ============================ Mobile Services Menu ============================ */
 function MobileServicesMenu({
   isOpen,
   closeDrawer,
@@ -219,30 +220,55 @@ function MobileServicesMenu({
 
   return (
     <div className="mt-2">
-      {/* Parent "Services" row */}
-      <button
-        type="button"
-        onClick={() => setExpanded((prev) => !prev)}
+      {/* Row: text navigates, arrow toggles dropdown */}
+      <div
         className={cn(
           "flex w-full items-center justify-between rounded-lg px-3 py-4 text-xl font-semibold text-gray-700 transition-all duration-300 ease-out",
           "hover:bg-orange-50 hover:text-orange-600 hover:scale-105",
           expanded ? "bg-orange-50 text-orange-600" : "",
-          isOpen
-            ? "translate-x-0 opacity-100"
-            : "translate-x-4 opacity-0"
+          isOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
         )}
         style={{
           transitionDelay: isOpen ? "200ms" : "0ms",
         }}
       >
-        <span>Our Services</span>
-        <ChevronDown
+        {/* MAIN LINK → /services */}
+        <NavLink
+          to="/services"
+          onClick={() => {
+            closeDrawer();
+          }}
+          className={({ isActive }) =>
+            cn(
+              "flex-1 text-left",
+              isActive ? "text-orange-600" : "text-gray-700"
+            )
+          }
+        >
+          Our Services
+        </NavLink>
+
+        {/* ARROW → ONLY TOGGLE DROPDOWN */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setExpanded((prev) => !prev);
+          }}
+          aria-expanded={expanded}
+          aria-label="Toggle services submenu"
           className={cn(
-            "h-5 w-5 transition-transform duration-300",
-            expanded ? "rotate-180" : "rotate-0"
+            "ml-2 inline-flex items-center justify-center rounded-full p-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600 transition-all duration-300",
           )}
-        />
-      </button>
+        >
+          <ChevronDown
+            className={cn(
+              "h-5 w-5 transition-transform duration-300",
+              expanded ? "rotate-180" : "rotate-0"
+            )}
+          />
+        </button>
+      </div>
 
       {/* Children container */}
       <div
@@ -384,13 +410,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-40"
             aria-label="Home"
           >
-            <Sun className="h-7 w-7 text-orange-500" />
-            <h1 className="text-xl font-bold text-gray-800">
-              True<span className="text-orange-500">Sun</span>
-            </h1>
+              <img src="https://truesun.in/wp-content/uploads/2018/01/cropped-final_logo-1.png" alt="" />
+       
           </Link>
 
           {/* Desktop Menu */}
