@@ -27,7 +27,7 @@ const projects = [
     id: 4,
     title: "Business Hotel & Resort",
     type: "Hotel · 120 kW",
-    location: "Goa, India",
+    location: " Mumbai",
     image: "https://www.shutterstock.com/image-photo/rooftop-technology-solar-cell-panel-260nw-2512475745.jpg",
   },
   {
@@ -41,7 +41,7 @@ const projects = [
     id: 6,
     title: "Carbon Offset Solar Project",
     type: "Carbon Project · MW Scale",
-    location: "Rajasthan, India",
+    location: " Mumbai",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXFCoLH8TqT55-9oXC0YQYmzqzZgdgxOn6oA&s",
   },
 ];

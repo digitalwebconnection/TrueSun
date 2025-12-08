@@ -34,7 +34,7 @@ export default function AppSimple() {
       </div>
 
       {/* Content container aligned left */}
-      <div className="relative z-10 w-full max-w-7xl text-left rounded-lg p-4 sm:py-6 md:py-4">
+      <div className="relative z-10 w-full max-w-7xl text-left rounded-lg py-14 sm:py-6 md:py-4">
 
         {/* --- Eyebrow and Title (Updated Content) --- */}
         <div className="inline-flex items-center mb-6 text-amber-300 font-semibold uppercase tracking-widest text-xs px-3 py-1 border border-amber-300/50 rounded-full bg-black/30">
@@ -42,19 +42,19 @@ export default function AppSimple() {
           TrueSun Project Portfolio in Maharashtra
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
+        <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
           Powering Maharashtra with <span className="text-teal-300">Sustainable Solar Solutions</span>
         </h1>
 
-        <p className="text-lg text-gray-200 max-w-2xl mb-10 drop-shadow">
-          As a leading provider in Maharashtra, **TrueSun** delivers over 120+ MW of high-performance solar installations, driving energy independence and measurable results across the state.
+        <p className="text-md text-gray-200 max-w-2xl mb-10 drop-shadow">
+          As a leading provider in Maharashtra, TrueSun delivers over 120+ MW of high-performance solar installations, driving energy independence and measurable results across the state.
         </p>
 
         {/* --- CTA Buttons (Left aligned) --- */}
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
          
-            className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-teal-500 to-emerald-600 px-8 py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
+            className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-teal-500 to-emerald-600 px-8 py-2 md:py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
           >
             Explore Projects
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -62,7 +62,7 @@ export default function AppSimple() {
 
           <a
               onClick={() => setOpenLeadPopup(true)}
-            className="inline-flex items-center justify-center rounded-xl border border-white/40 px-8 py-3 text-base font-semibold text-white/90 transition hover:bg-white/10 shadow-md w-fit"
+            className="inline-flex items-center justify-center rounded-xl border border-white/40 px-8 py-2 md:py-3 text-base font-semibold text-white/90 transition hover:bg-white/10 shadow-md w-fit"
           >
             Get a Quote
           </a>

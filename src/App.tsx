@@ -1,13 +1,11 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
 import HomeMain from "./component/home/HomeMain";
 import MainAbout from "./component/abouus/MainAbout";
-// import RooftopMain from "./component/Service/RooftopSolar/RooftopMain";
 import ConsultingMain from "./component/Service/Consulting/ConsultingMain";
 import WhatsAppDockPro from "./component/WhatsAppChatbot";
-// import CommercialMain from "./component/Service/RooftopSolar/Commercial/CommercialMain";
 import Residentialmain from "./component/Service/RooftopSolar/Residential/Residentialmain";
 import CarbonFootprintingmain from "./component/Service/Consulting/Carbon-Footprinting/CarbonFootprintingmain";
 import Projectsmain from "./component/Projects/Projectsmain";
@@ -18,48 +16,35 @@ import ContactUsMain from "./component/ContactUs/ContactUsMain";
 import ServiceMain from "./component/Service/ServiceMain";
 import ScrollToTop from "./component/ScrollToTop";
 import BlogMain from "./component/blog/BlogMain";
-// import LeadPopup from "./component/LeadPopup";
 
-
-
-
-
-function App() {
+function AppInner() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Navbar />
       <Routes>
-        {/* Home & Main */}
         <Route path="/" element={<HomeMain />} />
         <Route path="/about" element={<MainAbout />} />
-
-        {/* Top-level Services */}
         <Route path="/services" element={<ServiceMain />} />
-
-        {/* Rooftop Solar Children */}
-        {/* <Route path="/services/rooftop" element={<RooftopMain />} /> */}
-        <Route path="/services/rooftop/C&I" element={<MainCI/>} />
-        <Route path="/services/rooftop/residential" element={<Residentialmain/>} />
-
-        {/* Consulting Children */}
+        <Route path="/services/rooftop/C&I" element={<MainCI />} />
+        <Route path="/services/rooftop/residential" element={<Residentialmain />} />
         <Route path="/services/consulting" element={<ConsultingMain />} />
-        <Route path="/services/consulting/Carbon-Footprinting" element={<CarbonFootprintingmain/>} />
-   
-
-        {/* Other Main Pages */}
-        <Route path="/Solar-finance" element={<SolarfinanceMain/>}/>
+        <Route path="/services/consulting/Carbon-Footprinting" element={<CarbonFootprintingmain />} />
+        <Route path="/Solar-finance" element={<SolarfinanceMain />} />
         <Route path="/projects" element={<Projectsmain />} />
-        <Route path="/careers" element={<Careersmain/>} />
-                <Route path="/blog" element={<BlogMain/>} />
+        <Route path="/careers" element={<Careersmain />} />
+        <Route path="/blog" element={<BlogMain />} />
         <Route path="/contact" element={<ContactUsMain />} />
       </Routes>
       <SolarFooter />
-      <WhatsAppDockPro/>
-      {/* <LeadPopup/> */}
-    </BrowserRouter>
-
+      <WhatsAppDockPro />
+    </>
   );
 }
 
-export default App;
+// For client hydration we wrap in BrowserRouter in main.jsx (above).
+// For server render, we use StaticRouter in entry-server.jsx.
+// Export default as component so both server and client can import.
+export default function App() {
+  return <AppInner />;
+}

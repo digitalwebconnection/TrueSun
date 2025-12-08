@@ -117,7 +117,7 @@ export default function SolarBlogPage() {
   <div className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
 
   {/* Content */}
-  <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+  <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between py-12 md:py-0">
     <div className="space-y-4 max-w-xl">
       <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1 text-[11px] font-medium tracking-[0.18em] uppercase text-slate-300 backdrop-blur-sm">
         <span className="flex h-4 w-4 items-center justify-center rounded-full bg-orange-500/20">

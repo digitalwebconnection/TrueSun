@@ -595,7 +595,7 @@ function Sparkles({ count = 16 }: { count?: number }) {
 
 function ScrollIndicator() {
   return (
-    <div className="mt-8 flex items-center gap-2 text-xs text-white/60">
+    <div className="mt-8 hidden md:block  items-center gap-2 text-xs text-white/60">
       <motion.span
         className="inline-block h-5 w-3 rounded-full border border-white/30"
         initial={{ opacity: 0 }}

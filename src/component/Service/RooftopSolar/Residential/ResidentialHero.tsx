@@ -43,7 +43,7 @@ export default function ResidentialHero() {
           <motion.h1
             custom={1}
             variants={textVariant}
-            className="text-4xl md:text-5xl font-bold mb-4 leading-tight"
+            className="text-3xl md:text-5xl font-bold mb-4 leading-tight"
           >
             Power Your <span className="text-amber-400">Home</span> with  
             <br /> Clean & Affordable <span className="text-green-400">Solar Energy</span>
@@ -52,7 +52,7 @@ export default function ResidentialHero() {
           <motion.p
             custom={2}
             variants={textVariant}
-            className="text-gray-200 text-lg max-w-xl mx-auto lg:mx-0 mb-6"
+            className="text-gray-200 text-md max-w-xl mx-auto lg:mx-0 mb-6"
           >
             Enjoy lower electricity bills and a greener planet with reliable 
             residential solar panel installation. Start saving with sustainable energy today.
