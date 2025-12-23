@@ -15,10 +15,10 @@ import {
     Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ React Router import
-
+import logo from '../assets/truesun.png';
 export default function SolarFooter() {
     return (
-        <footer className="relative mt-10 text-neutral-800 bg-white dark:text-neutral-100">
+        <footer className="relative mt-10  bg-white text-neutral-100">
             {/* Decorative top curve */}
             <div className="pointer-events-none relative -mb-1 h-20 w-full overflow-hidden">
                 <svg
@@ -29,13 +29,13 @@ export default function SolarFooter() {
                 >
                     <path
                         d="M0,100 Q40,0 120,0 H1320 Q1400,0 1440,100 L1440,150 L0,150 Z"
-                        className="fill-black dark:fill-[#0B0D0F]"
+                        className="fill-[#0B0D0F]"
                     />
                 </svg>
             </div>
 
             {/* Main footer */}
-            <div className="relative overflow-hidden bg-black backdrop-blur dark:bg-[#0B0D0F]">
+            <div className="relative overflow-hidden  backdrop-blur bg-[#0B0D0F]">
                 <div className="mx-auto max-w-7xl px-6 pb-10">
                     <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12">
                         {/* Brand */}
@@ -48,15 +48,15 @@ export default function SolarFooter() {
                                         className="flex items-center gap-2 w-40"
                                         aria-label="Home"
                                     >
-                                        <img src="https://truesun.in/wp-content/uploads/2018/01/cropped-final_logo-1.png" alt="" />
+                                        <img src={logo} alt="" />
 
                                     </Link>
-                                    <p className="text-xs text-neutral-100 dark:text-neutral-400">
+                                    <p className="text-xs text-neutral-400">
                                         Rooftop EPC • O&M • Consulting
                                     </p>
                                 </div>
                             </div>
-                            <p className="mt-4 max-w-md text-sm text-neutral-100 dark:text-neutral-300">
+                            <p className="mt-4 max-w-md text-sm text-neutral-300">
                                 We design and deliver high-yield, safe rooftop solar systems for
                                 homes, societies, and businesses. Clean energy made effortless —
                                 from design to net-metering.
@@ -64,13 +64,13 @@ export default function SolarFooter() {
 
                             {/* Badges */}
                             <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
-                                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-300/60 bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300">
+                                <span className="inline-flex items-center gap-1 rounded-full border  px-2.5 py-1 border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
                                     <Leaf className="h-3.5 w-3.5" /> Net-Zero Ready
                                 </span>
-                                <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/60 bg-amber-50 px-2.5 py-1 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+                                <span className="inline-flex items-center gap-1 rounded-full border  px-2.5 py-1  border-amber-500/30 bg-amber-500/10 text-amber-300">
                                     <ShieldCheck className="h-3.5 w-3.5" /> Safety First
                                 </span>
-                                <span className="inline-flex items-center gap-1 rounded-full border border-sky-300/60 bg-sky-50 px-2.5 py-1 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300">
+                                <span className="inline-flex items-center gap-1 rounded-full border  px-2.5 py-1 border-sky-500/30 bg-sky-500/10 text-sky-300">
                                     <Sparkles className="h-3.5 w-3.5" /> Tier-1 Hardware
                                 </span>
                             </div>
@@ -125,16 +125,37 @@ export default function SolarFooter() {
                             </h4>
                             <div className="grid gap-2 text-sm text-neutral-300">
                                 <p className="inline-flex items-start gap-2">
-                                    <MapPin className="mt-0.5 h-4 w-4" />Birla Centurion, Wing - B, 3rd Floor,
-                                    Pandurang Budhkar Marg, Century Mills, 
-                                    Worli, Mumbai, Maharashtra 400030
+                                    <a
+                                        href="https://www.google.com/maps?q=Birla+Centurion,+Wing+B,+3rd+Floor,+Pandurang+Budhkar+Marg,+Century+Mills,+Worli,+Mumbai,+Maharashtra+400030"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-start gap-2 hover:text-orange-500"
+                                    >
+                                        <MapPin className="mt-0.5 h-4 w-4" />
+                                        Birla Centurion, Wing - B, 3rd Floor,
+                                        Pandurang Budhkar Marg, Century Mills,
+                                        Worli, Mumbai, Maharashtra 400030
+                                    </a>
                                 </p>
+
                                 <p className="inline-flex items-start gap-2">
-                                    <Phone className="mt-0.5 h-4 w-4" /> +91 88508 45149
+                                    <a
+                                        href="tel:+918850845149"
+                                        className="flex items-start gap-2 hover:text-orange-500"
+                                    >
+                                        <Phone className="mt-0.5 h-4 w-4" /> +91 88508 45149
+                                    </a>
                                 </p>
+
                                 <p className="inline-flex items-start gap-2">
-                                    <Mail className="mt-0.5 h-4 w-4" />Support@truesun.in
+                                    <a
+                                        href="mailto:info@truesun.in"
+                                        className="flex items-start gap-2 hover:text-orange-500"
+                                    >
+                                        <Mail className="mt-0.5 h-4 w-4" /> info@truesun.in
+                                    </a>
                                 </p>
+
                             </div>
                             <div className="mt-4 flex items-center gap-3 text-neutral-500">
                                 <Social href="#" label="Facebook">
@@ -169,7 +190,10 @@ export default function SolarFooter() {
                         <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-orange-600"> TrueSun</span>. All rights reserved.</p>
                         <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 ms-3 md:ms-0   text-white text-[13px] md:text-sm">
                             <Code2 className="w-6 h-6 text-orange-600" />
-                            <p>Developed by <span className="font-semibold text-orange-600">Digital Web Connection</span></p>
+                            <p>
+                                Developed by <a href="https://digitalwebconnection.com/" target="_blank" className="text-orange-600 font-semibold">Digital Web Connection</a>
+                            </p>
+
                         </p>
                         <div className="flex items-center gap-5 me-20 md:me-35">
                             <FooterLink to="/privacy">Privacy Policy</FooterLink>
@@ -193,7 +217,7 @@ function FooterLink({
     return (
         <Link
             to={to}
-            className="inline-flex items-center gap-1 hover:text-neutral-900 hover:underline dark:hover:text-white"
+            className="inline-flex items-center gap-1  hover:underline hover:text-white"
         >
             <span className="h-1 w-1 rounded-full bg-current" />
             {children}
@@ -216,7 +240,7 @@ function Social({
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-amber-200 bg-white/70 p-2 text-neutral-600 transition hover:text-neutral-900 dark:border-white/10 dark:bg-white/10 dark:text-neutral-300 dark:hover:text-white"
+            className="inline-flex items-center justify-center rounded-full border  transition  border-white/10 bg-white/10 text-neutral-300 hover:text-white"
         >
             {children}
         </a>
@@ -225,8 +249,8 @@ function Social({
 
 function Badge({ text }: { text: string }) {
     return (
-        <div className="flex items-center justify-center gap-2 rounded-xl border border-amber-200/60 bg-amber-50/60 px-3 py-2 text-sm font-medium text-neutral-800 dark:border-white/10 dark:bg-white/10 dark:text-neutral-200">
-            <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-300" />
+        <div className="flex items-center justify-center gap-2 rounded-xl border  px-3 py-2 text-sm font-medium border-white/10 bg-white/10 text-neutral-200">
+            <ShieldCheck className="h-4 w-4 text-emerald-300" />
             {text}
         </div>
     );

@@ -4,12 +4,14 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, cubicBezier, type Variants } from "framer-motion";
 
 // --------------------------- Types ---------------------------
+
+
 export type Stat = {
   id: string;
   value: number;
   suffix?: string;
   label: string;
-  icon: "Sun" | "Building" | "MapPin" | "Zap";
+  icon: "Sun" | "Building" | "MapPin" | "Zap" | "Receipt";
   decimals?: number;
 };
 
@@ -139,6 +141,21 @@ const Svg = {
       <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="2" />
     </svg>
   ),
+  Receipt: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <path
+        d="M4 2h16v20l-2-1-2 1-2-1-2 1-2-1-2 1-2-1-2 1V2z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path
+        d="M8 7h8M8 11h8M8 15h5"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  ),
+
 };
 
 // --------------------------- Background Accents ---------------------------
@@ -158,30 +175,28 @@ const sectionVariants: Variants = {
 };
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: cubicBezier(0.22, 1, 0.36, 1) } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.2, ease: cubicBezier(0.22, 1, 0.36, 1) } },
 };
 
 // --------------------------- Defaults ---------------------------
 const DEFAULT_STATS: Stat[] = [
-  { id: "capacity", value: 320, suffix: " MWp", label: "Capacity Installed", icon: "Sun" },
-  { id: "projects", value: 850, suffix: "+", label: "Projects Delivered", icon: "Building" },
-  { id: "cities", value: 120, suffix: "+", label: "Cities Served", icon: "MapPin" },
-  { id: "energy", value: 5, suffix: " GWh/yr", label: "Clean Energy Generated", icon: "Zap" },
+  { id: "projects", value: 100, suffix: "+", label: "Roofs Powered", icon: "Building" },
+  { id: "cities", value: 100, suffix: "%", label: "Up to 100% Savings on Electricity Bills", icon: "Receipt" },
+  { id: "energy", value: 1, suffix: " MW+", label: "Projects done  (Maharashtra)", icon: "Zap" },
 ];
 
 // --------------------------- Stat Item ---------------------------
 function StatItem({ stat, prefix }: { stat: Stat; prefix?: string }) {
-  const { ref, display } = useCountUp({ end: stat.value, durationMs: 1500 });
+  const { ref, display } = useCountUp({ end: stat.value, durationMs: 3000 });
   const Icon = Svg[stat.icon as keyof typeof Svg];
 
   return (
     <motion.div variants={itemVariants} className="group flex items-center  gap-4" role="listitem">
       <div
         className="grid h-14 w-14 place-items-center rounded-full
-                   bg-linear-to-br from-yellow-100 via-amber-100 to-orange-100
-                   ring-1 ring-amber-600 shadow-sm transition-transform duration-300 group-hover:scale-105"
+               shadow-sm transition-transform duration-300 group-hover:scale-105"
       >
-        <Icon className="h-6 w-6 text-orange-600 " />
+        <Icon className="h-10 w-10 text-orange-600 " />
       </div>
 
       <div className="flex flex-col">
@@ -210,7 +225,7 @@ export default function ImpactStats({
   compact?: boolean;
   prefix?: string;
 }) {
-  const gridCols = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 sm:gap-y-12";
+  const gridCols = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 sm:gap-y-12";
   const padY = compact ? "py-12 sm:py-14" : "py-20 sm:py-24 lg:py-18";
   const headingSpace = compact ? "mb-8 sm:mb-10" : "mb-10 sm:mb-12";
 

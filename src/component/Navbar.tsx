@@ -21,7 +21,7 @@ import {
   Wrench,
   Users2,
 } from "lucide-react";
-
+ import logo from '../assets/truesun.png';
 /* ============================ Utilities ============================ */
 function cn(...c: (string | false | null | undefined)[]) {
   return c.filter(Boolean).join(" ");
@@ -413,7 +413,7 @@ export default function Navbar() {
             className="flex items-center gap-2 w-40"
             aria-label="Home"
           >
-              <img src="https://truesun.in/wp-content/uploads/2018/01/cropped-final_logo-1.png" alt="" />
+              <img src={logo} alt="" />
        
           </Link>
 

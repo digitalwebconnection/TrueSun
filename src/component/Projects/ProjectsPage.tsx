@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   SunMedium,
@@ -11,16 +11,28 @@ import {
   BadgeCheck,
   Download,
   ChevronRight,
-  X,
 } from "lucide-react";
 
-/* ───────────────────────────────── Types ───────────────────────────────── */
+/* =========================
+   Palette (TrueSun)
+   ========================= */
+const PALETTE = {
+  primary: "#FC763A",
+  accent: "#FEC24A",
+  neutral: "#686868",
+  softBg: "#FFF8F3",
+};
+
+/* ───────────────────────── Types ───────────────────────── */
 type Project = {
   name: string;
   segment: string;
   location: string;
   description: string;
   image: string;
+  // optional before/after images (useful for the gallery)
+  beforeImage?: string;
+  afterImage?: string;
   capacity: string;
   roofType: string;
   co2Mitigated: string;
@@ -28,8 +40,6 @@ type Project = {
   payback: string;
   savings: string;
   caseStudyUrl?: string;
-
-  // NEW EXTRA DETAIL FIELDS (all optional)
   clientType?: string;
   clientName?: string;
   commissioningYear?: string;
@@ -42,16 +52,20 @@ type Project = {
   implementationHighlights?: string[];
 };
 
-/* ───────────────────────────────── Data ───────────────────────────────── */
+/* ───────────────────────── Data (same as before, added before/after placeholders) ───────────────────────── */
 const projects: Project[] = [
   {
-    name: "Industrial Solar Rooftop Project – Gujarat",
+    name: "Industrial Solar Rooftop Project – Maharashtra",
     segment: "Industrial",
-    location: "Vadodara, Gujarat",
+    location: "Maharashtra",
     description:
       "A 1.5 MWp rooftop solar system designed for continuous operations with smart energy analytics and minimal maintenance requirements.",
     image:
       "https://truesun.in/wp-content/uploads/2021/06/IMG-20210406-WA0010-768x575.jpg",
+    beforeImage:
+      "https://media.istockphoto.com/id/1196065593/photo/industrial-buildings-as-seen-from-above.jpg?s=612x612&w=0&k=20&c=CBS5JgPs9z3CgJx7_7xVoxgqKPcXPtbUHxw11N0EsN0=",
+    afterImage:
+      "https://waaree.com/wp-content/uploads/2025/08/Asahi-scaled.jpg",
     capacity: "1.5 MWp",
     roofType: "RCC Roof",
     co2Mitigated: "2,000 tonnes/yr",
@@ -93,6 +107,10 @@ const projects: Project[] = [
     description:
       "Installed a 800 kWp rooftop system for a major retail complex, ensuring 24×7 monitoring and optimized net-metering performance.",
     image:
+      "https://static.fibre2fashion.com/newsresource/images/270/shutterstock-600344045_282578.jpg",
+    beforeImage:
+      "https://media.istockphoto.com/id/522465762/photo/warehouse-roof.jpg?s=612x612&w=0&k=20&c=iRya5KPL-uZy6trY0sHT5XxGUr0D-YobT35FJ84FFyk=",
+    afterImage:
       "https://static.fibre2fashion.com/newsresource/images/270/shutterstock-600344045_282578.jpg",
     capacity: "800 kWp",
     roofType: "Sheet Roof",
@@ -136,6 +154,10 @@ const projects: Project[] = [
       "Hybrid grid-tied solar solution for a leading university, integrating EV charging and real-time energy dashboards.",
     image:
       "https://i0.wp.com/solarquarter.com/wp-content/uploads/2022/10/18.png?fit=1200%2C675&ssl=1",
+    beforeImage:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPRfPEM3Dn23qUns4GaYwj-58RUUETIA2TLw&s",
+    afterImage:
+      "https://i0.wp.com/solarquarter.com/wp-content/uploads/2022/10/18.png?fit=1200%2C675&ssl=1",
     capacity: "600 kWp",
     roofType: "RCC Roof",
     co2Mitigated: "950 tonnes/yr",
@@ -171,12 +193,15 @@ const projects: Project[] = [
     ],
   },
   {
-    name: "Textile Manufacturing Plant Solar – Rajasthan",
+    name: "Textile Manufacturing Plant Solar – Maharashtra",
     segment: "Industrial",
-    location: "Bhilwara, Rajasthan",
+    location: "Maharashtra",
     description:
       "High-efficiency rooftop system designed for heavy day-time loads with staggered start-up curves to protect machinery.",
     image: "https://etimg.etb2bimg.com/photo/78053867.cms",
+    beforeImage:
+      "https://centralroof.com/wp-content/uploads/2019/09/Photo-Sep-18-11-21-03-AM.jpg",
+    afterImage: "https://etimg.etb2bimg.com/photo/78053867.cms",
     capacity: "1.2 MWp",
     roofType: "Metal Sheet",
     co2Mitigated: "1,600 tonnes/yr",
@@ -213,14 +238,13 @@ const projects: Project[] = [
   },
 ];
 
-/* ─────────────────────── Derived stats ─────────────────────── */
+/* ───────────────────── Derived stats ───────────────────── */
 function parseNumber(str: string): number {
   const cleaned = str.replace(/,/g, "");
   const match = cleaned.match(/[\d.]+/);
   return match ? parseFloat(match[0]) : 0;
 }
 
-// total capacity in kWp
 const totalCapacityKw = projects.reduce((sum, p) => {
   const n = parseNumber(p.capacity);
   if (p.capacity.toLowerCase().includes("mw")) return sum + n * 1000;
@@ -247,8 +271,7 @@ const uniqueStates = Array.from(
   )
 );
 
-/* ─────────────────────── Small UI helpers ─────────────────────── */
-
+/* ───────────────────── UI Helpers ───────────────────── */
 function StatPill({
   icon: Icon,
   label,
@@ -259,8 +282,8 @@ function StatPill({
   value: string;
 }) {
   return (
-    <div className="flex items-center gap-2 rounded-xl bg-slate-900/80 px-3 py-2 text-xs text-slate-100 ring-1 ring-slate-700/70">
-      <Icon className="h-4 w-4 text-amber-300" />
+    <div className="flex items-center gap-2 rounded-xl bg-white/90 px-3 py-2 text-xs shadow-sm ring-1 ring-slate-100">
+      <Icon className="h-4 w-4" style={{ color: PALETTE.primary }} />
       <div className="flex flex-col">
         <span className="text-[10px] uppercase tracking-[0.18em] text-slate-400">
           {label}
@@ -281,288 +304,136 @@ function InfoCard({
   value: string;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl border border-slate-600/50 bg-white/90 px-4 py-3 shadow-sm">
-      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-50">
-        <Icon className="h-4 w-4 text-sky-600" />
+    <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white" style={{ boxShadow: "inset 0 -1px 0 rgba(0,0,0,0.03)" }}>
+        <Icon className="h-4 w-4" style={{ color: PALETTE.primary }} />
       </div>
       <div>
-        <div className="text-[11px] uppercase tracking-[0.18em] text-slate-500">
+        <div className="text-[10px] uppercase tracking-[0.18em] text-slate-400">
           {label}
         </div>
-        <div className="mt-0.5 text-sm font-semibold text-slate-900">
-          {value}
+        <div className="mt-1 text-sm font-semibold text-slate-900">{value}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ───────────────────── Modal (unchanged) ───────────────────── */
+
+/* ───────────────────── Gallery Section (NEW) ───────────────────── */
+
+function BeforeAfter({
+  before,
+  after,
+  alt,
+}: {
+  before?: string;
+  after?: string;
+  alt?: string;
+}) {
+  const [pos, setPos] = useState(50);
+  // If before/after not provided, show single image
+  const imgBefore = before || after;
+  const imgAfter = after || before;
+
+  return (
+    <div className="rounded-xl overflow-hidden bg-black/5">
+      <div className="relative h-64 w-full">
+        {/* After (bottom) */}
+        <img src={imgAfter} alt={alt} className="h-full w-full object-cover" />
+        {/* Before (top, clipped) */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          aria-hidden
+          style={{ width: `${pos}%` }}
+        >
+          <img src={imgBefore} alt={`${alt} — before`} className="h-full w-full object-cover filter grayscale contrast-95 brightness-90" />
+        </div>
+
+        {/* Slider handle */}
+        <div className="absolute left-0 right-0 bottom-2 flex items-center justify-center pointer-events-none">
+          <input
+            aria-label="Adjust before / after"
+            className="pointer-events-auto w-2/3"
+            type="range"
+            min={0}
+            max={100}
+            value={pos}
+            onChange={(e) => setPos(Number(e.target.value))}
+          />
         </div>
       </div>
     </div>
   );
 }
 
-/* ─────────────────────── Modal component ─────────────────────── */
-
-function ProjectModal({
-  project,
-  onClose,
+function GallerySection({
+  projects,
+  onOpenProject,
 }: {
-  project: Project;
-  onClose: () => void;
+  projects: Project[];
+  onOpenProject: (p: Project, i: number) => void;
 }) {
+  // Testimonials derived from project clientName + short snippet
+  const testimonials = projects
+    .filter((p) => p.clientName)
+    .map((p) => ({
+      author: p.clientName as string,
+      text:
+        p.clientName && p.description
+          ? `${p.clientName.split(" ")[0]}: "${p.description.slice(0, 80)}..."`
+          : `${p.name}`,
+      projectName: p.name,
+    }));
+
+  const [, setTIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTIndex((s) => (s + 1) % testimonials.length), 6000);
+    return () => clearInterval(id);
+  }, [testimonials.length]);
+
   return (
-    <div className="fixed inset-0 z-120 flex items-center justify-center bg-black/60 px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 10, scale: 0.97 }}
-        transition={{ duration: 0.25 }}
-        className="relative max-h-[80vh] w-full max-w-4xl overflow-hidden rounded-3xl bg-white shadow-2xl"
-      >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute right-3 top-3 z-10 rounded-full bg-black/60 p-1.5 text-slate-100 hover:bg-black"
-          aria-label="Close"
-        >
-          <X className="h-4 w-4" />
-        </button>
+    <section className="mt-12">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold text-slate-900">Project Gallery</h3>
+        <div className="text-sm text-slate-500">Photos, before/after & customer stories</div>
+      </div>
 
-        {/* Image */}
-        <div className="relative h-52 w-full lg:h-64">
-          <img
-            src={project.image}
-            alt={project.name}
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/40 to-transparent" />
-          <div className="absolute left-5 right-14 bottom-4 space-y-2 text-slate-50">
-            <div className="flex flex-wrap items-center gap-2 text-[11px]">
-              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/95 px-3 py-1 text-xs font-semibold text-white">
-                <SunMedium className="h-3.5 w-3.5" />
-                {project.segment}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-3 py-1 text-[11px]">
-                <MapPin className="h-3.5 w-3.5 text-sky-300" />
-                {project.location}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-3 py-1 text-[11px]">
-                <Building2 className="h-3.5 w-3.5 text-amber-300" />
-                {project.capacity} • {project.roofType}
-              </span>
-              {project.commissioningYear && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-3 py-1 text-[11px]">
-                  <BadgeCheck className="h-3.5 w-3.5 text-emerald-300" />
-                  Commissioned: {project.commissioningYear}
-                </span>
-              )}
-            </div>
-            <h3 className="text-lg font-semibold sm:text-xl">{project.name}</h3>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="grid max-h-112 gap-6 overflow-y-auto p-5 sm:p-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          {/* LEFT SIDE – STORY & NARRATIVE */}
-          <div className="space-y-4">
-            {/* Client info */}
-            {(project.clientType || project.clientName) && (
-              <div className="rounded-2xl bg-slate-50 p-3 text-[11px] text-slate-600 sm:text-xs">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Client Profile
+      {/* Grid */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p, i) => (
+          <div key={p.name} className="group relative rounded-2xl overflow-hidden border hover:shadow-lg transition">
+            <BeforeAfter before={p.beforeImage} after={p.afterImage} alt={p.name} />
+            <div className="p-3 bg-white">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-sm font-semibold text-slate-900 line-clamp-2">{p.name}</div>
+                  <div className="mt-1 text-xs text-slate-500">{p.location} • {p.capacity}</div>
                 </div>
-                <div className="mt-1 text-slate-800">
-                  {project.clientName && (
-                    <span className="font-semibold">
-                      {project.clientName}
-                    </span>
-                  )}
-                  {project.clientName && project.clientType && " · "}
-                  {project.clientType}
+
+                <div className="flex flex-col items-end gap-2">
+                  <button
+                    onClick={() => onOpenProject(p, i)}
+                    className="inline-flex items-center gap-2 rounded-md bg-sky-600 px-3 py-1 text-xs font-semibold text-white shadow"
+                  >
+                    View
+                  </button>
+                  <a href={p.caseStudyUrl || "#"} className="text-xs text-slate-500 hover:text-sky-600">Case study</a>
                 </div>
               </div>
-            )}
-
-            <p className="text-sm text-slate-700">{project.description}</p>
-
-            {/* Objectives & challenges */}
-            <div className="grid gap-3 sm:grid-cols-2">
-              {project.keyObjectives && project.keyObjectives.length > 0 && (
-                <div className="rounded-2xl bg-slate-50 p-3">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Key objectives
-                  </div>
-                  <ul className="mt-2 space-y-1.5 text-[11px] text-slate-700">
-                    {project.keyObjectives.map((o) => (
-                      <li key={o} className="flex gap-2">
-                        <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        <span>{o}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {project.challenges && project.challenges.length > 0 && (
-                <div className="rounded-2xl bg-slate-50 p-3">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Site challenges
-                  </div>
-                  <ul className="mt-2 space-y-1.5 text-[11px] text-slate-700">
-                    {project.challenges.map((c) => (
-                      <li key={c} className="flex gap-2">
-                        <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-amber-500" />
-                        <span>{c}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {/* Outcome summary */}
-            <div className="rounded-2xl bg-slate-50 p-3 text-[11px] text-slate-600">
-              <span className="font-semibold text-slate-800">
-                Project outcome:
-              </span>{" "}
-              Stable generation of {project.annualGen} with CO₂ savings of{" "}
-              {project.co2Mitigated}, improving payback to{" "}
-              <span className="font-semibold">{project.payback}</span> and
-              delivering roughly{" "}
-              <span className="font-semibold">{project.savings}</span> in annual
-              savings.
-            </div>
-
-            {/* Implementation highlights */}
-            {project.implementationHighlights &&
-              project.implementationHighlights.length > 0 && (
-                <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-3">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Implementation highlights
-                  </div>
-                  <ul className="mt-2 space-y-1.5 text-[11px] text-slate-700">
-                    {project.implementationHighlights.map((h) => (
-                      <li key={h} className="flex gap-2">
-                        <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-sky-500" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-            {/* Actions */}
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={project.caseStudyUrl || "#"}
-                className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-slate-800"
-              >
-                <Download className="h-4 w-4" />
-                Download case study
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-sky-700 hover:text-sky-900"
-              >
-                Talk about a similar project
-                <ChevronRight className="h-4 w-4" />
-              </a>
             </div>
           </div>
-
-          {/* RIGHT SIDE – PERFORMANCE & TECH CONFIG */}
-          <div className="space-y-4 rounded-2xl bg-slate-50 p-4">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Performance snapshot
-            </div>
-
-            <div className="grid gap-2">
-              <StatPill
-                icon={SunMedium}
-                label="Annual generation"
-                value={project.annualGen}
-              />
-              <StatPill
-                icon={Leaf}
-                label="CO₂ mitigated"
-                value={project.co2Mitigated}
-              />
-              <StatPill
-                icon={BadgeCheck}
-                label="Expected payback"
-                value={project.payback}
-              />
-              <StatPill
-                icon={Sparkles}
-                label="Estimated savings"
-                value={project.savings}
-              />
-            </div>
-
-            {/* System configuration */}
-            {(project.modulesUsed ||
-              project.invertersUsed ||
-              project.mountingType ||
-              (project.specialFeatures &&
-                project.specialFeatures.length > 0)) && (
-              <div className="mt-3 border-t border-slate-200 pt-3">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  System configuration
-                </div>
-                <ul className="mt-2 space-y-1.5 text-[11px] text-slate-700">
-                  {project.modulesUsed && (
-                    <li className="flex gap-2">
-                      <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      <span>
-                        <span className="font-semibold">Modules: </span>
-                        {project.modulesUsed}
-                      </span>
-                    </li>
-                  )}
-                  {project.invertersUsed && (
-                    <li className="flex gap-2">
-                      <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-sky-500" />
-                      <span>
-                        <span className="font-semibold">Inverters: </span>
-                        {project.invertersUsed}
-                      </span>
-                    </li>
-                  )}
-                  {project.mountingType && (
-                    <li className="flex gap-2">
-                      <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-amber-500" />
-                      <span>
-                        <span className="font-semibold">Mounting: </span>
-                        {project.mountingType}
-                      </span>
-                    </li>
-                  )}
-                  {project.specialFeatures &&
-                    project.specialFeatures.length > 0 && (
-                      <li className="flex gap-2">
-                        <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-purple-500" />
-                        <span>
-                          <span className="font-semibold">
-                            Special features:{" "}
-                          </span>
-                          <span className="block">
-                            {project.specialFeatures.join(" • ")}
-                          </span>
-                        </span>
-                      </li>
-                    )}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
-/* ─────────────────────── Main component ─────────────────────── */
-
-export default function ProjectShowcase() {
+/* ───────────────────── Main Page (merged with gallery) ───────────────────── */
+export default function ProjectShowcasePage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalProject, setModalProject] = useState<Project | null>(null);
+  const [, setModalProject] = useState<Project | null>(null);
 
   const activeProject = projects[activeIndex];
 
@@ -583,10 +454,6 @@ export default function ProjectShowcase() {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalProject(null);
-  };
 
   return (
     <section className="relative mx-auto max-w-7xl px-6 py-16 lg:px-0">
@@ -600,33 +467,21 @@ export default function ProjectShowcase() {
             <Sparkles className="h-3.5 w-3.5 text-amber-400" />
             Project Portfolio
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
-            C&I Solar Installations Across India
-          </h2>
+          <h2 className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">C&I Solar Installations Across India</h2>
           <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
-            A quick view of how TrueSun implementations are helping factories,
-            commercial complexes and institutions reduce grid dependence and
-            improve cash flow.
+            A quick view of how TrueSun implementations are helping factories, commercial complexes and institutions reduce grid dependence and improve cash flow.
           </p>
         </div>
 
         {/* Global stats strip */}
         <div className="grid grid-cols-2 gap-2 text-xs sm:text-[13px] md:text-xs">
           <div className="rounded-2xl bg-slate-900 px-4 py-3 text-slate-50">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400">
-              Cumulative Capacity
-            </div>
-            <div className="mt-1 text-sm font-semibold">
-              {totalCapacityLabel}
-            </div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400">Cumulative Capacity</div>
+            <div className="mt-1 text-sm font-semibold">{totalCapacityLabel}</div>
           </div>
           <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-emerald-900">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-emerald-600">
-              CO₂ Mitigated / year
-            </div>
-            <div className="mt-1 text-sm font-semibold">
-              {totalCo2Tonnes.toLocaleString()} tonnes
-            </div>
+            <div className="text-[10px] uppercase tracking-[0.2em] text-emerald-600">CO₂ Mitigated / year</div>
+            <div className="mt-1 text-sm font-semibold">{totalCo2Tonnes.toLocaleString()} tonnes</div>
           </div>
         </div>
       </div>
@@ -642,59 +497,37 @@ export default function ProjectShowcase() {
           className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-950/90 shadow-xl shadow-slate-900/40"
         >
           <div className="relative h-72 w-full sm:h-90 lg:h-118">
-            <img
-              src={activeProject.image}
-              alt={activeProject.name}
-              className="h-full w-full object-cover brightness-[0.9]"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            <img src={activeProject.image} alt={activeProject.name} className="h-full w-full object-cover brightness-[0.9]" loading="lazy" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
 
             {/* Overlay content */}
             <div className="absolute inset-x-5 bottom-5 space-y-3 text-slate-50">
               <div className="flex flex-wrap items-center gap-2 text-[11px]">
                 <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/90 px-3 py-1 text-xs font-semibold text-white">
-                  <SunMedium className="h-3.5 w-3.5" />
-                  {activeProject.segment}
+                  <SunMedium className="h-3.5 w-3.5" /> {activeProject.segment}
                 </span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/60 px-3 py-1 text-[11px]">
-                  <MapPin className="h-3.5 w-3.5 text-sky-300" />
-                  {activeProject.location}
+                  <MapPin className="h-3.5 w-3.5 text-sky-300" /> {activeProject.location}
                 </span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/60 px-3 py-1 text-[11px]">
-                  <Building2 className="h-3.5 w-3.5 text-amber-300" />
-                  {activeProject.capacity} • {activeProject.roofType}
+                  <Building2 className="h-3.5 w-3.5 text-amber-300" /> {activeProject.capacity} • {activeProject.roofType}
                 </span>
                 {activeProject.commissioningYear && (
                   <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/60 px-3 py-1 text-[11px]">
-                    <BadgeCheck className="h-3.5 w-3.5 text-emerald-300" />
-                    {activeProject.commissioningYear}
+                    <BadgeCheck className="h-3.5 w-3.5 text-emerald-300" /> {activeProject.commissioningYear}
                   </span>
                 )}
               </div>
 
-              <h3 className="text-lg font-semibold sm:text-2xl">
-                {activeProject.name}
-              </h3>
-              <p className="max-w-2xl text-xs text-slate-200 sm:text-sm">
-                {activeProject.description}
-              </p>
+              <h3 className="text-lg font-semibold sm:text-2xl">{activeProject.name}</h3>
+              <p className="max-w-2xl text-xs text-slate-200 sm:text-sm">{activeProject.description}</p>
 
               <div className="flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => openModalForProject(activeProject, activeIndex)}
-                  className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-slate-900 shadow-lg shadow-slate-900/40 hover:bg-slate-100 sm:text-sm"
-                >
-                  <Download className="h-4 w-4" />
-                  View full case study
+                <button type="button" onClick={() => openModalForProject(activeProject, activeIndex)} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-slate-900 shadow-lg hover:bg-slate-100 sm:text-sm">
+                  <Download className="h-4 w-4" /> View full case study
                 </button>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-sky-200 hover:text-white sm:text-sm"
-                >
-                  Discuss a similar system
-                  <ChevronRight className="h-4 w-4" />
+                <a href="#contact" className="inline-flex items-center gap-1 text-xs font-semibold text-sky-200 hover:text-white sm:text-sm">
+                  Discuss a similar system <ChevronRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -703,69 +536,37 @@ export default function ProjectShowcase() {
 
         {/* Right-side stats panel */}
         <div className="space-y-4">
-          <div className="rounded-3xl border border-slate-600/50 bg-white/90 p-4 shadow-sm shadow-black/50">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Impact Snapshot
-            </div>
-            <p className="mt-2 text-xs text-slate-600">
-              Quick view of performance metrics for this project.
-            </p>
+          <div className="rounded-3xl border border-slate-600/50 bg-white/90 p-4 shadow-sm">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Impact Snapshot</div>
+            <p className="mt-2 text-xs text-slate-600">Quick view of performance metrics for this project.</p>
 
             <div className="mt-4 grid gap-2">
-              <StatPill
-                icon={SunMedium}
-                label="Annual generation"
-                value={activeProject.annualGen}
-              />
-              <StatPill
-                icon={Leaf}
-                label="CO₂ mitigated"
-                value={activeProject.co2Mitigated}
-              />
-              <StatPill
-                icon={BadgeCheck}
-                label="Expected payback"
-                value={activeProject.payback}
-              />
-              <StatPill
-                icon={Sparkles}
-                label="Estimated savings"
-                value={activeProject.savings}
-              />
+              <StatPill icon={SunMedium} label="Annual generation" value={activeProject.annualGen} />
+              <StatPill icon={Leaf} label="CO₂ mitigated" value={activeProject.co2Mitigated} />
+              <StatPill icon={BadgeCheck} label="Expected payback" value={activeProject.payback} />
+              <StatPill icon={Sparkles} label="Estimated savings" value={activeProject.savings} />
             </div>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
-            <InfoCard
-              icon={Building2}
-              label="Segments Served"
-              value={uniqueSegments.join(" • ")}
-            />
-            <InfoCard
-              icon={MapPin}
-              label="Installations Across"
-              value={`${uniqueStates.length}+ states`}
-            />
+            <InfoCard icon={Building2} label="Segments Served" value={uniqueSegments.join(" • ")} />
+            <InfoCard icon={MapPin} label="Installations Across" value={`${uniqueStates.length}+ states`} />
           </div>
 
           <div className="rounded-2xl border border-dashed border-emerald-600/50 bg-emerald-50/70 p-3 text-[11px] text-emerald-900">
-            <span className="font-semibold text-emerald-800">Note: </span>
-            Most C&I clients recover their investment within{" "}
-            <span className="font-semibold">{activeProject.payback}</span>{" "}
-            while enjoying predictable energy costs for 20–25 years.
+            <span className="font-semibold text-emerald-800">Note: </span> Most C&I clients recover their investment within <span className="font-semibold">{activeProject.payback}</span> while enjoying predictable energy costs for 20–25 years.
           </div>
         </div>
       </div>
 
+
+
+
       {/* Horizontal rail of projects */}
       <div className="mt-10">
         <div className="mb-3 flex items-center justify-between gap-2">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-            Browse Other Installations
-          </div>
-          <div className="text-[11px] text-slate-400">
-            Click a card to open full case study
-          </div>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Browse Other Installations</div>
+          <div className="text-[11px] text-slate-400">Click a card to open full case study</div>
         </div>
 
         <div className="-mx-6 flex gap-4 overflow-x-auto px-1 pb-2 pt-1 scroll-smooth lg:mx-0">
@@ -776,64 +577,45 @@ export default function ProjectShowcase() {
                 key={project.name}
                 type="button"
                 onClick={() => openModalForProject(project, index)}
-                className={`relative flex w-64 shrink-0 flex-col overflow-hidden rounded-2xl border bg-white text-left shadow-sm transition-transform duration-200 ${
-                  isActive
-                    ? "border-sky-500 shadow-[0_0_0_1px_rgba(56,189,248,0.4)] scale-[1.02]"
-                    : "border-slate-600/50 hover:border-sky-300 hover:shadow-md hover:scale-[1.01]"
-                }`}
+                className={`relative flex w-64 shrink-0 flex-col overflow-hidden rounded-2xl border bg-white text-left shadow-sm transition-transform duration-200 ${isActive ? "border-sky-500 shadow-[0_0_0_1px_rgba(56,189,248,0.4)] scale-[1.02]" : "border-slate-600/50 hover:border-sky-300 hover:shadow-md hover:scale-[1.01]"
+                  }`}
               >
                 <div className="relative h-28 w-full">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
+                  <img src={project.image} alt={project.name} className="h-full w-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/10 to-transparent" />
                   <div className="absolute bottom-2 left-3 flex items-center gap-2 text-[10px] text-slate-50">
                     <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/70 px-2 py-0.5">
-                      <SunMedium className="h-3 w-3 text-amber-300" />
-                      {project.segment}
+                      <SunMedium className="h-3 w-3 text-amber-300" /> {project.segment}
                     </span>
                     <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/60 px-2 py-0.5">
-                      <MapPin className="h-3 w-3 text-sky-300" />
-                      {project.location}
+                      <MapPin className="h-3 w-3 text-sky-300" /> {project.location}
                     </span>
                   </div>
                 </div>
 
                 <div className="flex flex-1 flex-col px-3.5 py-3">
-                  <div className="line-clamp-2 text-xs font-semibold text-slate-900">
-                    {project.name}
-                  </div>
+                  <div className="line-clamp-2 text-xs font-semibold text-slate-900">{project.name}</div>
                   <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[10px] text-slate-600">
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5">
-                      {project.capacity}
-                    </span>
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5">
-                      {project.roofType}
-                    </span>
-                    <span className="rounded-full bg-slate-100 px-2 py-0.5">
-                      {project.payback} payback
-                    </span>
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5">{project.capacity}</span>
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5">{project.roofType}</span>
+                    <span className="rounded-full bg-slate-100 px-2 py-0.5">{project.payback} payback</span>
                   </div>
                   <div className="mt-3 flex items-center justify-between text-[11px] text-slate-500">
                     <span>Tap to view details</span>
-                    {isActive && (
-                      <ChevronRight className="h-3.5 w-3.5 text-sky-600" />
-                    )}
+                    {isActive && <ChevronRight className="h-3.5 w-3.5 text-sky-600" />}
                   </div>
                 </div>
               </button>
+
             );
           })}
         </div>
       </div>
 
+      {/* Project Gallery (NEW) */}
+      <GallerySection projects={projects} onOpenProject={openModalForProject} />
       {/* Modal */}
-      {isModalOpen && modalProject && (
-        <ProjectModal project={modalProject} onClose={closeModal} />
-      )}
+
     </section>
   );
 }

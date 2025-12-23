@@ -43,7 +43,6 @@ export default function NetZeroCommandCenterAddOn({
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
-                // keep it subtle behind content
             }}
         >
             {/* Background image layer */}
@@ -59,7 +58,7 @@ export default function NetZeroCommandCenterAddOn({
             />
 
             {/* A subtle overlay to improve text contrast on busy images */}
-            <div className="pointer-events-none absolute inset-0 -z-10 bg-white/50 dark:bg-slate-900/50" aria-hidden />
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-slate-900/50" aria-hidden />
 
             <div className="mx-auto max-w-7xl px-6">
                 <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -69,9 +68,9 @@ export default function NetZeroCommandCenterAddOn({
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1 text-sm font-medium text-slate-800 shadow-sm backdrop-blur dark:bg-slate-800/60 dark:text-slate-200"
+                            className="inline-flex items-center gap-2 rounded-full bg-black/80 px-4 py-1 text-sm font-medium shadow-sm backdrop-blur text-slate-200"
                         >
-                            <Leaf className="h-4 w-4 text-emerald-600 dark:text-emerald-300" />
+                            <Leaf className="h-4 w-4 text-emerald-300" />
                             <span className="tracking-wide">GHG Protocol • ISO 14064 • CDP-ready</span>
                         </motion.div>
 
@@ -79,7 +78,7 @@ export default function NetZeroCommandCenterAddOn({
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.05 }}
-                            className="mt-6 text-3xl font-extrabold leading-tight text-slate-900 dark:text-white sm:text-5xl"
+                            className="mt-6 text-3xl font-extrabold leading-tight text-white sm:text-5xl"
                         >
                             {title}
                         </motion.h2>
@@ -88,7 +87,7 @@ export default function NetZeroCommandCenterAddOn({
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.12 }}
-                            className="mt-4 max-w-xl text-lg text-slate-600 dark:text-slate-300"
+                            className="mt-4 max-w-xl text-lg text-slate-300"
                         >
                             {subtitle}
                         </motion.p>
@@ -124,10 +123,10 @@ export default function NetZeroCommandCenterAddOn({
                             ].map(({ t, i: Icon }) => (
                                 <li
                                     key={t}
-                                    className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 shadow-sm backdrop-blur dark:bg-slate-100"
+                                    className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 shadow-sm backdrop-blur "
                                 >
-                                    <Icon className={`h-4 w-4 text-${accent}-900 dark:text-${accent}-800`} />
-                                    <span className="text-slate-700 dark:text-slate-900">{t}</span>
+                                    <Icon className={`h-4 w-4 :text-${accent}-800`} />
+                                    <span className="text-slate-900">{t}</span>
                                 </li>
                             ))}
                         </motion.ul>
@@ -140,19 +139,19 @@ export default function NetZeroCommandCenterAddOn({
                                 initial={{ opacity: 0, y: 12 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.2 }}
-                                className="relative rounded-2xl bg-white/80 p-5 shadow-2xl backdrop-blur dark:bg-slate-800/60"
+                                className="relative rounded-2xl  p-5 shadow-2xl backdrop-blur bg-slate-800/60"
                             >
                                 {/* Top row: metric chips */}
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="flex flex-col">
-                                        <span className={`text-2xl font-semibold text-${accent}-700 dark:text-${accent}-300`}>−12.4%</span>
-                                        <span className="text-xs text-slate-200 dark:text-slate-100">YoY operational emissions</span>
+                                        <span className={`text-2xl font-semibold text-${accent}-300`}>−12.4%</span>
+                                        <span className="text-xs text-slate-100">YoY operational emissions</span>
                                     </div>
                                     <div className="flex gap-2">
-                                        <div className="rounded-md border border-slate-200 bg-white px-3 py-2 text-xs font-medium dark:border-slate-700 dark:bg-slate-100/40">
+                                        <div className="rounded-md border  px-3 py-2 text-xs font-medium border-slate-700 bg-slate-100/40">
                                             Scope 1
                                         </div>
-                                        <div className="rounded-md border border-slate-2 00 bg-white px-3 py-2 text-xs font-medium dark:border-slate-700 dark:bg-slate-9 00/40">
+                                        <div className="rounded-md border  px-3 py-2 text-xs font-medium border-slate-700 bg-slate-9 00/40">
                                             Scope 3
                                         </div>
                                     </div>
@@ -161,25 +160,25 @@ export default function NetZeroCommandCenterAddOn({
                                 {/* Middle: miniature chart + progress */}
                                 <div className="mt-4 flex items-center gap-4">
                                     <div className="flex-1">
-                                        <div className="h-20 w-full rounded-lg bg-linear-to-r from-white to-slate-100 dark:from-slate-900/30 dark:to-slate-800/20 p-3">
+                                        <div className="h-20 w-full rounded-lg bg-linear-to-r  from-slate-900/30 to-slate-800/20 p-3">
                                             {/* Placeholder bars built with divs for a small inline chart */}
                                             <div className="flex h-full items-end gap-2">
-                                                <div className="h-6 w-3 rounded-sm bg-slate-200 dark:bg-slate-700" />
+                                                <div className="h-6 w-3 rounded-sm bg-slate-700" />
                                                 <div className={`h-10 w-3 rounded-sm bg-${accent}-500`} />
-                                                <div className="h-8 w-3 rounded-sm bg-slate-300 dark:bg-slate-600" />
+                                                <div className="h-8 w-3 rounded-sm bg-slate-600" />
                                                 {/* FIX: this line needed a template string */}
                                                 <div className={`h-12 w-3 rounded-sm bg-${accent}-400`} />
-                                                <div className="h-7 w-3 rounded-sm bg-slate-200 dark:bg-slate-700" />
+                                                <div className="h-7 w-3 rounded-sm bg-slate-700" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="w-36">
-                                        <div className="text-xs text-slate-500 dark:text-slate-400">Reduction progress</div>
-                                        <div className="mt-2 h-3 w-full rounded-full bg-slate-100 dark:bg-slate-700/30">
+                                        <div className="text-xs text-slate-400">Reduction progress</div>
+                                        <div className="mt-2 h-3 w-full rounded-full bg-slate-700/30">
                                             <div className={`h-3 w-[62%] rounded-full bg-linear-to-r ${accentGradient}`} />
                                         </div>
-                                        <div className="mt-2 text-sm font-medium text-slate-700 dark:text-slate-200">62% to target</div>
+                                        <div className="mt-2 text-sm font-medium text-slate-200">62% to target</div>
                                     </div>
                                 </div>
 
@@ -194,7 +193,7 @@ export default function NetZeroCommandCenterAddOn({
                                     </a>
                                     <a
                                         href="#export"
-                                        className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-100 shadow-sm dark:border-slate-100 dark:bg-slate-900/30"
+                                        className="inline-flex items-center gap-2 rounded-lg border   px-3 py-2 text-sm font-semibold text-slate-100 shadow-sm border-slate-100 bg-slate-900/30"
                                     >
                                         <Download className="h-4 w-4" />
                                         Export CSV
@@ -212,41 +211,43 @@ export default function NetZeroCommandCenterAddOn({
                                 <motion.div
                                     animate={{ y: [0, -6, 0] }}
                                     transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-                                    className="rounded-xl border border-slate-200 bg-white/80 px-3 py-2 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-800/60"
+                                    className="rounded-xl border  px-3 py-2 shadow-sm backdrop-blur border-slate-700 bg-slate-800/60"
                                 >
                                     <div className="flex items-center gap-2">
-                                        <Gauge className={`h-4 w-4 text-${accent}-600 dark:text-${accent}-300`} />
+                                        <Gauge className={`h-4 w-4 text-${accent}-300`} />
                                         <div className="text-xs">
-                                            <div className="font-medium text-slate-800 dark:text-slate-100">Meters parsed</div>
-                                            <div className="text-slate-500 dark:text-slate-400">1,240</div>
+                                            <div className="font-medium text-slate-100">Meters parsed</div>
+                                            <div className="text-slate-400">1,240</div>
                                         </div>
                                     </div>
                                 </motion.div>
 
+                                
                                 <motion.div
                                     animate={{ y: [0, -6, 0] }}
                                     transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-                                    className="rounded-xl border border-slate-200 bg-white/80 px-3 py-2 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-800/60"
+                                    className="rounded-xl border  px-3 py-2 shadow-sm backdrop-blur border-slate-700 bg-slate-800/60"
                                 >
                                     <div className="flex items-center gap-2">
-                                        <Zap className={`h-4 w-4 text-${accent}-600 dark:text-${accent}-300`} />
+                                        <Zap className={`h-4 w-4 text-${accent}-300`} />
                                         <div className="text-xs">
-                                            <div className="font-medium text-slate-800 dark:text-slate-100">Renewable mix</div>
-                                            <div className="text-slate-500 dark:text-slate-400">42%</div>
+                                            <div className="font-medium text-slate-100">Renewable mix</div>
+                                            <div className="text-slate-400">42%</div>
                                         </div>
                                     </div>
                                 </motion.div>
+
 
                                 <motion.div
                                     animate={{ y: [0, -6, 0] }}
                                     transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-                                    className="rounded-xl border border-slate-200 bg-white/80 px-3 py-2 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-800/60"
+                                    className="rounded-xl border  px-3 py-2 shadow-sm backdrop-blur border-slate-700 bg-slate-800/60"
                                 >
                                     <div className="flex items-center gap-2">
-                                        <Truck className={`h-4 w-4 text-${accent}-600 dark:text-${accent}-300`} />
+                                        <Truck className={`h-4 w-4 text-${accent}-300`} />
                                         <div className="text-xs">
-                                            <div className="font-medium text-slate-800 dark:text-slate-100">Logistics</div>
-                                            <div className="text-slate-500 dark:text-slate-400">68% covered</div>
+                                            <div className="font-medium text-slate-100">Logistics</div>
+                                            <div className="text-slate-400">68% covered</div>
                                         </div>
                                     </div>
                                 </motion.div>

@@ -1,406 +1,418 @@
 "use client";
 
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 import {
   CreditCard,
   CircleDollarSign,
   Handshake,
-  Home,
-  Building2,
-  Factory,
 } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
 import LeadPopup from "../../component/LeadPopup";
-/* ===================== TYPES ===================== */
 
-interface OverviewCardProps {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}
-
-interface OptionCardProps {
-  title: string;
-  subtitle?: string;
-  icon?: React.ReactNode;
-  points: string[];
-}
-
-/* ===================== ANIMATION HELPERS ===================== */
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-  },
+/* =========================
+   TrueSun palette (logo)
+   ========================= */
+const PALETTE = {
+  primary: "#FC763A",
+  accent: "#FEC24A",
+  neutral: "#686868",
+  dark: "#0f1720",
 };
 
-function AnimatedSection({
-  id,
-  children,
-  className = "",
-}: {
-  id?: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
+/* =========================
+   Animations
+   ========================= */
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+};
+
+function Section({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
-    <motion.section
-      id={id}
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={fadeUp}
-    >
+    <motion.section id={id} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.18 }} variants={fadeUp}>
       {children}
     </motion.section>
   );
 }
 
-/* ===================== PAGE WRAPPER ===================== */
-
-export default function SolarFinancePage() {
-  return (
-    <main className="relative mx-auto max-w-7xl space-y-12 px-4 pb-20 pt-12 md:px-0">
-      <OverviewSection />
-      <FinanceOptionsSection />
-      <ProcessAndCTA />
-    </main>
-  );
+/* =========================
+   Small helpers
+   ========================= */
+function fmtINR(n: number) {
+  return new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(n);
 }
 
-/* ===================== OVERVIEW (WITH SIMPLE IMAGE-STYLE EXPLANATION) ===================== */
+/* =========================
+   EMI calculator helper
+   =========================
+   - Basic formula for EMI: E = P * r * (1+r)^n / ((1+r)^n - 1)
+   - P = principal (system capex - subsidy)
+   - r = monthly interest (annual/12/100)
+   - n = months (tenure years * 12)
+*/
+function calcEmi(principal: number, annualRate = 10, tenureYears = 5) {
+  if (!principal || principal <= 0) return 0;
+  const r = annualRate / 100 / 12;
+  const n = Math.max(1, tenureYears * 12);
+  const num = principal * r * Math.pow(1 + r, n);
+  const den = Math.pow(1 + r, n) - 1;
+  const emi = den <= 0 ? principal / n : num / den;
+  return Math.round(emi);
+}
 
-function OverviewSection() {
+/* =========================
+   Finance models data
+   ========================= */
+const MODELS = [
+  {
+    id: "emi",
+    title: "EMI / Loan Financing",
+    subtitle: "Best for homeowners",
+    icon: <CircleDollarSign className="h-5 w-5 text-white" />,
+    bullets: ["Low monthly payments", "Partner banks & NBFCs", "Flexible tenures (1–7 yrs)"],
+  },
+  {
+    id: "opex",
+    title: "Zero Upfront (OPEX)",
+    subtitle: "Great for shops & manufacturing",
+    icon: <Handshake className="h-5 w-5 text-white" />,
+    bullets: ["No upfront cost", "Pay per unit (PPA) or fixed monthly fee", "Off-balance-sheet option"],
+  },
+  {
+    id: "subsidy",
+    title: "Subsidy + Loan Combo",
+    subtitle: "For residential buyers with subsidies",
+    icon: <CreditCard className="h-5 w-5 text-white" />,
+    bullets: ["Use state & central subsidies", "Lower loan principal", "Shorter payback"],
+  },
+];
+
+/* =========================
+   Loan partners (placeholders)
+   ========================= */
+
+/* =========================
+   Component: EMI Calculator Mini
+   ========================= */
+function EmiCalculatorMini({
+  onBook,
+}: {
+  onBook: () => void;
+}) {
+  // Inputs: monthlyBill & tariff (basic approach)
+  const [monthlyBill, setMonthlyBill] = useState<number>(4000);
+  const [tariff, setTariff] = useState<number>(9);
+  const [tenure, setTenure] = useState<number>(5);
+  const [rate, setRate] = useState<number>(10); // APR
+  const [applySubsidy, setApplySubsidy] = useState<boolean>(true);
+
+  // Estimate consumption and recommended system similar to earlier logic:
+  const PR = 0.75;
+  const sunHours = 5.4; // generic Maharashtra
+  const costPerKw = 55000;
+
+  const estimated = useMemo(() => {
+    const monthlyKWh = tariff > 0 ? monthlyBill / tariff : 0;
+    const targetKWh = monthlyKWh * 0.8;
+    const kWhPerKwMonth = sunHours * 30 * PR;
+    const recommendedKw = kWhPerKwMonth > 0 ? Math.max(0.3, Math.min(25, targetKWh / kWhPerKwMonth)) : 0;
+    const capex = Math.round(recommendedKw * costPerKw);
+    const subsidy = applySubsidy ? Math.min(78000, Math.round(Math.min(recommendedKw, 2) * 30000 + Math.max(0, Math.min(recommendedKw - 2, 1)) * 18000)) : 0;
+    const principal = Math.max(0, capex - subsidy);
+    const emi = calcEmi(principal, rate, tenure);
+    const monthlyGen = Math.round(recommendedKw * kWhPerKwMonth);
+    const monthlySavings = Math.round(monthlyGen * tariff);
+    return { recommendedKw: Number(recommendedKw.toFixed(2)), capex, subsidy, principal, emi, monthlyGen, monthlySavings };
+  }, [monthlyBill, tariff, tenure, rate, applySubsidy]);
+
   return (
-    <AnimatedSection id="overview" className="space-y-6">
-      <div className="text-center space-y-3">
-        <motion.h2
-          className="text-2xl font-bold text-slate-900 sm:text-3xl"
-          variants={fadeUp}
-        >
-          How Solar Finance Works 💡
-        </motion.h2>
-
-        <motion.p
-          className="mx-auto max-w-3xl text-sm sm:text-base text-slate-700"
-          variants={fadeUp}
-        >
-          Instead of paying the entire amount at once, you spread it across{" "}
-          <span className="font-semibold text-emerald-600">
-            small, predictable monthly payments
-          </span>
-          . A big part of that EMI is covered by the money you save on your
-          electricity bill.
-        </motion.p>
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-slate-900">Quick EMI Estimator</h3>
+        <div className="text-xs text-slate-500">Instant numbers</div>
       </div>
 
-      {/* Text + Image-style layout */}
-      <div className="grid gap-6 md:grid-cols-2 md:items-start">
-        {/* LEFT – cards for segments */}
-        <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1">
-          <OverviewCard
-            icon={<Home className="h-5 w-5" />}
-            title="Homes"
-            desc="Reduce your light bill and own the rooftop system for 20+ years."
+      <div className="mt-4 grid gap-3">
+        <label className="text-xs text-slate-600">
+          Monthly electricity bill (₹)
+          <input
+            className="w-full mt-1 rounded-md border px-3 py-2 text-sm"
+            type="number"
+            value={monthlyBill}
+            onChange={(e) => setMonthlyBill(Number(e.target.value || 0))}
           />
+        </label>
 
-          <OverviewCard
-            icon={<Building2 className="h-5 w-5" />}
-            title="Shops & Offices"
-            desc="Cut daytime power costs and keep your monthly cashflow predictable."
+        <label className="text-xs text-slate-600">
+          Electricity tariff (₹/kWh)
+          <input
+            className="w-full mt-1 rounded-md border px-3 py-2 text-sm"
+            type="number"
+            step="0.1"
+            value={tariff}
+            onChange={(e) => setTariff(Number(e.target.value || 0))}
           />
+        </label>
 
-          <OverviewCard
-            icon={<Factory className="h-5 w-5" />}
-            title="Small Industries"
-            desc="Lower per-unit energy cost for machines and production loads."
-          />
+        <div className="grid grid-cols-2 gap-2">
+          <label className="text-xs text-slate-600">
+            Tenure (years)
+            <select className="w-full mt-1 rounded-md border px-3 py-2 text-sm" value={tenure} onChange={(e) => setTenure(Number(e.target.value))}>
+              {[1, 2, 3, 4, 5, 6, 7].map((y) => (
+                <option key={y} value={y}>
+                  {y} yr
+                </option>
+              ))}
+            </select>
+          </label>
 
-          <OverviewCard
-            icon={<Home className="h-5 w-5" />}
-            title="Villas & Bungalows"
-            desc="Premium rooftop solar setups with maximum savings and clean design."
-          />
-
-          
+          <label className="text-xs text-slate-600">
+            Interest (annual %)
+            <input className="w-full mt-1 rounded-md border px-3 py-2 text-sm" type="number" value={rate} onChange={(e) => setRate(Number(e.target.value || 0))} />
+          </label>
         </div>
 
+        <label className="flex items-center gap-2 text-xs">
+          <input type="checkbox" checked={applySubsidy} onChange={(e) => setApplySubsidy(e.target.checked)} />
+          Apply PM Surya Ghar subsidy (if eligible)
+        </label>
 
-        {/* RIGHT – simple visual explanation “like an image” */}
-        <SimpleVisualCard />
-      </div>
-    </AnimatedSection>
-  );
-}
+        <div className="mt-3 rounded-lg bg-slate-50 p-3 text-sm">
+          <div className="flex items-center justify-between">
+            <div>Estimated system</div>
+            <div className="font-semibold">{estimated.recommendedKw} kW</div>
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <div>Gross CAPEX</div>
+            <div className="font-semibold">₹{fmtINR(estimated.capex)}</div>
+          </div>
+          <div className="flex items-center justify-between mt-1">
+            <div>Subsidy</div>
+            <div className="font-semibold text-emerald-600">₹{fmtINR(estimated.subsidy)}</div>
+          </div>
+          <div className="flex items-center justify-between mt-1">
+            <div>Loan principal</div>
+            <div className="font-semibold">₹{fmtINR(estimated.principal)}</div>
+          </div>
+          <div className="flex items-center justify-between mt-2 pt-2 border-t">
+            <div>Estimated EMI</div>
+            <div className="text-lg font-bold">₹{fmtINR(estimated.emi)}</div>
+          </div>
+          <div className="mt-2 text-xs text-slate-500">*This is an indicative estimate. Final EMI depends on partner bank/NBFC approval.</div>
+        </div>
 
-/* ===================== FINANCE OPTIONS ===================== */
-
-function FinanceOptionsSection() {
-  return (
-    <AnimatedSection id="options" className="space-y-6 text-center">
-      <motion.h2
-        className="text-2xl font-bold text-slate-900 sm:text-3xl"
-        variants={fadeUp}
-      >
-        Three Simple Ways to Finance Solar
-      </motion.h2>
-
-      <motion.p
-        className="mx-auto max-w-3xl text-sm sm:text-base text-slate-700"
-        variants={fadeUp}
-      >
-        No long paragraphs, no confusing terms. Just three clear models you can
-        understand in one glance.
-      </motion.p>
-
-      <div className="grid gap-5 pt-2 md:grid-cols-3">
-        <OptionCard
-          title="EMI / Loan Financing"
-          subtitle="Most common for homes"
-          icon={<CircleDollarSign className="h-5 w-5 text-emerald-600" />}
-          points={[
-            "Low monthly payments",
-            "Bank & NBFC tie-ups",
-            "3–5 year repayment",
-          ]}
-        />
-
-        <OptionCard
-          title="Zero Upfront (OPEX Model)"
-          subtitle="Great for commercial & industries"
-          icon={<Handshake className="h-5 w-5 text-sky-600" />}
-          points={[
-            "No investment to start",
-            "Pay per unit of energy",
-            "Solar remains off your balance sheet",
-          ]}
-        />
-
-        <OptionCard
-          title="Subsidy + Loan Combo"
-          subtitle="Ideal for homes & small businesses"
-          icon={<CreditCard className="h-5 w-5 text-amber-600" />}
-          points={[
-            "Use state / MNRE subsidies",
-            "Lower overall loan amount",
-            "Best for budget-conscious buyers",
-          ]}
-        />
-      </div>
-    </AnimatedSection>
-  );
-}
-
-/* ===================== PROCESS + FINAL CTA ===================== */
-
-function ProcessAndCTA() {
-
-
-    const [openLeadPopup, setOpenLeadPopup] = useState(false);
-
-  const steps = [
-    "Share last 2–3 electricity bills",
-    "We design system size & savings",
-    "You choose EMI / OPEX / subsidy mix",
-    "Finance approval and solar installation",
-    "Start using solar and watch bills drop",
-  ];
-
-  return (
-    <AnimatedSection className="space-y-10">
-      {/* Simple process list */}
-      <div className="space-y-4">
-        <motion.h2
-          className="text-center text-2xl font-bold text-slate-900 sm:text-3xl"
-          variants={fadeUp}
-        >
-          Simple 5-Step Process
-        </motion.h2>
-        <motion.p
-          className="mx-auto max-w-2xl text-center text-sm sm:text-base text-slate-700"
-          variants={fadeUp}
-        >
-          No complicated paperwork from your side. We guide you from first bill
-          to first unit of solar.
-        </motion.p>
-
-        <ul className="mx-auto max-w-2xl space-y-3 text-sm text-slate-700">
-          {steps.map((step, index) => (
-            <motion.li
-              key={step}
-              variants={fadeUp}
-              className="flex items-start gap-3 rounded-xl bg-slate-50 px-3 py-2"
-            >
-              <span className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-xs font-semibold text-emerald-700">
-                {index + 1}
-              </span>
-              <span>{step}</span>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Final CTA */}
-      <div
-        id="contact-finance"
-        className="rounded-3xl  px-4 py-8 text-center sm:px-8"
-      >
-        <motion.h2
-          className="text-2xl font-bold sm:text-3xl"
-          variants={fadeUp}
-        >
-          Want solar but worried about the cost?
-        </motion.h2>
-
-        <motion.p
-          className="mx-auto mt-3 max-w-4xl text-sm sm:text-base "
-          variants={fadeUp}
-        >
-          Tell us your monthly bill and type of property. We’ll suggest the
-          cleanest, simplest finance option — with numbers you can understand in
-          under 5 minutes.
-        </motion.p>
-
-        <motion.div
-          className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
-          variants={fadeUp}
-        ><button
-            onClick={() => setOpenLeadPopup(true)}
-            className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/50 transition hover:shadow-lg hover:brightness-105"
-          >
-            Talk to Finance Expert
+        <div className="mt-3 flex gap-2">
+          <button onClick={onBook} className="flex-1 rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white shadow">
+            Book a Free Finance Call
           </button>
-          
-        </motion.div>
+          <a href="#learn-more" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-slate-700">
+            Learn more
+          </a>
+        </div>
       </div>
-      {/* Popup Mount */}
-      {openLeadPopup && (
-        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
-      )}
-    </AnimatedSection>
+    </div>
   );
 }
 
-/* ===================== PRIMITIVES ===================== */
+/* =========================
+   Main page
+   ========================= */
+export default function SolarFinancePage() {
+  const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
-function OverviewCard({ icon, title, desc }: OverviewCardProps) {
   return (
-    <motion.div
-      className="rounded-xl border border-slate-800/30 bg-white p-4 text-left shadow-sm"
-      variants={fadeUp}
-      whileHover={{ y: -2 }}
-    >
-      <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-900">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
-          {icon}
-        </span>
-        {title}
-      </div>
-      <p className="text-xs sm:text-sm text-slate-600">{desc}</p>
-    </motion.div>
-  );
-}
+    <main className="relative mx-auto max-w-7xl px-4 py-12 md:px-0">
+      {/* HERO */}
+      <Section>
+        <div className="grid gap-6 md:grid-cols-2 md:items-center">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-[rgba(252,118,58,0.08)] px-3 py-1 text-sm font-semibold" style={{ color: PALETTE.primary }}>
+              Finance made simple
+            </p>
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
+              Own solar with flexible finance — EMI, Zero-Upfront, or Subsidy combos
+            </h1>
+            <p className="mt-3 text-slate-700 max-w-xl">
+              Pick a model that suits your budget. We work with banks and NBFCs to offer low-interest loans, and OPEX models for zero upfront capital. Get a clear number in under 2 minutes.
+            </p>
 
-function OptionCard({ title, subtitle, icon, points }: OptionCardProps) {
-  return (
-    <motion.div
-      className="rounded-xl border border-slate-800/40 bg-white p-5 hover:border-orange-500 text-left shadow-sm"
-      variants={fadeUp}
-      whileHover={{ y: -2 }}
-    >
-      <div className="mb-3 flex items-center gap-2">
-        {icon && (
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-50 text-slate-700">
-            {icon}
-          </span>
-        )}
-        <div>
-          <div className="text-sm font-semibold text-slate-900">
-            {title}
-          </div>
-          {subtitle && (
-            <div className="text-[11px] text-slate-500">{subtitle}</div>
-          )}
-        </div>
-      </div>
-      <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700">
-        {points.map((p) => (
-          <li key={p} className="flex gap-2">
-            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
-            <span>{p}</span>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  );
-}
-
-/* ===================== SIMPLE VISUAL CARD (IMAGE-STYLE) ===================== */
-
-function SimpleVisualCard() {
-  return (
-    <motion.div
-      variants={fadeUp}
-      className="rounded-2xl border border-slate-600/50 bg-white p-4 shadow-sm"
-    >
-      {/* You can replace this whole block with a real <img> later */}
-      Example:
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4TsER3PzZHDjRoTsa8OQRDDOlSLZsn7lreQ&s"
-        alt="How solar finance works - simple explanation"
-        className="w-full h-50 rounded-xl object-cover"
-      />
-
-   
-      <div className="space-y-3 rounded-xl bg-slate-50 p-3 text-xs sm:text-sm text-slate-700">
-        <div className="flex items-center justify-between gap-3">
-          <span className="text-slate-600">Today</span>
-          <div className="flex-1 mx-3 h-1.5 rounded-full bg-red-100">
-            <div className="h-full w-3/4 rounded-full bg-red-400" />
-          </div>
-          <span className="font-semibold text-red-600">
-            Full bill: ₹10,000
-          </span>
-        </div>
-
-        <div className="text-center text-[11px] text-slate-500">
-          ↓ Switch to solar finance
-        </div>
-
-        <div className="flex items-center justify-between gap-3">
-          <span className="text-slate-600">After Solar</span>
-          <div className="flex-1 mx-3 space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="h-1.5 w-full rounded-full bg-emerald-100">
-                <div className="h-full w-2/5 rounded-full bg-emerald-500" />
-              </div>
-              <span className="text-[11px] text-emerald-700">
-                New bill ~₹4k
-              </span>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-5 py-2 text-sm font-semibold text-white shadow">
+                Talk to a finance expert
+              </button>
+              <a href="#options" className="rounded-full border px-5 py-2 text-sm font-medium text-slate-700">
+                See financing options
+              </a>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="h-1.5 w-full rounded-full bg-amber-100">
-                <div className="h-full w-1/3 rounded-full bg-amber-400" />
+
+            <div className="mt-6 grid grid-cols-2 gap-3 text-xs">
+              <div className="rounded-lg bg-slate-50 p-3">
+                <div className="text-[11px] text-slate-500">Typical payback (C&I)</div>
+                <div className="mt-1 font-semibold">3–5 years</div>
               </div>
-              <span className="text-[11px] text-amber-700">
-                EMI paid from savings
-              </span>
+              <div className="rounded-lg bg-slate-50 p-3">
+                <div className="text-[11px] text-slate-500">Residential ROI</div>
+                <div className="mt-1 font-semibold">4–6 years</div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <p className="pt-1 text-[11px] text-slate-500">
-          This is just a visual idea. Exact numbers change by city, tariff and
-          plant size — but the concept stays simple:{" "}
-          <span className="font-semibold text-emerald-700">
-            pay EMI from the money you save.
-          </span>
-        </p>
+          {/* Right: mini calculator */}
+          <div>
+            <EmiCalculatorMini onBook={() => setOpenLeadPopup(true)} />
+          </div>
+        </div>
+      </Section>
+
+      {/* MODELS */}
+      <Section id="options">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {MODELS.map((m) => (
+            <motion.div key={m.id} className="rounded-2xl border p-5 shadow-sm" whileHover={{ y: -6 }} initial="hidden" whileInView="show" viewport={{ once: true }} transition={{ duration: 0.3 }}>
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-[rgb(252,119,58)] p-3" style={{ color: PALETTE.primary }}>
+                  {m.icon}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">{m.title}</div>
+                  <div className="text-xs text-slate-500">{m.subtitle}</div>
+                </div>
+              </div>
+
+              <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                {m.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2">
+                    <span className="mt-1 inline-flex h-2 w-2 rounded-full" style={{ background: PALETTE.primary }} />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-4 flex items-center gap-3">
+                <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
+                  Get started
+                </button>
+                <a href="#learn-more" className="text-sm font-medium text-slate-700">How it works</a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      
+
+      {/* COMPARISON */}
+      <Section>
+        <div className="mt-10 overflow-x-auto rounded-lg border bg-white p-4 shadow-sm">
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-slate-900">Which model suits you?</h3>
+            <div className="text-xs text-slate-500">Quick comparison to pick the right fit</div>
+          </div>
+
+          <table className="min-w-full table-auto text-sm">
+            <thead>
+              <tr className="text-left text-xs text-slate-500">
+                <th className="py-2 pr-6">Feature</th>
+                <th className="py-2 pr-6">EMI / Loan</th>
+                <th className="py-2 pr-6">Zero-Upfront (OPEX)</th>
+                <th className="py-2 pr-6">Subsidy + Loan</th>
+              </tr>
+            </thead>
+            <tbody className="text-slate-700">
+              <tr className="border-t">
+                <td className="py-3 pr-6">Upfront cost</td>
+                <td>Partial / No (loan)</td>
+                <td>Zero</td>
+                <td>Low (subsidy reduces principal)</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-3 pr-6">Ownership</td>
+                <td>Customer</td>
+                <td>Provider (PPA/lease)</td>
+                <td>Customer</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-3 pr-6">Balance sheet</td>
+                <td>On balance sheet</td>
+                <td>Off balance sheet</td>
+                <td>On balance sheet</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-3 pr-6">Best for</td>
+                <td>Homes & small businesses</td>
+                <td>Large commercial & industries</td>
+                <td>Residential users eligible for subsidy</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-3 pr-6">Typical tenor</td>
+                <td>1–7 years</td>
+                <td>5–10 years</td>
+                <td>1–5 years</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      {/* PROCESS + FAQ + CTA */}
+      <Section>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="rounded-2xl border bg-white p-4 shadow-sm">
+            <h4 className="text-sm font-semibold text-slate-900">5-step process</h4>
+            <ol className="mt-3 space-y-2 text-sm text-slate-700">
+              <li>1. Share last 2–3 bills</li>
+              <li>2. We size the system & model</li>
+              <li>3. Choose EMI / OPEX / Subsidy mix</li>
+              <li>4. Faster loan approvals & install</li>
+              <li>5. Start saving — payments begin</li>
+            </ol>
+          </div>
+
+          <div className="rounded-2xl border bg-white p-4 shadow-sm">
+            <h4 className="text-sm font-semibold text-slate-900">FAQ</h4>
+            <details className="mt-3 space-y-2 text-sm text-slate-700">
+              <summary className="cursor-pointer font-medium">How long does loan approval take?</summary>
+              <div className="mt-2 text-sm text-slate-600">Typically 3–7 working days once documents are complete. We help with paperwork.</div>
+
+              <summary className="cursor-pointer font-medium mt-3">Can EMI be paid from monthly savings?</summary>
+              <div className="mt-2 text-sm text-slate-600">Yes — most residential customers find EMI ≤ savings from reduced electricity bills.</div>
+
+              <summary className="cursor-pointer font-medium mt-3">Do you assist with subsidies?</summary>
+              <div className="mt-2 text-sm text-slate-600">We help with eligibility checks and claim filing for state / central schemes.</div>
+            </details>
+          </div>
+
+          <div className="rounded-2xl border bg-white p-4 shadow-sm">
+            <h4 className="text-sm font-semibold text-slate-900">Ready to start?</h4>
+            <p className="mt-2 text-sm text-slate-700">Share a few details and we’ll call you with a clear plan and numbers.</p>
+            <div className="mt-4 flex gap-2">
+              <button onClick={() => setOpenLeadPopup(true)} className="flex-1 rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
+                Book a free consult
+              </button>
+              <a href="#calculator" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-slate-700">
+                Try calculator
+              </a>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* FOOTER CTA */}
+      <div className="mt-12 rounded-2xl bg-[linear-gradient(90deg,#fffaf0,#fff7ed)] p-6 text-center shadow-sm">
+        <div className="max-w-2xl mx-auto">
+          <h3 className="text-xl font-bold text-slate-900">Finance that actually helps you save</h3>
+          <p className="mt-2 text-slate-700">We’ll match you with the right partner and show exact EMI with zero obligations.</p>
+          <div className="mt-4 flex justify-center gap-3">
+            <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-6 py-2 text-sm font-semibold text-white">
+              Talk to finance expert
+            </button>
+            <a href="#learn-more" className="rounded-full border px-6 py-2 text-sm font-medium text-slate-700">Download brochure</a>
+          </div>
+        </div>
       </div>
-    </motion.div>
+
+      {/* Lead popup mount */}
+      {openLeadPopup && <LeadPopup onClose={() => setOpenLeadPopup(false)} />}
+    </main>
   );
 }

@@ -66,7 +66,7 @@ export default function AboutTrueSun() {
       <motion.div style={{ y }} className="pointer-events-none absolute inset-0">
         {/* Added animate-pulse-bg class for custom keyframe animation */}
         <div className="absolute -top-28 -left-16 h-72 w-72 rounded-full bg-yellow-400 blur-3xl opacity-40 animate-pulse-bg" />
-        <div className="absolute -bottom-20 right-10 h-96 w-96 rounded-full bg-green-400 blur-3xl opacity-40 animate-pulse-bg [--animation-delay:2s]" />
+       
         <div className="absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-300 blur-3xl opacity-40 animate-pulse-bg [--animation-delay:4s]" />
       </motion.div>
       
@@ -258,7 +258,7 @@ type StatItem = {
 
 function StatsRibbon() {
   const stats: StatItem[] = [
-    { value: 85, prefix: ">", suffix: " MWp", label: "installed capacity" },
+    { value: 3, prefix: ">", suffix: " MWp", label: "installed capacity" },
     { value: 1000, suffix: "+", label: "sites energized" },
     { value: 4.9, suffix: "/5", label: "customer rating", isDecimal: true },
     { value: 15, suffix: "+", label: "states served" },
@@ -473,48 +473,115 @@ function ZigZagWhyUs() {
 // How it works
 function CurvedSteps() {
   const steps = [
-    { n: 1, title: "Free Site Survey", desc: "Load assessment, shading, and roof structure check" },
-    { n: 2, title: "Design & Proposal", desc: "Energy yield, ROI, and bill‑saving report" },
-    { n: 3, title: "Approvals & Subsidy", desc: "DISCOM coordination and subsidy documentation" },
-    { n: 4, title: "Installation", desc: "Certified hardware, safety compliance, QA checks" },
-    { n: 5, title: "Handover & Training", desc: "App setup, performance KPIs, maintenance guide" },
+    {
+      n: 1,
+      title: "Free Site Survey",
+      desc: "Load assessment, shading analysis & structural feasibility check",
+    },
+    {
+      n: 2,
+      title: "Design & Proposal",
+      desc: "Energy yield simulation, ROI calculation & bill-saving projection",
+    },
+    {
+      n: 3,
+      title: "Approvals & Subsidy",
+      desc: "DISCOM coordination, net-metering & subsidy documentation support",
+    },
+    {
+      n: 4,
+      title: "Installation",
+      desc: "Certified hardware, safety-compliant installation & QA checks",
+    },
+    {
+      n: 5,
+      title: "Handover & Training",
+      desc: "App setup, performance KPIs & maintenance handover kit",
+    },
   ];
+
   return (
-    <div className="relative bg-emerald-50/60 py-10">
+    <section className="relative bg-emerald-50/60 py-0">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div {...fadeUpProps} className="mx-auto mb-12 max-w-2xl text-center">
-          <h2 className=" text-3xl font-bold md:text-5xl">Our Hassle-Free Process</h2>
-          <p className="mt-2 text-gray-800"> Your solar journey, simplified into five clear, coordinated steps for maximum efficiency.</p>
+
+        {/* Heading */}
+        <motion.div
+          {...fadeUpProps}
+          className="mx-auto mb-12 max-w-2xl text-center"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
+            Our Hassle-Free Process
+          </h2>
+          <p className="mt-3 text-gray-700">
+            A smooth solar journey handled by TrueSun — from the first survey to long-term performance.
+          </p>
         </motion.div>
 
+        {/* Curved Flow */}
         <motion.ol
           variants={staggerContainer}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.3 }}
           className="relative grid gap-6 md:grid-cols-5"
         >
-          {/* Curved path line */}
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 -z-10 hidden h-1 -translate-y-1/2 rounded bg-linear-to-r from-amber-300 via-emerald-300 to-amber-300 md:block" />
+          {/* Curved Line (Desktop only) */}
+          <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 md:block -z-10">
+            <svg
+              className="w-full h-24"
+              viewBox="0 0 1200 80"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="tsCurve" x1="0" x2="1">
+                  <stop offset="0" stopColor="#FEC24A" />
+                  <stop offset="0.5" stopColor="#FC763A" />
+                  <stop offset="1" stopColor="#FEC24A" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M40 60 C 300 -20, 900 -20, 1160 60"
+                stroke="url(#tsCurve)"
+                strokeWidth="6"
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+
+          {/* Step Cards */}
           {steps.map((s, i) => (
             <motion.li
               key={i}
               variants={childFade}
-              whileHover={{ y: -8, scale: 1.05, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }} // Added strong hover effect
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative cursor-pointer rounded-2xl border border-emerald-800/60 bg-white p-6 text-center shadow-xl shadow-black/20"
+              whileHover={{
+                y: -8,
+                scale: 1.05,
+              }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className="relative rounded-2xl border border-emerald-800/30 bg-white p-6 text-center shadow-2xl   "
             >
-              <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 font-bold text-amber-700 ring-1 ring-amber-300">
+              <div
+                className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full font-bold text-white shadow-md "
+                style={{
+                  background:
+                    "linear-gradient(135deg, #FC763A 0%, #FEC24A 100%)",
+                }}
+              >
                 {s.n}
               </div>
-              <div className="font-semibold text-gray-900">{s.title}</div>
+
+              <div className="font-semibold text-slate-900">{s.title}</div>
               <p className="mt-1 text-sm text-gray-600">{s.desc}</p>
+
+              {/* connector dot */}
+              {i < steps.length - 1 && (
+                <span className="absolute right-3 top-1/2 hidden h-2 w-2 -translate-y-1/2 rounded-full bg-amber-400 md:block" />
+              )}
             </motion.li>
           ))}
         </motion.ol>
       </div>
-    </div>
+    </section>
   );
 }
-
-
