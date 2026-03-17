@@ -73,7 +73,7 @@ function ContactForm(): JSX.Element {
             type="text"
             placeholder="Your name"
             required
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A]  focus:outline-none transition"
           />
         </div>
 
@@ -85,7 +85,7 @@ function ContactForm(): JSX.Element {
             name="company"
             type="text"
             placeholder="Company name"
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A] focus:outline-none transition"
           />
         </div>
       </div>
@@ -98,7 +98,7 @@ function ContactForm(): JSX.Element {
             type="email"
             placeholder="you@example.com"
             required
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A] focus:outline-none transition"
           />
         </div>
 
@@ -110,7 +110,7 @@ function ContactForm(): JSX.Element {
             name="phone"
             type="tel"
             placeholder="+91..."
-            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A] focus:outline-none transition"
           />
         </div>
       </div>
@@ -121,7 +121,7 @@ function ContactForm(): JSX.Element {
         </label>
         <select
           name="requirementType"
-          className="w-full rounded-lg border border-slate-600/50 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+          className="w-full rounded-lg border border-slate-600/50 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A] focus:outline-none transition"
         >
           <option>Rooftop – Residential</option>
           <option>Rooftop – Commercial</option>
@@ -138,7 +138,7 @@ function ContactForm(): JSX.Element {
           name="city"
           type="text"
           placeholder="City, State"
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A] focus:outline-none transition"
         />
       </div>
 
@@ -151,7 +151,7 @@ function ContactForm(): JSX.Element {
           rows={4}
           placeholder="E.g. 200 kW rooftop for factory, monthly bill, timeline..."
           required
-          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none resize-none transition"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-[#FC763A] focus:ring-2 focus:ring-[#FC763A] focus:outline-none resize-none transition"
         />
       </div>
 
@@ -160,7 +160,7 @@ function ContactForm(): JSX.Element {
       <button
         type="submit"
         disabled={status.loading}
-        className="mt-2 bg-linear-to-r from-blue-900 via-blue-700 to-blue-500 text-white px-6 py-2.5 rounded-full text-sm font-medium shadow-md hover:shadow-lg hover:brightness-105 transition-all duration-300 disabled:opacity-60"
+        className="mt-2 bg-[#FC763A] text-white px-6 py-2.5 rounded-full text-sm font-medium shadow-md hover:shadow-lg hover:brightness-105 transition-all duration-300 disabled:opacity-60"
       >
         {status.loading ? "Sending..." : "Submit enquiry"}
       </button>
@@ -189,14 +189,14 @@ const ContactPage: React.FC = () => {
       <div className="max-w-4xl mx-auto px-6 text-center mb-12">
         {/* Small pill badge */}
         <div className="inline-flex items-center gap-2 rounded-full bg-white shadow-sm border border-slate-200 px-4 py-1 text-[11px] font-medium text-slate-500 mb-4">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#FC763A] animate-pulse" />
           We respond within 24 hours
         </div>
 
-        <h1 className="text-4xl font-semibold text-slate-900">Contact TrueSun Energy</h1>
+        <h1 className="text-4xl font-semibold text-[#686868]">Contact <span className="text-[#FC763A]">TrueSun Energy</span></h1>
 
         {/* Gradient underline */}
-        <div className="mt-3 h-1 w-24 mx-auto rounded-full bg-linear-to-r from-blue-500 via-amber-400 to-emerald-500" />
+        <div className="mt-3 h-1 w-24 mx-auto rounded-full bg-[#FC763A]" />
 
         <p className="text-slate-500 mt-4 max-w-3xl mx-auto">
           Have a question about rooftop solar, industrial power savings, or large-scale projects? Our team will guide you with clarity, feasibility insights and accurate savings numbers.
@@ -206,28 +206,28 @@ const ContactPage: React.FC = () => {
       {/* ========= CONTACT CARDS ========= */}
       <div className="max-w-6xl mx-auto px-6 grid gap-6 md:grid-cols-3 mb-16">
         {/* Phone */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#FC763A]/60 transition-all duration-300 ease-out">
           <p className="text-xs uppercase tracking-wide text-slate-500">Call / WhatsApp</p>
           <h3 className="mt-2 text-lg font-semibold text-slate-900">Talk to our team</h3>
           <p className="mt-2 text-sm text-slate-600">For quick queries or site visit scheduling.</p>
           <div className="mt-4 space-y-1 text-sm">
-            <a href="tel:+918850845149" className="text-blue-600 hover:underline inline-flex items-center gap-1"><span>📞</span> +918850845149</a>
+            <a href="tel:+918850845149" className="text-[#FC763A] hover:underline inline-flex items-center gap-1"><span>📞</span> +918850845149</a>
             <a href="https://wa.me/918850845149" target="_blank" rel="noreferrer" className="text-emerald-600 hover:underline inline-flex items-center gap-1"><span>💬</span> Chat on WhatsApp</a>
           </div>
         </div>
 
         {/* Email */}
-        <div className="rounded-2xl border border-slate-600/50 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
+        <div className="rounded-2xl border border-slate-600/50 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#FC763A]/60 transition-all duration-300 ease-out">
           <p className="text-xs uppercase tracking-wide text-slate-500">Email</p>
           <h3 className="mt-2 text-lg font-semibold text-slate-900">Project & Partnerships</h3>
           <p className="mt-2 text-sm text-slate-600">Send RFQs, energy bills, or proposal requests.</p>
           <div className="mt-4 text-sm space-y-1">
-            <a href="mailto:info@truesun.in" className="text-blue-600 hover:underline break-all">info@truesun.in</a>
+            <a href="mailto:info@truesun.in" className="text-[#FC763A] hover:underline break-all">info@truesun.in</a>
           </div>
         </div>
 
         {/* Address */}
-        <div className="rounded-2xl border border-slate-600/50 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/60 transition-all duration-300 ease-out">
+        <div className="rounded-2xl border border-slate-600/50 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-[#FC763A]/60 transition-all duration-300 ease-out">
           <p className="text-xs uppercase tracking-wide text-slate-500">Office</p>
           <h3 className="mt-2 text-lg font-semibold text-slate-900">Visit TrueSun</h3>
           <p className="mt-2 text-sm text-slate-600">Meet our engineering team and discuss your requirement.</p>
@@ -255,7 +255,7 @@ const ContactPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-slate-600/50 shadow-sm bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
             <div className="aspect-4/3 w-full">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.6698030560838!2d72.87295050000002!3d19.122136299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c83cc36fad13%3A0x66f93803f8a326db!2sTRUESUN%20ENERGY%20SOLUTIONS%20PRIVATE%20LIMITED!5e0!3m2!1sen!2sin!4v1763466856754!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.1904036441724!2d72.82662711027224!3d18.998760554319407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf494fee7d19%3A0xd15155d3f91eaee3!2sTrueSun%20Energy%20Solutions%20Private%20Limited!5e1!3m2!1sen!2sin!4v1773644125171!5m2!1sen!2sin"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full border-0"

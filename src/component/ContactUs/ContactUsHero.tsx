@@ -1,7 +1,7 @@
 
 const ContactHero = () => {
     return (
-        <section className="relative overflow-hidden text-white py-20">
+        <section className="relative overflow-hidden text-white py-22">
             {/* Background Image */}
             <div className="absolute inset-0 -z-10">
                 <img
@@ -16,14 +16,14 @@ const ContactHero = () => {
             {/* Content */}
             <div className="relative max-w-5xl  px-6 ">
                 {/* Badge - Specific to the Contact Page */}
-                <div className="inline-block px-4 py-1 rounded-full bg-white/10 border border-white/15 text-xs tracking-wide uppercase mb-6">
+                <div className="inline-block px-4 py-1 text-[#FC763A] rounded-full bg-white/10 border border-white/15 text-xs tracking-wide uppercase mb-6">
                     Contact Truesun Energy
                 </div>
 
                 {/* Heading - Emphasizing the Engineering/Savings Hook */}
                 <h1 className="text-4xl sm:text-5xl font-semibold leading-tight">
-                    Let's Start Your <span className="text-sky-400">Solar Project</span> with an
-                    <span className="block bg-linear-to-r from-sky-300 via-cyan-300 to-emerald-300 text-transparent bg-clip-text mt-1">
+                    Let's Start Your <span className="text-[#FC763A]">Solar Project</span> with an
+                    <span className="block  text-[#FC763A] mt-1">
                         Engineering-First Approach
                     </span>
                 </h1>
@@ -38,14 +38,14 @@ const ContactHero = () => {
                 {/* CTA Buttons - Clear Next Steps */}
                 <div className="flex flex-wrap  gap-4 mt-10">
                     <a
-                        className="bg-sky-500 text-white font-semibold px-7 py-3 rounded-full shadow-xl shadow-sky-500/30 hover:bg-sky-600 transition"
+                        className="bg-[#FC763A] text-white font-semibold px-7 py-3 rounded-full shadow-xl shadow-[#FC763A]/30  transition"
                     >
                         Get a Free Project Analysis
                     </a>
 
                     <a
                         href="tel:+919999999999" // 🔁 replace with Creasun's real number
-                        className="border border-white/25 bg-white/5 px-7 py-3 rounded-full text-white hover:border-emerald-300 hover:text-emerald-300 transition"
+                        className="border border-white/25 bg-white/5 px-7 py-3 rounded-full text-white hover:border-[#FC763A] hover:text-[#FC763A] transition"
                     >
                         Call Our Experts Now
                     </a>
@@ -55,7 +55,7 @@ const ContactHero = () => {
             </div>
 
             {/* SVG Bottom Wave - Seamless transition to the next section */}
-            <div className="absolute bottom-0 left-0 w-full leading-none pointer-events-none">
+            {/* <div className="absolute bottom-0 left-0 w-full leading-none pointer-events-none">
                 <svg
                     viewBox="0 0 1440 120"
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const ContactHero = () => {
                         fill="#ffffff"
                     />
                 </svg>
-            </div>
+            </div> */}
         </section>
     );
 };

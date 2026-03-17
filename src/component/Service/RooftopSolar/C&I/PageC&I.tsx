@@ -234,7 +234,7 @@ export default function SolarNovaIndustrialPage() {
                 </li>
                 <li className="flex gap-2">
                   <Check className="mt-0.5 h-4 w-4" style={{ color: "#059669" }} />
-                  25-year panel warranty and 5-year system warranty for durability.
+                  30-year panel warranty and 5-year system warranty for durability.
                 </li>
                 <li className="flex gap-2">
                   <Check className="mt-0.5 h-4 w-4" style={{ color: "#059669" }} />
@@ -273,7 +273,7 @@ export default function SolarNovaIndustrialPage() {
                 { icon: <PlugZap className="h-6 w-6" />, t: "Net metering", d: "Export excess and offset your monthly bill." },
                 { icon: <ShieldCheck className="h-6 w-6" />, t: "Compliance-first", d: "MNRE-approved components and DISCOM-ready designs." },
                 { icon: <Leaf className="h-6 w-6" />, t: "ESG upside", d: "Demonstrate Scope 2 reductions and lead responsibly." },
-                { icon: <LineChart className="h-6 w-6" />, t: "Predictable ROI", d: "Lock in energy costs for 25+ years." },
+                { icon: <LineChart className="h-6 w-6" />, t: "Predictable ROI", d: "Lock in energy costs for 30+ years." },
                 { icon: <Building2 className="h-6 w-6" />, t: "Asset value", d: "Modern rooftops that add valuation headroom." },
               ].map((f, i) => (
                 <motion.div
@@ -349,7 +349,7 @@ export default function SolarNovaIndustrialPage() {
       variants={item}
       className="grid grid-cols-1 gap-6 sm:grid-cols-3"
     >
-      <div className="text-center rounded-xl bg-white p-6 shadow-lg border-t-4 border-orange-500">
+      <div className="text-center rounded-xl bg-white p-6 shadow-lg border-t-4 border-[#FC763A]">
         <div className="text-4xl font-bold" style={{ color: '#000000' }}>
           &gt;30%
         </div>
@@ -357,7 +357,7 @@ export default function SolarNovaIndustrialPage() {
           Return on Investment
         </div>
       </div>
-      <div className="text-center rounded-xl bg-white p-6 shadow-lg border-t-4 border-orange-500">
+      <div className="text-center rounded-xl bg-white p-6 shadow-lg border-t-4 border-[#FC763A]">
         <div className="text-4xl font-bold" style={{ color: '#000000' }}>
           &lt;4 Years
         </div>
@@ -365,7 +365,7 @@ export default function SolarNovaIndustrialPage() {
           Typical Payback Period
         </div>
       </div>
-      <div className="text-center rounded-xl bg-white p-6 shadow-lg border-t-4 border-orange-500">
+      <div className="text-center rounded-xl bg-white p-6 shadow-lg border-t-4 border-[#FC763A]">
         <div className="text-4xl font-bold" style={{ color: '#000000' }}>
           60–80%+
         </div>

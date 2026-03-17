@@ -122,7 +122,7 @@ export default function CommercialSolarNovaSection() {
                                 { icon: <PlugZap className="h-6 w-6" />, t: "Net metering", d: "Export excess and offset your monthly bill." },
                                 { icon: <ShieldCheck className="h-6 w-6" />, t: "Compliance-first", d: "MNRE-approved components and DISCOM-ready designs." },
                                 { icon: <Leaf className="h-6 w-6" />, t: "ESG upside", d: "Demonstrate Scope 2 reductions and lead responsibly." },
-                                { icon: <LineChart className="h-6 w-6" />, t: "Predictable ROI", d: "Lock in energy costs for 25+ years." },
+                                { icon: <LineChart className="h-6 w-6" />, t: "Predictable ROI", d: "Lock in energy costs for 30+ years." },
                                 { icon: <Building2 className="h-6 w-6" />, t: "Asset value", d: "Modern rooftops that add valuation headroom." },
                             ].map((f, i) => (
                                 <motion.div key={i} variants={item} className="group rounded-2xl border border-black/30 bg-white p-6 shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-black/50">

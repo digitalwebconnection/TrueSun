@@ -33,7 +33,7 @@ const ServicesHero: React.FC = () => {
 
           <h1 className="text-3xl font-bold leading-tight sm:text-5xl">
             End-to-End Solar Services
-            <span className="block text-orange-400">Built for Your Needs.</span>
+            <span className="block text-[#fc763a]">Built for Your Needs.</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-100/90">
@@ -46,7 +46,7 @@ const ServicesHero: React.FC = () => {
           <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:justify-start">
             <button
               onClick={() => setOpenLeadPopup(true)}
-              className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/50 transition hover:shadow-lg hover:brightness-105"
+              className="inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/50 transition hover:shadow-lg hover:brightness-105"
             >
               Book a Free Site Visit
             </button>
@@ -61,7 +61,7 @@ const ServicesHero: React.FC = () => {
         <div className="w-full max-w-md">
           <div className="relative h-36 md:h-56 w-full overflow-hidden rounded-3xl bg-white/10 backdrop-blur-md p-6 shadow-2xl">
             {/* Decorative Overlay */}
-            <div className="absolute inset-0 bg-linear-to-br from-orange-500/30 via-transparent to-emerald-500/20" />
+            <div className="absolute inset-0 bg-linear-to-br from-[#FC763A]/30 via-transparent to-emerald-500/20" />
 
             <div className="relative flex h-full flex-col justify-between">
               <div>

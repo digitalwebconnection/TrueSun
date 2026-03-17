@@ -1,103 +1,130 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 interface Review {
   name: string;
   location: string;
   rating: number;
   comment: string;
+  video: string;
 }
+// import video1 from "../../assets/TestiminialVideo/Testimonial-1.mp4"
 
-export default function  ModernReviewSection() {
+export default function ModernReviewSection() {
   const reviews: Review[] = [
     {
-      name: "Raj Sharma",
-      location: " Mumbai, Maharashtra",
+      name: "Drashti sadrani",
+      location: "Mumbai, Maharashtra",
       rating: 5,
       comment:
-        "Excellent installation service. The team was professional and completed the work on time. Highly recommend!",
+        "Excellent solar installation service by TrueSun Energy. Professional team, good quality work, and noticeable savings on electricity bills.",
+      video:"https://www.youtube.com/embed/dQw4w9WgXcQ",
     },
     {
-      name: "Megha Patel",
-      location: " Mumbai, Maharashtra",
+      name: "Vrushali Kulkarni",
+      location: "Mumbai, Maharashtra",
       rating: 5,
       comment:
-        "Smooth installation process and good support after setup. Just took a day extra due to rain.",
+        "Delivers reliable and efficient solutions with great professionalism and support.",
+      video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     },
     {
-      name: "Sanjay Yadav",
+      name: "Gauri ThunderBird",
       location: "Nagpur, MH",
       rating: 5,
       comment:
-        "Clean work, on-time completion, and great after-sales service. Will refer to others!",
+        "Visionary Team aligned with eco-friendly structures. Best wishes to the Team.",
+      video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     },
   ];
 
-  const Card: React.FC<{ r: Review }> = ({ r }) => (
-    <div className="flex flex-col justify-between  bg-white h-full p-5 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-indigo-500/30 transition duration-300 transform hover:-translate-y-1 border border-gray-800/30">
-      {/* Star Rating */}
-      <div className="mb-2 flex items-center justify-center gap-0.5" aria-label={`${r.rating} out of 5 stars`}>
-        {[...Array(5)].map((_, i) => (
-          <span key={i} className={`text-xl ${i < r.rating ? "text-yellow-500" : "text-gray-300"}`}>
-            ★
-          </span>
-        ))}
-      </div>
+  const [current, setCurrent] = useState(0);
 
-      {/* Comment */}
-      <blockquote className="relative mb-3 flex-1">
-        <p className="text-gray-700 italic text-base leading-relaxed">{r.comment}</p>
-      </blockquote>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % reviews.length);
+    }, 2000);
 
-      {/* Reviewer */}
-      <div className="mt-auto pt-4 border-t border-gray-100">
-        <div className="text-lg font-semibold text-gray-900">{r.name}</div>
-        <div className="text-sm text-orange-700 font-medium">{r.location}</div>
-      </div>
-    </div>
-  );
+    return () => clearInterval(interval);
+  }, []);
+
+  const review = reviews[current];
 
   return (
-    <section className="bg-gray-50 py-12 sm:py-16">
-      {/* Hide scrollbar helper */}
-      <style>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+    <section className="bg-gray-50 py-16 px-6">
+      <div className="max-w-7xl mx-auto">
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
         {/* Header */}
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-4 sm:text-5xl">
-          What Our <span className="text-orange-700">Customers Say</span>
-        </h2>
-        <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-          Hear from the people who trust our service and expertise.
-        </p>
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-[#686868] mb-4">
+            What Our <span className="text-[#FC763A]">Customers Say</span>
+          </h2>
 
-        {/* Mobile: horizontal scroll */}
-        <div className="relative md:hidden">
-          {/* Gradient edges */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-linear-to-r from-gray-50 to-transparent z-10" />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-linear-to-l from-gray-50 to-transparent z-10" />
-
-          <div
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 no-scrollbar scroll-smooth"
-            role="region"
-            aria-label="Customer reviews"
-          >
-            {reviews.map((r, idx) => (
-              <div key={idx} className="snap-start shrink-0 w-[85%] sm:w-[70%] max-w-sm">
-                <Card r={r} />
-              </div>
-            ))}
-          </div>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Real feedback from customers who trust our solar solutions and services.
+          </p>
         </div>
 
-        {/* Desktop/Tablet: grid */}
-        <div className="hidden md:grid gap-8 grid-cols-2 lg:grid-cols-3">
-          {reviews.map((r, index) => (
-            <Card key={index} r={r} />
+        {/* Main Layout */}
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+
+          {/* LEFT VIDEO */}
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-xl">
+            <iframe
+              key={current}
+              src={review.video}
+              className="w-full h-[350px]"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          </div>
+
+          {/* RIGHT CONTENT */}
+          <div className="bg-white p-8 rounded-2xl shadow-lg">
+
+            {/* Stars */}
+            <div className="flex mb-4">
+              {[...Array(5)].map((_, i) => (
+                <span
+                  key={i}
+                  className={`text-2xl ${i < review.rating ? "text-yellow-500" : "text-gray-300"
+                    }`}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+
+            {/* Comment */}
+            <p className="text-lg text-gray-700 italic mb-6 leading-relaxed">
+              "{review.comment}"
+            </p>
+
+            {/* Name */}
+            <div>
+              <h4 className="text-xl font-semibold text-gray-900">
+                {review.name}
+              </h4>
+
+              <p className="text-[#FC763A] font-medium">
+                {review.location}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Indicators */}
+        <div className="flex justify-center mt-8 gap-3">
+          {reviews.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`h-3 w-3 rounded-full ${i === current ? "bg-[#FC763A]" : "bg-gray-300"
+                }`}
+            />
           ))}
         </div>
+
       </div>
     </section>
   );

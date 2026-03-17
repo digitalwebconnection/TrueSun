@@ -135,7 +135,7 @@ const SystemOptionBlock = ({
           ))}
         </ul>
         <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
-          <ShieldCheck className="h-4 w-4" /> 25-year panel warranty • 5-10 year inverter warranty
+          <ShieldCheck className="h-4 w-4" /> 30-year panel warranty • 5-10 year inverter warranty
         </div>
       </motion.div>
     )}
@@ -314,7 +314,7 @@ export default function RooftopSolarPage() {
                   <LineChart className="h-4 w-4" /> Up to 80% Bill Savings
                 </span>
                 <span className="text-slate-800 flex items-center gap-1">
-                  <ShieldCheck className="h-4 w-4" /> 25-Year Panel Warranty
+                  <ShieldCheck className="h-4 w-4" /> 30-Year Panel Warranty
                 </span>
               </div>
             </motion.div>
@@ -368,7 +368,7 @@ export default function RooftopSolarPage() {
               </div>
               <div className="grid grid-cols-2 gap-3 text-sm text-slate-700">
                 <div className="rounded-2xl border border-slate-800 bg-white/80 p-4 text-center">
-                  <div className="text-2xl font-extrabold text-slate-900">25+ yrs</div>
+                  <div className="text-2xl font-extrabold text-slate-900">30+ yrs</div>
                   <div className="mt-1 text-xs text-slate-500">Panel performance warranty</div>
                 </div>
                 <div className="rounded-2xl border border-slate-800 bg-white/80 p-4 text-center">

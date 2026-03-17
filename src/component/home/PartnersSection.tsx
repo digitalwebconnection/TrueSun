@@ -32,7 +32,7 @@ export default function Scroll() {
     <main className="w-full bg-linear-to-b from-white via-slate-50 to-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-6">
         <header className="mb-6 sm:mb-10 text-center">
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#fc763a]">
             Our Partners
           </h1>
           <p className="mt-2 text-slate-600">
@@ -52,6 +52,24 @@ export default function Scroll() {
           </div>
         </section>
       </div>
+
+      {/* === SECTION 6: VISUAL MAP — COVERAGE ACROSS 38+ CITIES === */}
+      <div className="mt-6">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
+
+
+          <div className="w-full">
+            <div className="relative overflow-hidden rounded-2xl  border border-gray-300 bg-white shadow-xl ">
+              <div className="absolute inset-0   pointer-events-none" />
+              {/* Replace this with an actual SVG/Map component */}
+              <div className="flex flex-col items-center justify-center gap-2 text-gray-700">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.1904036441724!2d72.82662711027224!3d18.998760554319407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf494fee7d19%3A0xd15155d3f91eaee3!2sTrueSun%20Energy%20Solutions%20Private%20Limited!5e1!3m2!1sen!2sin!4v1773644125171!5m2!1sen!2sin" className="w-full h-80" loading="lazy" ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       {/* Local CSS */}
       <style>{`

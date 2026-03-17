@@ -103,7 +103,7 @@ const LeadPopup: React.FC<LeadPopupProps> = ({ onClose }) => {
               type="text"
               required
               placeholder="Enter your name"
-              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#fc763a] focus:ring-1 focus:ring-[#fc763a]"
             />
           </div>
 
@@ -115,7 +115,7 @@ const LeadPopup: React.FC<LeadPopupProps> = ({ onClose }) => {
               name="email"
               type="email"
               placeholder="name@example.com"
-              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#fc763a] focus:ring-1 focus:ring-[#fc763a]"
             />
           </div>
 
@@ -128,7 +128,7 @@ const LeadPopup: React.FC<LeadPopupProps> = ({ onClose }) => {
               type="tel"
               required
               placeholder="Enter your phone number"
-              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#fc763a] focus:ring-1 focus:ring-[#fc763a]"
             />
           </div>
 
@@ -140,7 +140,7 @@ const LeadPopup: React.FC<LeadPopupProps> = ({ onClose }) => {
               name="city"
               type="text"
               placeholder="Eg. Thane, Pune, Navi Mumbai"
-              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#fc763a] focus:ring-1 focus:ring-[#fc763a]"
             />
           </div>
 
@@ -152,7 +152,7 @@ const LeadPopup: React.FC<LeadPopupProps> = ({ onClose }) => {
               name="bill"
               type="number"
               placeholder="Eg. 3000"
-              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+              className="w-full rounded-lg border px-3 py-2 text-sm outline-none focus:border-[#fc763a] focus:ring-1 focus:ring-[#fc763a]"
             />
           </div>
 
@@ -160,7 +160,7 @@ const LeadPopup: React.FC<LeadPopupProps> = ({ onClose }) => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/60 transition disabled:opacity-60 hover:brightness-105 hover:shadow-lg"
+            className="w-full rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-300/60 transition disabled:opacity-60 hover:brightness-105 hover:shadow-lg"
           >
             {submitting ? "Submitting..." : "Submit & Request Call Back"}
           </button>

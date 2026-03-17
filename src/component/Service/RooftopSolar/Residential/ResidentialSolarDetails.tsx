@@ -349,7 +349,7 @@ const ResidentialSolarDetailsPage: FC = () => {
               points={[
                 "Mono-PERC / TOPCon technology",
                 "545–620 Wp class (as per roof layout)",
-                "25-year performance warranty",
+                "30-year performance warranty",
               ]}
             />
             <SpecStrip

@@ -9,9 +9,17 @@ import {
   Building2,
   Leaf,
   BadgeCheck,
-  Download,
   ChevronRight,
 } from "lucide-react";
+import bloom from "../../assets/Bloom Packaging/2.jpg"
+import rentokil from "../../assets/PCI Rentokill/2.jpg";
+import rustomjee from "../../assets/Rustomjee virar/3.jpeg";
+import oberoi from "../../assets/Oberoi Realty/2.jpg";
+import landmark from "../../assets/Landmrk Pllatinum/5.jpeg";
+import kalpataru from "../../assets/Kalpataru Estate CHS Limited/2.jpg";
+import ganesh from "../../assets/Ganesh kung/3.jpeg";
+import sharad from "../../assets/Sharad Apt/3.jpeg";
+import bungalow from "../../assets/Andheri Bungalow/1.png";
 
 /* =========================
    Palette (TrueSun)
@@ -55,185 +63,272 @@ type Project = {
 /* ───────────────────────── Data (same as before, added before/after placeholders) ───────────────────────── */
 const projects: Project[] = [
   {
-    name: "Industrial Solar Rooftop Project – Maharashtra",
+    name: "Bloom Packaging Pvt Ltd",
     segment: "Industrial",
-    location: "Maharashtra",
+    location: "Daman, India",
     description:
-      "A 1.5 MWp rooftop solar system designed for continuous operations with smart energy analytics and minimal maintenance requirements.",
-    image:
-      "https://truesun.in/wp-content/uploads/2021/06/IMG-20210406-WA0010-768x575.jpg",
-    beforeImage:
-      "https://media.istockphoto.com/id/1196065593/photo/industrial-buildings-as-seen-from-above.jpg?s=612x612&w=0&k=20&c=CBS5JgPs9z3CgJx7_7xVoxgqKPcXPtbUHxw11N0EsN0=",
-    afterImage:
-      "https://waaree.com/wp-content/uploads/2025/08/Asahi-scaled.jpg",
-    capacity: "1.5 MWp",
+      "TrueSun Energy installed a 60 kW rooftop solar power plant for Bloom Packaging Private Limited at their manufacturing facility in Daman. The system is mounted on a metal sheet rooftop covering approximately 5,000 sq. ft.",
+
+    image: bloom,
+
+    capacity: "60 kW",
+    roofType: "Metal Sheet Roof",
+    co2Mitigated: "2,445 tonnes",
+    annualGen: "90,000 kWh",
+    payback: "3 years",
+    savings: "₹10 Lakhs",
+
+    clientType: "Plastic Bottle Manufacturing Unit",
+    clientName: "Bloom Packaging Pvt Ltd",
+
+    modulesUsed: "Trina Solar Half-cut Mono PERC Panels",
+    invertersUsed: "Sungrow Multi-MPPT Inverters",
+    mountingType: "Metal sheet rooftop mounting structure",
+
+    specialFeatures: [
+      "FRP walkways installed for safe rooftop access",
+      "Net Metering enabled system",
+      "Complete turnkey EPC solution",
+    ],
+  },
+
+  {
+    name: "Rentokil PCI",
+    segment: "Commercial & Industrial",
+    location: "Goregaon West, Mumbai",
+    description:
+      "48 kW rooftop solar installation for Rentokil PCI delivering reliable renewable energy and reducing electricity costs for the facility.",
+
+    image: rentokil,
+
+    capacity: "48 kW",
     roofType: "RCC Roof",
-    co2Mitigated: "2,000 tonnes/yr",
-    annualGen: "2.1 GWh/yr",
-    payback: "3.8 years",
-    savings: "₹55L/yr",
-    caseStudyUrl: "#",
-    clientType: "Continuous-process manufacturing unit",
-    clientName: "Leading chemical manufacturer",
-    commissioningYear: "FY 2023–24",
-    modulesUsed: "540 Wp mono PERC, Tier-1 modules",
-    invertersUsed: "String inverters with DC combiner boxes",
-    mountingType: "RCC ballast structure with corrosion-protected fasteners",
-    keyObjectives: [
-      "Reduce daytime grid consumption and diesel usage",
-      "Achieve payback under 4 years",
-      "Enable remote performance monitoring for management",
-    ],
-    challenges: [
-      "Limited roof availability due to existing utilities (HVAC, tanks, vents)",
-      "Non-uniform roof levels requiring careful string planning",
-      "Need to avoid production shutdown during installation",
-    ],
-    implementationHighlights: [
-      "Executed in phases without interrupting plant operations",
-      "String-level monitoring integrated with plant energy dashboard",
-      "Optimized string design for shadow-prone zones near structures",
-    ],
+    co2Mitigated: "1,772 tonnes",
+    annualGen: "74,664 kWh",
+    payback: "",
+    savings: "",
+
+    clientType: "Commercial Facility",
+    clientName: "Rentokil PCI",
+
+    modulesUsed: "High efficiency solar panels",
+    invertersUsed: "String Inverters",
+    mountingType: "RCC rooftop structure",
+
     specialFeatures: [
-      "24×7 remote monitoring and automated alerts",
-      "Compact DC cabling layout for reduced losses",
-      "Integrated safety interlocks and walkways for O&M teams",
+      "Optimized rooftop layout",
+      "Reduced electricity costs",
+      "Lower carbon footprint",
     ],
   },
+
   {
-    name: "Commercial Complex Solar Installation – Maharashtra",
-    segment: "Commercial",
-    location: "Pune, Maharashtra",
+    name: "Rustomjee Global City",
+    segment: "Residential",
+    location: "Virar, Mumbai",
     description:
-      "Installed a 800 kWp rooftop system for a major retail complex, ensuring 24×7 monitoring and optimized net-metering performance.",
-    image:
-      "https://static.fibre2fashion.com/newsresource/images/270/shutterstock-600344045_282578.jpg",
-    beforeImage:
-      "https://media.istockphoto.com/id/522465762/photo/warehouse-roof.jpg?s=612x612&w=0&k=20&c=iRya5KPL-uZy6trY0sHT5XxGUr0D-YobT35FJ84FFyk=",
-    afterImage:
-      "https://static.fibre2fashion.com/newsresource/images/270/shutterstock-600344045_282578.jpg",
-    capacity: "800 kWp",
-    roofType: "Sheet Roof",
-    co2Mitigated: "1,200 tonnes/yr",
-    annualGen: "1.05 GWh/yr",
-    payback: "4.1 years",
-    savings: "₹28L/yr",
-    caseStudyUrl: "#",
-    clientType: "Premium retail & commercial complex",
-    clientName: "Multi-brand shopping destination",
-    commissioningYear: "FY 2022–23",
-    modulesUsed: "535 Wp mono half-cut modules",
-    invertersUsed: "String inverters with smart metering",
-    mountingType: "Non-penetrative sheet-roof structures",
-    keyObjectives: [
-      "Offset common-area loads (HVAC, lifts, lighting)",
-      "Optimize net-metering for weekday and weekend profiles",
-      "Visually neat installation matching building aesthetics",
-    ],
-    challenges: [
-      "Irregular roof geometry across multiple blocks",
-      "High public footfall demanding strict safety controls",
-      "Net-metering approvals with multiple HT connections",
-    ],
-    implementationHighlights: [
-      "Segment-wise array layout aligned to block-wise loads",
-      "Night-time safety work to avoid disruption during mall hours",
-      "Integrated generation screens for facility management team",
-    ],
-    specialFeatures: [
-      "Real-time display screen in lobby showing live generation",
-      "Weather-compensated performance analysis",
-      "Provisions for future expansion on adjacent blocks",
-    ],
-  },
-  {
-    name: "Institutional Solar Project – Maharashtra",
-    segment: "Institutional",
-    location: "Nagpur, Maharashtra",
-    description:
-      "Hybrid grid-tied solar solution for a leading university, integrating EV charging and real-time energy dashboards.",
-    image:
-      "https://i0.wp.com/solarquarter.com/wp-content/uploads/2022/10/18.png?fit=1200%2C675&ssl=1",
-    beforeImage:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPRfPEM3Dn23qUns4GaYwj-58RUUETIA2TLw&s",
-    afterImage:
-      "https://i0.wp.com/solarquarter.com/wp-content/uploads/2022/10/18.png?fit=1200%2C675&ssl=1",
-    capacity: "600 kWp",
+      "40 kW rooftop solar installation at Global City Virar designed to efficiently utilize RCC rooftop space and generate clean renewable energy.",
+
+    image: rustomjee,
+
+    capacity: "40 kW",
     roofType: "RCC Roof",
-    co2Mitigated: "950 tonnes/yr",
-    annualGen: "900 MWh/yr",
-    payback: "3.6 years",
-    savings: "₹22L/yr",
-    caseStudyUrl: "#",
-    clientType: "Deemed university campus",
-    clientName: "Multi-faculty higher education institution",
-    commissioningYear: "FY 2021–22",
-    modulesUsed: "Mono PERC modules with 25-year performance warranty",
-    invertersUsed: "Hybrid inverters with battery-ready architecture",
-    mountingType: "RCC structure with walkway and safety railing",
-    keyObjectives: [
-      "Showcase sustainability commitment to students and stakeholders",
-      "Reduce day-time demand charges from the DISCOM",
-      "Create a live learning lab for engineering students",
-    ],
-    challenges: [
-      "Different building heights and orientations",
-      "Requirement of minimal visual impact on heritage blocks",
-      "Future integration with EV chargers and lab experiments",
-    ],
-    implementationHighlights: [
-      "Distributed plant design across academic and hostel blocks",
-      "Energy dashboard installed in central auditorium lobby",
-      "Provisioned spare capacity for EV charging plaza",
-    ],
+    co2Mitigated: "1,476 tonnes",
+    annualGen: "58,977 kWh",
+    payback: "",
+    savings: "₹4 Lakhs / year",
+
+    clientType: "Residential Society",
+    clientName: "Rustomjee Global City",
+
+    modulesUsed: "Mono Solar Modules",
+    invertersUsed: "Grid-tied String Inverters",
+    mountingType: "RCC rooftop structure",
+
     specialFeatures: [
-      "Student-accessible dashboard for project data",
-      "Hybrid-ready design to support future batteries",
-      "Modules arranged to spell institute initials (visible aerially)",
+      "Residential solar generation",
+      "Reduced grid dependency",
+      "Lower electricity bills",
     ],
   },
+
   {
-    name: "Textile Manufacturing Plant Solar – Maharashtra",
-    segment: "Industrial",
-    location: "Maharashtra",
+    name: "Oberoi Realty",
+    segment: "Highrise Residential",
+    location: "Bhandup West, Mumbai",
     description:
-      "High-efficiency rooftop system designed for heavy day-time loads with staggered start-up curves to protect machinery.",
-    image: "https://etimg.etb2bimg.com/photo/78053867.cms",
-    beforeImage:
-      "https://centralroof.com/wp-content/uploads/2019/09/Photo-Sep-18-11-21-03-AM.jpg",
-    afterImage: "https://etimg.etb2bimg.com/photo/78053867.cms",
-    capacity: "1.2 MWp",
-    roofType: "Metal Sheet",
-    co2Mitigated: "1,600 tonnes/yr",
-    annualGen: "1.7 GWh/yr",
-    payback: "4.0 years",
-    savings: "₹45L/yr",
-    caseStudyUrl: "#",
-    clientType: "Textile & garment manufacturing unit",
-    clientName: "Export-oriented textile mill",
-    commissioningYear: "FY 2022–23",
-    modulesUsed: "540 Wp mono PERC high-efficiency modules",
-    invertersUsed: "High-efficiency string inverters with PLC interface",
-    mountingType: "Sheet-roof mounting with wind-speed certified structures",
-    keyObjectives: [
-      "Lower energy cost per metre of fabric produced",
-      "Stabilize voltage variation affecting sensitive equipment",
-      "Utilize otherwise unused roof area for predictable savings",
-    ],
-    challenges: [
-      "High wind-speed zone requiring robust mounting design",
-      "Multiple exhausts and skylights causing shadows",
-      "Need to align generation with process load profile",
-    ],
-    implementationHighlights: [
-      "Row-wise string planning to minimize shadow losses",
-      "Integrated plant alarms with control room dashboard",
-      "Calibrated start-up strategy to protect motors and drives",
-    ],
+      "65 kW rooftop solar installation designed to maximize solar energy generation while ensuring long-term reliability and safety.",
+
+    image: oberoi,
+
+    capacity: "65 kW",
+    roofType: "RCC Roof",
+    co2Mitigated: "2,400 tonnes",
+    annualGen: "101,000 kWh",
+    payback: "",
+    savings: "",
+
+    clientType: "Highrise Residential Building",
+    clientName: "Oberoi Realty",
+
+    modulesUsed: "High efficiency solar panels",
+    invertersUsed: "Grid tied inverters",
+    mountingType: "RCC rooftop mounting structure",
+
     specialFeatures: [
-      "Export-ready monitoring reports for ESG compliance",
-      "Monthly performance review support for client team",
-      "Provision for adding ground-mount extension in Phase-II",
+      "High efficiency generation",
+      "Reduced grid power usage",
+      "Sustainable energy solution",
+    ],
+  },
+
+  {
+    name: "Landmark Platinum",
+    segment: "Residential",
+    location: "Bandra East, Mumbai",
+    description:
+      "30 kW rooftop solar installation generating approximately 45,750 kWh annually for residential energy consumption.",
+
+    image: landmark,
+
+    capacity: "30 kW",
+    roofType: "RCC Roof",
+    co2Mitigated: "1,107 tonnes",
+    annualGen: "45,750 kWh",
+    payback: "",
+    savings: "",
+
+    clientType: "Residential Society",
+    clientName: "Landmark Platinum",
+
+    modulesUsed: "High efficiency solar panels",
+    invertersUsed: "Grid tied inverter",
+    mountingType: "RCC rooftop mounting",
+
+    specialFeatures: [
+      "Optimized for Mumbai solar conditions",
+      "Clean renewable power",
+      "Reduced carbon footprint",
+    ],
+  },
+
+  {
+    name: "Kalpataru Society",
+    segment: "Residential Society",
+    location: "Andheri, Mumbai",
+    description:
+      "115 kW rooftop solar plant where TrueSun acted as Project Management Consultant, handling design, technical planning and execution supervision.",
+
+    image: kalpataru,
+
+    capacity: "115 kW",
+    roofType: "RCC Roof",
+    co2Mitigated: "4,770 tonnes",
+    annualGen: "170,000 kWh",
+    payback: "Less than 4 years",
+    savings: "₹13 Lakhs annually",
+
+    clientType: "Residential Society",
+    clientName: "Kalpataru",
+
+    modulesUsed: "High efficiency solar modules",
+    invertersUsed: "String inverters",
+    mountingType: "RCC rooftop structure",
+
+    specialFeatures: [
+      "Solar for lifts, pumps and common lighting",
+      "High ROI for society",
+      "Reduced electricity costs",
+    ],
+  },
+
+  {
+    name: "Ganesh Kunj",
+    segment: "Residential",
+    location: "Andheri East, Mumbai",
+    description:
+      "15 kW rooftop solar system installed on an RCC terrace converting unused rooftop space into renewable energy generation.",
+
+    image: ganesh,
+
+    capacity: "15 kW",
+    roofType: "RCC Roof",
+    co2Mitigated: "553 tonnes",
+    annualGen: "22,732 kWh",
+    payback: "",
+    savings: "",
+
+    clientType: "Residential Building",
+    clientName: "Ganesh Kunj",
+
+    modulesUsed: "Mono solar panels",
+    invertersUsed: "Grid tied inverter",
+    mountingType: "RCC rooftop mounting",
+
+    specialFeatures: [
+      "Clean renewable energy",
+      "Reduced electricity bills",
+      "Lower carbon emissions",
+    ],
+  },
+
+  {
+    name: "Sharad Apartment",
+    segment: "Residential",
+    location: "Goregaon West, Mumbai",
+    description:
+      "12 kW solar power system installed using an elevated mounting structure allowing solar generation while keeping terrace usable.",
+
+    image: sharad,
+
+    capacity: "12 kW",
+    roofType: "RCC Roof",
+    co2Mitigated: "442 tonnes",
+    annualGen: "20,151 kWh",
+    payback: "",
+    savings: "",
+
+    clientType: "Residential Apartment",
+    clientName: "Sharad Apartment",
+
+    modulesUsed: "High efficiency solar modules",
+    invertersUsed: "Grid tied inverter",
+    mountingType: "Elevated RCC rooftop structure",
+
+    specialFeatures: [
+      "Elevated mounting design",
+      "Terrace remains usable",
+      "Clean energy generation",
+    ],
+  },
+
+  {
+    name: "Andheri Independent Bungalow",
+    segment: "Residential Bungalow",
+    location: "Andheri, Mumbai",
+    description:
+      "15 kW rooftop solar installation executed by TrueSun as EPC for a premium independent bungalow in Mumbai.",
+
+    image: bungalow,
+
+    capacity: "15 kW",
+    roofType: "RCC Roof",
+    co2Mitigated: "",
+    annualGen: "27,375 kWh",
+    payback: "",
+    savings: "",
+
+    clientType: "Private Residence",
+    clientName: "Independent Bungalow",
+
+    modulesUsed: "High efficiency solar modules",
+    invertersUsed: "Grid tied inverter",
+    mountingType: "RCC rooftop mounting",
+
+    specialFeatures: [
+      "Custom solar EPC project",
+      "Reduced electricity costs",
+      "Clean residential energy generation",
     ],
   },
 ];
@@ -496,7 +591,7 @@ export default function ProjectShowcasePage() {
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-950/90 shadow-xl shadow-slate-900/40"
         >
-          <div className="relative h-72 w-full sm:h-90 lg:h-118">
+          <div className="relative h-72 w-full sm:h-90 lg:h-140">
             <img src={activeProject.image} alt={activeProject.name} className="h-full w-full object-cover brightness-[0.9]" loading="lazy" />
             <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
 
@@ -522,14 +617,7 @@ export default function ProjectShowcasePage() {
               <h3 className="text-lg font-semibold sm:text-2xl">{activeProject.name}</h3>
               <p className="max-w-2xl text-xs text-slate-200 sm:text-sm">{activeProject.description}</p>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <button type="button" onClick={() => openModalForProject(activeProject, activeIndex)} className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-semibold text-slate-900 shadow-lg hover:bg-slate-100 sm:text-sm">
-                  <Download className="h-4 w-4" /> View full case study
-                </button>
-                <a href="#contact" className="inline-flex items-center gap-1 text-xs font-semibold text-sky-200 hover:text-white sm:text-sm">
-                  Discuss a similar system <ChevronRight className="h-4 w-4" />
-                </a>
-              </div>
+
             </div>
           </div>
         </motion.div>

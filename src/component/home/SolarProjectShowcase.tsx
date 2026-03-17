@@ -92,7 +92,7 @@ export default function SolarProjectShowcase() {
             onMouseEnter={() => setHovered(index)}
             onMouseLeave={() => setHovered(null)}
             onClick={() => setSelected(index)}
-            className="group relative rounded-3xl overflow-hidden shadow-black/30 shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/80 backdrop-blur-sm border-1 border-neutral-900/40 hover:-translate-y-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="group relative rounded-3xl overflow-hidden shadow-black/30 shadow-xl hover:shadow-2xl transition-all duration-500 bg-white/80 backdrop-blur-sm border border-neutral-900/40 hover:-translate-y-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             <img
               src={project.img}
@@ -153,7 +153,7 @@ export default function SolarProjectShowcase() {
             </button>
 
             {/* Media */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-100">
+            <div className="relative aspect-video w-full overflow-hidden bg-neutral-100">
               <img
                 src={DATA[selected].img}
                 alt={DATA[selected].title}

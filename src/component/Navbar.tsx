@@ -95,8 +95,8 @@ function ServicesMenu() {
         to="/services"
         className={({ isActive }) =>
           cn(
-            "font-medium text-gray-800 transition-colors hover:text-orange-500",
-            isActive && "text-orange-500"
+            "font-medium text-gray-800 transition-colors hover:text-[#FC763A]",
+            isActive && "text-[#FC763A]"
           )
         }
       >
@@ -111,7 +111,7 @@ function ServicesMenu() {
         aria-expanded={open}
         aria-label="Toggle services menu"
         className={cn(
-          "inline-flex items-center justify-center rounded-full p-1 text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors"
+          "inline-flex items-center justify-center rounded-full p-1 text-gray-700 hover:bg-gray-100 hover:text-[#FC763A] transition-colors"
         )}
       >
         <ChevronDown
@@ -135,7 +135,7 @@ function ServicesMenu() {
             {SERVICES.map((s) => {
               const ParentInner = (
                 <>
-                  <span className="text-orange-500">{s.icon}</span>
+                  <span className="text-[#FC763A]">{s.icon}</span>
                   <span>{s.label}</span>
                   <ChevronRight className="ml-auto h-4 w-4 opacity-60" />
                 </>
@@ -157,7 +157,7 @@ function ServicesMenu() {
                   className={cn(
                     "flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm",
                     s.key === activeKey
-                      ? "bg-orange-50 text-orange-600"
+                      ? "bg-orange-50 text-[#FC763A]"
                       : "text-gray-700 hover:bg-gray-50"
                   )}
                 >
@@ -178,8 +178,8 @@ function ServicesMenu() {
                   cn(
                     "block rounded-md px-3 py-2 text-sm hover:bg-orange-50",
                     isActive
-                      ? "text-orange-600"
-                      : "text-gray-700 hover:text-orange-600"
+                      ? "text-[#FC763A]"
+                      : "text-gray-700 hover:text-[#FC763A]"
                   )
                 }
               >
@@ -191,7 +191,7 @@ function ServicesMenu() {
             {(!active?.children || active.children.length === 0) &&
               active?.to && (
                 <button
-                  className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                  className="w-full rounded-md px-3 py-2 text-left text-sm text-gray-700 hover:bg-orange-50 hover:text-[#FC763A]"
                   onClick={() => {
                     navigate(active.to!);
                     setOpen(false);
@@ -224,8 +224,8 @@ function MobileServicesMenu({
       <div
         className={cn(
           "flex w-full items-center justify-between rounded-lg px-3 py-4 text-xl font-semibold text-gray-700 transition-all duration-300 ease-out",
-          "hover:bg-orange-50 hover:text-orange-600 hover:scale-105",
-          expanded ? "bg-orange-50 text-orange-600" : "",
+          "hover:bg-orange-50 hover:text-[#FC763A] hover:scale-105",
+          expanded ? "bg-orange-50 text-[#FC763A]" : "",
           isOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
         )}
         style={{
@@ -241,7 +241,7 @@ function MobileServicesMenu({
           className={({ isActive }) =>
             cn(
               "flex-1 text-left",
-              isActive ? "text-orange-600" : "text-gray-700"
+              isActive ? "text-[#FC763A]" : "text-gray-700"
             )
           }
         >
@@ -258,7 +258,7 @@ function MobileServicesMenu({
           aria-expanded={expanded}
           aria-label="Toggle services submenu"
           className={cn(
-            "ml-2 inline-flex items-center justify-center rounded-full p-2 text-gray-700 hover:bg-orange-100 hover:text-orange-600 transition-all duration-300",
+            "ml-2 inline-flex items-center justify-center rounded-full p-2 text-gray-700 hover:bg-orange-100 hover:text-[#FC763A] transition-all duration-300",
           )}
         >
           <ChevronDown
@@ -281,7 +281,7 @@ function MobileServicesMenu({
           {SERVICES.map((group) => (
             <div key={group.key} className="border-l border-orange-100 pl-3">
               <div className="mb-1 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
-                <span className="text-orange-500">{group.icon}</span>
+                <span className="text-[#FC763A]">{group.icon}</span>
                 <span>{group.label}</span>
               </div>
 
@@ -294,8 +294,8 @@ function MobileServicesMenu({
                     className={({ isActive }) =>
                       cn(
                         "block rounded-md px-3 py-2 text-base transition-all duration-200",
-                        "text-gray-700 hover:bg-orange-50 hover:text-orange-600",
-                        isActive ? "bg-orange-100 text-orange-600" : ""
+                        "text-gray-700 hover:bg-orange-50 hover:text-[#FC763A]",
+                        isActive ? "bg-orange-100 text-[#FC763A]" : ""
                       )
                     }
                   >
@@ -310,8 +310,8 @@ function MobileServicesMenu({
                     className={({ isActive }) =>
                       cn(
                         "block rounded-md px-3 py-2 text-base transition-all duration-200",
-                        "text-gray-700 hover:bg-orange-50 hover:text-orange-600",
-                        isActive ? "bg-orange-100 text-orange-600" : ""
+                        "text-gray-700 hover:bg-orange-50 hover:text-[#FC763A]",
+                        isActive ? "bg-orange-100 text-[#FC763A]" : ""
                       )
                     }
                   >
@@ -387,8 +387,8 @@ export default function Navbar() {
   }, [isOpen]);
 
   const linkBase =
-    "transition-colors duration-300 hover:text-orange-500";
-  const activeClass = "text-orange-500";
+    "transition-colors duration-300 hover:text-[#FC763A]";
+  const activeClass = "text-[#FC763A]";
 
   return (
     <header
@@ -476,7 +476,7 @@ export default function Navbar() {
               to="/contact"
               className={({ isActive }) =>
                 cn(
-                  "rounded-full bg-orange-500 px-5 py-2 text-white shadow-lg transition hover:bg-orange-600",
+                  "rounded-full bg-[#FC763A] px-5 py-2 text-white shadow-lg transition hover:bg-[#FC763A]",
                   isActive && "ring-2 ring-orange-300 ring-offset-2"
                 )
               }
@@ -489,7 +489,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen((o) => !o)}
             className={cn(
-              "relative text-gray-800 transition-all duration-300 hover:text-orange-500 md:hidden",
+              "relative text-gray-800 transition-all duration-300 hover:text-[#FC763A] md:hidden",
               isOpen ? "rotate-180" : "rotate-0"
             )}
             aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -535,9 +535,9 @@ export default function Navbar() {
             className="flex items-center gap-2"
             onClick={() => setIsOpen(false)}
           >
-            <Sun className="h-8 w-8 text-orange-600" />
+            <Sun className="h-8 w-8 text-[#FC763A]" />
             <h2 className="text-2xl font-extrabold text-gray-900">
-              True<span className="text-orange-600">Sun</span>
+              True<span className="text-[#FC763A]">Sun</span>
             </h2>
           </Link>
 
@@ -567,8 +567,8 @@ export default function Navbar() {
               className={({ isActive }) =>
                 cn(
                   "transform rounded-lg px-3 py-4 text-xl transition-all duration-300 ease-out",
-                  "text-gray-700 hover:bg-orange-50 hover:text-orange-600 hover:scale-105",
-                  isActive ? "bg-orange-100 text-orange-600" : "",
+                  "text-gray-700 hover:bg-orange-50 hover:text-[#FC763A] hover:scale-105",
+                  isActive ? "bg-orange-100 text-[#FC763A]" : "",
                   isOpen
                     ? "translate-x-0 opacity-100"
                     : "translate-x-4 opacity-0"
@@ -593,8 +593,8 @@ export default function Navbar() {
             to="/contact"
             onClick={() => setIsOpen(false)}
             className={cn(
-              "mt-6 w-full transform rounded-xl bg-orange-500 py-3 text-center text-lg text-white shadow-xl transition-all duration-300 ease-out",
-              "hover:bg-orange-600 hover:scale-105 focus:ring-4 focus:ring-orange-300",
+              "mt-6 w-full transform rounded-xl bg-[#FC763A] py-3 text-center text-lg text-white shadow-xl transition-all duration-300 ease-out",
+              "hover:bg-[#FC763A] hover:scale-105 focus:ring-4 focus:ring-orange-300",
               isOpen
                 ? "translate-y-0 opacity-100"
                 : "translate-y-4 opacity-0"

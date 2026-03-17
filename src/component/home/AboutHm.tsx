@@ -12,40 +12,31 @@ import {
     GaugeCircle,
     Globe2,
     Quote,
+    Wallet,
 } from "lucide-react";
 
 export default function AboutTrueSunNew() {
     return (
-        <section className="relative overflow-hidden bg-gray-50 pt-16 pb-20 sm:pt-20 sm:pb-24">
+        <section className="relative overflow-hidden bg-gray-50 pt-5 pb-20 sm:pt-10 sm:pb-24">
             {/* Subtle background texture/pattern */}
             <div
                 className="absolute inset-0 bg-[url('/img/solar-pattern.svg')] opacity-5 bg-size-[220px]"
                 aria-hidden="true"
             />
-
-            <div className="relative mx-auto max-w-7xl px-6 lg:px-8 space-y-16 lg:space-y-20">
+            <div className="relative mx-auto max-w-7xl px-6 lg:px-0 space-y-16 lg:space-y-10">
                 {/* === SECTION 1: CENTERED HEADLINE & VALUE PROPOSITION === */}
-                <div className="mx-auto max-w-5xl text-center">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-orange-400/90 px-8 py-2 text-sm font-semibold text-black ring-1 ring-amber-300">
+                <div className="mx-auto max-w-7xl text-center">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-[#FC763A] px-8 py-2 text-sm font-semibold text-black ring-1 ring-amber-300">
                         <Sun className="h-4 w-4 text-black" />
                         TrueSun Energy Solutions
                     </span>
 
-                    <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-                        Accelerating India&apos;s Energy Transition
+                    <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-[#686868] sm:text-5xl">
+                        Reliable Solar Energy <span className=" text-[#fc763a]">Solutions in India</span>
                     </h2>
 
-                    <p className="mx-auto mt-6 max-w-3xl text-xl text-gray-600">
-                        Headquartered in Mumbai, we deliver complete, future-ready solar
-                        solutions for enterprises and residents, guided by both{" "}
-                        <span className="font-semibold text-gray-900">
-                            technical excellence
-                        </span>{" "}
-                        and{" "}
-                        <span className="font-semibold text-gray-900">
-                            financial foresight
-                        </span>
-                        .
+                    <p className="mx-auto mt-6 max-w-7xl text-xl text-gray-600">
+                        TrueSun Energy Solutions is committed to accelerating India’s energy transition through future-ready solar systems. Backed by technical excellence, financial insight, and on-ground expertise, we design solutions that balance performance, savings, and sustainability.
                     </p>
 
                     {/* SDG Badges */}
@@ -67,7 +58,7 @@ export default function AboutTrueSunNew() {
                 {/* === SECTION 1B: BENEFITS GRID (3–4 COLS) === */}
                 <div className="mx-auto max-w-7xl">
                     <h3 className="text-center text-lg font-semibold text-gray-900 mb-6">
-                        Why Businesses & Homeowners Choose TrueSun
+                        Why Businesses & Homeowners Trust TrueSun
                     </h3>
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                         <BenefitItem
@@ -77,7 +68,7 @@ export default function AboutTrueSunNew() {
                         />
                         <BenefitItem
                             icon={<ShieldCheck className="h-5 w-5" />}
-                            title="25-Year Warranty"
+                            title="30-Year Warranty"
                             desc="Tier-1 modules and bankable components with long-term performance assurance."
                         />
                         <BenefitItem
@@ -93,81 +84,115 @@ export default function AboutTrueSunNew() {
                     </div>
                 </div>
 
-                {/* === SECTION 2: ROI CALCULATOR TEASER (HIGHER UP, INTERACTIVE ENTRY) === */}
+                {/* === SECTION: SOLAR SUBSIDY + ROI CALCULATOR === */}
                 <div
                     id="roi-calculator"
-                    className="mx-auto max-w-7xl rounded-2xl border border-amber-600/80 bg-linear-to-r from-amber-50 via-white to-orange-50 px-6 py-8 sm:px-10 sm:py-10 shadow-lg shadow-amber-100/70"
+                    className="mx-auto max-w-7xl rounded-2xl border border-[#FC763A]/80 bg-linear-to-r from-amber-50 via-white to-orange-50 px-6 py-6  shadow-lg shadow-amber-100/70"
                 >
                     <div className="grid gap-8 lg:grid-cols-3 lg:items-center">
+
+                        {/* LEFT CONTENT */}
                         <div className="lg:col-span-2">
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                                See Your Solar ROI Before You Install
+                                Solar Subsidy – PM Surya Ghar Yojana | Calculate Your Savings
                             </h3>
-                            <p className="text-gray-700 mb-4">
-                                Adjust your connected load, tariff, and rooftop area to
-                                instantly estimate payback period, monthly savings, and lifetime
-                                impact.
+
+                            <p className="text-gray-700 mb-2">
+                                The Government of India is promoting rooftop solar through the
+                                <strong> PM Surya Ghar Yojana</strong>, offering subsidies of up to
+                                <strong> ₹78,000 </strong> for residential solar systems. Use our solar
+                                calculator to estimate your monthly electricity savings, system cost
+                                after subsidy, and payback period before installing solar.
                             </p>
 
-                            {/* Simple “interactive” teaser stats */}
+                            {/* Teaser stats */}
                             <div className="grid gap-4 sm:grid-cols-3 text-sm">
+
                                 <MiniStat
-                                    label="Sample Monthly Bill"
-                                    value="₹18,000"
-                                    subtitle="Pre-solar baseline"
+                                    label="Government Subsidy"
+                                    value="Up to ₹78,000"
+                                    subtitle="PM Surya Ghar Yojana"
                                 />
+
                                 <MiniStat
-                                    label="Estimated Savings"
+                                    label="Estimated Monthly Savings"
                                     value="₹12,500"
-                                    subtitle="Every month with TrueSun*"
+                                    subtitle="Typical rooftop solar case"
                                 />
+
                                 <MiniStat
-                                    label="Payback Period"
-                                    value="3.8 Years"
-                                    subtitle="Typical SME rooftop case"
+                                    label="Average Payback"
+                                    value="3–4 Years"
+                                    subtitle="After subsidy benefits"
                                 />
+
                             </div>
 
-                            <p className="mt-3 text-xs text-gray-500">
-                                *Illustrative values. Use the full calculator for a project
-                                custom to your tariff and usage pattern.
+                            <p className="mt-2 text-xs text-gray-500">
+                                Subsidy applicable only for residential rooftop solar systems under
+                                PM Surya Ghar Yojana. Final savings depend on electricity tariff,
+                                rooftop size, and solar system capacity.
                             </p>
                         </div>
 
-                     
+                        {/* RIGHT IMAGE */}
+                        <div className="flex justify-center lg:justify-end">
+                            <img
+                                src="https://bluebirdsolar.com/cdn/shop/articles/pmsuryaghar_min_2cbc91e5-36c6-412b-ba27-382f31968c4a.jpg?v=1761653009"
+                                alt="Solar Subsidy PM Surya Ghar Yojana"
+                                className="w-full max-w-lg rounded-xl shadow-md"
+                            />
+                        </div>
+
                     </div>
                 </div>
 
-                {/* === SECTION 3: CORE PILLARS (3-Column Layout) === */}
-                <div className="mt-2 grid gap-8 md:grid-cols-3">
+                <div className="mt-2 grid gap-8 md:grid-cols-4">
                     <PillarCard
+                        image="https://sahajsolar.com/wp-content/uploads/2025/08/roof-topp-1.jpg"
                         Icon={Factory}
                         title="End-to-End Rooftop EPC"
-                        desc="Design, procurement, installation, and commissioning of robust solar systems tailored to your site."
+                        desc="A complete rooftop solar EPC solution delivering reliable, site-specific installations built to last."
                         features={[
                             "Industrial & Commercial Rooftops",
                             "Residential & Societies",
                             "Quality-Checked Components",
                         ]}
                     />
+
                     <PillarCard
+                        image="https://news-images.dhan.co/waaree-renewable-technologies-secures-704-mwac-solar-project-worth-10-40-billion.jpg"
                         Icon={Handshake}
-                        title="Strategic Solar Consultancy"
-                        desc="We act as your owner’s engineer, ensuring technical, commercial, and contractual clarity."
+                        title="O&M"
+                        desc="Strategic solar consultancy, Industrial solar project consulting, Solar project consultancy"
                         features={[
                             "Project Management Consulting",
                             "Technology & Vendor Audits",
                             "Detailed Payback Modeling",
                         ]}
                     />
+
                     <PillarCard
+                        image="https://synergysolar.in/wp-content/uploads/2026/01/Carbon-Credit-for-Solar-Farm-1080x400.webp"
                         Icon={DollarSign}
-                        title="Carbon & Finance Advisory"
-                        desc="Unlock the full value of your solar investment with structured finance and carbon strategy."
+                        title="Sustainability & Carbon Credit Advisory"
+                        desc="TrueSun’s carbon and finance advisory services help organizations unlock greater value from solar investments."
                         features={[
                             "Carbon Footprinting & Reporting",
                             "Carbon Credit Value Assessment",
                             "Optimal Finance Structuring",
+                        ]}
+                    />
+
+                    <PillarCard
+                        image="https://img-cdn.publive.online/fit-in/640x430/filters:format(webp)/saur-energy/media/post_attachments/2024/02/financing-for-solar.jpg"
+                        Icon={Wallet}
+                        title="Solar Finance"
+                        desc="Tie ups with leading Financial Institutions to provide seamless financing options for your solar rooftop projets"
+                        features={[
+                            "Low or Zero upfront cost",
+                            "EMI/Flexible Financing options",
+                            "OPEX/RESCO Models",
                         ]}
                     />
                 </div>
@@ -175,61 +200,47 @@ export default function AboutTrueSunNew() {
 
 
                 {/* === SECTION 5: STORYTELLING BLOCK — TESTIMONIALS / CASE STUDIES === */}
-                <div
-                    id="case-studies"
-                    className="mt-4 grid gap-10 lg:grid-cols-2 items-start"
-                >
-                    {/* Story / Overview */}
-                    <div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                            From Rising Bills to Predictable Savings
+                <div id="case-studies" className="mt-12 grid gap-8 lg:grid-cols-12 items-stretch">
+
+                    {/* Left Column: Story (Occupies 5 columns) */}
+                    <div className="lg:col-span-5 flex flex-col justify-center bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                        <span className="text-[#fc763a] font-semibold tracking-wider uppercase text-sm mb-4 block">
+                            Success Stories
+                        </span>
+                        <h3 className="text-3xl md:text-4xl font-extrabold text-[#686868] mb-6 leading-tight">
+                            From Rising Bills to <span className="text-[#fc763a]">Predictable Savings</span>
                         </h3>
-                        <p className="text-gray-700 mb-4">
-                            Every rooftop has a story. For some, it&apos;s about keeping
-                            production lines running without fear of outages. For others,
-                            it&apos;s about taking the first real step toward a net-zero
-                            future. TrueSun combines engineering depth with on-ground
-                            understanding to make each story a success case.
+                        <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                            Every rooftop has a unique energy story. At TrueSun, we combine engineering precision with ground-level execution to turn your roof into a strategic asset.
                         </p>
-                        <p className="text-gray-700">
-                            Our team works closely with facility heads, finance teams, and
-                            founders — ensuring that solar is not just installed, but
-                            integrated into the way your business operates and grows.
-                        </p>
+                        <div className="flex gap-4 items-center">
+                            <button className="bg-gray-900 text-white px-6 py-3 rounded-full font-medium hover:bg-[#fc763a] transition-all">
+                                View All Projects
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Testimonials */}
-                    <div className="grid gap-6">
+                    {/* Right Column: Testimonials (Occupies 7 columns) */}
+                    <div className="lg:col-span-7 grid gap-6">
+                        <div className="relative group">
+                            {/* Decorative background element */}
+                            <div className="absolute -inset-1 bg-[#FC763A]  rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                            <TestimonialCard
+                                className="relative bg-white border-none shadow-sm p-8"
+                                sector="Industrial Manufacturing, Navi Mumbai"
+                                quote="With TrueSun, our rooftop became a profit center. Payback happened faster than projected..."
+                                name="Plant Head, MSME Unit"
+                            />
+                        </div>
+
                         <TestimonialCard
-                            sector="Industrial Manufacturing, Navi Mumbai"
-                            quote="With TrueSun, our rooftop became a profit center. Payback happened faster than projected, and the monthly savings are now funding other upgrades."
-                            name="Plant Head, MSME Unit"
-                        />
-                        <TestimonialCard
+                            className="bg-white border border-gray-100 shadow-sm p-8"
                             sector="Premium Housing Society, Pune"
-                            quote="TrueSun guided us through every step — technical, financial, and regulatory. Now our residents enjoy lower maintenance costs and climate-positive living."
+                            quote="TrueSun guided us through every step — technical, financial, and regulatory..."
                             name="Society Treasurer"
                         />
                     </div>
                 </div>
-
-                {/* === SECTION 6: VISUAL MAP — COVERAGE ACROSS 38+ CITIES === */}
-                <div className="mt-6">
-                    <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
-                        
-
-                        <div className="w-full">
-                            <div className="relative overflow-hidden rounded-2xl  border border-gray-300 bg-white shadow-xl ">
-                                <div className="absolute inset-0   pointer-events-none" />
-                                    {/* Replace this with an actual SVG/Map component */}
-                                    <div className="flex flex-col items-center justify-center gap-2 text-gray-700">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242887.29817480632!2d72.71412895724377!3d19.082806702154134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e1!3m2!1sen!2sin!4v1763097485458!5m2!1sen!2sin" className="w-full h-80"   loading="lazy" ></iframe>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
         </section>
@@ -263,45 +274,65 @@ function SDGPill({
     );
 }
 
-function PillarCard({
+type PillarCardProps = {
+    Icon: any;
+    title: string;
+    desc: string;
+    features: string[];
+    image: string;
+};
+
+export function PillarCard({
     Icon,
     title,
     desc,
     features,
-}: {
-    Icon: React.ElementType;
-    title: string;
-    desc: string;
-    features: string[];
-}) {
+    image,
+}: PillarCardProps) {
     return (
-        <div className="group flex flex-col rounded-xl border border-gray-900/50 bg-orange-100/30 hover:bg-orange-500/15 p-6 text-left shadow-md shadow-black/10 transition duration-300 hover:shadow-xl hover:border-black/10 hover:scale-[1.02]">
-            <div className="mb-2 flex items-center gap-3">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 group-hover:bg-amber-200 transition duration-300">
-                    <Icon className="h-6 w-6 text-amber-500" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-900">{title}</h3>
-            </div>
-            <p className="mt-1 text-sm text-gray-700">{desc}</p>
+        <div className="group perspective h-80 w-full">
 
-            <ul className="mt-4 space-y-2 text-sm text-gray-800 border-t border-gray-300/70 pt-3">
-                {features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                        <svg
-                            className="h-5 w-5 shrink-0 text-amber-500 mr-2 mt-0.5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                        {feature}
-                    </li>
-                ))}
-            </ul>
+            <div className="relative h-full w-full transition-transform duration-700 transform-3d group-hover:transform-[rotateY(180deg)]">
+
+                {/* FRONT */}
+                {/* BACK */}
+
+                <div className="absolute inset-0 rounded-2xl backface-hidden ">
+
+                    <img
+                        src={image}
+                        alt={title}
+                        className="h-full w-full rounded-2xl object-cover"
+                    />
+
+                    <div className="absolute inset-0 rounded-2xl bg-black/70 flex items-center justify-center">
+                        <h4 className="text-[#FC763A] text-xl font-semibold text-center px-6">
+                            {title}
+                        </h4>
+                    </div>
+
+                </div>
+                <div className="absolute inset-0 rounded-xl bg-white shadow-md p-6  overflow-hidden transform-[rotateY(180deg)] backface-hidden">
+
+                    <Icon className="h-10 w-10 text-[#FC763A] mb-4" />
+
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                        {title}
+                    </h4>
+
+                    <p className="text-sm text-gray-600 mb-4">{desc}</p>
+
+                    <ul className="text-sm text-gray-700 space-y-1">
+                        {features.map((f, i) => (
+                            <li key={i}>• {f}</li>
+                        ))}
+                    </ul>
+
+                </div>
+
+
+
+            </div>
         </div>
     );
 }
@@ -339,7 +370,7 @@ function MiniStat({
 }) {
     return (
         <div className="rounded-xl bg-white/80 px-4 py-3 shadow-sm border border-amber-400">
-            <p className="text-[11px] font-medium uppercase tracking-wide text-amber-600">
+            <p className="text-[11px] font-medium uppercase tracking-wide text-[#FC763A]">
                 {label}
             </p>
             <p className="mt-1 text-base font-semibold text-gray-900">{value}</p>
@@ -349,18 +380,20 @@ function MiniStat({
 }
 
 function TestimonialCard({
+    className = "",
     sector,
     quote,
     name,
 }: {
+    className?: string;
     sector: string;
     quote: string;
     name: string;
 }) {
     return (
-        <div className="relative rounded-2xl border border-gray-600/40 bg-white px-5 py-5 shadow-sm">
-            <Quote className="absolute -top-4 -left-2 h-8 w-8 text-amber-300" />
-            <p className="text-xs font-semibold uppercase tracking-wide text-amber-600 mb-1">
+        <div className={`relative rounded-2xl border border-gray-600/40 bg-white px-5 py-5 shadow-sm ${className}`}>
+            <Quote className="absolute -top-4 -left-2 h-8 w-8 text-[#FC763A]" />
+            <p className="text-xs font-semibold uppercase tracking-wide text-[#FC763A] mb-1">
                 {sector}
             </p>
             <p className="text-sm text-gray-800 italic leading-relaxed">“{quote}”</p>
@@ -368,5 +401,3 @@ function TestimonialCard({
         </div>
     );
 }
-
-

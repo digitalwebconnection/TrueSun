@@ -142,7 +142,7 @@ export default function ServicesPage() {
      {/* ===== SIMPLE PROCESS SECTION – TIMELINE STYLE ===== */}
 <section className="relative overflow-hidden rounded-3xl  p-4 md:p-6 space-y-8">
   {/* subtle glow */}
-  <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-orange-500/10 blur-3xl" />
+  <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-[#FC763A]/10 blur-3xl" />
   <div className="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
 
   <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -236,7 +236,7 @@ function ServiceCard({
           <ul className="space-y-1 text-xs text-slate-600">
             {points.map((item) => (
               <li key={item} className="flex items-start gap-1.5">
-                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-orange-500" />
+                <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#FC763A]" />
                 <span>{item}</span>
               </li>
             ))}
@@ -245,7 +245,7 @@ function ServiceCard({
 
         <Link
           to={link}
-          className="inline-flex items-center gap-2 text-sm font-medium text-orange-600 hover:text-orange-700 transition"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[#FC763A] hover:text-orange-700 transition"
         >
           View Details
           <ChevronRight className="h-4 w-4" />
@@ -310,7 +310,7 @@ function SegmentStep({
       {/* timeline dot */}
       <div className="relative mt-1 hidden md:block">
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-black/1    0 border border-orange-300/60">
-          <span className="text-[10px] text-orange-600">
+          <span className="text-[10px] text-[#FC763A]">
             {icon}
           </span>
         </div>

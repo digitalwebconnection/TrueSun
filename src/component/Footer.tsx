@@ -16,6 +16,12 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ React Router import
 import logo from '../assets/truesun.png';
+import { PiPinterestLogo } from "react-icons/pi";
+import { FaXTwitter } from "react-icons/fa6";
+
+
+
+
 export default function SolarFooter() {
     return (
         <footer className="relative mt-10  bg-white text-neutral-100">
@@ -126,22 +132,20 @@ export default function SolarFooter() {
                             <div className="grid gap-2 text-sm text-neutral-300">
                                 <p className="inline-flex items-start gap-2">
                                     <a
-                                        href="https://www.google.com/maps?q=Birla+Centurion,+Wing+B,+3rd+Floor,+Pandurang+Budhkar+Marg,+Century+Mills,+Worli,+Mumbai,+Maharashtra+400030"
+                                        href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.1904036441724!2d72.82662711027224!3d18.998760554319407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf494fee7d19%3A0xd15155d3f91eaee3!2sTrueSun%20Energy%20Solutions%20Private%20Limited!5e1!3m2!1sen!2sin!4v1773644125171!5m2!1sen!2sin"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-start gap-2 hover:text-orange-500"
+                                        className="flex items-start gap-2 hover:text-[#FC763A]"
                                     >
-                                        <MapPin className="mt-0.5 h-4 w-4" />
-                                        Birla Centurion, Wing - B, 3rd Floor,
-                                        Pandurang Budhkar Marg, Century Mills,
-                                        Worli, Mumbai, Maharashtra 400030
+                                        <MapPin className="mt-0.5 h-12 w-12  py-4" />
+                                        8th floor,  B-Wing, Peninsula Business Park, Senapati Bapat Marg, Ganapatrao Kadam Marg, Parel, Mumbai, Maharashtra 400013
                                     </a>
                                 </p>
 
                                 <p className="inline-flex items-start gap-2">
                                     <a
                                         href="tel:+918850845149"
-                                        className="flex items-start gap-2 hover:text-orange-500"
+                                        className="flex items-start gap-2 hover:text-[#FC763A]"
                                     >
                                         <Phone className="mt-0.5 h-4 w-4" /> +91 88508 45149
                                     </a>
@@ -150,26 +154,33 @@ export default function SolarFooter() {
                                 <p className="inline-flex items-start gap-2">
                                     <a
                                         href="mailto:info@truesun.in"
-                                        className="flex items-start gap-2 hover:text-orange-500"
+                                        className="flex items-start gap-2 hover:text-[#FC763A]"
                                     >
                                         <Mail className="mt-0.5 h-4 w-4" /> info@truesun.in
                                     </a>
                                 </p>
 
                             </div>
-                            <div className="mt-4 flex items-center gap-3 text-neutral-500">
+                            <div className="mt-4 flex items-center gap-2 hover:text-[#fc763a]">
                                 <Social href="#" label="Facebook">
-                                    <Facebook className="h-4 w-4" />
+                                    <Facebook className="h-4 w-4 m-1" />
                                 </Social>
                                 <Social href="#" label="Instagram">
-                                    <Instagram className="h-4 w-4" />
+                                    <Instagram className="h-4 w-4 m-1" />
                                 </Social>
                                 <Social href="#" label="LinkedIn">
-                                    <Linkedin className="h-4 w-4" />
+                                    <Linkedin className="h-4 w-4 m-1" />
                                 </Social>
                                 <Social href="#" label="YouTube">
-                                    <Youtube className="h-4 w-4" />
+                                    <Youtube className="h-4 w-4 m-1" />
                                 </Social>
+                                <Social href="#" label="Faxtwitter">
+                                    <FaXTwitter className="h-4 w-4 m-1" />
+                                </Social>
+                                <Social href="#" label="Pilnterest">
+                                    <PiPinterestLogo className="h-4 w-4 m-1" />
+                                </Social>
+
                             </div>
 
                         </div>
@@ -187,11 +198,11 @@ export default function SolarFooter() {
 
                     {/* Bottom bar */}
                     <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm  border-white/10 text-neutral-400 md:flex-row">
-                        <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-orange-600"> TrueSun</span>. All rights reserved.</p>
+                        <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-[#FC763A]"> TrueSun</span>. All rights reserved.</p>
                         <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 ms-3 md:ms-0   text-white text-[13px] md:text-sm">
-                            <Code2 className="w-6 h-6 text-orange-600" />
+                            <Code2 className="w-6 h-6 text-[#FC763A]" />
                             <p>
-                                Developed by <a href="https://digitalwebconnection.com/" target="_blank" className="text-orange-600 font-semibold">Digital Web Connection</a>
+                                Developed by <a href="https://digitalwebconnection.com/" target="_blank" className="text-[#FC763A] font-semibold">Digital Web Connection</a>
                             </p>
 
                         </p>

@@ -27,7 +27,7 @@ const TruesunSolarFinanceHero: React.FC = () => {
       </div>
 
       {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-black/50" />
+      {/* <div className="absolute inset-0 bg-black/20" /> */}
 
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-6 pt-16 pb-5 lg:flex-row lg:items-center lg:pt-24">
         {/* LEFT SIDE CONTENT */}

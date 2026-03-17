@@ -1,6 +1,6 @@
 import React from "react";
 // Assuming you have Lucide icons installed (npm install lucide-react)
-import { Zap, Sun, Award, Handshake, MapPin, Briefcase, Clock, HardHat, FileText, Phone, CheckCircle, Mail,  Users } from "lucide-react";
+import { Zap, Sun, Award, Handshake, MapPin, Briefcase, Clock, HardHat, FileText, Phone, CheckCircle, Mail, Users } from "lucide-react";
 
 // --- Design Constants ---
 const brandBlue = "#031E6C";
@@ -51,45 +51,40 @@ const values = [
 
 const openings = [
   {
-    title: "Solar Design Engineer",
-    location: "Ahmedabad, Gujarat",
+    title: "Solar Site & Design Engineer ",
+    location: "Mumbai (site travel required)",
     type: "Full-time · On-site",
-    experience: "2–4 years",
+    experience: "3+ years",
     summary:
-      "Handle rooftop and small utility-scale solar plant designs using tools like PVsyst, AutoCAD, and Helioscope.",
+      "The Operations Engineer will manage end-to-end execution of rooftop solar projects post order closure, including procurement, site execution, commissioning, handover, and basic O&M coordination. The role requires strong site coordination, execution discipline, and ownership mindset.",
+
     points: [
-      "Prepare technical feasibility reports & layouts",
-      "Coordinate with sales & site teams for accurate designs",
-      "Optimize generation, structure, and cost for each project",
+      "Strong with AutoCAD and Sketchup for solar rooftop designing",
+      "Conduct engineering site survey to collect structural, electrical, and related site information design of solar power systems. ",
+      "Able to check site feasibility and provide the best suitable options",
+      "Designing of arrangements of the solar panels, other various supported Electrical equipment’s & selection of cables for plant including layouts & schematic diagrams and calculation of technical Sizing, BOQ/BOM. ",
+      "Supervise End to end execution and AMC / Service Support ",
+      "Have worked on solar design software like Helioscope etc",
+      "Able to prepare SLD and electrical layouts for proposed plant",
+      "Provide technical direction or support to installation teams during installation, start-up, testing, system commissioning, or performance monitoring. ",
+      "Providing general Operation and maintenance training to customer representative after handover of project. ",
+      "Document submission/approvals regarding Project liasoning process with power utility company (MSEDCL,Adani TATA etc.) ",
+      "Prepare proposals and follow up with clients",
+      "Provide details on latest price and technology for designing the proposal"
     ],
-  },
-  {
-    title: "Solar Sales Executive (Rooftop)",
-    location: "Ahmedabad / Nearby Cities",
-    type: "Full-time · Field + Office",
-    experience: "1–3 years",
-    summary:
-      "Generate and close residential and small commercial solar leads, conduct site visits, and maintain strong client relationships.",
-    points: [
-      "Meet homeowners, business owners, and societies for solar proposals",
-      "Explain subsidies, ROI, and technical basics in simple language",
-      "Coordinate with design & execution teams for smooth handovers",
+
+    skills: [
+      "Excellent written and oral communication skill – English, Hindi and Marathi",
+      "Must have undertaken site visits, designed and executed solar rooftop projects",
+      "Must have alteast 3 years of experience in solar rooftop sector",
+      "Own vehicle for commuting ",
+    
     ],
-  },
-  {
-    title: "Project Site Engineer",
-    location: "Multiple project locations",
-    type: "Full-time · On-site",
-    experience: "1–3 years",
-    summary:
-      "Lead on-ground execution of solar projects, coordinating installation teams, vendors, and quality checks.",
-    points: [
-      "Supervise installation teams and ensure adherence to drawings",
-      "Maintain site reports, photos, and daily work logs",
-      "Ensure safety practices are followed at every site",
-    ],
+
+   
   },
 ];
+
 
 const steps = [
   {
@@ -146,7 +141,7 @@ const CareerWithTruesun: React.FC = () => {
                 className="flex flex-col gap-3 rounded-2xl bg-white p-6 shadow-xl transition duration-300 shadow-black/30 hover:shadow-2xl hover:scale-[1.02] ring-2 ring-slate-600/40"
               >
                 <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-slate-800 shadow-inner" style={{ color: brandBlue, backgroundColor: brandYellow + "20" }}>
-                    {perk.icon}
+                  {perk.icon}
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 pt-1">
                   {perk.title}
@@ -181,7 +176,7 @@ const CareerWithTruesun: React.FC = () => {
                 className="flex flex-col gap-3 rounded-xl bg-white/30 p-5 ring-1 ring-white/10 backdrop-blur-sm transition hover:bg-white/10"
               >
                 <div className="h-8 w-8 text-center" style={{ color: brandYellow }}>
-                    {val.icon}
+                  {val.icon}
                 </div>
                 <h3 className="text-base font-bold text-white pt-1">
                   {val.title}
@@ -201,7 +196,9 @@ const CareerWithTruesun: React.FC = () => {
         className="py-8 sm:py-10"
         style={{ backgroundColor: brandLight }}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
+
+          {/* Header */}
           <div className="mb-10 text-center">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
               Current Opportunities
@@ -210,52 +207,83 @@ const CareerWithTruesun: React.FC = () => {
               Join Our Team
             </h2>
             <p className="mt-3 max-w-2xl mx-auto text-sm text-slate-600">
-                Don&apos;t see a perfect role? Send your profile to <span className="font-semibold text-slate-800">careers@truesun.in</span> for future consideration.
+              Don&apos;t see a perfect role? Send your profile to{" "}
+              <span className="font-semibold text-slate-800">
+                info@truesun.in
+              </span>{" "}
+              for future consideration.
             </p>
           </div>
 
+          {/* Job Cards */}
           <div className="space-y-6">
             {openings.map((job) => (
               <div
                 key={job.title}
-                className="flex flex-col gap-5 rounded-2xl border border-slate-800/40 shadow-blac/30 bg-white p-6 shadow-xl transition duration-300 hover:shadow-2xl md:flex-row md:items-center md:justify-between"
+                className="flex flex-col gap-5 rounded-2xl border border-slate-800/40 bg-white p-6 shadow-xl transition duration-300 hover:shadow-2xl"
               >
-                <div className="max-w-xl">
-                  <h3 className="text-xl font-bold text-slate-900">
+                <div className="max-w-5xl">
+                  <h3 className="text-2xl font-bold text-[#FC763A]">
                     {job.title}
                   </h3>
-                  
+
                   {/* Job Tags */}
                   <div className="mt-2 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
                     <span className="flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1 ring-1 ring-slate-200">
-                      <MapPin className="h-3 w-3 text-slate-500" /> {job.location}
+                      <MapPin className="h-3 w-3" /> {job.location}
                     </span>
                     <span className="flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1 ring-1 ring-slate-200">
-                      <Briefcase className="h-3 w-3 text-slate-500" /> {job.type}
+                      <Briefcase className="h-3 w-3" /> {job.type}
                     </span>
                     <span className="flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1 ring-1 ring-slate-200">
-                      <Clock className="h-3 w-3 text-slate-500" /> Exp: {job.experience}
+                      <Clock className="h-3 w-3" /> Exp: {job.experience}
                     </span>
                   </div>
 
-                  <p className="mt-4 text-sm text-slate-700 font-medium">
+                  {/* Summary */}
+                  <p className="mt-4 text-sm font-medium text-slate-700">
                     {job.summary}
                   </p>
-                  <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-slate-600">
+
+                  {/* Responsibilities */}
+                  <h4 className="mt-4 text-sm font-semibold text-slate-900">
+                    Key Responsibilities
+                  </h4>
+                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
                     {job.points.map((p) => (
                       <li key={p}>{p}</li>
                     ))}
                   </ul>
+
+                  {/* Skills */}
+                  <h4 className="mt-4 text-sm font-semibold text-slate-900">
+                    Requirements 
+                  </h4>
+                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+                    {job.skills.map((skill) => (
+                      <li key={skill}>{skill}</li>
+                    ))}
+                  </ul>
                 </div>
 
-                <div className="flex w-full flex-col items-start gap-3 md:w-56 md:items-end">
-                  <a 
-                    href={`mailto:careers@truesun.in?subject=Application - ${job.title} - TrueSun`}
-                    className="w-full rounded-full bg-slate-800 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-slate-700 md:w-auto"
+                {/* Apply Section */}
+                <div className="flex flex-col items-start gap-3">
+                  <p className="text-sm text-slate-600">
+                    To apply for this role, click the button below. Your application
+                    will be sent via email to{" "}
+                    <span className="font-semibold text-slate-800">
+                      info@truesun.in
+                    </span> 
+                  </p>
+
+                  <a
+                    href={`mailto:info@truesun.in?subject=Application - ${job.title} - TrueSun`}
+                    className="rounded-full bg-gray-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-slate-700"
                   >
                     Apply for this role
                   </a>
-                  <p className="text-xs text-slate-500 md:text-right">
+
+                  <p className="text-xs text-slate-500">
                     We will review your application within 5 working days.
                   </p>
                 </div>
@@ -264,8 +292,7 @@ const CareerWithTruesun: React.FC = () => {
           </div>
         </div>
       </section>
-      
-      <hr className="mx-auto max-w-7xl border-slate-800" />
+
 
       {/* ===== HIRING PROCESS ===== */}
       <section className="py-8 sm:py-10">
@@ -282,7 +309,7 @@ const CareerWithTruesun: React.FC = () => {
           <div className="relative grid gap-8 md:grid-cols-4">
             {/* The vertical connector line for desktop */}
             <div className="absolute top-0 bottom-0 left-0 hidden w-full md:block">
-                <div className="h-1 w-full absolute top-12 left-0 right-0" style={{ backgroundColor: brandYellow + "80" }} />
+              <div className="h-1 w-full absolute top-12 left-0 right-0" style={{ backgroundColor: brandYellow + "80" }} />
             </div>
 
             {steps.map((s) => (
@@ -291,13 +318,13 @@ const CareerWithTruesun: React.FC = () => {
                 className="relative flex flex-col gap-2 rounded-2xl bg-white p-5 pt-10 shadow-lg ring-1 ring-slate-600/40 md:pt-16"
               >
                 {/* Step Circle with Icon */}
-                <div 
-                    className="absolute -top-3 left-1/2 -translate-x-1/2 md:-top-6 md:left-auto md:translate-x-0 h-10 w-10 md:h-12 md:w-12 rounded-full flex items-center justify-center border-4 z-10" 
-                    style={{ borderColor: brandYellow, backgroundColor: brandLight }}
+                <div
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 md:-top-6 md:left-auto md:translate-x-0 h-10 w-10 md:h-12 md:w-12 rounded-full flex items-center justify-center border-4 z-10"
+                  style={{ borderColor: brandYellow, backgroundColor: brandLight }}
                 >
-                    {s.icon}
+                  {s.icon}
                 </div>
-                
+
                 {/* Step Number Badge */}
                 <p
                   className="text-xs font-bold tracking-[0.16em] absolute top-2 right-4 rounded-full px-2 py-0.5"
@@ -305,7 +332,7 @@ const CareerWithTruesun: React.FC = () => {
                 >
                   STEP {s.step}
                 </p>
-                
+
                 <h3 className="text-lg font-bold text-slate-900 mt-2">
                   {s.title}
                 </h3>

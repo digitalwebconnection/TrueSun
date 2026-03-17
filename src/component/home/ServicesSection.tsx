@@ -17,39 +17,25 @@ const DEFAULT_PALETTE = {
 const SERVICES = [
   {
     title: "Residential Rooftop Systems",
-    desc: "High-efficiency DCR/Mono-PERC panels with design, net-metering, and quick installation.",
+    desc: "High-performance residential rooftop solar systems designed for faster installation, consistent power generation, and long-term household savings.",
     icon: Home,
   },
   {
     title: "Commercial Rooftop Projects",
-    desc: "MW-ready engineering for offices, malls, and warehouses—optimized for ROI and uptime.",
+    desc: "Scalable commercial rooftop solar projects engineered to deliver strong ROI, energy stability, and reduced operating costs for businesses.",
     icon: Building2,
   },
   {
     title: "Industrial & MW Solutions",
-    desc: "Robust arrays with advanced protections, string design, and SCADA-ready monitoring.",
+    desc: "MW-scale solar solutions built for industrial environments, focusing on efficiency, reliability, and long-term operational performance.",
     icon: Gauge,
   },
-{
+  {
     title: "Govt. Subsidy Assistance",
-    desc: "Eligibility checks, documentation, and claim support for central/state incentive schemes.",
+    desc: "Complete subsidy assistance from documentation to approval ensuring smooth access to central and state solar incentive schemes.",
     icon: Landmark,
   },
-  // {
-  //   title: "O&M, Cleaning & Monitoring",
-  //   desc: "Preventive maintenance, performance audits, IV-curve testing, and remote dashboards.",
-  //   icon: Wrench,
-  // },
-  // {
-  //   title: "Net-Metering & Approvals",
-  //   desc: "End-to-end DISCOM liaison, feasibility, meter installation, and commissioning paperwork.",
-  //   icon: FileCheck,
-  // },
-  // {
-  //   title: "Govt. Subsidy Assistance",
-  //   desc: "Eligibility checks, documentation, and claim support for central/state incentive schemes.",
-  //   icon: Landmark,
-  // },
+
 ];
 
 const fadeUp = {
@@ -64,7 +50,7 @@ const fadeUp = {
 export default function ServicesSection({
   palette = DEFAULT_PALETTE,
   title = "Our Solar Services",
-  subtitle = "Empowering homes and businesses with clean, renewable energy.",
+  subtitle = "Complete Solar Solutions for Homes, Businesses & Industries",
 }) {
   const { primary, accent, dark } = palette;
 
@@ -73,7 +59,7 @@ export default function ServicesSection({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center">
-     
+
           <h2
             className="mt-3 text-3xl md:text-5xl font-bold tracking-tight"
             style={{ color: dark }}

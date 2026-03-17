@@ -113,14 +113,14 @@ export default function SolarBlogPage() {
   </div>
 
   {/* Subtle corner glow */}
-  <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-orange-500/15 blur-3xl" />
+  <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#FC763A]/15 blur-3xl" />
   <div className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
 
   {/* Content */}
   <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between py-12 md:py-0">
     <div className="space-y-4 max-w-xl">
       <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-1 text-[11px] font-medium tracking-[0.18em] uppercase text-slate-300 backdrop-blur-sm">
-        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-orange-500/20">
+        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#FC763A]/20">
           <SunMedium className="h-3 w-3" />
         </span>
         Solar Knowledge Hub
@@ -169,7 +169,7 @@ export default function SolarBlogPage() {
       </div>
 
       {/* subtle glow behind card */}
-      <div className="pointer-events-none absolute -right-10 -bottom-10 h-32 w-32 rounded-full bg-orange-500/25 blur-3xl" />
+      <div className="pointer-events-none absolute -right-10 -bottom-10 h-32 w-32 rounded-full bg-[#FC763A]/25 blur-3xl" />
     </div>
   </div>
 </section>
@@ -206,7 +206,7 @@ export default function SolarBlogPage() {
                                     type="button"
                                     onClick={() => setActiveCategory(cat)}
                                     className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs md:text-[13px] transition-all ${isActive
-                                            ? "border-orange-500 bg-orange-50 text-orange-700"
+                                            ? "border-[#FC763A] bg-orange-50 text-orange-700"
                                             : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                                         }`}
                                 >
@@ -261,7 +261,7 @@ export default function SolarBlogPage() {
                                     <div className="mt-auto pt-1">
                                         <Link
                                             to={`/blog/${post.id}`}
-                                            className="inline-flex items-center gap-1 text-xs font-semibold text-orange-600 hover:text-orange-700"
+                                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#FC763A] hover:text-orange-700"
                                         >
                                             Read article
                                             <ArrowRight className="h-3.5 w-3.5" />

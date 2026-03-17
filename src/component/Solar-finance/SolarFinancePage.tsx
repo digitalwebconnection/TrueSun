@@ -202,7 +202,7 @@ function EmiCalculatorMini({
         </div>
 
         <div className="mt-3 flex gap-2">
-          <button onClick={onBook} className="flex-1 rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white shadow">
+          <button onClick={onBook} className="flex-1 rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white shadow">
             Book a Free Finance Call
           </button>
           <a href="#learn-more" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-slate-700">
@@ -237,7 +237,7 @@ export default function SolarFinancePage() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-5 py-2 text-sm font-semibold text-white shadow">
+              <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-5 py-2 text-sm font-semibold text-white shadow">
                 Talk to a finance expert
               </button>
               <a href="#options" className="rounded-full border px-5 py-2 text-sm font-medium text-slate-700">
@@ -289,7 +289,7 @@ export default function SolarFinancePage() {
               </ul>
 
               <div className="mt-4 flex items-center gap-3">
-                <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
+                <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
                   Get started
                 </button>
                 <a href="#learn-more" className="text-sm font-medium text-slate-700">How it works</a>
@@ -386,7 +386,7 @@ export default function SolarFinancePage() {
             <h4 className="text-sm font-semibold text-slate-900">Ready to start?</h4>
             <p className="mt-2 text-sm text-slate-700">Share a few details and we’ll call you with a clear plan and numbers.</p>
             <div className="mt-4 flex gap-2">
-              <button onClick={() => setOpenLeadPopup(true)} className="flex-1 rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
+              <button onClick={() => setOpenLeadPopup(true)} className="flex-1 rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
                 Book a free consult
               </button>
               <a href="#calculator" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-slate-700">
@@ -403,7 +403,7 @@ export default function SolarFinancePage() {
           <h3 className="text-xl font-bold text-slate-900">Finance that actually helps you save</h3>
           <p className="mt-2 text-slate-700">We’ll match you with the right partner and show exact EMI with zero obligations.</p>
           <div className="mt-4 flex justify-center gap-3">
-            <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FF8A3C] to-[#FFB347] px-6 py-2 text-sm font-semibold text-white">
+            <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-6 py-2 text-sm font-semibold text-white">
               Talk to finance expert
             </button>
             <a href="#learn-more" className="rounded-full border px-6 py-2 text-sm font-medium text-slate-700">Download brochure</a>

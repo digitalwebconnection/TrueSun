@@ -4,8 +4,8 @@ import ContactHero from "./ContactUsHero"
 const ContactUsMain = () => {
   return (
     <>
-      <ContactHero/>
-<ContactPage/>
+      <ContactHero />
+      <ContactPage />
     </>
   )
 }

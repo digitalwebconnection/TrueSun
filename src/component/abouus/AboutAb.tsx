@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useScroll, useTransform, useInView, useMotionValue, animate } from "framer-motion";
+import { motion, useScroll, useTransform} from "framer-motion";
+
 import type { MotionProps, Variants, Easing } from "framer-motion";
 import { Sun, Zap, Leaf, Users, Award, CheckCircle , ShieldCheck, GaugeCircle, Sparkles } from "lucide-react";
-import React from "react";
+
 
 // ---------------------------
 // Motion Setup & Keyframes
@@ -33,17 +34,17 @@ const floatIn: Variants = {
 };
 
 // Subtle continuous floating motion for timeline/stats
-const float: Variants = {
-  initial: { y: 0 },
-  animate: {
-    y: ["-2px", "2px", "-2px"],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-};
+// const float: Variants = {
+//   initial: { y: 0 },
+//   animate: {
+//     y: ["-2px", "2px", "-2px"],
+//     transition: {
+//       duration: 3,
+//       repeat: Infinity,
+//       ease: "easeInOut",
+//     },
+//   },
+// };
 
 const boxTilt: MotionProps = {
   whileHover: { y: -4, rotateX: -2, rotateY: 2, transition: { type: "spring", stiffness: 250, damping: 20 } },
@@ -71,7 +72,7 @@ export default function AboutTrueSun() {
       </motion.div>
       
       <HeroSplit />
-      <StatsRibbon />
+      {/* <StatsRibbon /> */}
       <ZigZagWhyUs />
       <CurvedSteps />
       {/* <AlternatingTimeline /> */}
@@ -97,7 +98,7 @@ export default function AboutTrueSun() {
 // About TrueSun -----
 function HeroSplit() {
   return (
-    <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-18 lg:px-8">
+    <div className="relative mx-auto max-w-7xl px-6 py-10 lg:px-0">
       {/* Heading */}
       <motion.div {...fadeUpProps} className="relative mx-auto max-w-7xl text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/70 bg-white/80 px-4 py-1.5 text-xs font-semibold text-amber-700 shadow-sm backdrop-blur">
@@ -105,14 +106,14 @@ function HeroSplit() {
           Trusted Solar Partner for Homes & Businesses
         </div>
 
-        <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
+        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-[#686868] sm:text-5xl">
           About{" "}
-          <span className="bg-linear-to-r from-amber-600 to-green-600 bg-clip-text text-transparent">
+          <span className="text-[#fc763a]">
             TrueSun
           </span>
         </h1>
 
-        <p className="mx-auto mt-4 max-w-5xl text-lg text-gray-700">
+        <p className="mx-auto mt-4 max-w-7xl text-lg text-gray-700">
           We turn rooftops and land into long-term energy assets—delivering
           compliant, data-driven solar that pays back faster and performs
           reliably for decades.
@@ -158,7 +159,7 @@ function HeroSplit() {
             {[
               "Net-zero ready solar across residential, commercial & industrial segments.",
               "Smart-grid, storage and community-solar ready architectures.",
-              "Systems engineered to perform for 25+ years with minimal downtime.",
+              "Systems engineered to perform for 30+ years with minimal downtime.",
             ].map((t, i) => (
               <li key={i} className="flex items-start gap-2">
                 <CheckCircle className="mt-0.5 h-4 w-4 text-emerald-600" />
@@ -171,16 +172,16 @@ function HeroSplit() {
         {/* Mission card */}
         <motion.div
           variants={childFade}
-          className="relative overflow-hidden rounded-3xl border border-amber-600/70 bg-linear-to-br from-white/95 via-amber-50/90 to-amber-100/80 p-6 shadow-xl shadow-amber-900/10 backdrop-blur"
+          className="relative overflow-hidden rounded-3xl border border-[#fc763a]/70 bg-linear-to-br from-white/95 via-amber-50/90 to-amber-100/80 p-6 shadow-xl shadow-amber-900/10 backdrop-blur"
           {...boxTilt}
         >
           <div className="absolute -left-12 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full bg-amber-200/60 blur-2xl" />
           <div className="relative flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-amber-500 text-white shadow-md">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-[#FC763A] text-white shadow-md">
               <Sun className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#fc763a]">
                 Our Mission
               </p>
               <h4 className="text-base font-bold text-gray-900">
@@ -202,7 +203,7 @@ function HeroSplit() {
               "Obsessive post-installation care: AMC, 24/7 monitoring and SLA-backed support.",
             ].map((t, i) => (
               <li key={i} className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 h-4 w-4 text-amber-600" />
+                <CheckCircle className="mt-0.5 h-4 w-4 text-[#fc763a]" />
                 <span>{t}</span>
               </li>
             ))}
@@ -231,7 +232,7 @@ function HeroSplit() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="flex cursor-pointer items-center gap-3 rounded-2xl border border-gray-800/20 bg-white/90 p-3 shadow-sm shadow-gray-900/5 backdrop-blur"
           >
-            <div className="flex items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
+            <div className="flex items-center justify-center rounded-2xl bg-amber-100 text-[#fc763a]">
               <i.icon className="h-13 w-13 p-2" />
             </div>
             <div>
@@ -248,115 +249,116 @@ function HeroSplit() {
 }
 
 // range of numeric stats -----
-type StatItem = {
-  value: number;
-  label: string;
-  prefix?: string;
-  suffix?: string;
-  isDecimal?: boolean;
-};
+// type StatItem = {
+//   value: number;
+//   label: string;
+//   prefix?: string;
+//   suffix?: string;
+//   isDecimal?: boolean;
+// };
 
-function StatsRibbon() {
-  const stats: StatItem[] = [
-    { value: 3, prefix: ">", suffix: " MWp", label: "installed capacity" },
-    { value: 1000, suffix: "+", label: "sites energized" },
-    { value: 4.9, suffix: "/5", label: "customer rating", isDecimal: true },
-    { value: 15, suffix: "+", label: "states served" },
-  ];
+// function StatsRibbon() {
+//   const stats: StatItem[] = [
+//     { value: 3, prefix: ">", suffix: " MWp", label: "installed capacity" },
+//     { value: 1000, suffix: "+", label: "sites energized" },
+//     { value: 4.9, suffix: "/5", label: "customer rating", isDecimal: true },
+//     { value: 15, suffix: "+", label: "states served" },
+//   ];
 
-  return (
-    <div className="relative py-2">
-      {/* soft glow background */}
-      <div className="pointer-events-none absolute inset-x-0 -top-10 h-24 bg-linear-to-b from-amber-100/60 via-transparent to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 -bottom-10 h-24 bg-linear-to-t from-emerald-100/60 via-transparent to-transparent" />
+//   return (
+//     <div className="relative py-2">
+//       {/* soft glow background */}
+//       <div className="pointer-events-none absolute inset-x-0 -top-10 h-24 bg-linear-to-b from-amber-100/60 via-transparent to-transparent" />
+//       <div className="pointer-events-none absolute inset-x-0 -bottom-10 h-24 bg-linear-to-t from-emerald-100/60 via-transparent to-transparent" />
 
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="relative overflow-hidden rounded-3xl border border-amber-100/80 bg-linear-to-r from-amber-50/90 via-white/95 to-emerald-50/90 px-5 py-6 shadow-lg shadow-emerald-900/5 backdrop-blur">
-          {/* subtle inner highlight */}
-          <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/60" />
+//       <div className="mx-auto max-w-7xl px-6">
+//         <div className="relative overflow-hidden rounded-3xl border border-amber-100/80 bg-linear-to-r from-amber-50/90 via-white/95 to-emerald-50/90 px-5 py-6 shadow-lg shadow-emerald-900/5 backdrop-blur">
+//           {/* subtle inner highlight */}
+//           <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/60" />
 
-          {/* ribbon header */}
-          <div className="relative mb-5 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-500/90 text-[11px] font-bold text-white shadow-sm">
-                ★
-              </span>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
-                Performance at a glance
-              </p>
-            </div>
-          </div>
+//           {/* ribbon header */}
+//           <div className="relative mb-5 flex flex-wrap items-center justify-between gap-3">
+//             <div className="flex items-center gap-2">
+//               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-500/90 text-[11px] font-bold text-white shadow-sm">
+//                 ★
+//               </span>
+//               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
+//                 Performance at a glance
+//               </p>
+//             </div>
+//           </div>
 
-          {/* stats grid */}
-          <motion.ul
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="relative grid grid-cols-2 gap-4 sm:grid-cols-4"
-          >
-            {stats.map((s, i) => (
-              <StatCard key={i} index={i} stat={s} />
-            ))}
-          </motion.ul>
-        </div>
-      </div>
-    </div>
-  );
-}
+//           {/* stats grid */}
+//           <motion.ul
+//             variants={staggerContainer}
+//             initial="hidden"
+//             whileInView="show"
+//             viewport={{ once: true }}
+//             className="relative grid grid-cols-2 gap-4 sm:grid-cols-4"
+//           >
+//             {stats.map((s, i) => (
+//               <StatCard key={i} index={i} stat={s} />
+//             ))}
+//           </motion.ul>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-function StatCard({ stat, index }: { stat: StatItem; index: number }) {
-  const { value, prefix = "", suffix = "", label, isDecimal } = stat;
+// function StatCard({ stat, index }: { stat: StatItem; index: number }) {
+//   const { value, prefix = "", suffix = "", label, isDecimal } = stat;
 
-  const ref = React.useRef<HTMLLIElement | null>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
+//   const ref = React.useRef<HTMLLIElement | null>(null);
+//   const inView = useInView(ref, { once: true, amount: 0.6 });
 
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) =>
-    isDecimal ? latest.toFixed(1) : Math.floor(latest).toLocaleString()
-  );
+//   const count = useMotionValue(0);
+//   const rounded = useTransform(count, (latest) =>
+//     isDecimal ? latest.toFixed(1) : Math.floor(latest).toLocaleString()
+//   );
 
-  React.useEffect(() => {
-    if (inView) {
-      const controls = animate(count, value, {
-        duration: 1.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      });
-      return controls.stop;
-    }
-  }, [inView, value, count]);
+//   React.useEffect(() => {
+//     if (inView) {
+//       const controls = animate(count, value, {
+//         duration: 1.8,
+//         ease: [0.25, 0.46, 0.45, 0.94],
+//       });
+//       return controls.stop;
+//     }
+//   }, [inView, value, count]);
 
-  return (
-    <motion.li
-      ref={ref}
-      // FIXED: Combined the entrance animation (childFade) and the continuous animation (float)
-      // by placing the float variants directly on the element and using initial="hidden" 
-      // and whileInView/animate to control the sequence.
-      variants={{ ...childFade, ...float }}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.6 }}
-      animate="animate"
-      className="group relative cursor-default rounded-2xl bg-white/85 px-5 py-4 text-center shadow-sm shadow-gray-900/5 ring-1 ring-black/40 backdrop-blur"
-    >
-      {/* vertical divider for larger screens */}
-      {index !== 0 && (
-        <span className="pointer-events-none absolute inset-y-3 left-0 hidden w-px bg-linear-to-b from-transparent via-amber-100 to-transparent sm:block" />
-      )}
+//   return (
+//     <motion.li
+//       ref={ref}
+//       // FIXED: Combined the entrance animation (childFade) and the continuous animation (float)
+//       // by placing the float variants directly on the element and using initial="hidden" 
+//       // and whileInView/animate to control the sequence.
+//       variants={{ ...childFade, ...float }}
+//       initial="hidden"
+//       whileInView="show"
+//       viewport={{ once: true, amount: 0.6 }}
+//       animate="animate"
+//       className="group relative cursor-default rounded-2xl bg-white/85 px-5 py-4 text-center shadow-sm shadow-gray-900/5 ring-1 ring-black/40 backdrop-blur"
+//     >
+//       {/* vertical divider for larger screens */}
+//       {index !== 0 && (
+//         <span className="pointer-events-none absolute inset-y-3 left-0 hidden w-px bg-linear-to-b from-transparent via-amber-100 to-transparent sm:block" />
+//       )}
 
-      <div className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-        {prefix}
-        <motion.span>{rounded}</motion.span>
-        {suffix}
-      </div>
-      <div className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
-        {label}
-      </div>
-    </motion.li>
-  );
-}
+//       <div className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+//         {prefix}
+//         <motion.span>{rounded}</motion.span>
+//         {suffix}
+//       </div>
+//       <div className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
+//         {label}
+//       </div>
+//     </motion.li>
+//   );
+// }
 
 //  Why industry leaders
+
 function ZigZagWhyUs() {
   const points = [
     {
@@ -386,18 +388,18 @@ function ZigZagWhyUs() {
   ];
 
   return (
-    <div className="relative bg-white py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div {...fadeUpProps} className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-3xl font-bold md:text-5xl">
-            Why industry leaders <span className="text-emerald-600">trust us</span>
+    <div className="relative bg-white py-10">
+      <div className="mx-auto max-w-7xl px-6 lg:px-0">
+        <motion.div {...fadeUpProps} className="mx-auto mb-10 max-w-3xl text-center">
+          <h2 className="text-3xl text-[#686868] font-bold md:text-5xl">
+            Why industry leaders <span className="text-[#fc763a]">trust us</span>
           </h2>
-          <p className="mt-4 text-gray-600">
+          <p className="mt-4 text-[#686868]">
             A relentless focus on compliance, quality, and guaranteed long-term performance.
           </p>
         </motion.div>
 
-        <div className="space-y-20">
+        <div className="space-y-10">
           {points.map((p, i) => (
             <motion.div
               key={i}
@@ -419,7 +421,7 @@ function ZigZagWhyUs() {
                 <div className="absolute -inset-4 -z-10 rounded-3xl bg-linear-to-br from-amber-100/50 to-emerald-100/50 blur-xl" />
                 <div className="rounded-3xl border border-gray-800/30 bg-white/80 p-8 shadow-xl shadow-black/40 backdrop-blur">
                   <div className="flex items-center gap-3">
-                    <p.Icon className="h-7 w-7 text-emerald-600" />
+                    <p.Icon className="h-7 w-7 text-[#FC763A]" />
                     <h3 className="text-xl font-bold">{p.title}</h3>
                   </div>
                   <p className="mt-3 leading-relaxed text-gray-700">{p.desc}</p>
@@ -432,7 +434,7 @@ function ZigZagWhyUs() {
                   hidden: { opacity: 0, scale: 0.9, rotate: i % 2 === 0 ? -3 : 3, y: 30 },
                   show: { opacity: 1, scale: 1, rotate: 0, y: 0, transition: { duration: 0.8, ease: EASE, delay: 0.2 } }
                 }}
-                className="relative h-44 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80"
+                className="relative h-40 w-full overflow-hidden rounded-3xl border border-gray-800/30 shadow-2xl shadow-black/80"
               >
                 <img
                   src={p.img}
@@ -456,7 +458,7 @@ function ZigZagWhyUs() {
 
       {/* curved divider */}
       <svg
-        className="-mb-1 mt-20 block h-10 w-full text-emerald-50"
+        className="-mb-1  block h-10 w-full text-emerald-50"
         viewBox="0 0 1440 40"
         preserveAspectRatio="none"
         aria-hidden
@@ -498,19 +500,24 @@ function CurvedSteps() {
       title: "Handover & Training",
       desc: "App setup, performance KPIs & maintenance handover kit",
     },
+    {
+      n: 6,
+      title: "Operation & Maintenance ",
+      desc: "Module Cleaning , Inverter Checks, Preventive Maintenance",
+    },
   ];
 
   return (
-    <section className="relative bg-emerald-50/60 py-0">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="relative bg-emerald-50/60 ">
+      <div className="mx-auto max-w-7xl px-6 lg:px-0">
 
         {/* Heading */}
         <motion.div
           {...fadeUpProps}
           className="mx-auto mb-12 max-w-2xl text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
-            Our Hassle-Free Process
+          <h2 className="text-3xl md:text-5xl font-bold text-[#686868]">
+            Our Hassle-Free <span className="text-[#fc763a]"> Process </span>
           </h2>
           <p className="mt-3 text-gray-700">
             A smooth solar journey handled by TrueSun — from the first survey to long-term performance.
@@ -523,7 +530,7 @@ function CurvedSteps() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
-          className="relative grid gap-6 md:grid-cols-5"
+          className="relative grid gap-4 md:grid-cols-6"
         >
           {/* Curved Line (Desktop only) */}
           <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 md:block -z-10">
@@ -576,7 +583,7 @@ function CurvedSteps() {
 
               {/* connector dot */}
               {i < steps.length - 1 && (
-                <span className="absolute right-3 top-1/2 hidden h-2 w-2 -translate-y-1/2 rounded-full bg-amber-400 md:block" />
+                <span className="absolute right-3 top-1/2 hidden h-2 w-2 -translate-y-1/2 rounded-full bg-[#FC763A] md:block" />
               )}
             </motion.li>
           ))}

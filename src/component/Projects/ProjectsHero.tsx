@@ -27,7 +27,7 @@ export default function AppSimple() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://waaree.com/wp-content/uploads/2025/11/How-to-Choose-the-Right-Solar-Panel-for-Your-Home-1.jpg')",
+            "url('https://www.electronicafinance.com/wp-content/uploads/2025/02/Solar-Panel-Installation-Process-A-Step-by-Step-Guide-2025.webp')",
         }}
       >
         <div className="absolute inset-0 bg-black opacity-70"></div> {/* Dark overlay */}

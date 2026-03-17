@@ -1,20 +1,12 @@
 "use client";
 
-import  { useEffect, useMemo, useRef, useState } from "react";
-import {
-  Zap,
-  Download,
-
-} from "lucide-react";
-import { motion, useInView, animate as fmAnimate } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Zap } from "lucide-react";
+import { useInView, animate as fmAnimate } from "framer-motion";
 import LeadPopup from "../../component/LeadPopup";
 
-/* =========
-  Palette (from your logo)
-  primary: #FC763A (bright TrueSun orange)
-  accent:  #FEC24A (soft warm yellow) - derived for gradients
-  neutral: #686868 (logo gray)
-   ========= */
+/* ========= Palette ========= */
+
 const PALETTE = {
   primary: "#FC763A",
   accent: "#FEC24A",
@@ -22,452 +14,361 @@ const PALETTE = {
   lightBg: "#FFF8F3",
 };
 
-/* ===================== Helpers & constants (logic unchanged) ===================== */
+/* ========= Solar Constants ========= */
+
+const PRICE_PER_UNIT = 10;
+const ONE_KW_SOLAR_AREA = 80;
+const UNIT_MONTHLY_ONE_KW = 120;
+const COST_PER_KW = 55000;
+
+/* ========= Customer Categories ========= */
+
+const CUSTOMER_CATEGORY = [
+  { label: "RESIDENTIAL", value: "RESIDENTIAL", subsidyAllowed: true },
+  { label: "INSTITUTIONAL", value: "INSTITUTIONAL", subsidyAllowed: false },
+  { label: "INDUSTRIAL", value: "INDUSTRIAL", subsidyAllowed: false },
+  { label: "COMMERCIAL", value: "COMMERCIAL", subsidyAllowed: false },
+  { label: "GOVERNMENT", value: "GOVERNMENT", subsidyAllowed: false },
+  { label: "SOCIAL SECTOR", value: "SOCIAL SECTOR", subsidyAllowed: false },
+];
+
+/* ========= Currency Formatter ========= */
+
 const fmtINR = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
   maximumFractionDigits: 0,
 });
 
-function fmtINRForPdf(value: number): string {
-  if (!Number.isFinite(value)) return "-";
-  return "Rs " + value.toLocaleString("en-IN");
-}
+/* ========= Subsidy Calculation ========= */
 
-const CITY_SUN = { Maharashtra: 5.4 } as const;
-type City = keyof typeof CITY_SUN;
-
-function clamp(n: number, min: number, max: number) {
-  return Math.min(Math.max(n, min), max);
-}
-
-function subsidyForKw(kw: number): number {
+function subsidyForKw(kw: number) {
   if (!kw || kw <= 0) return 0;
+
   const first2 = Math.min(kw, 2) * 30000;
   const third = Math.max(0, Math.min(kw - 2, 1)) * 18000;
+
   return Math.min(78000, Math.round(first2 + third));
 }
 
-/* ===================== PDF (kept unchanged) ===================== */
-async function makePdfTable(payload: {
-  city: string;
-  sunHours: number;
-  inputs: { monthlyBill: number; tariff: number; applySubsidy: boolean };
-  results: {
-    monthlyKWh: number;
-    monthlyGen: number;
-    recommendedKw: number;
-    capex: number;
-    subsidy: number;
-    netCapex: number;
-    monthlySavings: number;
-    paybackYears: number;
-    kWhPerKwMonth: number;
-  };
-}) {
-  const jsPDF = (await import("jspdf")).default;
-  const autoTable = (await import("jspdf-autotable")).default;
-  const doc = new jsPDF("p", "pt", "a4");
+/* ========= Counter Animation ========= */
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.text("TrueSun — Solar Quote", 40, 40);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(11);
-  doc.text(
-    `Location: ${payload.city}   |   Avg Sun Hours: ${payload.sunHours} kWh/m2/day`,
-    40,
-    60
-  );
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
-
-
-  autoTable(doc, {
-    startY: 92,
-    head: [["Summary", ""]],
-    body: [
-      ["Monthly Electricity Bill", fmtINRForPdf(payload.inputs.monthlyBill)],
-      ["Electricity Tariff", `Rs ${payload.inputs.tariff}/kWh`],
-      ["Estimated Monthly Consumption", `${payload.results.monthlyKWh} kWh`],
-      ["Apply Subsidy", payload.inputs.applySubsidy ? "Yes" : "No"],
-    ],
-    theme: "grid",
-    styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: "bold" },
-    columnStyles: { 0: { cellWidth: 260 }, 1: { cellWidth: 260 } },
-    margin: { left: 40, right: 40 },
-  });
-
-  const y1 = (doc as any).lastAutoTable.finalY + 16;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
-  doc.text("Recommended System", 40, y1);
-
-  autoTable(doc, {
-    startY: y1 + 8,
-    head: [["System Size (kW)", "Est. Generation", "Yield", "Payback"]],
-    body: [
-      [
-        `${payload.results.recommendedKw.toFixed(2)} kW`,
-        `${payload.results.monthlyGen} kWh/month`,
-        `${payload.results.kWhPerKwMonth} kWh/kW/month`,
-        `${
-          Number.isFinite(payload.results.paybackYears)
-            ? payload.results.paybackYears.toFixed(1)
-            : "—"
-        } years`,
-      ],
-    ],
-    theme: "grid",
-    styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: "bold" },
-    margin: { left: 40, right: 40 },
-  });
-
-  const y2 = (doc as any).lastAutoTable.finalY + 16;
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(13);
-  doc.text("Financial Summary", 40, y2);
-
-  autoTable(doc, {
-    startY: y2 + 8,
-    head: [["Category", "Value"]],
-    body: [
-      ["Gross CAPEX", fmtINRForPdf(payload.results.capex)],
-      ["Subsidy Applied", fmtINRForPdf(payload.results.subsidy)],
-      ["Net Cost", fmtINRForPdf(payload.results.netCapex)],
-      ["Monthly Savings", fmtINRForPdf(payload.results.monthlySavings)],
-    ],
-    theme: "grid",
-    styles: { font: "helvetica", fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [240, 240, 240], textColor: 0, fontStyle: "bold" },
-    margin: { left: 40, right: 40 },
-  });
-
-  const yEnd = (doc as any).lastAutoTable.finalY + 18;
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(90);
-  doc.text("*Estimates only. Actual results may vary depending on site conditions and tariff changes.", 40, yEnd);
-
-  return doc;
-}
-
-/* ===================== Small helper: animated count hook ===================== */
-function useCountUp(target: number, run: boolean, duration = 1.2) {
+function useCountUp(target: number, run: boolean) {
   const [value, setValue] = useState(0);
-  const ref = useRef<{ stop?: () => void } | null>(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     if (!run) {
       setValue(0);
       return;
     }
-    if (ref.current && typeof ref.current.stop === "function") {
-      try {
-        ref.current.stop();
-      } catch {}
-    }
+
     ref.current = fmAnimate(0, target, {
-      duration,
-      ease: [0.22, 0.8, 0.2, 1],
+      duration: 1.2,
       onUpdate(v) {
         setValue(Math.floor(v));
       },
-    }) as any;
-    return () => {
-      if (ref.current && typeof ref.current.stop === "function") {
-        try {
-          ref.current.stop();
-        } catch {}
-      }
-    };
-  }, [target, run, duration]);
+    });
+
+    return () => ref.current?.stop();
+  }, [target, run]);
 
   return value;
 }
 
+/* ================= MAIN COMPONENT ================= */
 
-
-/* ===================== Main Component (animated + nicer UI) ===================== */
 export default function TrueSunAnimatedCalculator() {
-  const [city] = useState<City>("Maharashtra");
-  const [monthlyBill, setMonthlyBill] = useState<number>(3000);
-  const [tariff, setTariff] = useState<number>(9);
-  const [applySubsidy, setApplySubsidy] = useState<boolean>(true);
+
+  const [pincode, setPincode] = useState("");
+  const [rooftopArea, setRooftopArea] = useState(800);
+  const [monthlyBill, setMonthlyBill] = useState(3000);
+  const [category, setCategory] = useState("RESIDENTIAL");
+
+  const [applySubsidy, setApplySubsidy] = useState(true);
   const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
-  // constants
-  const PR = 0.75;
-  const COST_PER_KW = 55000;
-  const TARGET_OFFSET = 0.8;
+  /* ===== Category Check ===== */
+
+  const selectedCategory = CUSTOMER_CATEGORY.find(
+    (c) => c.value === category
+  );
+
+  const subsidyAllowed = selectedCategory?.subsidyAllowed ?? false;
+
+  /* ===== Fix Subsidy Toggle ===== */
+
+  useEffect(() => {
+    if (subsidyAllowed) {
+      setApplySubsidy(true);
+    } else {
+      setApplySubsidy(false);
+    }
+  }, [category]);
+
+  /* ================= CALCULATIONS ================= */
 
   const result = useMemo(() => {
-    const sunHours = CITY_SUN[city];
-    const monthlyKWh = monthlyBill > 0 && tariff > 0 ? monthlyBill / tariff : 0;
-    const targetKWh = monthlyKWh * TARGET_OFFSET;
-    const kWhPerKwMonth = sunHours * 30 * PR;
-    const recommendedKw = kWhPerKwMonth > 0 ? clamp(targetKWh / kWhPerKwMonth, 0.3, 25) : 0;
+
+    const safeArea = Math.max(0, rooftopArea);
+    const safeBill = Math.max(0, monthlyBill);
+
+    /* Area Based System */
+
+    const areaBasedKW = Math.round(safeArea / ONE_KW_SOLAR_AREA);
+
+    /* Bill Based System */
+
+    const unitsFromBill = safeBill / PRICE_PER_UNIT;
+    const billBasedKW = Math.round(unitsFromBill / UNIT_MONTHLY_ONE_KW);
+
+    /* Recommended System */
+
+    const recommendedKw = Math.max(
+      0.5,
+      Math.min(areaBasedKW || 1, billBasedKW || areaBasedKW)
+    );
+
+    /* Generation */
+
+    const monthlyGen = Math.round(recommendedKw * UNIT_MONTHLY_ONE_KW);
+    const yearlyGen = monthlyGen * 12;
+
+    /* Savings */
+
+    const monthlySavings = Math.round(monthlyGen * PRICE_PER_UNIT);
+    const annualSavings = monthlySavings * 12;
+
+    /* Carbon Reduction */
+
+    const carbonReduction = Math.round(recommendedKw * 1.63 * 25);
+
+    /* Cost */
 
     const capex = Math.round(recommendedKw * COST_PER_KW);
-    const subsidy = applySubsidy ? subsidyForKw(recommendedKw) : 0;
+
+    const subsidy =
+      applySubsidy && subsidyAllowed
+        ? subsidyForKw(recommendedKw)
+        : 0;
+
     const netCapex = Math.max(0, capex - subsidy);
-    const monthlyGen = Math.round(recommendedKw * kWhPerKwMonth);
-    const monthlySavings = Math.round(monthlyGen * tariff);
-    const annualSavingsNet = monthlySavings * 12;
-    const paybackYears = annualSavingsNet > 0 ? netCapex / annualSavingsNet : Infinity;
+
+    /* Payback */
+
+    const paybackYears =
+      annualSavings > 0 ? netCapex / annualSavings : Infinity;
 
     return {
-      sunHours,
-      monthlyKWh: Math.round(monthlyKWh),
+      areaBasedKW,
+      billBasedKW,
+      recommendedKw,
       monthlyGen,
-      recommendedKw: Number(recommendedKw.toFixed(2)),
+      yearlyGen,
+      monthlySavings,
+      carbonReduction,
       capex,
       subsidy,
       netCapex,
-      monthlySavings,
       paybackYears,
-      kWhPerKwMonth: Math.round(kWhPerKwMonth),
     };
-  }, [monthlyBill, tariff, city, applySubsidy]);
 
-  // in-view detection for animations
+  }, [monthlyBill, rooftopArea, applySubsidy, subsidyAllowed]);
+
+  /* ===== Animations ===== */
+
   const rootRef = useRef(null);
-  const inView = useInView(rootRef, { once: false, amount: 0.2 });
+  const inView = useInView(rootRef);
 
-  // Counters run when the section is in view
   const capexCount = useCountUp(result.capex, inView);
   const subsidyCount = useCountUp(result.subsidy, inView);
   const netCostCount = useCountUp(result.netCapex, inView);
   const savingsCount = useCountUp(result.monthlySavings, inView);
 
+  /* ================= UI ================= */
 
   return (
-    <div id="calculator" ref={rootRef} className="w-full bg-linear-to-b" style={{ background: PALETTE.lightBg }}>
-      <div className="mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <motion.h1
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-4xl font-extrabold"
-            style={{ color: PALETTE.neutral }}
-          >
-            Solar Savings Calculator — <span style={{ color: PALETTE.primary }}>TrueSun</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} className="mt-2 text-sm text-gray-600">
-            Enter your bill & tariff — see recommended system, cost & payback.
-          </motion.p>
+
+    <div ref={rootRef} style={{ background: PALETTE.lightBg }} className="py-12">
+      <h1 className=" text-4xl font-bold text-center mb-2 text-[#686868]">Calculate Your Solar Savings & <span className=" text-[#FC763A]">Payback in Minutes</span> 
+      </h1>
+      <p className=" text-center max-w-6xl mb-4 mx-auto">Thinking about going solar but unsure about the savings? Our easy-to-use solar calculator helps you instantly estimate your monthly electricity savings, system payback period, and long-term financial returns so you can make confident, informed decisions before installing solar.</p>
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 px-6">
+
+        {/* INPUT SECTION */}
+
+        <div className="bg-white rounded-xl shadow-lg p-6">
+
+          <h3 className="font-semibold text-lg mb-5">
+            Let's design your system
+          </h3>
+
+          {/* PINCODE */}
+
+          <div className="mb-4">
+            <label className="text-sm">Pincode</label>
+            <input
+              type="text"
+              value={pincode}
+              onChange={(e) => setPincode(e.target.value)}
+              placeholder="Enter Pincode"
+              className="w-full border p-3 rounded-lg mt-1"
+            />
+          </div>
+
+          {/* ROOFTOP */}
+
+          <div className="mb-4">
+            <label className="text-sm">Total Rooftop Area (sq.ft)</label>
+            <input
+              type="number"
+              value={rooftopArea}
+              onChange={(e) =>
+                setRooftopArea(Number(e.target.value || 0))
+              }
+              className="w-full border p-3 rounded-lg mt-1"
+            />
+          </div>
+
+          {/* CATEGORY */}
+
+          <div className="mb-4">
+            <label className="text-sm">Customer Category</label>
+
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full border p-3 rounded-lg mt-1"
+            >
+              {CUSTOMER_CATEGORY.map((cat) => (
+                <option key={cat.value} value={cat.value}>
+                  {cat.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* BILL */}
+
+          <div className="mb-4">
+            <label className="text-sm">
+              Electricity Bill Per Month
+            </label>
+
+            <input
+              type="number"
+              value={monthlyBill}
+              onChange={(e) =>
+                setMonthlyBill(Number(e.target.value || 0))
+              }
+              className="w-full border p-3 rounded-lg mt-1"
+            />
+          </div>
+
+          {/* SUBSIDY */}
+
+          <div className="flex items-center gap-2 mt-4">
+
+            <input
+              type="checkbox"
+              checked={applySubsidy}
+              disabled={!subsidyAllowed}
+              onChange={(e) => setApplySubsidy(e.target.checked)}
+            />
+
+            <span className="text-sm">
+              Apply PM Surya Ghar Subsidy
+            </span>
+
+          </div>
+
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-2 items-start">
-          {/* Inputs card */}
-          <motion.section
-            initial={{ opacity: 0, x: -12 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="rounded-2xl bg-white px-6 py-7 shadow-2xl border border-gray-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className="rounded-md p-2" style={{ background: `linear-gradient(90deg, ${PALETTE.primary}22, ${PALETTE.accent}22)` }}>
-                <Zap className="h-5 w-5" style={{ color: PALETTE.primary }} />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold" style={{ color: PALETTE.neutral }}>Your Consumption</h3>
-                <p className="text-xs text-gray-500">We use conservative assumptions for realistic estimates.</p>
-              </div>
+        {/* RESULT SECTION */}
+
+        <div className="bg-white rounded-xl shadow-lg p-6">
+
+          <div className="flex items-center gap-3 mb-4">
+            <Zap style={{ color: PALETTE.primary }} />
+            <h3 className="font-semibold text-lg">
+              Recommended Solar System
+            </h3>
+          </div>
+
+          <div className="text-4xl font-bold mb-2">
+            {result.recommendedKw} kW
+          </div>
+
+          <div className="text-sm text-gray-500 mb-4">
+            Area Based: {result.areaBasedKW}kW | Bill Based: {result.billBasedKW}kW
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mt-6">
+
+            <div>
+              <p className="text-xs text-gray-500">Monthly Generation</p>
+              <p className="font-semibold">{result.monthlyGen} Units</p>
             </div>
 
-            <div className="mt-6 space-y-4">
-              <div>
-                <label className="block text-sm text-gray-700 mb-1">City / Location</label>
-                <div className="rounded-md p-3 border border-gray-100 bg-white font-medium">Maharashtra</div>
-                <div className="text-xs text-gray-500 mt-1">Avg sun hours: <strong>{CITY_SUN[city]} kWh/m²/day</strong></div>
-              </div>
+            <div>
+              <p className="text-xs text-gray-500">Yearly Generation</p>
+              <p className="font-semibold">{result.yearlyGen} Units</p>
+            </div>
 
-              <div>
-                <label className="block text-sm text-gray-700 mb-1">Monthly Electricity Bill (₹)</label>
-                <input
-                  aria-label="Monthly bill"
-                  type="number"
-                  value={monthlyBill}
-                  onChange={(e) => setMonthlyBill(Number(e.target.value || 0))}
-                  className="w-full rounded-lg border border-gray-200 p-3 focus:outline-none focus:ring-2"
-                  style={{ boxShadow: "inset 0 1px 0 rgba(0,0,0,0.02)" }}
-                />
-              </div>
+            <div>
+              <p className="text-xs text-gray-500">Monthly Savings</p>
+              <p className="font-semibold">{fmtINR.format(savingsCount)}</p>
+            </div>
 
-              <div>
-                <label className="block text-sm text-gray-700 mb-1">Electricity Tariff (₹/kWh)</label>
-                <input
-                  aria-label="Tariff"
-                  type="number"
-                  step="0.1"
-                  value={tariff}
-                  onChange={(e) => setTariff(Number(e.target.value || 0))}
-                  className="w-full rounded-lg border border-gray-200 p-3 focus:outline-none focus:ring-2"
-                />
-                <div className="text-xs text-gray-500 mt-1">Estimated consumption: <strong>{result.monthlyKWh} kWh</strong></div>
-              </div>
+            <div>
+              <p className="text-xs text-gray-500">Carbon Reduction</p>
+              <p className="font-semibold">{result.carbonReduction} Tonnes</p>
+            </div>
 
-              <div className="flex items-center gap-3">
-                <input id="subsidy" type="checkbox" className="h-4 w-4" checked={applySubsidy} onChange={(e) => setApplySubsidy(e.target.checked)} />
-                <label htmlFor="subsidy" className="text-sm text-gray-700">Apply PM Surya Ghar Subsidy</label>
-              </div>
+            <div>
+              <p className="text-xs text-gray-500">System Cost</p>
+              <p className="font-semibold">{fmtINR.format(capexCount)}</p>
+            </div>
 
+            <div>
+              <p className="text-xs text-gray-500">Subsidy</p>
+              <p className="font-semibold text-red-500">{fmtINR.format(subsidyCount)}</p>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Net Cost</p>
+              <p className="font-semibold text-green-600">{fmtINR.format(netCostCount)}</p>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Payback</p>
+              <p className="font-semibold">
+                {Number.isFinite(result.paybackYears)
+                  ? result.paybackYears.toFixed(1)
+                  : "—"} Years
+              </p>
+            </div>
+
+          </div>
+
+          <div className="mt-6">
+            <button
+              onClick={() => setOpenLeadPopup(true)}
+              className="px-6 py-2 bg-[#FC763A] rounded-full text-white"
            
-            </div>
-          </motion.section>
+            >
+              Book Free Site Visit
+            </button>
+          </div>
 
-          {/* Results card */}
-          <motion.section
-            initial={{ opacity: 0, x: 12 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="rounded-2xl p-6 bg-white shadow-2xl border border-gray-100 relative overflow-hidden"
-            style={{ background: "linear-gradient(180deg, #ffffff, #fff7ef)" }}
-          >
-            {/* decorative sun flare */}
-            <div aria-hidden style={{ position: "absolute", right: -60, top: -60, width: 220, height: 220, borderRadius: 110, background: `radial-gradient(circle at 30% 30%, ${PALETTE.primary}33, transparent 40%)` }} />
-
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 relative z-10">
-              <div>
-                <div className="flex items-center gap-3">
-                  <div style={{ width: 56, height: 56, borderRadius: 12, background: `linear-gradient(135deg, ${PALETTE.primary}, ${PALETTE.accent})` }} className="flex items-center justify-center shadow-md">
-                    <Zap className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600">Recommended System Size</div>
-                    <motion.div
-                      initial={{ scale: 0.98, opacity: 0 }}
-                      animate={inView ? { scale: 1, opacity: 1 } : {}}
-                      transition={{ duration: 0.6 }}
-                      className="mt-1 text-4xl font-extrabold"
-                      style={{ color: PALETTE.neutral }}
-                    >
-                      {showFormattedKw(kwCountFrom(result.recommendedKw))}
-                      <span className="text-lg font-medium ml-2" style={{ color: PALETTE.neutral }}>kW</span>
-                    </motion.div>
-                    <div className="text-xs text-gray-500 mt-1">Est. monthly gen: <strong>{result.monthlyGen} kWh</strong></div>
-                  </div>
-                </div>
-              </div>
-
-              <motion.div
-                whileHover={{ y: -6, boxShadow: `0 12px 30px ${PALETTE.primary}22` }}
-                transition={{ type: "spring", stiffness: 220, damping: 18 }}
-                className="rounded-lg border border-gray-100 bg-white p-3 text-center shadow-sm w-40"
-              >
-                <div className="text-xs text-gray-500">Payback</div>
-                <div className="text-3xl font-bold" style={{ color: "#0ea5a6" }}>
-                  {Number.isFinite(result.paybackYears) ? result.paybackYears.toFixed(1) : "—"}
-                </div>
-                <div className="text-xs text-gray-500">Years</div>
-              </motion.div>
-            </div>
-
-            {/* progress */}
-            <div className="mt-6">
-              <div className="flex items-center justify-between text-xs text-gray-500">
-                <div>Target generation (80%)</div>
-                <div><strong>{Math.round(result.monthlyKWh * 0.8)} kWh</strong></div>
-              </div>
-              <div className="mt-2 h-3 rounded-full bg-gray-100 overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.min(100, Math.round((result.monthlyGen / Math.max(1, Math.round(result.monthlyKWh * 0.8))) * 100))}%` }}
-                  transition={{ duration: 0.9, ease: "easeOut" }}
-                  className="h-full rounded-full"
-                  style={{ background: `linear-gradient(90deg, ${PALETTE.primary}, ${PALETTE.accent})` }}
-                />
-              </div>
-            </div>
-
-            {/* KPI grid */}
-            <motion.div className="mt-6 grid grid-cols-2 gap-4" initial="hidden" animate={inView ? "visible" : "hidden"} variants={staggerVars()}>
-              <motion.div variants={itemFade()} whileHover={{ y: -6 }} className="rounded-lg p-3 border border-gray-100 bg-white shadow-sm">
-                <div className="text-xs text-gray-500">Gross CAPEX</div>
-                <div className="mt-1 text-lg font-semibold" style={{ color: PALETTE.neutral }}>{fmtINR.format(capexCount)}</div>
-              </motion.div>
-
-              <motion.div variants={itemFade()} whileHover={{ y: -6 }} className="rounded-lg p-3 border border-gray-100 bg-white shadow-sm">
-                <div className="text-xs text-gray-500">Subsidy Applied</div>
-                <div className="mt-1 text-lg font-semibold text-[#F4320B]">{fmtINR.format(subsidyCount)}</div>
-              </motion.div>
-
-              <motion.div variants={itemFade()} whileHover={{ y: -6 }} className="rounded-lg p-3 border border-gray-100 bg-white shadow-sm">
-                <div className="text-xs text-gray-500">Estimated Cost</div>
-                <div className="mt-1 text-2xl font-bold text-green-700" >{fmtINR.format(netCostCount)}</div>
-              </motion.div>
-
-              <motion.div variants={itemFade()} whileHover={{ y: -6 }} className="rounded-lg p-3 border border-gray-100 bg-white shadow-sm">
-                <div className="text-xs text-gray-500">Expected Monthly  Savings</div>
-                <div className="mt-1 text-lg font-semibold" style={{ color: PALETTE.primary }}>{fmtINR.format(savingsCount)}</div>
-              </motion.div>
-            </motion.div>
-
-            {/* CTA */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <motion.button
-                onClick={() => setOpenLeadPopup(true)}
-                whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
-                style={{ background: PALETTE.primary, color: "#fff", boxShadow: `0 10px 30px ${PALETTE.primary}33` }}
-              >
-                Book Free Site Visit
-              </motion.button>
-
-              <motion.button
-                onClick={async () => {
-                  const doc = await makePdfTable({
-                    city,
-                    sunHours: result.sunHours,
-                    inputs: { monthlyBill, tariff, applySubsidy },
-                    results: result,
-                  });
-                  doc.save(`solar-quote-${city}-${Date.now()}.pdf`);
-                }}
-                whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium border"
-                style={{ borderColor: PALETTE.primary, color: PALETTE.primary }}
-              >
-                <Download className="h-4 w-4" /> Download Report
-              </motion.button>
-            </div>
-          </motion.section>
         </div>
+
       </div>
 
-      {/* Lead popup mount */}
-      {openLeadPopup && <LeadPopup onClose={() => setOpenLeadPopup(false)} />}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
+
     </div>
   );
-
-  // helpers used inside component
-  function kwCountFrom(val: number) {
-    // return number with one decimal as number for count hook
-    return Math.round(val * 10) / 10;
-  }
-
-  function showFormattedKw(n: number) {
-    if (!Number.isFinite(n)) return "—";
-    return n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
-  }
-
-  function staggerVars() {
-    return {
-      visible: { transition: { staggerChildren: 0.06 } },
-      hidden: {},
-    };
-  }
-
-  function itemFade() {
-    return {
-      hidden: { opacity: 0, y: 8 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    };
-  }
 }

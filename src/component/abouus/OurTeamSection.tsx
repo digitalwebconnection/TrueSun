@@ -143,7 +143,7 @@ function FAQSection() {
     },
     {
       q: "What warranties do I get?",
-      a: "Typically 25-year performance on modules, 5–10 years on inverters, and workmanship warranty.",
+      a: "Typically 30-year performance on modules, 5–10 years on inverters, and workmanship warranty.",
     },
     {
       q: "How soon can I go live?",
@@ -155,7 +155,7 @@ function FAQSection() {
     <div className="bg-linear-to-br from-white via-amber-50/50 to-emerald-50/50 py-16">
       <div className="mx-auto max-w-5xl px-6">
         <motion.div {...fadeUpProps} className="mx-auto mb-8 max-w-2xl text-center">
-          <h2 className="text-3xl font-bold">FAQs</h2>
+          <h2 className="text-3xl font-bold text-[#fc763a]">FAQs</h2>
           <p className="mt-2 text-gray-600">Quick answers to common questions</p>
         </motion.div>
 
@@ -214,10 +214,10 @@ export default function LeadershipSectionModern() {
 
       {/* Heading */}
       <div className="mx-auto max-w-3xl px-6 text-center">
-        <p className="text-sm font-semibold uppercase tracking-wider text-amber-600">
+        <p className="text-sm font-semibold uppercase tracking-wider text-[#FC763A]">
           Meet the Visionaries
         </p>
-        <h2 className="mt-2 text-4xl font-extrabold tracking-tight text-neutral-900 sm:text-5xl">
+        <h2 className="mt-2 text-4xl font-extrabold tracking-tight text-[#686868] sm:text-5xl">
           Leadership Team
         </h2>
         <p className="mt-4 text-lg text-neutral-600">
@@ -263,7 +263,7 @@ export default function LeadershipSectionModern() {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/35 via-black/10 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="absolute bottom-3 left-3 rounded-full bg-amber-500 px-3 py-1 text-xs font-bold text-white shadow">
+              <span className="absolute bottom-3 left-3 rounded-full bg-[#FC763A] px-3 py-1 text-xs font-bold text-white shadow">
                 {m.title}
               </span>
             </div>
@@ -280,7 +280,7 @@ export default function LeadershipSectionModern() {
                     initial={{ opacity: 0, y: 6 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium text-amber-900 ring-1 ring-amber-200"
+                    className="rounded-full px-2.5 py-1 text-[11px] font-medium text-amber-900 ring-1 ring-[#FC763A]"
                     style={{
                       background:
                         "linear-gradient(135deg, rgba(255,237,213,0.9), rgba(254,243,199,0.9))",
@@ -298,7 +298,7 @@ export default function LeadershipSectionModern() {
                     href={m.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-neutral-50 px-3 py-1.5 text-xs font-semibold text-neutral-800 ring-1 ring-neutral-200 transition-all hover:-translate-y-0.5 hover:bg-amber-50 hover:text-amber-800 hover:ring-amber-200"
+                    className="inline-flex items-center gap-2 rounded-full bg-neutral-50 px-3 py-1.5 text-xs font-semibold text-neutral-800 ring-1 ring-neutral-200 transition-all hover:-translate-y-0.5 hover:bg-amber-50 hover:text-amber-800 hover:ring-[#FC763A]"
                   >
                     <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden="true">
                       <path

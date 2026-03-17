@@ -182,7 +182,6 @@ const itemVariants: Variants = {
 const DEFAULT_STATS: Stat[] = [
   { id: "projects", value: 100, suffix: "+", label: "Roofs Powered", icon: "Building" },
   { id: "cities", value: 100, suffix: "%", label: "Up to 100% Savings on Electricity Bills", icon: "Receipt" },
-  { id: "energy", value: 1, suffix: " MW+", label: "Projects done  (Maharashtra)", icon: "Zap" },
 ];
 
 // --------------------------- Stat Item ---------------------------
@@ -196,7 +195,7 @@ function StatItem({ stat, prefix }: { stat: Stat; prefix?: string }) {
         className="grid h-14 w-14 place-items-center rounded-full
                shadow-sm transition-transform duration-300 group-hover:scale-105"
       >
-        <Icon className="h-10 w-10 text-orange-600 " />
+        <Icon className="h-10 w-10 text-[#FC763A] " />
       </div>
 
       <div className="flex flex-col">
@@ -213,8 +212,7 @@ function StatItem({ stat, prefix }: { stat: Stat; prefix?: string }) {
 
 // --------------------------- Component ---------------------------
 export default function ImpactStats({
-  title = "Our Impact",
-  subtitle = "Clean energy at scale — measured in results.",
+  subtitle = "Real solar results with powered rooftops and consistent electricity savings you can trust.",
   stats = DEFAULT_STATS,
   compact = false,
   prefix,
@@ -225,12 +223,12 @@ export default function ImpactStats({
   compact?: boolean;
   prefix?: string;
 }) {
-  const gridCols = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 sm:gap-y-12";
+  const gridCols = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2  gap-x-8 mx-auto max-w-4xl  gap-y-10 sm:gap-y-12";
   const padY = compact ? "py-12 sm:py-14" : "py-20 sm:py-24 lg:py-18";
   const headingSpace = compact ? "mb-8 sm:mb-10" : "mb-10 sm:mb-12";
 
   return (
-    <section className={`relative overflow-hidden bg-white ${padY}`}>
+    <section className={`relative overflow-hidden text-center max-w-7xl mx-auto  bg-white ${padY}`}>
       <BackgroundAccents />
 
       <motion.div
@@ -238,11 +236,11 @@ export default function ImpactStats({
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-        className="relative z-0 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+        className="relative z-0 mx-auto max-w-6xl px-4 sm:px-6 lg:px-0"
       >
         <div className={`text-center ${headingSpace}`}>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-neutral-900">
-            {title}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#686868]">
+            Real Results Powered by  <span className=" text-[#FC763A]"> Clean Solar Energy</span>
           </h2>
           {subtitle && <p className="mt-3 text-base sm:text-lg text-neutral-600">{subtitle}</p>}
         </div>

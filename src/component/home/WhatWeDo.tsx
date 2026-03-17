@@ -13,9 +13,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const services = [
   {
     id: "projects",
-    icon: <Sun className="w-8 h-8 text-orange-500" />,
-    title: "Solar Projects (EPC)",
-    desc: "Turnkey rooftop systems for homes, societies, and industries — designed for safety, yield, and long-term reliability.",
+    icon: <Sun className="w-8 h-8 text-[#FC763A]" />,
+    title: "End-to-End Solar EPC Solutions",
+    desc: "Turnkey rooftop solar EPC services delivering safe, compliant, and reliable installations for homes, housing societies, commercial buildings, and industries.",
     features: [
       "Structural Design & Engineering",
       "Net Metering & Subsidy Approvals",
@@ -27,8 +27,8 @@ const services = [
   {
     id: "om",
     icon: <Wrench className="w-8 h-8 text-emerald-600" />,
-    title: "Operation & Maintenance",
-    desc: "Annual and predictive maintenance to keep your solar plant healthy, efficient, and always-on.",
+    title: "Solar O&M Solutions",
+    desc: "Comprehensive solar O&M services focused on performance monitoring, preventive maintenance, and maximum system uptime protecting your solar investment over its entire lifecycle.",
     features: [
       "Monthly Plant Audits & Cleaning",
       "Performance Monitoring & Alerts",
@@ -40,8 +40,8 @@ const services = [
   {
     id: "advisory",
     icon: <ClipboardList className="w-8 h-8 text-purple-600" />,
-    title: "ESG & Net-Zero Advisory",
-    desc: "Strategic advisory for carbon footprinting, CSR energy programs, and sustainable energy compliance.",
+    title: "Strategic ESG & Net-Zero Advisory Services",
+    desc: "A strategic ESG and net-zero advisory helping organizations manage carbon risk, meet compliance requirements, and create long-term sustainable value through structured climate strategies.",
     features: [
       "Carbon Footprint Assessment",
       "Renewable CSR Project Design",
@@ -69,8 +69,8 @@ export default function SolarServicesShowcase() {
   }, []);
 
   return (
-    <section className="relative py-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative py-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-0">
         {/* Section Header */}
         <div className="text-center mb-12">
           <motion.span
@@ -85,13 +85,12 @@ export default function SolarServicesShowcase() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-4 text-4xl md:text-5xl font-bold text-gray-900"
+            className="mt-4 text-4xl  max-w-4xl mx-auto md:text-5xl font-bold text-gray-900"
           >
-            Smarter Solar, Simplified.
+            Complete Solar Solutions for Commercial & Industrial Projects
           </motion.h2>
-          <p className="mt-3 text-gray-600 max-w-4xl mx-auto">
-            From EPC to O&M and from Consulting to Net-Zero — we deliver
-            end-to-end solar solutions that scale with your goals.
+          <p className="mt-3 text-gray-600 max-w-7xl mx-auto">
+       An end-to-end solar solutions ecosystem covering EPC, operations & maintenance, consultancy, and net-zero advisory designed to grow alongside your business and sustainability goals.
           </p>
         </div>
 
@@ -103,7 +102,7 @@ export default function SolarServicesShowcase() {
               onClick={() => setActive(srv.id)}
               className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
                 active === srv.id
-                  ? "bg-orange-500 text-white shadow-md"
+                  ? "bg-[#FC763A] text-white shadow-md"
                   : "bg-white border border-gray-500 hover:bg-orange-50 text-gray-800"
               }`}
             >
@@ -153,7 +152,7 @@ export default function SolarServicesShowcase() {
                     <div className="pt-4">
                       <a
                         href="#contact"
-                        className="inline-block bg-orange-500 hover:bg-orange-400 text-white font-semibold rounded-full px-6 py-2 shadow-md transition"
+                        className="inline-block bg-[#FC763A] hover:bg-[#fc763a] text-white font-semibold rounded-full px-6 py-2 shadow-md transition"
                       >
                         Book a Free Consultation →
                       </a>
@@ -172,7 +171,7 @@ export default function SolarServicesShowcase() {
                         service.id === "projects"
                           ? "https://www.solarpvmart.com/images/blogs/5/blog5.jpg"
                           : service.id === "om"
-                          ? "https://waaree.com/wp-content/uploads/2024/07/technician-3936982_960_720.jpg"
+                          ? "https://5.imimg.com/data5/SELLER/Default/2025/6/523240803/NJ/SY/MW/181246029/solar-plant-maintenance-service.png"
                           : service.id === "consulting"
                           ? "https://waaree.com/wp-content/uploads/2024/03/solar_inverter_765a2184e3.jpg"
                           : "https://plus.unsplash.com/premium_photo-1682148026899-d21f17c04e80?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c29sYXIlMjBwYW5lbHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
