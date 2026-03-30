@@ -1,4 +1,3 @@
-"use client";
 
 import {
   useEffect,
@@ -21,7 +20,7 @@ import {
   Wrench,
   Users2,
 } from "lucide-react";
- import logo from '../assets/truesun.png';
+import logo from '../assets/truesun.png';
 /* ============================ Utilities ============================ */
 function cn(...c: (string | false | null | undefined)[]) {
   return c.filter(Boolean).join(" ");
@@ -45,6 +44,8 @@ const SERVICES: ServiceGroup[] = [
     children: [
       { label: "C&I", to: "/services/rooftop/C&I" },
       { label: "Residential", to: "/services/rooftop/residential" },
+      { label: "O&M ", to: "/services/rooftop/O&M" },
+       { label: "BESS ", to: "/services/rooftop/BESS" },
     ],
   },
   {
@@ -413,8 +414,8 @@ export default function Navbar() {
             className="flex items-center gap-2 w-40"
             aria-label="Home"
           >
-              <img src={logo} alt="" />
-       
+            <img src={logo} alt="" />
+
           </Link>
 
           {/* Desktop Menu */}
@@ -465,12 +466,12 @@ export default function Navbar() {
               Careers
             </NavLink>
             <NavLink
-              to="/blog"
+              to="/Knowledgwe"
               className={({ isActive }) =>
                 cn(linkBase, isActive && activeClass)
               }
             >
-              Blog
+              Knowledgwe HUB
             </NavLink>
             <NavLink
               to="/contact"
@@ -557,7 +558,7 @@ export default function Navbar() {
             { name: "About", to: "/about" },
             { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
-            { name: "Blog", to: "/blog" },
+            { name: "Knowledgwe HUB", to: "/Knowledgwe" },
             { name: "Careers", to: "/careers" },
           ].map(({ name, to }, index) => (
             <NavLink

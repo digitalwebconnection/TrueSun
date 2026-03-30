@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import LeadPopup from "../../component/LeadPopup";
 
+
+
 /* =========================
    TrueSun palette (logo)
    ========================= */
@@ -124,6 +126,8 @@ function EmiCalculatorMini({
     const monthlySavings = Math.round(monthlyGen * tariff);
     return { recommendedKw: Number(recommendedKw.toFixed(2)), capex, subsidy, principal, emi, monthlyGen, monthlySavings };
   }, [monthlyBill, tariff, tenure, rate, applySubsidy]);
+
+
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow">
@@ -264,40 +268,65 @@ export default function SolarFinancePage() {
         </div>
       </Section>
 
-      {/* MODELS */}
-      <Section id="options">
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {MODELS.map((m) => (
-            <motion.div key={m.id} className="rounded-2xl border p-5 shadow-sm" whileHover={{ y: -6 }} initial="hidden" whileInView="show" viewport={{ once: true }} transition={{ duration: 0.3 }}>
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-[rgb(252,119,58)] p-3" style={{ color: PALETTE.primary }}>
-                  {m.icon}
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-slate-900">{m.title}</div>
-                  <div className="text-xs text-slate-500">{m.subtitle}</div>
-                </div>
-              </div>
-
-              <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                {m.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2">
-                    <span className="mt-1 inline-flex h-2 w-2 rounded-full" style={{ background: PALETTE.primary }} />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4 flex items-center gap-3">
-                <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
-                  Get started
-                </button>
-                <a href="#learn-more" className="text-sm font-medium text-slate-700">How it works</a>
-              </div>
-            </motion.div>
-          ))}
+   {/* MODELS */}
+<Section id="options">
+  <div className="mt-10 grid gap-8 md:grid-cols-3">
+    {MODELS.map((m) => (
+      <motion.div
+        key={m.id}
+        className="group relative rounded-3xl border bg-white p-6 shadow-md transition hover:shadow-xl"
+        whileHover={{ y: -8 }}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Icon + Title */}
+        <div className="flex items-center gap-4">
+          <div className="rounded-xl bg-linear-to-r from-[#FC763A] to-[#FFB347] p-3 text-white shadow-md">
+            {m.icon}
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-slate-900">
+              {m.title}
+            </h3>
+            <p className="text-xs text-slate-500">{m.subtitle}</p>
+          </div>
         </div>
-      </Section>
+
+        {/* Bullet Points */}
+        <ul className="mt-5 space-y-3 text-sm text-slate-700">
+          {m.bullets.map((b) => (
+            <li key={b} className="flex items-start gap-2">
+              <span className="mt-1 h-2 w-2 rounded-full bg-[#FC763A]" />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        <div className="mt-6 flex items-center justify-between">
+          <button
+            onClick={() => setOpenLeadPopup(true)}
+            className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:scale-105"
+          >
+            Get Started →
+          </button>
+
+        
+        </div>
+
+        {/* Hover Glow Effect */}
+        <div className="absolute inset-0 rounded-3xl opacity-0 transition group-hover:opacity-100 pointer-events-none bg-linear-to-r from-[#FC763A]/10 to-[#FFB347]/10" />
+      </motion.div>
+    ))}
+  </div>
+
+  {/* POPUP */}
+  {openLeadPopup && (
+    <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+  )}
+</Section>
 
       
 

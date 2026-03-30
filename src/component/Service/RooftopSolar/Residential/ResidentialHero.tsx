@@ -45,8 +45,8 @@ export default function ResidentialHero() {
             variants={textVariant}
             className="text-3xl md:text-5xl font-bold mb-4 leading-tight"
           >
-            Power Your <span className="text-amber-400">Home</span> with  
-            <br /> Clean & Affordable <span className="text-green-400">Solar Energy</span>
+            Power Your <span className="text-[#FC763A]">Home</span> with  
+            <br /> Clean & Affordable <span className="text-[#FC763A]">Solar Energy</span>
           </motion.h1>
 
           <motion.p
@@ -63,7 +63,7 @@ export default function ResidentialHero() {
             variants={textVariant}
             className="flex justify-center lg:justify-start gap-4"
           >
-            <button   onClick={() => setOpenLeadPopup(true)} className="flex items-center gap-2 bg-amber-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-amber-600 transition-all duration-300 shadow-lg">
+            <button   onClick={() => setOpenLeadPopup(true)} className="flex items-center gap-2 bg-[#FC763A] text-black px-6 py-3 rounded-full font-semibold hover:bg-amber-600 transition-all duration-300 shadow-lg">
               Get Free Quote <ArrowRight className="w-5 h-5" />
             </button>
         

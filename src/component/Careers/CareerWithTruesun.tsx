@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 // Assuming you have Lucide icons installed (npm install lucide-react)
-import { Zap, Sun, Award, Handshake, MapPin, Briefcase, Clock, HardHat, FileText, Phone, CheckCircle, Mail, Users } from "lucide-react";
+import { Zap, Sun, Award, Handshake,  HardHat, FileText, Phone, CheckCircle, Mail, Users } from "lucide-react";
 
 // --- Design Constants ---
 const brandBlue = "#031E6C";
@@ -51,40 +51,75 @@ const values = [
 
 const openings = [
   {
-    title: "Solar Site & Design Engineer ",
-    location: "Mumbai (site travel required)",
+    title: "Business Development Associate",
+    location: "Mumbai",
     type: "Full-time · On-site",
-    experience: "3+ years",
+    experience: "3–4 years",
+    salary: "₹4–8 LPA",
+
     summary:
-      "The Operations Engineer will manage end-to-end execution of rooftop solar projects post order closure, including procurement, site execution, commissioning, handover, and basic O&M coordination. The role requires strong site coordination, execution discipline, and ownership mindset.",
+      "The role focuses on generating and closing business opportunities in the rooftop solar sector by building strong client and partner relationships. Requires strategic thinking, proactive execution, and strong communication skills.",
 
     points: [
-      "Strong with AutoCAD and Sketchup for solar rooftop designing",
-      "Conduct engineering site survey to collect structural, electrical, and related site information design of solar power systems. ",
-      "Able to check site feasibility and provide the best suitable options",
-      "Designing of arrangements of the solar panels, other various supported Electrical equipment’s & selection of cables for plant including layouts & schematic diagrams and calculation of technical Sizing, BOQ/BOM. ",
-      "Supervise End to end execution and AMC / Service Support ",
-      "Have worked on solar design software like Helioscope etc",
-      "Able to prepare SLD and electrical layouts for proposed plant",
-      "Provide technical direction or support to installation teams during installation, start-up, testing, system commissioning, or performance monitoring. ",
-      "Providing general Operation and maintenance training to customer representative after handover of project. ",
-      "Document submission/approvals regarding Project liasoning process with power utility company (MSEDCL,Adani TATA etc.) ",
-      "Prepare proposals and follow up with clients",
-      "Provide details on latest price and technology for designing the proposal"
+      "Cold calling, presentations, and pitching to senior management",
+      "Identify, screen, and close new clients using multiple strategies",
+      "Proposal development and price discovery",
+      "Develop and execute sales strategies with clear targets",
+      "Plan and manage marketing campaigns and budgets",
+      "Build relationships with regulators and renewable energy authorities",
+      "Track and close tender-based leads",
+      "Develop and manage channel partners to drive business growth"
     ],
 
     skills: [
-      "Excellent written and oral communication skill – English, Hindi and Marathi",
-      "Must have undertaken site visits, designed and executed solar rooftop projects",
-      "Must have alteast 3 years of experience in solar rooftop sector",
-      "Own vehicle for commuting ",
-    
+      "MBA / Masters / Engineering background",
+      "3–4 years experience in rooftop solar (mandatory)",
+      "Strong communication skills (English required)",
+      "Strategic thinking and execution capability",
+      "Goal-oriented and proactive mindset",
+      "Industrial & commercial sector experience preferred",
+      "Marathi language preferred"
+    ],
+  },
+
+  {
+    title: "Solar Site & Design Engineer",
+    location: "Mumbai (Site Travel Required)",
+    type: "Full-time · On-site",
+    experience: "3–5 years",
+
+    summary:
+      "Responsible for end-to-end solar plant design, site analysis, execution supervision, and performance monitoring. Requires strong technical expertise in solar design tools and on-ground execution.",
+
+    points: [
+      "Conduct site visits and electricity bill analysis",
+      "Design plant considering shadow analysis and site conditions",
+      "Prepare structure layouts and specifications",
+      "Create plant layouts using AutoCAD and SketchUp",
+      "Perform generation analysis using PVsyst",
+      "Prepare BOM, pricing, and proposals",
+      "Handle LT & HT design and cost estimation",
+      "Perform cable and structure calculations",
+      "Supervise installation & commissioning teams",
+      "Prepare project timelines and execution reports",
+      "Handle tender submissions and documentation",
+      "Monitor plant performance and troubleshoot issues",
+      "Coordinate with technology and BoM providers"
     ],
 
-   
+    skills: [
+      "3–5 years experience in solar rooftop projects",
+      "Strong knowledge of AutoCAD, SketchUp, Helioscope",
+      "Understanding of net metering & subsidy policies",
+      "Knowledge of electrical & structural design",
+      "Ability to read LT & HT electricity bills",
+      "Experience with On-grid & Off-grid systems",
+      "Good communication skills (English required)",
+      "Marathi language preferred",
+      "Own vehicle preferred"
+    ],
   },
 ];
-
 
 const steps = [
   {
@@ -116,6 +151,7 @@ const steps = [
 // --- Component ---
 
 const CareerWithTruesun: React.FC = () => {
+const [openIndex, setOpenIndex] = useState<number | null>(0)
   return (
     <div className=" bg-slate-50 text-slate-900">
 
@@ -216,79 +252,90 @@ const CareerWithTruesun: React.FC = () => {
           </div>
 
           {/* Job Cards */}
-          <div className="space-y-6">
-            {openings.map((job) => (
-              <div
-                key={job.title}
-                className="flex flex-col gap-5 rounded-2xl border border-slate-800/40 bg-white p-6 shadow-xl transition duration-300 hover:shadow-2xl"
-              >
-                <div className="max-w-5xl">
-                  <h3 className="text-2xl font-bold text-[#FC763A]">
-                    {job.title}
-                  </h3>
+          <div className="space-y-4">
+            {openings.map((job, index) => {
+              const isOpen = openIndex === index
 
-                  {/* Job Tags */}
-                  <div className="mt-2 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
-                    <span className="flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1 ring-1 ring-slate-200">
-                      <MapPin className="h-3 w-3" /> {job.location}
-                    </span>
-                    <span className="flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1 ring-1 ring-slate-200">
-                      <Briefcase className="h-3 w-3" /> {job.type}
-                    </span>
-                    <span className="flex items-center gap-1 rounded-full bg-slate-50 px-3 py-1 ring-1 ring-slate-200">
-                      <Clock className="h-3 w-3" /> Exp: {job.experience}
-                    </span>
-                  </div>
-
-                  {/* Summary */}
-                  <p className="mt-4 text-sm font-medium text-slate-700">
-                    {job.summary}
-                  </p>
-
-                  {/* Responsibilities */}
-                  <h4 className="mt-4 text-sm font-semibold text-slate-900">
-                    Key Responsibilities
-                  </h4>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
-                    {job.points.map((p) => (
-                      <li key={p}>{p}</li>
-                    ))}
-                  </ul>
-
-                  {/* Skills */}
-                  <h4 className="mt-4 text-sm font-semibold text-slate-900">
-                    Requirements 
-                  </h4>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
-                    {job.skills.map((skill) => (
-                      <li key={skill}>{skill}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Apply Section */}
-                <div className="flex flex-col items-start gap-3">
-                  <p className="text-sm text-slate-600">
-                    To apply for this role, click the button below. Your application
-                    will be sent via email to{" "}
-                    <span className="font-semibold text-slate-800">
-                      info@truesun.in
-                    </span> 
-                  </p>
-
-                  <a
-                    href={`mailto:info@truesun.in?subject=Application - ${job.title} - TrueSun`}
-                    className="rounded-full bg-gray-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-slate-700"
+              return (
+                <div
+                  key={job.title}
+                  className="rounded-2xl border border-slate-200 bg-white shadow-md transition"
+                >
+                  {/* HEADER */}
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between p-5 text-left"
                   >
-                    Apply for this role
-                  </a>
+                    <div>
+                      <h3 className="text-lg font-semibold text-[#FC763A]">
+                        {job.title}
+                      </h3>
 
-                  <p className="text-xs text-slate-500">
-                    We will review your application within 5 working days.
-                  </p>
+                      <div className="mt-1 flex flex-wrap gap-2 text-xs text-slate-500">
+                        <span>{job.location}</span>
+                        <span>•</span>
+                        <span>{job.type}</span>
+                        <span>•</span>
+                        <span>{job.experience}</span>
+                      </div>
+                    </div>
+
+                    {/* Arrow */}
+                    <span
+                      className={`transition-transform ${isOpen ? "rotate-180" : ""
+                        }`}
+                    >
+                      ▼
+                    </span>
+                  </button>
+
+                  {/* CONTENT */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-[1000px] p-5 pt-0" : "max-h-0"
+                      }`}
+                  >
+                    <div className="border-t pt-4">
+                      {/* Summary */}
+                      <p className="text-sm text-slate-700">{job.summary}</p>
+
+                      {/* Responsibilities */}
+                      <h4 className="mt-4 text-sm font-semibold text-slate-900">
+                        Key Responsibilities
+                      </h4>
+                      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+                        {job.points.map((p) => (
+                          <li key={p}>{p}</li>
+                        ))}
+                      </ul>
+
+                      {/* Skills */}
+                      <h4 className="mt-4 text-sm font-semibold text-slate-900">
+                        Requirements
+                      </h4>
+                      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+                        {job.skills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+
+                      {/* Apply Section */}
+                      <div className="mt-5 flex flex-col items-start gap-3">
+                        <p className="text-sm text-slate-600">
+                          Apply now and get a response within 5 working days.
+                        </p>
+
+                        <a
+                          href={`mailto:info@truesun.in?subject=Application - ${job.title} - TrueSun`}
+                          className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:scale-105"
+                        >
+                          Apply Now →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

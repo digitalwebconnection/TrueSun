@@ -1,12 +1,9 @@
-"use client";
 
-import React from "react";
+
 import { Link } from "react-router-dom";
 import {
   ChevronRight,
-  Factory,
-  Building2,
-  House,
+
 } from "lucide-react";
 
 export default function ServicesPage() {
@@ -68,7 +65,7 @@ export default function ServicesPage() {
           <ServiceCard
             title="Carbon Footprinting & Consulting"
             desc="Track CO₂ reduction and align with ESG goals."
-            img="https://cordis.europa.eu/docs/article/images/2023-12/448147.jpg"
+            img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEJFOe8Nxg95cNm1y3TJ5QgWjdDSRvibM1vg&s"
             link="/services/consulting/carbon-footprinting"
             badge="ESG & Compliance"
             points={[
@@ -82,108 +79,137 @@ export default function ServicesPage() {
 
 
 
-{/* ===== SEGMENTS WE SERVE – TIMELINE STYLE ===== */}
-<section className="space-y-6">
-  <div className="grid gap-8 lg:grid-cols-[0.9fr,1.1fr] items-start">
-    {/* Left intro block */}
-    <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-slate-900">
-        Where We Create Maximum Impact
-      </h2>
-      <p className="text-sm text-slate-600 max-w-sm">
-        From heavy industries to premium homes, each segment gets a tailored solar strategy.
-      </p>
 
-      <div className="flex flex-wrap gap-2 text-xs">
-        <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
-          High daytime consumption
-        </span>
-        <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
-          Roof & ground-mounted
-        </span>
-        <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
-          Aesthetics + performance
-        </span>
-      </div>
-    </div>
+      <section className="space-y-6">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr,1.1fr] items-start">
+          {/* Left intro block */}
+          <div className="space-y-4 text-center">
+            <h2 className="text-2xl font-semibold text-[#FC763A]">
+              Where We Create Maximum Impact
+            </h2>
+            <p className="text-sm text-slate-600 max-w-xl mx-auto">
+              From heavy industries to premium homes, each segment gets a tailored solar strategy.
+            </p>
 
-    {/* Right timeline list */}
-    <div className="relative">
-      {/* vertical line */}
-      <div className="pointer-events-none absolute left-4 top-0 bottom-0 hidden md:block">
-        <div className="h-full w-px bg-linear-to-b from-orange-300/70 via-slate-300 to-slate-200" />
-      </div>
+            <div className="flex flex-wrap gap-2 text-xs text-center justify-center">
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                High daytime consumption
+              </span>
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                Roof & ground-mounted
+              </span>
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                Aesthetics + performance
+              </span>
+            </div>
+          </div>
 
-      <div className="space-y-4">
-        <SegmentStep
-          icon={<Factory className="h-4 w-4" />}
-          title="Manufacturing & Industry"
-          subtitle="High daytime loads and process-driven operations."
-          chips={["High daytime loads", "Roof / ground options", "Cost control"]}
-        />
-        <SegmentStep
-          icon={<Building2 className="h-4 w-4" />}
-          title="Commercial & Retail"
-          subtitle="Customer-facing spaces that run long hours."
-          chips={["Malls & IT parks", "Common-area savings", "Green building"]}
-        />
-        <SegmentStep
-          icon={<House className="h-4 w-4" />}
-          title="Premium Homes"
-          subtitle="Homes that want clean design with clean energy."
-          chips={["Neat layouts", "Safe wiring", "App monitoring"]}
-        />
-      </div>
-    </div>
-  </div>
-</section>
+          {/* Right timeline list */}
+          <div className="relative">
+            {/* vertical line */}
+            <div className="pointer-events-none absolute left-4 top-0 bottom-0 hidden md:block">
+              <div className="h-full w-px bg-linear-to-b from-orange-300/70 via-slate-300 to-slate-200" />
+            </div>
+
+            <div className="space-y-6">
+              <SegmentStep
+                icon="🏭"
+                title="Commercial & Industrial"
+                subtitle="High energy demand, optimized with smart solar engineering."
+                image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTunber4pEZ8k215w6XzpFF0XRh59v4cqF6zA&s"
+                chips={[
+                  "High ROI",
+                  "Peak Load Management",
+                  "Smart Engineering",
+                ]}
+              />
+
+              <SegmentStep
+                icon="🏠"
+                title="Residential Projects"
+                subtitle="Aesthetic solar solutions designed for modern homes."
+                image="https://solaraceenergy.com/wp-content/uploads/2025/12/DJI_0143-scaled.jpg"
+                chips={[
+                  "Clean Cabling",
+                  "Premium Finish",
+                  "Silent Operation",
+                ]}
+              />
+
+              <SegmentStep
+                icon="🏥"
+                title="Hospitals & Critical Infra"
+                subtitle="Reliable power backup for mission-critical operations."
+                image="https://pranasolar.com/wp-content/uploads/2025/02/100-kW-@-KJK-Hospital-Nalanchira-1024x683.jpg"
+                chips={[
+                  "24/7 Backup",
+                  "Zero Downtime",
+                  "High Reliability",
+                ]}
+              />
+
+              <SegmentStep
+                icon="🎓"
+                title="Institutions & Campuses"
+                subtitle="Efficient energy use across large-scale campuses."
+                image="https://orbenergy.com/wp-content/uploads/revslider/video-media/ORB-Web-Video-Final-1-1_20.jpeg"
+                chips={[
+                  "Cost Saving",
+                  "Energy Optimisation",
+                  "Scalable Systems",
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
 
-     {/* ===== SIMPLE PROCESS SECTION – TIMELINE STYLE ===== */}
-<section className="relative overflow-hidden rounded-3xl  p-4 md:p-6 space-y-8">
-  {/* subtle glow */}
-  <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-[#FC763A]/10 blur-3xl" />
-  <div className="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
+      {/* ===== SIMPLE PROCESS SECTION – TIMELINE STYLE ===== */}
+      <section className="relative overflow-hidden rounded-3xl  p-4 md:p-6 space-y-8">
+        {/* subtle glow */}
+        <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-[#FC763A]/10 blur-3xl" />
+        <div className="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
 
-  <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-    <div>
-      <h2 className="text-2xl font-semibold">
-        A Clear, 3-Step Solar Journey
-      </h2>
-      <p className="text-sm md:text-base text-slate-900 max-w-xl">
-        From first call to live generation — no noise, just a structured path.
-      </p>
-    </div>
-    <p className="text-xs uppercase tracking-[0.2em] text-slate-900">
-      STUDY • DESIGN • EXECUTE
-    </p>
-  </div>
+        <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-semibold">
+              A Clear, 3-Step Solar Journey
+            </h2>
+            <p className="text-sm md:text-base text-slate-900 max-w-xl">
+              From first call to live generation — no noise, just a structured path.
+            </p>
+          </div>
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-900">
+            STUDY • DESIGN • EXECUTE
+          </p>
+        </div>
 
-  {/* connecting line (desktop) */}
-  <div className="relative mt-4">
-    <div className="pointer-events-none absolute left-6 right-6 top-6 hidden md:block">
-      <div className="h-px w-full bg-linear-to-r from-orange-300/70 via-slate-500/60 to-orange-300/70" />
-    </div>
+        {/* connecting line (desktop) */}
+        <div className="relative mt-4">
+          <div className="pointer-events-none absolute left-6 right-6 top-6 hidden md:block">
+            <div className="h-px w-full bg-linear-to-r from-orange-300/70 via-slate-500/60 to-orange-300/70" />
+          </div>
 
-    <div className="relative grid gap-5 md:grid-cols-3">
-      <StepCard
-        step="01"
-        label="Site & Load Study"
-        text="We study your roof, shadows and consumption pattern."
-      />
-      <StepCard
-        step="02"
-        label="Design & Proposal"
-        text="You get layouts, energy yield and clear payback numbers."
-      />
-      <StepCard
-        step="03"
-        label="Execution & Handover"
-        text="We install, coordinate approvals and set up monitoring."
-      />
-    </div>
-  </div>
-</section>
+          <div className="relative grid gap-5 md:grid-cols-3">
+            <StepCard
+              step="01"
+              label="Site & Load Study"
+              text="We study your roof, shadows and consumption pattern."
+            />
+            <StepCard
+              step="02"
+              label="Design & Proposal"
+              text="You get layouts, energy yield and clear payback numbers."
+            />
+            <StepCard
+              step="03"
+              label="Execution & Handover"
+              text="We install, coordinate approvals and set up monitoring."
+            />
+          </div>
+        </div>
+      </section>
 
 
     </main>
@@ -293,38 +319,50 @@ function StepCard({
 
 
 
-
 function SegmentStep({
   icon,
   title,
   subtitle,
   chips,
+  image,
 }: {
-  icon: React.ReactNode;
+  icon: string;
   title: string;
   subtitle: string;
   chips: string[];
+  image: string;
 }) {
   return (
-    <div className="relative flex gap-3 rounded-2xl border border-slate-600/50 hover:bg-orange-300  hover:text-white bg-white px-4 py-3 md:px-5 md:py-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-orange-200">
-      {/* timeline dot */}
-      <div className="relative mt-1 hidden md:block">
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-black/1    0 border border-orange-300/60">
-          <span className="text-[10px] text-[#FC763A]">
-            {icon}
-          </span>
-        </div>
+    <div className="relative flex gap-4 rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-orange-200">
+
+      {/* Left Image */}
+      <div className="w-24 h-24 md:w-62 md:h-38 shrink-0">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      {/* content */}
-      <div className="flex-1 space-y-2">
-        <div>
-          <h3 className="text-sm md:text-base font-semibold text-slate-900 ">
-            {title}
-          </h3>
-          <p className="text-xs text-slate-600">{subtitle}</p>
+      {/* Content */}
+      <div className="flex-1 p-3 md:p-4 space-y-2">
+
+        {/* Top Row */}
+        <div className="flex items-start justify-between">
+          <div>
+            <h3 className="text-sm md:text-base font-semibold text-slate-900">
+              {title}
+            </h3>
+            <p className="text-xs text-slate-600">{subtitle}</p>
+          </div>
+
+          {/* Icon */}
+          <div className="hidden md:flex h-8 w-8 items-center justify-center rounded-full border border-orange-300 text-[#FC763A] text-xs">
+            {icon}
+          </div>
         </div>
 
+        {/* Chips */}
         <div className="flex flex-wrap gap-2">
           {chips.map((chip) => (
             <span
@@ -339,4 +377,3 @@ function SegmentStep({
     </div>
   );
 }
-

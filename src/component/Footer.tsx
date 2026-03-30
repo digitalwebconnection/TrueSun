@@ -90,8 +90,8 @@ export default function SolarFooter() {
                             <nav className="grid gap-2 text-sm text-neutral-300">
                                 <FooterLink to="/about">About Us</FooterLink>
                                 <FooterLink to="/projects">Projects</FooterLink>
-                                <FooterLink to="/subsidy">Subsidy & Policy</FooterLink>
-                                <FooterLink to="/blog">Blog</FooterLink>
+                                <FooterLink to="/solar-finance">Solar-Finance</FooterLink>
+                                <FooterLink to="/Knowledgwe">Knowledgwe HUB</FooterLink>
                                 <FooterLink to="/careers">Careers</FooterLink>
                             </nav>
                         </div>
@@ -207,8 +207,7 @@ export default function SolarFooter() {
 
                         </p>
                         <div className="flex items-center gap-5 me-20 md:me-35">
-                            <FooterLink to="/privacy">Privacy Policy</FooterLink>
-                            <FooterLink to="/terms">Terms</FooterLink>
+                            <FooterLink to="/PrivacyPolicy">Privacy Policy</FooterLink>
                         </div>
                     </div>
                 </div>

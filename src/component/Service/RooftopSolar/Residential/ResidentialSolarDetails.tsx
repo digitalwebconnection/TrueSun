@@ -147,7 +147,7 @@ const ResidentialSolarDetailsPage: FC = () => {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
             {/* Left - copy */}
             <div className="flex-1">
-              <span className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 text-xs sm:text-sm font-medium">
+              <span className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-[#FC763A] text-xs sm:text-sm font-medium">
                 <Sun className="h-4 w-4" />
                 Residential Solar Panel Installation for Housing Societies, Villas & Bungalows
               </span>
@@ -184,7 +184,7 @@ const ResidentialSolarDetailsPage: FC = () => {
               <div className="relative mt-4 lg:mt-0">
                 <div className="absolute -inset-4 bg-linear-to-tr from-emerald-200/40 via-sky-200/30 to-amber-200/40 blur-3xl -z-10" />
                 <div className="rounded-3xl bg-white/70 backdrop-blur shadow-lg border border-slate-200 px-5 py-5 sm:px-7 sm:py-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#FC763A]">
                     Residential Solar Snapshot
                   </p>
                   <ul className="mt-4 space-y-3 text-sm text-slate-700">
@@ -226,7 +226,7 @@ const ResidentialSolarDetailsPage: FC = () => {
             {benefitItems.map((b, i) => (
               <div key={i} className="flex flex-col sm:flex-row gap-4 px-5 py-4 sm:px-7 sm:py-5">
                 <div className="flex items-center gap-3 min-w-[210px]">
-                  <b.icon className="h-6 w-6 text-emerald-600 shrink-0" />
+                  <b.icon className="h-6 w-6 text-[#FC763A] shrink-0" />
                   <dt className="font-semibold text-slate-900">{b.title}</dt>
                 </div>
                 <dd className="text-sm text-slate-700">{b.desc}</dd>
@@ -504,7 +504,7 @@ interface StatInlineDarkProps {
 }
 const StatInlineDark: FC<StatInlineDarkProps> = ({ label, value }) => (
   <div className="flex flex-col">
-    <span className="text-[11px] uppercase tracking-wide text-emerald-200/80">{label}</span>
+    <span className="text-[11px] uppercase tracking-wide text-[#FC763A]">{label}</span>
     <span className="text-sm font-semibold text-emerald-50">{value}</span>
   </div>
 );
@@ -515,21 +515,21 @@ interface TagProps {
 }
 const Tag: FC<TagProps> = ({ icon: Icon, children }) => (
   <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 border border-slate-200 text-[11px] sm:text-xs font-medium text-slate-800">
-    <Icon className="h-3.5 w-3.5 text-emerald-600" />
+    <Icon className="h-3.5 w-3.5 text-[#FC763A]" />
     {children}
   </span>
 );
 
 const Li: FC<React.PropsWithChildren> = ({ children }) => (
   <li className="flex items-start gap-2">
-    <CheckCircle className="mt-0.5 h-4 w-4 text-emerald-600 shrink-0" />
+    <CheckCircle className="mt-0.5 h-4 w-4 text-[#FC763A] shrink-0" />
     <span>{children}</span>
   </li>
 );
 
 const LiDark: FC<React.PropsWithChildren> = ({ children }) => (
   <li className="flex items-start gap-2">
-    <CheckCircle className="mt-0.5 h-3.5 w-3.5 text-emerald-300 shrink-0" />
+    <CheckCircle className="mt-0.5 h-3.5 w-3.5 text-[#FC763A] shrink-0" />
     <span>{children}</span>
   </li>
 );
@@ -553,7 +553,7 @@ interface SpecStripProps {
 const SpecStrip: FC<SpecStripProps> = ({ icon: Icon, title, points }) => (
   <div className="relative rounded-3xl bg-white/80 backdrop-blur border border-slate-100 px-5 py-5 sm:px-6 sm:py-6">
     <div className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
-      <Icon className="h-5 w-5 text-emerald-600" />
+      <Icon className="h-5 w-5 text-[#FC763A]" />
       {title}
     </div>
     <ul className="mt-3 space-y-1 text-sm text-slate-700">
@@ -572,7 +572,7 @@ interface RibbonProps {
 const Ribbon: FC<RibbonProps> = ({ icon: Icon, title, children }) => (
   <div className="relative rounded-3xl bg-emerald-900/60 px-5 py-5 sm:px-6 sm:py-6 border border-emerald-800/70">
     <div className="inline-flex items-center gap-2 text-sm font-semibold">
-      <Icon className="h-5 w-5 text-emerald-300" />
+      <Icon className="h-5 w-5 text-[#FC763A]" />
       {title}
     </div>
     <p className="mt-2 text-[13px] leading-relaxed text-emerald-50">{children}</p>
@@ -585,7 +585,7 @@ interface HighlightLineProps {
 }
 const HighlightLine: FC<HighlightLineProps> = ({ icon: Icon, text }) => (
   <div className="flex items-start gap-3 text-slate-800">
-    <Icon className="h-5 w-5 text-emerald-600 mt-0.5" />
+    <Icon className="h-5 w-5 text-[#FC763A] mt-0.5" />
     <p className="text-sm">{text}</p>
   </div>
 );
@@ -596,7 +596,7 @@ interface ChipProps {
 }
 const Chip: FC<ChipProps> = ({ icon: Icon, children }) => (
   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 border border-emerald-500/40 text-emerald-50">
-    <Icon className="h-3.5 w-3.5 text-emerald-300" />
+    <Icon className="h-3.5 w-3.5 text-[#FC763A]" />
     <span>{children}</span>
   </span>
 );

@@ -4,7 +4,6 @@ import React from "react";
 import {
   CreditCard,
   Percent,
-
 } from "lucide-react";
 
 interface BenefitItemProps {
@@ -32,7 +31,7 @@ const TruesunSolarFinanceHero: React.FC = () => {
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-6 pt-16 pb-5 lg:flex-row lg:items-center lg:pt-24">
         {/* LEFT SIDE CONTENT */}
         <div className="max-w-4xl space-y-6">
-          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-emerald-200">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#FC763A] bg-[#FC763A]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-">
             <CreditCard className="h-3.5 w-3.5" />
             Truesun • Solar Finance
           </span>
@@ -41,7 +40,7 @@ const TruesunSolarFinanceHero: React.FC = () => {
             <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
               Solar Finance Made Simple
               <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-400 to-lime-200">
+              <span className="text-transparent bg-clip-text bg-[#FC763A]">
                 for homes and businesses.
               </span>
             </h1>
@@ -70,7 +69,7 @@ const TruesunSolarFinanceHero: React.FC = () => {
 
           {/* CTA BUTTONS */}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          
+
 
             <a
               href=""
@@ -88,8 +87,8 @@ const TruesunSolarFinanceHero: React.FC = () => {
 
 const BenefitItem: React.FC<BenefitItemProps> = ({ title, desc }) => (
   <div className="flex gap-3">
-    <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/15">
-      <Percent className="h-3 w-3 text-emerald-300" />
+    <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-[#FC763A]/15">
+      <Percent className="h-3 w-3 text-[#FC763A]" />
     </div>
     <div>
       <div className="text-sm font-semibold text-slate-50">{title}</div>

@@ -1,5 +1,5 @@
 import "./App.css";
-import {  Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
 import HomeMain from "./component/home/HomeMain";
@@ -16,6 +16,10 @@ import ContactUsMain from "./component/ContactUs/ContactUsMain";
 import ServiceMain from "./component/Service/ServiceMain";
 import ScrollToTop from "./component/ScrollToTop";
 import BlogMain from "./component/blog/BlogMain";
+import BlogDetails from "./component/blog/BlogDetails";
+import PrivacyPolicy from "./component/PrivacyPolicy";
+import OM from "./component/Service/RooftopSolar/O-M/OM";
+import BESS from "./component/Service/RooftopSolar/BESS/BESS";
 
 function AppInner() {
   return (
@@ -28,13 +32,17 @@ function AppInner() {
         <Route path="/services" element={<ServiceMain />} />
         <Route path="/services/rooftop/C&I" element={<MainCI />} />
         <Route path="/services/rooftop/residential" element={<Residentialmain />} />
+        <Route path="/services/rooftop/O&M" element={<OM />} />
+        <Route path="/services/rooftop/BESS" element={<BESS />} />
         <Route path="/services/consulting" element={<ConsultingMain />} />
         <Route path="/services/consulting/Carbon-Footprinting" element={<CarbonFootprintingmain />} />
         <Route path="/Solar-finance" element={<SolarfinanceMain />} />
         <Route path="/projects" element={<Projectsmain />} />
         <Route path="/careers" element={<Careersmain />} />
-        <Route path="/blog" element={<BlogMain />} />
+        <Route path="/Knowledgwe" element={<BlogMain />} />
+        <Route path="/Knowledgwe/:id" element={<BlogDetails />} />
         <Route path="/contact" element={<ContactUsMain />} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
       </Routes>
       <SolarFooter />
       <WhatsAppDockPro />

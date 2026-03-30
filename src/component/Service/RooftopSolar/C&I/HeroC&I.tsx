@@ -59,7 +59,7 @@ const SEGMENTS: Record<
     title: (
       <>
         Solar Power for{" "}
-        <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-300 to-yellow-200">
+        <span className="text-transparent bg-clip-text bg-[#FC763A]">
           Modern Industry
         </span>
       </>
@@ -75,7 +75,7 @@ const SEGMENTS: Record<
       },
     ],
     stats: [
-      { label: "Industrial Projects", value: "250+" },
+  
       { label: "Average Payback", value: "3.5–4.5 yrs" },
       { label: "Uptime Guarantee", value: "99.8%" },
     ],
@@ -90,7 +90,7 @@ const SEGMENTS: Record<
     title: (
       <>
         Solar Power for{" "}
-        <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-300 to-yellow-200">
+        <span className="text-transparent bg-clip-text bg-[#FC763A]">
           Commercial Buildings
         </span>
       </>
@@ -106,7 +106,7 @@ const SEGMENTS: Record<
       },
     ],
     stats: [
-      { label: "Commercial Sites", value: "300+" },
+
       { label: "Avg. Bill Savings", value: "30–50%" },
       { label: "Typical Payback", value: "3–4 yrs" },
     ],

@@ -41,12 +41,12 @@ export default function CarbonCommandHub() {
                     viewport={{ once: true }}
                     className="text-center max-w-7xl mx-auto"
                 >
-                    <div className="inline-flex items-center gap-2 bg-sky-300 text-black rounded-full px-4 py-1 text-sm font-medium">
+                    <div className="inline-flex items-center gap-2 bg-gray-200 text-black rounded-full px-4 py-1 text-sm font-medium">
                         <Leaf size={16} />
                         Net-Zero Made Simple
                     </div>
                     <h1 className="mt-5 text-4xl sm:text-5xl font-extrabold text-slate-900">
-                        Your <span className="text-sky-600">Carbon Intelligence</span> Command Hub
+                        Your <span className="text-[#FC763A]">Carbon Intelligence</span> Command Hub
                     </h1>
                     <p className="mt-4 text-lg max-w-3xl mx-auto text-slate-600 leading-relaxed">
                         Visualize your emissions, forecast reductions, and unlock clean growth opportunities—
@@ -55,7 +55,7 @@ export default function CarbonCommandHub() {
                     <div className="mt-8 flex flex-wrap justify-center gap-4">
                         <a
                             href="#contact"
-                            className="px-6 py-3 rounded-xl bg-sky-600 text-white font-semibold hover:bg-sky-700 transition"
+                            className="px-6 py-3 rounded-xl bg-[#FC763A] text-white font-semibold  transition"
                         >
                             Launch Assessment
                         </a>

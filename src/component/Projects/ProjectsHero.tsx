@@ -43,18 +43,18 @@ export default function AppSimple() {
         </div>
 
         <h1 className="text-2xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg">
-          Powering Maharashtra with <span className="text-teal-300">Sustainable Solar Solutions</span>
+          Powering Maharashtra with <span className="text-[#FC763A]">Sustainable Solar Solutions</span>
         </h1>
 
         <p className="text-md text-gray-200 max-w-2xl mb-10 drop-shadow">
-          As a leading provider in Maharashtra, TrueSun delivers over 120+ MW of high-performance solar installations, driving energy independence and measurable results across the state.
-        </p>
+       As a leading provider in Maharashtra, TrueSun delivers high-performance solar installations that drive energy independence and measurable results across the state.
+ </p>
 
         {/* --- CTA Buttons (Left aligned) --- */}
         <div className="flex flex-col sm:flex-row gap-4 mb-10">
           <a
          
-            className="inline-flex items-center justify-center rounded-xl bg-linear-to-r from-teal-500 to-emerald-600 px-8 py-2 md:py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
+            className="inline-flex items-center justify-center rounded-xl bg-[#FC763A] px-8 py-2 md:py-3 text-base font-bold text-white transition hover:from-teal-400 hover:to-emerald-500 shadow-lg shadow-teal-500/40 w-fit"
           >
             Explore Projects
             <ArrowRight className="ml-2 h-5 w-5" />

@@ -417,112 +417,112 @@ function InfoCard({
 
 /* ───────────────────── Gallery Section (NEW) ───────────────────── */
 
-function BeforeAfter({
-  before,
-  after,
-  alt,
-}: {
-  before?: string;
-  after?: string;
-  alt?: string;
-}) {
-  const [pos, setPos] = useState(50);
-  // If before/after not provided, show single image
-  const imgBefore = before || after;
-  const imgAfter = after || before;
+// function BeforeAfter({
+//   before,
+//   after,
+//   alt,
+// }: {
+//   before?: string;
+//   after?: string;
+//   alt?: string;
+// }) {
+//   const [pos, setPos] = useState(50);
+//   // If before/after not provided, show single image
+//   const imgBefore = before || after;
+//   const imgAfter = after || before;
 
-  return (
-    <div className="rounded-xl overflow-hidden bg-black/5">
-      <div className="relative h-64 w-full">
-        {/* After (bottom) */}
-        <img src={imgAfter} alt={alt} className="h-full w-full object-cover" />
-        {/* Before (top, clipped) */}
-        <div
-          className="absolute inset-0 overflow-hidden"
-          aria-hidden
-          style={{ width: `${pos}%` }}
-        >
-          <img src={imgBefore} alt={`${alt} — before`} className="h-full w-full object-cover filter grayscale contrast-95 brightness-90" />
-        </div>
+//   return (
+//     <div className="rounded-xl overflow-hidden bg-black/5">
+//       <div className="relative h-64 w-full">
+//         {/* After (bottom) */}
+//         <img src={imgAfter} alt={alt} className="h-full w-full object-cover" />
+//         {/* Before (top, clipped) */}
+//         <div
+//           className="absolute inset-0 overflow-hidden"
+//           aria-hidden
+//           style={{ width: `${pos}%` }}
+//         >
+//           <img src={imgBefore} alt={`${alt} — before`} className="h-full w-full object-cover filter grayscale contrast-95 brightness-90" />
+//         </div>
 
-        {/* Slider handle */}
-        <div className="absolute left-0 right-0 bottom-2 flex items-center justify-center pointer-events-none">
-          <input
-            aria-label="Adjust before / after"
-            className="pointer-events-auto w-2/3"
-            type="range"
-            min={0}
-            max={100}
-            value={pos}
-            onChange={(e) => setPos(Number(e.target.value))}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
+//         {/* Slider handle */}
+//         <div className="absolute left-0 right-0 bottom-2 flex items-center justify-center pointer-events-none">
+//           <input
+//             aria-label="Adjust before / after"
+//             className="pointer-events-auto w-2/3"
+//             type="range"
+//             min={0}
+//             max={100}
+//             value={pos}
+//             onChange={(e) => setPos(Number(e.target.value))}
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-function GallerySection({
-  projects,
-  onOpenProject,
-}: {
-  projects: Project[];
-  onOpenProject: (p: Project, i: number) => void;
-}) {
-  // Testimonials derived from project clientName + short snippet
-  const testimonials = projects
-    .filter((p) => p.clientName)
-    .map((p) => ({
-      author: p.clientName as string,
-      text:
-        p.clientName && p.description
-          ? `${p.clientName.split(" ")[0]}: "${p.description.slice(0, 80)}..."`
-          : `${p.name}`,
-      projectName: p.name,
-    }));
+// function GallerySection({
+//   projects,
+//   onOpenProject,
+// }: {
+//   projects: Project[];
+//   onOpenProject: (p: Project, i: number) => void;
+// }) {
+//   // Testimonials derived from project clientName + short snippet
+//   const testimonials = projects
+//     .filter((p) => p.clientName)
+//     .map((p) => ({
+//       author: p.clientName as string,
+//       text:
+//         p.clientName && p.description
+//           ? `${p.clientName.split(" ")[0]}: "${p.description.slice(0, 80)}..."`
+//           : `${p.name}`,
+//       projectName: p.name,
+//     }));
 
-  const [, setTIndex] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setTIndex((s) => (s + 1) % testimonials.length), 6000);
-    return () => clearInterval(id);
-  }, [testimonials.length]);
+//   const [, setTIndex] = useState(0);
+//   useEffect(() => {
+//     const id = setInterval(() => setTIndex((s) => (s + 1) % testimonials.length), 6000);
+//     return () => clearInterval(id);
+//   }, [testimonials.length]);
 
-  return (
-    <section className="mt-12">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-slate-900">Project Gallery</h3>
-        <div className="text-sm text-slate-500">Photos, before/after & customer stories</div>
-      </div>
+//   return (
+//     <section className="mt-12">
+//       <div className="flex items-center justify-between mb-4">
+//         <h3 className="text-lg font-semibold text-slate-900">Project Gallery</h3>
+//         <div className="text-sm text-slate-500">Photos, before/after & customer stories</div>
+//       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p, i) => (
-          <div key={p.name} className="group relative rounded-2xl overflow-hidden border hover:shadow-lg transition">
-            <BeforeAfter before={p.beforeImage} after={p.afterImage} alt={p.name} />
-            <div className="p-3 bg-white">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-sm font-semibold text-slate-900 line-clamp-2">{p.name}</div>
-                  <div className="mt-1 text-xs text-slate-500">{p.location} • {p.capacity}</div>
-                </div>
+//       {/* Grid */}
+//       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+//         {projects.map((p, i) => (
+//           <div key={p.name} className="group relative rounded-2xl overflow-hidden border hover:shadow-lg transition">
+//             <BeforeAfter before={p.beforeImage} after={p.afterImage} alt={p.name} />
+//             <div className="p-3 bg-white">
+//               <div className="flex items-start justify-between gap-3">
+//                 <div>
+//                   <div className="text-sm font-semibold text-slate-900 line-clamp-2">{p.name}</div>
+//                   <div className="mt-1 text-xs text-slate-500">{p.location} • {p.capacity}</div>
+//                 </div>
 
-                <div className="flex flex-col items-end gap-2">
-                  <button
-                    onClick={() => onOpenProject(p, i)}
-                    className="inline-flex items-center gap-2 rounded-md bg-sky-600 px-3 py-1 text-xs font-semibold text-white shadow"
-                  >
-                    View
-                  </button>
-                  <a href={p.caseStudyUrl || "#"} className="text-xs text-slate-500 hover:text-sky-600">Case study</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+//                 <div className="flex flex-col items-end gap-2">
+//                   <button
+//                     onClick={() => onOpenProject(p, i)}
+//                     className="inline-flex items-center gap-2 rounded-md bg-sky-600 px-3 py-1 text-xs font-semibold text-white shadow"
+//                   >
+//                     View
+//                   </button>
+//                   <a href={p.caseStudyUrl || "#"} className="text-xs text-slate-500 hover:text-sky-600">Case study</a>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
 
 /* ───────────────────── Main Page (merged with gallery) ───────────────────── */
 export default function ProjectShowcasePage() {
@@ -701,7 +701,7 @@ export default function ProjectShowcasePage() {
       </div>
 
       {/* Project Gallery (NEW) */}
-      <GallerySection projects={projects} onOpenProject={openModalForProject} />
+      {/* <GallerySection projects={projects} onOpenProject={openModalForProject} /> */}
       {/* Modal */}
 
     </section>

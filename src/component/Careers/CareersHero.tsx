@@ -1,11 +1,8 @@
-"use client";
-
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Users, X } from "lucide-react";
+import { motion} from "framer-motion";
+import {  Users } from "lucide-react";
 
 export default function CareersPage() {
-  const [isOpen, setIsOpen] = useState(false);
+
 
   return (
     <>
@@ -54,13 +51,7 @@ export default function CareersPage() {
               transition={{ duration: 0.55, delay: 0.2 }}
               className="mt-7 flex flex-wrap items-center gap-4"
             >
-              <button
-                onClick={() => setIsOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full bg-[#FC763A] px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-[#FC763A] transition"
-              >
-                Apply for open roles
-                <ArrowRight className="h-4 w-4" />
-              </button>
+             
 
               <div className="flex items-center gap-1 text-xs text-slate-500">
                 <Users className="h-4 w-4" />
@@ -87,83 +78,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* ================= POPUP MODAL ================= */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Background Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Modal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-50 flex items-center justify-center px-4"
-            >
-              <div className="relative w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl">
-                
-                {/* Close Button */}
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="absolute right-4 top-4 text-slate-400 hover:text-slate-700"
-                >
-                  <X />
-                </button>
-
-                <h2 className="text-2xl font-bold text-slate-900">
-                  Apply for a Position
-                </h2>
-
-                <form className="mt-6 space-y-5">
-                  
-                  <input
-                    type="text"
-                    placeholder="First Name"
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-[#FC763A] focus:outline-none"
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Surname"
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-[#FC763A] focus:outline-none"
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Position Applied For"
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-[#FC763A] focus:outline-none"
-                    required
-                  />
-
-                  <input
-                    type="number"
-                    placeholder="Experience (Years)"
-                    className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-[#FC763A] focus:outline-none"
-                    required
-                  />
-
-                  <button
-                    type="submit"
-                    className="w-full rounded-full bg-[#FC763A] py-3 text-sm font-semibold text-white shadow-md hover:bg-[#FC763A] transition"
-                  >
-                    Submit Application
-                  </button>
-                </form>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </>
   );
 }

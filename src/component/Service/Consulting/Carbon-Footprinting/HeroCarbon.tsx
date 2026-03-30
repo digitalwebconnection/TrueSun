@@ -70,7 +70,7 @@ export default function NetZeroCommandCenterAddOn({
                             transition={{ duration: 0.5 }}
                             className="inline-flex items-center gap-2 rounded-full bg-black/80 px-4 py-1 text-sm font-medium shadow-sm backdrop-blur text-slate-200"
                         >
-                            <Leaf className="h-4 w-4 text-emerald-300" />
+                            <Leaf className="h-4 w-4 text-[#FC763A]" />
                             <span className="tracking-wide">GHG Protocol • ISO 14064 • CDP-ready</span>
                         </motion.div>
 
@@ -100,7 +100,7 @@ export default function NetZeroCommandCenterAddOn({
                         >
                             <a
                                 href="/#calculator"
-                                className={`inline-flex items-center gap-2 rounded-full bg-${accent}-600 px-5 py-3 text-base font-semibold text-white shadow-lg transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-${accent}-500`}
+                                className={`inline-flex items-center gap-2 rounded-full bg-[#FC763A] px-5 py-3 text-base font-semibold text-white shadow-lg transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-${accent}-500`}
                             >
                                 <Calculator className="h-5 w-5" />
                                 Calculator
@@ -176,7 +176,7 @@ export default function NetZeroCommandCenterAddOn({
                                     <div className="w-36">
                                         <div className="text-xs text-slate-400">Reduction progress</div>
                                         <div className="mt-2 h-3 w-full rounded-full bg-slate-700/30">
-                                            <div className={`h-3 w-[62%] rounded-full bg-linear-to-r ${accentGradient}`} />
+                                            <div className={`h-3 w-[62%] rounded-full bg-[#FC763A]`} />
                                         </div>
                                         <div className="mt-2 text-sm font-medium text-slate-200">62% to target</div>
                                     </div>
@@ -186,7 +186,7 @@ export default function NetZeroCommandCenterAddOn({
                                 <div className="mt-4 flex items-center gap-3">
                                     <a
                                         href="#actions"
-                                        className={`inline-flex items-center gap-2 rounded-lg bg-${accent}-600 px-3 py-2 text-sm font-semibold text-white shadow-sm`}
+                                        className={`inline-flex items-center gap-2 rounded-lg bg-[#FC763A] px-3 py-2 text-sm font-semibold text-white shadow-sm`}
                                     >
                                         <Calculator className="h-4 w-4" />
                                         Run Scenario
