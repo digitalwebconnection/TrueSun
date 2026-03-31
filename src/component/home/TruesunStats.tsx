@@ -1,10 +1,8 @@
-"use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, cubicBezier, type Variants } from "framer-motion";
 
 // --------------------------- Types ---------------------------
-
 
 export type Stat = {
   id: string;

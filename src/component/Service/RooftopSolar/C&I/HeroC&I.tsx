@@ -1,4 +1,4 @@
-"use client";
+ 
 
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import LeadPopup from "../../../LeadPopup";

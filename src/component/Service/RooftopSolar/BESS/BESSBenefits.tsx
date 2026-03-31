@@ -45,8 +45,8 @@ export default function BESSBenefits() {
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
-        <div className="mb-12 max-w-3xl">
-          <h4 className="text-sm text-[#1D3F84] font-semibold tracking-wide mb-2">
+        <div className="mb-12 max-w-4xl text-center mx-auto">
+          <h4 className="text-sm text-[#FC763A] font-semibold tracking-wide mb-2">
             KEY BENEFITS
           </h4>
 
@@ -58,8 +58,8 @@ export default function BESSBenefits() {
             A BESS transforms your solar installation from a daytime-only asset
             into a round-the-clock energy powerhouse.
           </p>
-
-          <div className="w-16 h-1 bg-yellow-400 mt-4"></div>
+{/* 
+          <div className="w-16 h-1 bg-yellow-400 mt-4"></div> */}
         </div>
 
         {/* Grid */}

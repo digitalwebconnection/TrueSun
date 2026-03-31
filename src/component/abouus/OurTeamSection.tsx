@@ -1,4 +1,4 @@
-"use client";
+ 
 
 import React from "react";
 import { motion, type Variants, easeInOut } from "framer-motion";

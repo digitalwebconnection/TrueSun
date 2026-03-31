@@ -1,4 +1,4 @@
-"use client";
+ 
 
 import React, { useCallback,  useRef } from "react";
 import { motion, useReducedMotion, useSpring, useTransform, useMotionValue } from "framer-motion";

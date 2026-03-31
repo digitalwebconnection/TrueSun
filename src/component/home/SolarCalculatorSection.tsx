@@ -1,4 +1,4 @@
-"use client";
+ 
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Zap } from "lucide-react";
@@ -29,7 +29,6 @@ const CUSTOMER_CATEGORY = [
   { label: "INDUSTRIAL", value: "INDUSTRIAL", subsidyAllowed: false },
   { label: "COMMERCIAL", value: "COMMERCIAL", subsidyAllowed: false },
   { label: "GOVERNMENT", value: "GOVERNMENT", subsidyAllowed: false },
-  { label: "SOCIAL SECTOR", value: "SOCIAL SECTOR", subsidyAllowed: false },
 ];
 
 /* ========= Currency Formatter ========= */

@@ -1,4 +1,4 @@
-"use client";
+ 
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -62,7 +62,7 @@ export default function CommercialSolarHero() {
             <div className="relative mt-5 inline-block">
               <h1 className="text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl">
                 Solar Power for{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-200">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-300 to-yellow-200">
                   Commercial Buildings
                 </span>
               </h1>
@@ -138,12 +138,12 @@ export default function CommercialSolarHero() {
               transition={{ repeat: Infinity, duration: 5, ease: EASE_IN_OUT }}
             />
             <div className="relative overflow-hidden rounded-3xl border border-white/30 bg-white/90 p-5 shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur">
-              <div className="relative aspect-[16/11] overflow-hidden rounded-2xl ring-1 ring-slate-900/10 bg-gradient-to-b from-white to-slate-50">
+              <div className="relative aspect-16/11 overflow-hidden rounded-2xl ring-1 ring-slate-900/10 bg-linear-to-b from-white to-slate-50">
                 <div className="absolute inset-4 grid grid-cols-4 gap-2">
                   {[...Array(16)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="rounded-md bg-gradient-to-b from-slate-700 to-slate-900 shadow-inner"
+                      className="rounded-md bg-linear-to-b from-slate-700 to-slate-900 shadow-inner"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{

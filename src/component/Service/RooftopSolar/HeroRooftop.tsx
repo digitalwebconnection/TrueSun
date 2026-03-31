@@ -1,4 +1,4 @@
-"use client";
+ 
 import React from "react";
 import type { ReactNode } from "react"; // ✅ FIXED: type-only import
 

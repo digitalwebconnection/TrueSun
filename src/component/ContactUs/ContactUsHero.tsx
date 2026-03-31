@@ -37,14 +37,9 @@ const ContactHero = () => {
 
                 {/* CTA Buttons - Clear Next Steps */}
                 <div className="flex flex-wrap  gap-4 mt-10">
+                   
                     <a
-                        className="bg-[#FC763A] text-white font-semibold px-7 py-3 rounded-full shadow-xl shadow-[#FC763A]/30  transition"
-                    >
-                        Get a Free Project Analysis
-                    </a>
-
-                    <a
-                        href="tel:+919999999999" // 🔁 replace with Creasun's real number
+                        href="tel:+918850845149" // 🔁 replace with Creasun's real number
                         className="border border-white/25 bg-white/5 px-7 py-3 rounded-full text-white hover:border-[#FC763A] hover:text-[#FC763A] transition"
                     >
                         Call Our Experts Now

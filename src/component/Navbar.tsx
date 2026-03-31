@@ -45,7 +45,9 @@ const SERVICES: ServiceGroup[] = [
       { label: "C&I", to: "/services/rooftop/C&I" },
       { label: "Residential", to: "/services/rooftop/residential" },
       { label: "O&M ", to: "/services/rooftop/O&M" },
-       { label: "BESS ", to: "/services/rooftop/BESS" },
+      { label: "BESS ", to: "/services/rooftop/BESS" },
+      { label: "Subsidy ", to: "/services/rooftop/Subsidy" },
+      { label: "Solar Finance Solutions ", to: "/services/rooftop/Solar-Finance-Solutions" },
     ],
   },
   {
@@ -208,7 +210,7 @@ function ServicesMenu() {
   );
 }
 
-/* ============================ Mobile Services Menu ============================ */
+
 /* ============================ Mobile Services Menu ============================ */
 function MobileServicesMenu({
   isOpen,
@@ -419,7 +421,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden items-center gap-8 font-medium text-gray-800 md:flex">
+          <nav className="hidden items-center   gap-8 font-medium text-gray-800 md:flex">
             <NavLink
               to="/"
               className={({ isActive }) =>

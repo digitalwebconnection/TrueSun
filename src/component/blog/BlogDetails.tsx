@@ -1,16 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import { blogPosts } from "./blogData";
+import LeadPopup from "../../component/LeadPopup";
+import { useState } from "react";
 
 const BlogDetails = () => {
   const { id } = useParams();
+  const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
   const blog = blogPosts.find((b) => b.id === id);
 
   if (!blog) return <div>Blog not found</div>;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      
+    <div className="max-w-7xl mx-auto px-4 py-10">
+
       <Link to="/" className="text-orange-500 text-sm">
         ← Back to Blogs
       </Link>
@@ -28,14 +31,16 @@ const BlogDetails = () => {
       </div>
 
       {/* CTA */}
-      <div className="mt-10 bg-orange-50 p-6 rounded text-center">
-        <h3 className="font-semibold">
-          Want to install solar?
-        </h3>
-        <button className="mt-3 bg-orange-500 text-white px-6 py-2 rounded-full">
+      <div className="mt-10 p-6 rounded text-center">
+        
+        <button onClick={() => setOpenLeadPopup(true)}
+          className="px-6 py-2 bg-[#FC763A] rounded-full text-white">
           Get Free Consultation
         </button>
       </div>
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
     </div>
   );
 };

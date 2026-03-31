@@ -1,4 +1,4 @@
-"use client";
+ 
 
 import type { FC, ReactNode } from "react";
 import type { SVGProps, ComponentType } from "react";

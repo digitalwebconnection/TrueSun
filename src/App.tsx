@@ -20,20 +20,26 @@ import BlogDetails from "./component/blog/BlogDetails";
 import PrivacyPolicy from "./component/PrivacyPolicy";
 import OM from "./component/Service/RooftopSolar/O-M/OM";
 import BESS from "./component/Service/RooftopSolar/BESS/BESS";
+import Subsidy from "./component/Service/RooftopSolar/Subsidy/Subsidy";
+import SFC from "./component/Service/RooftopSolar/SFS/SFS";
 
 function AppInner() {
   return (
     <>
       <ScrollToTop />
       <Navbar />
+
       <Routes>
-        <Route path="/" element={<HomeMain />} />
-        <Route path="/about" element={<MainAbout />} />
-        <Route path="/services" element={<ServiceMain />} />
-        <Route path="/services/rooftop/C&I" element={<MainCI />} />
-        <Route path="/services/rooftop/residential" element={<Residentialmain />} />
-        <Route path="/services/rooftop/O&M" element={<OM />} />
+
+        <Route path="/" element={<HomeMain />} /> {/* Home Page Path Is / */}
+        <Route path="/about" element={<MainAbout />} />{/* About Us Page  */}
+        <Route path="/services" element={<ServiceMain />} /> {/* Service Main page  */}
+        <Route path="/services/rooftop/C&I" element={<MainCI />} />{/* In Service Page Rooftop Section C&I Page */}
+        <Route path="/services/rooftop/residential" element={<Residentialmain />} /> {/* In Service Page Rooftop Section Residential Page */}
+        <Route path="/services/rooftop/O&M" element={<OM />} /> 
         <Route path="/services/rooftop/BESS" element={<BESS />} />
+        <Route path="/services/rooftop/Subsidy" element={<Subsidy />} />
+        <Route path="/services/rooftop/Solar-Finance-Solutions" element={<SFC/>} />
         <Route path="/services/consulting" element={<ConsultingMain />} />
         <Route path="/services/consulting/Carbon-Footprinting" element={<CarbonFootprintingmain />} />
         <Route path="/Solar-finance" element={<SolarfinanceMain />} />
@@ -43,8 +49,11 @@ function AppInner() {
         <Route path="/Knowledgwe/:id" element={<BlogDetails />} />
         <Route path="/contact" element={<ContactUsMain />} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+
       </Routes>
+
       <SolarFooter />
+
       <WhatsAppDockPro />
     </>
   );

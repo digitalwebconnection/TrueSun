@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
 import {
     SunMedium,
-    ArrowRight,
 } from "lucide-react";
 import BlogPage from "./BlogPage";
 
@@ -69,13 +67,7 @@ export default function SolarBlogPage() {
                                 &ldquo;Solar Payback in 5 Minutes&rdquo; is a great place to
                                 start if you’re new to rooftop solar.
                             </p>
-                            <Link
-                                to="/blog/solar-payback-explained"
-                                className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-orange-300 hover:text-orange-200"
-                            >
-                                Read the article
-                                <ArrowRight className="h-3.5 w-3.5" />
-                            </Link>
+                         
                         </div>
 
                         {/* subtle glow behind card */}
