@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Wallet, Zap, BarChart3, CreditCard, ArrowRight } from 'lucide-react';
 
@@ -33,10 +32,10 @@ const SolarFinancing = () => {
   return (
     <section className="py-14  overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* --- Header Area --- */}
         <div className="text-center items-center mb-20">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -49,8 +48,8 @@ const SolarFinancing = () => {
               Why Solar Financing?
             </h3>
             <p className="mt-6 text-lg text-slate-600 leading-relaxed max-w-4xl mx-auto">
-              Installing a rooftop solar system is a smart long-term investment. 
-              We bridge the gap between your sustainability goals and upfront costs 
+              Installing a rooftop solar system is a smart long-term investment.
+              We bridge the gap between your sustainability goals and upfront costs
               with seamless credit solutions.
             </p>
           </motion.div>
@@ -85,7 +84,7 @@ const SolarFinancing = () => {
         </div>
 
         {/* --- Bottom CTA --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

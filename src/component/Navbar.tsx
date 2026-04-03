@@ -1,4 +1,3 @@
-
 import {
   useEffect,
   useRef,
@@ -14,7 +13,7 @@ import {
 import {
   Menu,
   X,
-  Sun,
+  Sun,  
   ChevronDown,
   ChevronRight,
   Wrench,
@@ -436,7 +435,7 @@ export default function Navbar() {
                 cn(linkBase, isActive && activeClass)
               }
             >
-              About
+              About Us
             </NavLink>
 
             <ServicesMenu />
@@ -557,7 +556,7 @@ export default function Navbar() {
         <nav className="flex -mt-5 flex-col space-y-2 bg-white p-6 font-semibold">
           {[
             { name: "Home", to: "/" },
-            { name: "About", to: "/about" },
+            { name: "About us", to: "/about" },
             { name: "Solar Finance", to: "/solar-finance" },
             { name: "Projects", to: "/projects" },
             { name: "Knowledgwe HUB", to: "/Knowledgwe" },

@@ -5,9 +5,6 @@ import SolarSubsidies from "./SolarSubsidies"
 import WhyChooseTrueSun from "./WhyChooseTrueSunSFS"
 import WhySolarFinance from "./WhySolarFinance"
 
-
-
-
 const SFS = () => {
   return (
     <>
@@ -17,7 +14,6 @@ const SFS = () => {
       <SolarSubsidies/>
       <WhyChooseTrueSun/>
       <HowItWorks/>
-
     </>
   )
 }

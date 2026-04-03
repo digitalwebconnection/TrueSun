@@ -1,26 +1,15 @@
-// NetZeroCommandCenterAddOn.tsx
- 
-
 import { motion } from "framer-motion";
 import {
     Leaf,
-    Gauge,
-    Calculator,
-    Download,
-    Truck,
-    Zap,
     CheckCircle2,
 } from "lucide-react";
+import { useState } from "react";
+import LeadPopup from "../../../LeadPopup";
 
 type Props = {
     accent?: "emerald" | "sky" | string;
-    title?: string;
-    subtitle?: string;
-    primaryCta?: { label: string; href: string };
-    secondaryCta?: { label: string; href: string };
 };
 
-/** Tailwind-safe accent helper */
 function accentCls(accent: string) {
     if (accent === "emerald") return "from-emerald-600 to-emerald-500";
     if (accent === "sky") return "from-sky-600 to-sky-500";
@@ -28,232 +17,82 @@ function accentCls(accent: string) {
 }
 
 export default function NetZeroCommandCenterAddOn({
-    accent = "emerald",
-    title = "carbon compounds",
-    subtitle = "Live emissions, reduction opportunities, and supplier insights — all in one clear view.",
 
+    accent = "emerald",
 }: Props) {
     const accentGradient = accentCls(accent);
-
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
     return (
         <section
-            className="relative overflow-hidden  py-25"
+            className="relative overflow-hidden py-34"
             style={{
-                backgroundImage: "url('https://previews.123rf.com/images/atdigit/atdigit2310/atdigit231000510/216495577-dark-background-with-3d-molecules-in-red-and-blue-ai-generated.jpg')",
+                backgroundImage:
+                    "url('https://e6qg27vt7gu.exactdn.com/wp-content/uploads/2023/08/carbonfootprint1.jpg?strip=all')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
             }}
         >
-            {/* Background image layer */}
-            <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/70 to-black/80"></div>
+            {/* DARK OVERLAY */}
+            <div className="absolute inset-0 bg-black/50" />
 
-            {/* Soft animated gradient blob behind */}
+            {/* GRADIENT OVERLAY (depth effect) */}
+            {/* <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-900/80 to-black" /> */}
+
+            {/* GLOW */}
             <motion.div
-                initial={{ scale: 1, opacity: 0.07 }}
-                animate={{ scale: [1, 1.06, 1], opacity: [0.07, 0.12, 0.07] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className={`pointer-events-none absolute -left-40 -top-40 h-168 w-2xl rounded-full bg-linear-to-tr ${accentGradient} blur-3xl opacity-20`}
-                aria-hidden
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 8, repeat: Infinity }}
+                className={`absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-20 bg-linear-to-tr ${accentGradient}`}
             />
 
-            {/* A subtle overlay to improve text contrast on busy images */}
-            <div className="pointer-events-none absolute inset-0 -z-10 bg-slate-900/50" aria-hidden />
+            <div className="relative mx-auto max-w-7xl px-6">
+                <div className=" items-center">
 
-            <div className="mx-auto max-w-7xl px-6">
-                <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-                    {/* Left column: textual hero */}
-                    <div className="z-10">
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            className="inline-flex items-center gap-2 rounded-full bg-black/80 px-4 py-1 text-sm font-medium shadow-sm backdrop-blur text-slate-200"
-                        >
+                    {/* LEFT SIDE */}
+                    <div>
+                        <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-1 rounded-full text-sm text-white backdrop-blur">
                             <Leaf className="h-4 w-4 text-[#FC763A]" />
-                            <span className="tracking-wide">GHG Protocol • ISO 14064 • CDP-ready</span>
-                        </motion.div>
+                            GHG Protocol • ISO 14064 • Global Carbon Markets
+                        </div>
 
-                        <motion.h2
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.05 }}
-                            className="mt-6 text-3xl font-extrabold leading-tight text-white sm:text-5xl"
-                        >
-                            {title}
-                        </motion.h2>
+                        <h2 className="mt-6 text-3xl sm:text-4xl max-w-4xl  font-bold text-white leading-tight">
+                            Carbon Footprinting, I-RECs & Carbon Credit Sourcing
+                        </h2>
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.12 }}
-                            className="mt-4 max-w-xl text-lg text-slate-300"
-                        >
-                            {subtitle}
-                        </motion.p>
+                        <p className="mt-5 text-lg text-slate-300 max-w-4xl">
+                            As businesses accelerate their transition towards sustainability and net-zero goals, managing carbon emissions has become a strategic priority. At TrueSun Energy Solutions, we provide end-to-end carbon management solutions—from measuring your carbon footprint to sourcing I-RECs and carbon credits across global markets.  </p>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.18 }}
-                            className="mt-8 flex flex-wrap gap-3"
-                        >
-                            <a
-                                href="/#calculator"
-                                className={`inline-flex items-center gap-2 rounded-full bg-[#FC763A] px-5 py-3 text-base font-semibold text-white shadow-lg transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-${accent}-500`}
+                        {/* CTA */}
+                        <div className="mt-8 flex gap-4 flex-wrap">
+
+                            <button
+                                onClick={() => setOpenLeadPopup(true)}
+                                className="px-6 py-2 bg-[#FC763A] rounded-full text-white"
+
                             >
-                                <Calculator className="h-5 w-5" />
-                                Calculator
-                            </a>
+                                Talk to Expert
+                            </button>
+                        </div>
 
-                        </motion.div>
-
-                        {/* Small feature list */}
-                        <motion.ul
-                            initial={{ opacity: 0, y: 6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.28 }}
-                            className="mt-6 grid max-w-md grid-cols-1 gap-2 text-sm sm:grid-cols-2"
-                        >
+                        {/* FEATURES */}
+                        <div className="mt-6     grid sm:grid-cols-2 max-w-3xl gap-3">
                             {[
-                                { t: "Audit trail & versioning", i: CheckCircle2 },
-                                { t: "Automated utility parsing", i: Gauge },
-                                { t: "Logistics & travel integrations", i: Truck },
-                                { t: "Renewables planning & offsets", i: Zap },
-                            ].map(({ t, i: Icon }) => (
-                                <li
-                                    key={t}
-                                    className="flex items-center gap-2 rounded-lg bg-white px-3 py-2 shadow-sm backdrop-blur "
-                                >
-                                    <Icon className={`h-4 w-4 :text-${accent}-800`} />
-                                    <span className="text-slate-900">{t}</span>
-                                </li>
+                                "Real-time carbon footprint tracking",
+                                "Scope 1, 2 & 3 emissions visibility",
+                                "Global I-REC & carbon credit sourcing",
+                                "Compliance-ready ESG reporting",
+                            ].map((item) => (
+                                <div className="flex items-center gap-2 bg-white text-black px-3 py-2 rounded-lg">
+                                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                                    <span className="text-sm">{item}</span>
+                                </div>
                             ))}
-                        </motion.ul>
-                    </div>
-
-                    {/* Right column: compact command center cards */}
-                    <div className="relative z-10 flex items-center justify-center">
-                        <div className="w-full max-w-lg">
-                            <motion.div
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                className="relative rounded-2xl  p-5 shadow-2xl backdrop-blur bg-slate-800/60"
-                            >
-                                {/* Top row: metric chips */}
-                                <div className="flex items-center justify-between gap-3">
-                                    <div className="flex flex-col">
-                                        <span className={`text-2xl font-semibold text-${accent}-300`}>−12.4%</span>
-                                        <span className="text-xs text-slate-100">YoY operational emissions</span>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <div className="rounded-md border  px-3 py-2 text-xs font-medium border-slate-700 bg-slate-100/40">
-                                            Scope 1
-                                        </div>
-                                        <div className="rounded-md border  px-3 py-2 text-xs font-medium border-slate-700 bg-slate-9 00/40">
-                                            Scope 3
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Middle: miniature chart + progress */}
-                                <div className="mt-4 flex items-center gap-4">
-                                    <div className="flex-1">
-                                        <div className="h-20 w-full rounded-lg bg-linear-to-r  from-slate-900/30 to-slate-800/20 p-3">
-                                            {/* Placeholder bars built with divs for a small inline chart */}
-                                            <div className="flex h-full items-end gap-2">
-                                                <div className="h-6 w-3 rounded-sm bg-slate-700" />
-                                                <div className={`h-10 w-3 rounded-sm bg-${accent}-500`} />
-                                                <div className="h-8 w-3 rounded-sm bg-slate-600" />
-                                                {/* FIX: this line needed a template string */}
-                                                <div className={`h-12 w-3 rounded-sm bg-${accent}-400`} />
-                                                <div className="h-7 w-3 rounded-sm bg-slate-700" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="w-36">
-                                        <div className="text-xs text-slate-400">Reduction progress</div>
-                                        <div className="mt-2 h-3 w-full rounded-full bg-slate-700/30">
-                                            <div className={`h-3 w-[62%] rounded-full bg-[#FC763A]`} />
-                                        </div>
-                                        <div className="mt-2 text-sm font-medium text-slate-200">62% to target</div>
-                                    </div>
-                                </div>
-
-                                {/* Bottom: quick actions */}
-                                <div className="mt-4 flex items-center gap-3">
-                                    <a
-                                        href="#actions"
-                                        className={`inline-flex items-center gap-2 rounded-lg bg-[#FC763A] px-3 py-2 text-sm font-semibold text-white shadow-sm`}
-                                    >
-                                        <Calculator className="h-4 w-4" />
-                                        Run Scenario
-                                    </a>
-                                    <a
-                                        href="#export"
-                                        className="inline-flex items-center gap-2 rounded-lg border   px-3 py-2 text-sm font-semibold text-slate-100 shadow-sm border-slate-100 bg-slate-900/30"
-                                    >
-                                        <Download className="h-4 w-4" />
-                                        Export CSV
-                                    </a>
-                                </div>
-                            </motion.div>
-
-                            {/* Floating micro-cards orbiting the main card */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.45 }}
-                                className="pointer-events-none relative mt-4 flex justify-between gap-3"
-                            >
-                                <motion.div
-                                    animate={{ y: [0, -6, 0] }}
-                                    transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-                                    className="rounded-xl border  px-3 py-2 shadow-sm backdrop-blur border-slate-700 bg-slate-800/60"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <Gauge className={`h-4 w-4 text-${accent}-300`} />
-                                        <div className="text-xs">
-                                            <div className="font-medium text-slate-100">Meters parsed</div>
-                                            <div className="text-slate-400">1,240</div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                                
-                                <motion.div
-                                    animate={{ y: [0, -6, 0] }}
-                                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-                                    className="rounded-xl border  px-3 py-2 shadow-sm backdrop-blur border-slate-700 bg-slate-800/60"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <Zap className={`h-4 w-4 text-${accent}-300`} />
-                                        <div className="text-xs">
-                                            <div className="font-medium text-slate-100">Renewable mix</div>
-                                            <div className="text-slate-400">42%</div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-
-                                <motion.div
-                                    animate={{ y: [0, -6, 0] }}
-                                    transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-                                    className="rounded-xl border  px-3 py-2 shadow-sm backdrop-blur border-slate-700 bg-slate-800/60"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <Truck className={`h-4 w-4 text-${accent}-300`} />
-                                        <div className="text-xs">
-                                            <div className="font-medium text-slate-100">Logistics</div>
-                                            <div className="text-slate-400">68% covered</div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
                         </div>
                     </div>
+
+                    {openLeadPopup && (
+                        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+                    )}
                 </div>
             </div>
         </section>

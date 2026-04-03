@@ -132,14 +132,14 @@ export default function SolarFooter() {
                             <div className="grid gap-2 text-sm text-neutral-300">
                                 <p className="inline-flex items-start gap-2">
                                     <a
-                                        href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.1904036441724!2d72.82662711027224!3d18.998760554319407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf494fee7d19%3A0xd15155d3f91eaee3!2sTrueSun%20Energy%20Solutions%20Private%20Limited!5e1!3m2!1sen!2sin!4v1773644125171!5m2!1sen!2sin"
+                                        href="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3453.199038507266!2d72.82532862520335!3d18.998344432190336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s8th%20floor%2C%20B-Wing%2C%20Peninsula%20Business%20Park%20Tower%20B%2C%20Lower%20Parel%20Mumbai%20-%20400013!5e1!3m2!1sen!2sin!4v1775206753967!5m2!1sen!2sin"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-start gap-2 hover:text-[#FC763A]"
                                     >
                                         <MapPin className="mt-0.5 h-12 w-12  py-4" />
-                                        8th floor,  B-Wing, Peninsula Business Park, Senapati Bapat Marg, Ganapatrao Kadam Marg, Parel, Mumbai, Maharashtra 400013
-                                    </a>
+                                    8th floor, B-Wing, Peninsula Business Park Tower B, Lower Parel
+Mumbai - 400013 </a>
                                 </p>
 
                                 <p className="inline-flex items-start gap-2">
@@ -162,22 +162,22 @@ export default function SolarFooter() {
 
                             </div>
                             <div className="mt-4 flex items-center gap-2 hover:text-[#fc763a]">
-                                <Social href="#" label="Facebook">
+                                <Social href="https://www.facebook.com/savewithtruesun" label="Facebook">
                                     <Facebook className="h-4 w-4 m-1" />
                                 </Social>
-                                <Social href="#" label="Instagram">
+                                <Social href="https://www.instagram.com/truesunenergy/" label="Instagram">
                                     <Instagram className="h-4 w-4 m-1" />
                                 </Social>
-                                <Social href="#" label="LinkedIn">
+                                <Social href="https://www.linkedin.com/company/28163084" label="LinkedIn">
                                     <Linkedin className="h-4 w-4 m-1" />
                                 </Social>
-                                <Social href="#" label="YouTube">
+                                <Social href="https://www.youtube.com/@truesunenergysolutions" label="YouTube">
                                     <Youtube className="h-4 w-4 m-1" />
                                 </Social>
-                                <Social href="#" label="Faxtwitter">
+                                <Social href="https://x.com/TrueSunEnergy" label="Faxtwitter">
                                     <FaXTwitter className="h-4 w-4 m-1" />
                                 </Social>
-                                <Social href="#" label="Pilnterest">
+                                <Social href="https://in.pinterest.com/02nmxqdt7syiposejxj5aa4piabmtr/" label="Pilnterest">
                                     <PiPinterestLogo className="h-4 w-4 m-1" />
                                 </Social>
 

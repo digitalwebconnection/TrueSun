@@ -39,9 +39,6 @@ const SolarBenefits = () => {
             {/* ===== BENEFITS SECTION WITH BACKGROUND IMAGE ===== */}
             <section className="relative py-14">
 
-            
-
-
                 <div className="relative max-w-7xl mx-auto px-4 text-center">
 
                     <h2 className="text-3xl md:text-4xl font-bold">
@@ -65,13 +62,13 @@ const SolarBenefits = () => {
                                 <img
                                     src={item.img}
                                     alt={item.title}
-                                    className="w-full h-47 object-cover"
+                                    className="w-full z-5 h-47 object-cover"
                                 />
 
                                 <div className="p-5">
 
                                     {/* Icon */}
-                                    <div className="w-12 h-12 flex items-center justify-center bg-orange-100 text-[#FC763A] rounded-full mx-auto -mt-10 shadow-md">
+                                    <div className="w-12 h-12 flex items-center justify-center bg-owhite text-[#FC763A] rounded-full mx-auto -mt-5 shadow-md">
                                         {item.icon}
                                     </div>
 
