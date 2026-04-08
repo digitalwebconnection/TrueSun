@@ -5,8 +5,7 @@ const bgImages = [
   "https://australianpremiumsolar.co.in/wp-content/uploads/2024/06/cleaning-solar-panel.jpg",
   "https://img-cdn.publive.online/fit-in/1200x675/english-betterindia/media/post_attachments/uploads/2020/09/Solar-panel-Malvan.jpg",
   "https://waareertl.com/wp-content/uploads/2024/05/Rooftop-Solar-System-Installation-in-India.jpg",
-  "https://media.istockphoto.com/id/1405880267/photo/two-engineers-installing-solar-panels-on-roof.jpg?s=612x612&w=0&k=20&c=OvQDbJaTnMM4jPfIA3y5vrO88i98NZJRahZtnYFZCq0=",
-  "https://www.noidapower.com/assets/img/inner/solarto-2.jpg",
+  // "https://media.istockphoto.com/id/1405880267/photo/two-engineers-installing-solar-panels-on-roof.jpg?s=612x612&w=0&k=20&c=OvQDbJaTnMM4jPfIA3y5vrO88i98NZJRahZtnYFZCq0=",,
 ];
 
 const SLIDE_DURATION_MS = 5000;
