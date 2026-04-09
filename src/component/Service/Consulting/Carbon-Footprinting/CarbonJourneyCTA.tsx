@@ -20,7 +20,7 @@ const CarbonJourneyCTA = () => {
         </div>
 
         {/* Main Heading */}
-        <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-8">
+        <h2 className="text-3xl md:text-5xl font-black text-[#686868] tracking-tighter leading-[0.9] mb-8">
           Start Your  <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FC763A] to-[#ff9d72]"> Carbon Journey
           </span>
         </h2>

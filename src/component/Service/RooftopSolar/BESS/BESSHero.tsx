@@ -1,8 +1,10 @@
-
+import LeadPopup from "../../../LeadPopup";
+import { useState } from "react";
 
 export default function BESSHero() {
+        const [openLeadPopup, setOpenLeadPopup] = useState(false);
     return (
-        <section className="relative py-24 px-6 md:px-16 text-white overflow-hidden">
+        <section className="relative py-24 px-6 md:px-16  overflow-hidden">
 
             {/* Background Image */}
             <div className="absolute inset-0">
@@ -16,7 +18,7 @@ export default function BESSHero() {
             </div>
 
             {/* Content */}
-            <div className="relative max-w-7xl mx-auto">
+            <div className="relative max-w-7xl text-white mx-auto">
 
                 <div className="max-w-3xl">
                     <h4 className="text-sm md:text-base tracking-widest text-white mb-4">
@@ -35,13 +37,12 @@ export default function BESSHero() {
 
                     {/* CTA */}
                     <div className="flex flex-wrap gap-4">
-                        <button className="bg-[#FC763A] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#e56a2d] transition">
-                            Explore BESS Solutions
+                        <button
+                        onClick={() => setOpenLeadPopup(true)}
+                        className="bg-[#FC763A] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#e56a2d] transition">
+                          Get Consultation
                         </button>
 
-                        <button className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition">
-                            Get Consultation
-                        </button>
                     </div>
                 </div>
 
@@ -56,6 +57,11 @@ export default function BESSHero() {
                 </div>
 
             </div>
+
+                    {/* Popup Mount */}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
         </section>
     );
 }

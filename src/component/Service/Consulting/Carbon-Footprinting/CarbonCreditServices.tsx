@@ -54,7 +54,7 @@ const CarbonServicesAutoFlow = () => {
                 {/* Header Section */}
                 <div className="mb-10 max-w-4xl mx-auto text-center">
 
-                    <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-none">
+                    <h2 className="text-3xl md:text-5xl font-black text-[#686868] tracking-tighter leading-none">
                         Our Carbon <br />
                         <span className="text-transparent bg-clip-text bg-[#FC763A] ">
                             Credit Services

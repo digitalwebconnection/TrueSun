@@ -1,4 +1,4 @@
- 
+
 
 import React, { useMemo, useState } from "react";
 import { motion, type Variants } from "framer-motion";
@@ -103,9 +103,9 @@ function EmiCalculatorMini({
 }) {
   // Inputs: monthlyBill & tariff (basic approach)
   const [monthlyBill, setMonthlyBill] = useState<number>(4000);
-  const [tariff, setTariff] = useState<number>(9);
+  const [tariff, setTariff] = useState<number>(10);
   const [tenure, setTenure] = useState<number>(5);
-  const [rate, setRate] = useState<number>(10); // APR
+  const [rate] = useState<number>(12); // APR
   const [applySubsidy, setApplySubsidy] = useState<boolean>(true);
 
   // Estimate consumption and recommended system similar to earlier logic:
@@ -158,11 +158,11 @@ function EmiCalculatorMini({
           />
         </label>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="">
           <label className="text-xs text-slate-600">
             Tenure (years)
             <select className="w-full mt-1 rounded-md border px-3 py-2 text-sm" value={tenure} onChange={(e) => setTenure(Number(e.target.value))}>
-              {[1, 2, 3, 4, 5, 6, 7].map((y) => (
+              {[3, 4, 5].map((y) => (
                 <option key={y} value={y}>
                   {y} yr
                 </option>
@@ -170,10 +170,6 @@ function EmiCalculatorMini({
             </select>
           </label>
 
-          <label className="text-xs text-slate-600">
-            Interest (annual %)
-            <input className="w-full mt-1 rounded-md border px-3 py-2 text-sm" type="number" value={rate} onChange={(e) => setRate(Number(e.target.value || 0))} />
-          </label>
         </div>
 
         <label className="flex items-center gap-2 text-xs">
@@ -209,9 +205,7 @@ function EmiCalculatorMini({
           <button onClick={onBook} className="flex-1 rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white shadow">
             Book a Free Finance Call
           </button>
-          <a href="#learn-more" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-slate-700">
-            Learn more
-          </a>
+
         </div>
       </div>
     </div>
@@ -233,7 +227,7 @@ export default function SolarFinancePage() {
             <p className="inline-flex items-center gap-2 rounded-full bg-[rgba(252,118,58,0.08)] px-3 py-1 text-sm font-semibold" style={{ color: PALETTE.primary }}>
               Finance made simple
             </p>
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
+            <h1 className="mt-4 text-3xl font-extrabold leading-tight text-[#686868] sm:text-4xl">
               Own solar with flexible finance — EMI, Zero-Upfront, or Subsidy combos
             </h1>
             <p className="mt-3 text-slate-700 max-w-xl">
@@ -268,67 +262,67 @@ export default function SolarFinancePage() {
         </div>
       </Section>
 
-   {/* MODELS */}
-<Section id="options">
-  <div className="mt-10 grid gap-8 md:grid-cols-3">
-    {MODELS.map((m) => (
-      <motion.div
-        key={m.id}
-        className="group relative rounded-3xl border bg-white p-6 shadow-md transition hover:shadow-xl"
-        whileHover={{ y: -8 }}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        transition={{ duration: 0.3 }}
-      >
-        {/* Icon + Title */}
-        <div className="flex items-center gap-4">
-          <div className="rounded-xl bg-linear-to-r from-[#FC763A] to-[#FFB347] p-3 text-white shadow-md">
-            {m.icon}
-          </div>
-          <div>
-            <h3 className="text-base font-semibold text-slate-900">
-              {m.title}
-            </h3>
-            <p className="text-xs text-slate-500">{m.subtitle}</p>
-          </div>
-        </div>
+      {/* MODELS */}
+      <Section id="options">
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          {MODELS.map((m) => (
+            <motion.div
+              key={m.id}
+              className="group relative rounded-3xl border bg-white p-6 shadow-md transition hover:shadow-xl"
+              whileHover={{ y: -8 }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Icon + Title */}
+              <div className="flex items-center gap-4">
+                <div className="rounded-xl bg-linear-to-r from-[#FC763A] to-[#FFB347] p-3 text-white shadow-md">
+                  {m.icon}
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-slate-900">
+                    {m.title}
+                  </h3>
+                  <p className="text-xs text-slate-500">{m.subtitle}</p>
+                </div>
+              </div>
 
-        {/* Bullet Points */}
-        <ul className="mt-5 space-y-3 text-sm text-slate-700">
-          {m.bullets.map((b) => (
-            <li key={b} className="flex items-start gap-2">
-              <span className="mt-1 h-2 w-2 rounded-full bg-[#FC763A]" />
-              <span>{b}</span>
-            </li>
+              {/* Bullet Points */}
+              <ul className="mt-5 space-y-3 text-sm text-slate-700">
+                {m.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-2">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-[#FC763A]" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <div className="mt-6 flex items-center justify-between">
+                <button
+                  onClick={() => setOpenLeadPopup(true)}
+                  className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:scale-105"
+                >
+                  Get Started →
+                </button>
+
+
+              </div>
+
+              {/* Hover Glow Effect */}
+              <div className="absolute inset-0 rounded-3xl opacity-0 transition group-hover:opacity-100 pointer-events-none bg-linear-to-r from-[#FC763A]/10 to-[#FFB347]/10" />
+            </motion.div>
           ))}
-        </ul>
-
-        {/* CTA */}
-        <div className="mt-6 flex items-center justify-between">
-          <button
-            onClick={() => setOpenLeadPopup(true)}
-            className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-5 py-2 text-sm font-semibold text-white shadow-md transition hover:scale-105"
-          >
-            Get Started →
-          </button>
-
-        
         </div>
 
-        {/* Hover Glow Effect */}
-        <div className="absolute inset-0 rounded-3xl opacity-0 transition group-hover:opacity-100 pointer-events-none bg-linear-to-r from-[#FC763A]/10 to-[#FFB347]/10" />
-      </motion.div>
-    ))}
-  </div>
+        {/* POPUP */}
+        {openLeadPopup && (
+          <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+        )}
+      </Section>
 
-  {/* POPUP */}
-  {openLeadPopup && (
-    <LeadPopup onClose={() => setOpenLeadPopup(false)} />
-  )}
-</Section>
 
-      
 
       {/* COMPARISON */}
       <Section>
@@ -414,14 +408,7 @@ export default function SolarFinancePage() {
           <div className="rounded-2xl border bg-white p-4 shadow-sm">
             <h4 className="text-sm font-semibold text-slate-900">Ready to start?</h4>
             <p className="mt-2 text-sm text-slate-700">Share a few details and we’ll call you with a clear plan and numbers.</p>
-            <div className="mt-4 flex gap-2">
-              <button onClick={() => setOpenLeadPopup(true)} className="flex-1 rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-4 py-2 text-sm font-semibold text-white">
-                Book a free consult
-              </button>
-              <a href="#calculator" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-slate-700">
-                Try calculator
-              </a>
-            </div>
+
           </div>
         </div>
       </Section>
@@ -435,7 +422,7 @@ export default function SolarFinancePage() {
             <button onClick={() => setOpenLeadPopup(true)} className="rounded-full bg-linear-to-r from-[#FC763A] to-[#FFB347] px-6 py-2 text-sm font-semibold text-white">
               Talk to finance expert
             </button>
-            <a href="#learn-more" className="rounded-full border px-6 py-2 text-sm font-medium text-slate-700">Download brochure</a>
+            {/* <a href="#learn-more" className="rounded-full border px-6 py-2 text-sm font-medium text-slate-700">Download brochure</a> */}
           </div>
         </div>
       </div>

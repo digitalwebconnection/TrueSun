@@ -46,7 +46,7 @@ const SERVICES: ServiceGroup[] = [
       { label: "O&M ", to: "/services/rooftop/O&M" },
       { label: "BESS ", to: "/services/rooftop/BESS" },
       { label: "Subsidy ", to: "/services/rooftop/Subsidy" },
-      { label: "Solar Finance Solutions ", to: "/services/rooftop/Solar-Finance-Solutions" },
+      // { label: "Solar Finance Solutions ", to: "/services/rooftop/Solar-Finance-Solutions" },
     ],
   },
   {

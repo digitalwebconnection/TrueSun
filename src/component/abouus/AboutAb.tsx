@@ -447,9 +447,7 @@ function ZigZagWhyUs() {
                   }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
-                <div className="absolute bottom-4 left-4 rounded-xl bg-white/70 px-4 py-2 text-sm font-semibold text-gray-800 backdrop-blur">
-                  {p.title}
-                </div>
+               
               </motion.div>
             </motion.div>
           ))}
@@ -478,43 +476,43 @@ function CurvedSteps() {
     {
       n: 1,
       title: "Free Site Survey",
-      desc: "Load assessment, shading analysis & structural feasibility check",
+      desc: "Load and Bill Assessment, Structure/Rooftop Feasibility Check",
     },
     {
       n: 2,
       title: "Design & Proposal",
-      desc: "Energy yield simulation, ROI calculation & bill-saving projection",
+      desc: "Shadow Analysis, Structure Design,  Bill Saving projection, Quotation",
     },
     {
       n: 3,
       title: "Approvals & Subsidy",
-      desc: "DISCOM coordination, net-metering & subsidy documentation support",
+      desc: "DISCOM Coordination, Net Metering & Subsidy documentation support",
     },
     {
       n: 4,
       title: "Installation",
-      desc: "Certified hardware, safety-compliant installation & QA checks",
+      desc: "Certified Hardware, Safety Compliant Installation & QA Checks",
     },
     {
       n: 5,
       title: "Handover & Training",
-      desc: "App setup, performance KPIs & maintenance handover kit",
+      desc: "App Setup, Basic Maintenance Training, System Handover with Documentation",
     },
     {
       n: 6,
       title: "Operation & Maintenance ",
-      desc: "Module Cleaning , Inverter Checks, Preventive Maintenance",
+      desc: "Module Cleaning, Inverter Checks, Preventive Maintenance",
     },
   ];
 
   return (
     <section className="relative bg-emerald-50/60 ">
-      <div className="mx-auto max-w-7xl px-6 lg:px-0">
+      <div className="mx-auto max-w-7xl px-6 lg:px-6">
 
         {/* Heading */}
         <motion.div
           {...fadeUpProps}
-          className="mx-auto mb-12 max-w-2xl text-center"
+          className="mx-auto mb-12 max-w-4xl text-center"
         >
           <h2 className="text-3xl md:text-5xl font-bold text-[#686868]">
             Our Hassle-Free <span className="text-[#fc763a]"> Process </span>

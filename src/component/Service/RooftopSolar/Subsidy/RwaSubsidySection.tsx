@@ -8,7 +8,7 @@ const RWASubsidySection = () => {
 
           {/* Top Heading */}
           <div className="max-w-5xl text-center mx-auto ">
-            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FC763A] leading-tight">
               Subsidy for Residential Societies <br />
               (RWA / Group Housing)
             </h2>
@@ -83,7 +83,7 @@ const RWASubsidySection = () => {
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Heading */}
-        <h2 className="text-xl md:text-2xl text-center font-semibold text-gray-900 mb-6">
+        <h2 className="text-xl md:text-2xl text-center font-semibold text-[#686868] mb-6">
           Cost & Savings for Societies
         </h2>
 

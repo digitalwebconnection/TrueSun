@@ -1,5 +1,5 @@
- 
 
+import { Link } from "react-router-dom";
 import type React from "react";
 import {
     Leaf,
@@ -11,7 +11,6 @@ import {
     ShieldCheck,
     GaugeCircle,
     Globe2,
-    Quote,
     Wallet,
 } from "lucide-react";
 
@@ -117,7 +116,7 @@ export default function AboutTrueSunNew() {
                                 <MiniStat
                                     label="Estimated Monthly Savings"
                                     value="₹12,500"
-                                    subtitle="Typical rooftop solar case"
+                                    subtitle="Subsidy Available 1 to 500 kW"
                                 />
 
                                 <MiniStat
@@ -171,6 +170,17 @@ export default function AboutTrueSunNew() {
                             "Detailed Payback Modeling",
                         ]}
                     />
+                    <PillarCard
+                        image="https://img-cdn.publive.online/fit-in/640x430/filters:format(webp)/saur-energy/media/post_attachments/2024/02/financing-for-solar.jpg"
+                        Icon={Wallet}
+                        title="Solar Finance"
+                        desc="Tie ups with leading Financial Institutions to provide seamless financing options for your solar rooftop projets"
+                        features={[
+                            "Low or Zero upfront cost",
+                            "EMI/Flexible Financing options",
+                            "OPEX/RESCO Models",
+                        ]}
+                    />
 
                     <PillarCard
                         image="https://synergysolar.in/wp-content/uploads/2026/01/Carbon-Credit-for-Solar-Farm-1080x400.webp"
@@ -184,23 +194,13 @@ export default function AboutTrueSunNew() {
                         ]}
                     />
 
-                    <PillarCard
-                        image="https://img-cdn.publive.online/fit-in/640x430/filters:format(webp)/saur-energy/media/post_attachments/2024/02/financing-for-solar.jpg"
-                        Icon={Wallet}
-                        title="Solar Finance"
-                        desc="Tie ups with leading Financial Institutions to provide seamless financing options for your solar rooftop projets"
-                        features={[
-                            "Low or Zero upfront cost",
-                            "EMI/Flexible Financing options",
-                            "OPEX/RESCO Models",
-                        ]}
-                    />
+
                 </div>
 
 
 
                 {/* === SECTION 5: STORYTELLING BLOCK — TESTIMONIALS / CASE STUDIES === */}
-                <div id="case-studies" className="mt-12 grid gap-8 lg:grid-cols-12 items-stretch">
+                <div id="case-studies" className="mt-12 max-w-7xl mx-auto grid gap-8 lg:grid-cols-12 items-stretch">
 
                     {/* Left Column: Story (Occupies 5 columns) */}
                     <div className="lg:col-span-5 flex flex-col justify-center bg-slate-50 p-8 rounded-3xl border border-slate-100">
@@ -213,32 +213,52 @@ export default function AboutTrueSunNew() {
                         <p className="text-gray-600 text-lg mb-6 leading-relaxed">
                             Every rooftop has a unique energy story. At TrueSun, we combine engineering precision with ground-level execution to turn your roof into a strategic asset.
                         </p>
-                        <div className="flex gap-4 items-center">
-                            <button className="bg-gray-900 text-white px-6 py-3 rounded-full font-medium hover:bg-[#fc763a] transition-all">
-                                View All Projects
-                            </button>
-                        </div>
+                       <div className="flex gap-4 items-center">
+  <Link to="/projects">
+    <button className="bg-gray-900 text-white px-10 py-3 rounded-full font-medium hover:bg-[#fc763a] transition-all">
+      View All Projects
+    </button>
+  </Link>
+</div>
                     </div>
 
-                    {/* Right Column: Testimonials (Occupies 7 columns) */}
+                    {/* Right Column: Story-Based Impact Cards */}
                     <div className="lg:col-span-7 grid gap-6">
-                        <div className="relative group">
-                            {/* Decorative background element */}
-                            <div className="absolute -inset-1 bg-[#FC763A]  rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
-                            <TestimonialCard
-                                className="relative bg-white border-none shadow-sm p-8"
-                                sector="Industrial Manufacturing, Navi Mumbai"
-                                quote="With TrueSun, our rooftop became a profit center. Payback happened faster than projected..."
-                                name="Plant Head, MSME Unit"
-                            />
+
+                        {/* Card 1 */}
+                        <div className="group rounded-2xl bg-white border border-gray-600/40 p-6 shadow-xl hover:shadow-lg transition-all duration-300">
+
+                            <span className="text-sm text-[#FC763A] font-medium">
+                                Before Solar
+                            </span>
+
+                            <h4 className="text-xl font-bold text-[#686868] mt-2 mb-3">
+                                Unpredictable Energy Costs
+                            </h4>
+
+                            <p className="text-gray-600 text-sm leading-relaxed">
+                                Rising electricity bills and frequent tariff changes made it difficult to manage operational expenses and plan long-term budgets.
+                            </p>
+
                         </div>
 
-                        <TestimonialCard
-                            className="bg-white border border-gray-100 shadow-sm p-8"
-                            sector="Premium Housing Society, Pune"
-                            quote="TrueSun guided us through every step — technical, financial, and regulatory..."
-                            name="Society Treasurer"
-                        />
+                        {/* Card 2 */}
+                        <div className="group rounded-2xl bg-white border border-gray-600/40 p-6 shadow-xl hover:shadow-lg transition-all duration-300">
+
+                            <span className="text-sm text-[#FC763A] font-medium">
+                                After Solar
+                            </span>
+
+                            <h4 className="text-xl font-bold text-[#686868] mt-2 mb-3">
+                                Stable & Predictable Savings
+                            </h4>
+
+                            <p className="text-gray-600 text-sm leading-relaxed">
+                                With solar installed, energy costs became consistent and significantly lower, allowing better financial planning and long-term savings.
+                            </p>
+
+                        </div>
+
                     </div>
                 </div>
 
@@ -292,7 +312,7 @@ export function PillarCard({
     return (
         <div className="group perspective h-80 w-full">
 
-            <div className="relative h-full w-full transition-transform duration-700 transform-3d group-hover:transform-[rotateY(180deg)]">
+            <div className="relative shadow-xl h-full w-full transition-transform duration-700 transform-3d group-hover:transform-[rotateY(180deg)]">
 
                 {/* FRONT */}
                 {/* BACK */}
@@ -379,25 +399,4 @@ function MiniStat({
     );
 }
 
-function TestimonialCard({
-    className = "",
-    sector,
-    quote,
-    name,
-}: {
-    className?: string;
-    sector: string;
-    quote: string;
-    name: string;
-}) {
-    return (
-        <div className={`relative rounded-2xl border border-gray-600/40 bg-white px-5 py-5 shadow-sm ${className}`}>
-            <Quote className="absolute -top-4 -left-2 h-8 w-8 text-[#FC763A]" />
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#FC763A] mb-1">
-                {sector}
-            </p>
-            <p className="text-sm text-gray-800 italic leading-relaxed">“{quote}”</p>
-            <p className="mt-3 text-xs text-gray-500">— {name}</p>
-        </div>
-    );
-}
+

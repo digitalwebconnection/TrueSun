@@ -39,7 +39,7 @@ const SolarEligibilitySection = () => {
             <h2 className="text-sm font-bold tracking-widest text-[#FC763A] uppercase mb-3">
               Get Started
             </h2>
-            <h3 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-4xl md:text-6xl font-extrabold text-[#686868] tracking-tight">
               Eligibility & <span className="text-transparent bg-clip-text bg-[#FC763A]">Process.</span>
             </h3>
           </motion.div>
@@ -95,7 +95,7 @@ const SolarEligibilitySection = () => {
         <div className="">
           <div className=" gap-3 mb-12">
 
-            <h4 className="text-2xl font-bold text-slate-800 text-center  uppercase tracking-wider">Application Journey</h4>
+            <h4 className="text-2xl font-bold text-[#686868] text-center  uppercase tracking-wider">Application Journey</h4>
           </div>
 
           <motion.div

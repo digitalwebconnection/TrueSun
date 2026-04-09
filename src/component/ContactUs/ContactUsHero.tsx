@@ -5,12 +5,12 @@ const ContactHero = () => {
             {/* Background Image */}
             <div className="absolute inset-0 -z-10">
                 <img
-                    src="https://solarsmart.co.in/wp-content/uploads/2025/03/New-Project.png" // 🔁 Changed image path to reflect an industrial/engineering focus
+                    src="https://www.tatapower.com/adobe/dynamicmedia/deliver/dm-aid--2368fbcc-c209-4949-a331-27e88d1aa428/body-1-img.png?quality=85&preferwebp=true" // 🔁 Changed image path to reflect an industrial/engineering focus
                     alt="Creasun Energy industrial solar contact background"
                     className="h-full w-full object-cover"
                 />
                 {/* Dark overlay */}
-                <div className="absolute inset-0 bg-[#050814]/70" />
+                <div className="absolute inset-0 bg-[#050814]/60" />
             </div>
 
             {/* Content */}
@@ -30,7 +30,7 @@ const ContactHero = () => {
 
                 {/* Subtext - Clear Scope and Value Proposition */}
                 <p className="text-slate-200 mt-6 max-w-2xl  text-base sm:text-lg leading-relaxed">
-                    Whether you need a **data-driven analysis for industrial savings** or a
+                    Whether you need a **data-driven analysis for industrial savings or a
                     reliable rooftop system, our engineering team provides clear guidance and
                     guarantees systems that perform.
                 </p>
@@ -49,20 +49,6 @@ const ContactHero = () => {
 
             </div>
 
-            {/* SVG Bottom Wave - Seamless transition to the next section */}
-            {/* <div className="absolute bottom-0 left-0 w-full leading-none pointer-events-none">
-                <svg
-                    viewBox="0 0 1440 120"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-20 sm:h-[100px] "
-                    preserveAspectRatio="none"
-                >
-                    <path
-                        d="M0,64 C180,110 360,120 540,96 C720,72 900,16 1080,16 C1260,16 1350,40 1440,64 L1440,120 L0,120 Z"
-                        fill="#ffffff"
-                    />
-                </svg>
-            </div> */}
         </section>
     );
 };

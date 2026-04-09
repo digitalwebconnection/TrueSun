@@ -138,7 +138,7 @@ export default function SolarFooter() {
                                         className="flex items-start gap-2 hover:text-[#FC763A]"
                                     >
                                         <MapPin className="mt-0.5 h-12 w-12  py-4" />
-                                    8th floor, B-Wing, Peninsula Business Park Tower B, Lower Parel
+                                    8th floor, B-Wing, Peninsula Business Park, Tower B, Lower Parel
 Mumbai - 400013 </a>
                                 </p>
 
@@ -163,22 +163,22 @@ Mumbai - 400013 </a>
                             </div>
                             <div className="mt-4 flex items-center gap-2 hover:text-[#fc763a]">
                                 <Social href="https://www.facebook.com/savewithtruesun" label="Facebook">
-                                    <Facebook className="h-4 w-4 m-1" />
+                                    <Facebook className="h-6 w-6 m-1" />
                                 </Social>
                                 <Social href="https://www.instagram.com/truesunenergy/" label="Instagram">
-                                    <Instagram className="h-4 w-4 m-1" />
+                                    <Instagram className="h-6 w-6 m-1" />
                                 </Social>
                                 <Social href="https://www.linkedin.com/company/28163084" label="LinkedIn">
-                                    <Linkedin className="h-4 w-4 m-1" />
+                                    <Linkedin className="h-6 w-6 m-1" />
                                 </Social>
                                 <Social href="https://www.youtube.com/@truesunenergysolutions" label="YouTube">
-                                    <Youtube className="h-4 w-4 m-1" />
+                                    <Youtube className="h-6 w-6 m-1" />
                                 </Social>
                                 <Social href="https://x.com/TrueSunEnergy" label="Faxtwitter">
-                                    <FaXTwitter className="h-4 w-4 m-1" />
+                                    <FaXTwitter className="h-6 w-6 m-1" />
                                 </Social>
                                 <Social href="https://in.pinterest.com/02nmxqdt7syiposejxj5aa4piabmtr/" label="Pilnterest">
-                                    <PiPinterestLogo className="h-4 w-4 m-1" />
+                                    <PiPinterestLogo className="h-6 w-6 m-1" />
                                 </Social>
 
                             </div>

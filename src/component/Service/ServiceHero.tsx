@@ -23,10 +23,10 @@ const ServicesHero: React.FC = () => {
       <div className="absolute inset-0 bg-black/70" />
 
       {/* Content */}
-      <div className="relative mx-auto flex max-w-7xl flex-col-reverse items-center gap-12 px-6 py-20 text-white md:flex-row md:pt-22">
+      <div className="relative mx-auto flex max-w-7xl flex-col-reverse items-center gap-12 px-6 py-20  md:flex-row md:pt-22">
 
         {/* LEFT CONTENT */}
-        <div className="w-full max-w-2xl space-y-6 text-center md:text-left">
+        <div className="w-full max-w-2xl text-white space-y-6 text-center md:text-left">
           <p className="text-xs font-semibold uppercase tracking-widest text-orange-300">
             Our Solar Solutions
           </p>
@@ -59,7 +59,7 @@ const ServicesHero: React.FC = () => {
 
         {/* RIGHT VISUAL BLOCK */}
         <div className="w-full max-w-md">
-          <div className="relative h-36 md:h-56 w-full overflow-hidden rounded-3xl bg-white/10 backdrop-blur-md p-6 shadow-2xl">
+          <div className="relative h-36 md:h-46 w-full overflow-hidden rounded-3xl bg-white/10 backdrop-blur-md p-6 shadow-2xl">
             {/* Decorative Overlay */}
             <div className="absolute inset-0 bg-linear-to-br from-[#FC763A]/30 via-transparent to-emerald-500/20" />
 
@@ -71,11 +71,12 @@ const ServicesHero: React.FC = () => {
                 <h2 className="mt-2 text-lg font-semibold text-white">
                   Reliable solar solutions powered by expert engineering.
                 </h2>
-              </div>
-              <p className="text-xs text-slate-100/80">
+                <p className="text-xs mt-2 text-slate-100/80">
                 We handle survey, design, installation, approvals, and maintenance
                 with a dedicated in-house team.
               </p>
+              </div>
+              
             </div>
           </div>
         </div>

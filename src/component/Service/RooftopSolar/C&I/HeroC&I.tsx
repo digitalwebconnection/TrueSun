@@ -1,4 +1,4 @@
- 
+
 
 import React, { useMemo, useRef, useState, useEffect } from "react";
 import LeadPopup from "../../../LeadPopup";
@@ -13,13 +13,11 @@ import {
 import {
   Factory,
   Building2,
-  Leaf,
   Sun,
   Zap,
   Gauge,
   TrendingUp,
   Users,
-  Timer,
   ShieldCheck,
 } from "lucide-react";
 
@@ -75,13 +73,13 @@ const SEGMENTS: Record<
       },
     ],
     stats: [
-  
-      { label: "Average Payback", value: "3.5–4.5 yrs" },
+
+      { label: "Average Payback", value: "< 3 yrs" },
       { label: "Uptime Guarantee", value: "99.8%" },
     ],
     projectLabel: "1 MWp Industrial Rooftop",
     projectYield: "~14.5 Lakh kWh/yr",
-    projectPayback: "3.5–4.5 yrs",
+    projectPayback: "",
     projectCO2: "1,150+ t/yr",
   },
   commercial: {
@@ -108,11 +106,11 @@ const SEGMENTS: Record<
     stats: [
 
       { label: "Avg. Bill Savings", value: "30–50%" },
-      { label: "Typical Payback", value: "3–4 yrs" },
+      { label: "Typical Payback", value: "< 3 yrs" },
     ],
     projectLabel: "250 kWp Commercial Rooftop",
     projectYield: "~3.6 Lakh kWh/yr",
-    projectPayback: "3–4 yrs",
+    projectPayback: "< 3 yrs",
     projectCO2: "280+ t/yr",
   },
 };
@@ -125,7 +123,7 @@ export default function CIHeroSection() {
   const [active, setActive] = useState<SegmentKey>("industrial");
   const [autoRotate, setAutoRotate] = useState(true);
   const segment = SEGMENTS[active];
-    const [openLeadPopup, setOpenLeadPopup] = useState(false);
+  const [openLeadPopup, setOpenLeadPopup] = useState(false);
 
   // 🔁 Auto-rotate between Industrial & Commercial
   useEffect(() => {
@@ -152,7 +150,7 @@ export default function CIHeroSection() {
   }, [y]);
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-white">
+    <section className="relative h-150 overflow-hidden bg-slate-950 ">
       {/* Background image (generic C&I solar) with parallax */}
       <motion.div ref={bgRef} style={{ y: yParallax }} className="absolute inset-0 opacity-60">
         <div
@@ -183,13 +181,13 @@ export default function CIHeroSection() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.05 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] text-white/80 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px]  backdrop-blur-sm"
             >
               <Sun className="h-3.5 w-3.5" /> {segment.pill}
             </motion.div>
 
             {/* Toggle: Industrial / Commercial */}
-            <div className="mt-4 inline-flex rounded-full bg-white/10 p-1 text-xs font-medium border border-white/15 backdrop-blur-sm">
+            <div className="mt-4 text-white/80 inline-flex rounded-full bg-white/10 p-1 text-xs font-medium border border-white/15 backdrop-blur-sm">
               {(["industrial", "commercial"] as SegmentKey[]).map((key) => {
                 const activeState = active === key;
                 return (
@@ -199,9 +197,8 @@ export default function CIHeroSection() {
                       setActive(key);
                       setAutoRotate(false); // stop auto-rotate after user interaction
                     }}
-                    className={`relative px-4 py-1.5 rounded-full transition text-xs sm:text-[13px] ${
-                      activeState ? "text-slate-900" : "text-white/75"
-                    }`}
+                    className={`relative px-4 py-1.5 rounded-full transition text-xs sm:text-[13px] ${activeState ? "text-slate-900" : "text-white/75"
+                      }`}
                   >
                     {activeState && (
                       <motion.span
@@ -224,7 +221,7 @@ export default function CIHeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4, ease: EASE_OUT }}
-                className="mt-5"
+                className="mt-5 text-white/80"
               >
                 <div className="relative inline-block">
                   <h1 className="text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl">
@@ -270,10 +267,9 @@ export default function CIHeroSection() {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <MagneticButton href="">Get a C&amp;I Solar Proposal</MagneticButton>
               <a
-                 onClick={() => setOpenLeadPopup(true)}
-                className="inline-flex items-center justify-center rounded-xl border border-white/30 px-5 py-3 text-white/90 hover:bg-white/10 backdrop-blur-sm transition active:scale-[0.98]"
+                onClick={() => setOpenLeadPopup(true)}
+                className="inline-flex items-center justify-center rounded-xl border border-white/30 px-5 py-3 text-[#FC763A] hover:bg-white/10 backdrop-blur-sm transition active:scale-[0.98]"
               >
                 Estimate ROI in 60 seconds
               </a>
@@ -287,34 +283,18 @@ export default function CIHeroSection() {
               <Trust label="Hospitals & Malls" />
             </div>
 
-            {/* KPI strip with counters */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`stats-${active}`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: EASE_OUT }}
-                className="mt-6 flex flex-wrap gap-3"
-              >
-                {segment.stats.map((s, i) => (
-                  <Stat key={i} label={s.label} value={s.value} />
-                ))}
-              </motion.div>
-            </AnimatePresence>
 
-            {/* Scroll hint */}
-            <ScrollIndicator />
+ 
           </div>
 
           {/* RIGHT SIDE — Visual Card & Stats */}
           <VisualCard segmentKey={active} segment={segment} />
         </div>
       </div>
-        {/* Popup Mount */}
-            {openLeadPopup && (
-              <LeadPopup onClose={() => setOpenLeadPopup(false)} />
-            )}
+      {/* Popup Mount */}
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
     </section>
   );
 }
@@ -414,17 +394,7 @@ function VisualCard({
               Yield {segment.projectYield}
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Badge
-              icon={<Timer className="h-3.5 w-3.5" />}
-              label={`Payback ${segment.projectPayback}`}
-            />
-            <Badge
-              icon={<Leaf className="h-3.5 w-3.5" />}
-              label={`${segment.projectCO2} CO₂ offset`}
-              color={BRAND.accent2}
-            />
-          </div>
+        
         </div>
 
         {/* KPI Widgets */}
@@ -458,11 +428,10 @@ function VisualCard({
 function Chip({ icon, label, dark }: { icon: React.ReactNode; label: string; dark?: boolean }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-sm ${
-        dark
+      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold backdrop-blur-sm ${dark
           ? "border border-white/30 bg-white/10 text-white/90"
           : "border border-slate-200 bg-white/70 text-slate-800"
-      }`}
+        }`}
     >
       {icon}
       {label}
@@ -485,26 +454,6 @@ function Trust({ label }: { label: string }) {
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.6 }}
-      transition={{ duration: 0.35, ease: EASE_OUT }}
-      className="rounded-lg bg-white/90 px-3 py-2 text-slate-800 ring-1 ring-slate-900/10"
-    >
-      <div className="text-[10px] uppercase tracking-wide text-slate-500">{label}</div>
-      <div className="text-sm">
-        <AnimatedCounter
-          to={extractNumber(value)}
-          suffix={extractSuffix(value)}
-          inlineFallback={value}
-        />
-      </div>
-    </motion.div>
-  );
-}
 
 function SmallStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
@@ -520,23 +469,6 @@ function SmallStat({ icon, label, value }: { icon: React.ReactNode; label: strin
   );
 }
 
-function Badge({ icon, label, color }: { icon: React.ReactNode; label: string; color?: string }) {
-  return (
-    <motion.span
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: EASE_OUT }}
-      className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-medium text-white/90"
-      style={{
-        background: color ? `${color}33` : `${BRAND.accent}33`,
-        border: `1px solid ${color || BRAND.accent}55`,
-      }}
-    >
-      {icon}
-      {label}
-    </motion.span>
-  );
-}
 
 function DecorationOrbs() {
   return (
@@ -593,25 +525,7 @@ function Sparkles({ count = 16 }: { count?: number }) {
   );
 }
 
-function ScrollIndicator() {
-  return (
-    <div className="mt-8 hidden md:block  items-center gap-2 text-xs text-white/60">
-      <motion.span
-        className="inline-block h-5 w-3 rounded-full border border-white/30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-      >
-        <motion.span
-          className="mx-auto mt-0.5 block h-1.5 w-1 rounded-full bg-white/70"
-          animate={{ y: [0, 10, 0], opacity: [1, 0.5, 1] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: EASE_IN_OUT }}
-        />
-      </motion.span>
-      Scroll
-    </div>
-  );
-}
+
 
 function Dial({
   label,
@@ -710,52 +624,5 @@ function AnimatedCounter({
   );
 }
 
-// Magnetic CTA
-function MagneticButton({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  const ref = useRef<HTMLAnchorElement | null>(null);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
 
-  const onMouseMove = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = e.clientX - (rect.left + rect.width / 2);
-    const y = e.clientY - (rect.top + rect.height / 2);
-    setPos({ x: x * 0.15, y: y * 0.15 });
-  };
 
-  const onMouseLeave = () => setPos({ x: 0, y: 0 });
-
-  return (
-    <motion.a
-      ref={ref}
-      href={href}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-white shadow-lg transition active:scale-[0.98]"
-      style={{
-        backgroundImage: `linear-gradient(135deg, ${BRAND.primary}, ${BRAND.accent})`,
-        translateX: pos.x,
-        translateY: pos.y,
-      }}
-      whileTap={{ scale: 0.97 }}
-    >
-      {children}
-    </motion.a>
-  );
-}
-
-// Helpers
-function extractNumber(text: string): number {
-  const m = text.replace(/[,~+]/g, "").match(/\d+(?:\.\d+)?/);
-  return m ? parseFloat(m[0]) : NaN;
-}
-function extractSuffix(text: string): string {
-  const m = text.match(/[^0-9.,\s]+.*$/);
-  return m ? ` ${m[0]}` : "";
-}

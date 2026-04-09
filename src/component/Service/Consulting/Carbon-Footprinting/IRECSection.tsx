@@ -17,7 +17,7 @@ const IRECSection = () => {
                     <div className="lg:w-1/2 sticky top-0">
 
 
-                        <h2 className="text-4xl font-extrabold text-slate-900 mb-8 leading-[1.1]">
+                        <h2 className="text-4xl font-extrabold text-[#686868] mb-8 leading-[1.1]">
                             International Renewable <br />
                             <span className="text-[#FC763A]">Energy Certificates</span>
                         </h2>

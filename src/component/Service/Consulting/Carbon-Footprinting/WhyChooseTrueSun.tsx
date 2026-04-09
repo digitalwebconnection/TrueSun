@@ -42,7 +42,7 @@ const WhyChooseTrueSun = () => {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row items-baseline justify-between mb-16 gap-6">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter leading-none mb-6">
+            <h2 className="text-3xl md:text-5xl font-black text-[#686868] tracking-tighter leading-none mb-6">
               Why Choose  
               <span className="text-[#FC763A]"> TrueSun?</span>
             </h2>

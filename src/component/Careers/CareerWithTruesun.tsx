@@ -165,7 +165,7 @@ const [openIndex, setOpenIndex] = useState<number | null>(0)
             <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: brandYellow }}>
               Your Career Benefits
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold text-[#686868] sm:text-4xl">
               Grow with the Sun
             </h2>
           </div>
@@ -239,7 +239,7 @@ const [openIndex, setOpenIndex] = useState<number | null>(0)
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
               Current Opportunities
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold text-[#686868] sm:text-4xl">
               Join Our Team
             </h2>
             <p className="mt-3 max-w-2xl mx-auto text-sm text-slate-600">
@@ -348,7 +348,7 @@ const [openIndex, setOpenIndex] = useState<number | null>(0)
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
               Your Journey
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-bold text-[#686868] sm:text-4xl">
               Our Simple Hiring Process
             </h2>
           </div>

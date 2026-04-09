@@ -41,11 +41,11 @@ const SolarBenefits = () => {
 
                 <div className="relative max-w-7xl mx-auto px-4 text-center">
 
-                    <h2 className="text-3xl md:text-4xl font-bold">
+                    <h2 className="text-3xl md:text-4xl text-[#FC763A] font-bold">
                         Key Benefits of Rooftop Solar
                     </h2>
 
-                    <p className="mt-4 text-gray-900 max-w-2xl mx-auto">
+                    <p className="mt-4 text-[#686868] max-w-2xl mx-auto">
                         Switch to solar and unlock long-term savings, sustainability, and energy independence.
                     </p>
 
@@ -94,7 +94,7 @@ const SolarBenefits = () => {
                     {/* LEFT CONTENT */}
                     <div>
 
-                        <h2 className="text-3xl md:text-4xl font-bold">
+                        <h2 className="text-3xl text-[#FC763A] md:text-4xl font-bold">
                             Subsidy for Individual Households
                         </h2>
 

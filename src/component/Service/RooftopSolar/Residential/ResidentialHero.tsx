@@ -23,20 +23,20 @@ export default function ResidentialHero() {
     const [openLeadPopup, setOpenLeadPopup] = useState(false);
   return (
     <section
-      className="relative overflow-hidden bg-center bg-cover bg-no-repeat"
+      className="relative overflow-hidden h-150 bg-center bg-cover bg-no-repeat"
       style={{
         backgroundImage:
-          "url('https://instanttechnology.in/wp-content/uploads/2025/02/White-Home-with-Solar-Panels-shutterstock_1981585070-scaled-1-scaled-1.jpg')",
+          "url('https://images.mid-day.com/images/images/2023/may/May1-tamilna_d.jpg')",
       }}
     >
       {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/70 to-black/80"></div>
+      <div className="absolute inset-0 bg-linear-to-l from-black/30 via-black/50 to-black/80"></div>
 
       <div className="relative container max-w-7xl mx-auto px-6 md:px-0 py-18 lg:py-26 flex flex-col lg:flex-row items-center gap-10">
         
         {/* LEFT CONTENT */}
         <motion.div
-          className="text-center lg:text-left lg:w-1/2 text-white"
+          className="text-center lg:text-left  max-w-4xl text-white"
           initial="hidden"
           animate="visible"
         >
@@ -46,7 +46,7 @@ export default function ResidentialHero() {
             className="text-3xl md:text-5xl font-bold mb-4 leading-tight"
           >
             Power Your <span className="text-[#FC763A]">Home</span> with  
-            <br /> Clean & Affordable <span className="text-[#FC763A]">Solar Energy</span>
+           Clean & Affordable <span className="text-[#FC763A]">Solar Energy</span>
           </motion.h1>
 
           <motion.p
@@ -98,7 +98,7 @@ export default function ResidentialHero() {
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20">
               <Home className="text-green-300" /> 
-              <span>Villas</span>
+              <span>Villas / Homes</span>
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20">
               <Home className="text-amber-300" /> 
@@ -109,21 +109,7 @@ export default function ResidentialHero() {
 
         </motion.div>
 
-        {/* RIGHT IMAGE */}
-        <motion.div
-          className="lg:w-1/2 flex justify-center relative"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="relative">
-            <img
-              src="https://content.jdmagicbox.com/v2/comp/mumbai/c9/022pxx22.xx22.190610203521.c9c9/catalogue/radiance-technology-pvt-ltd-bhiwandi-city-bhiwandi-solar-street-light-manufacturers-00kz3ho7ib.jpg"
-              alt="Residential Solar Installation"
-              className="w-[480px] max-w-full rounded-2xl shadow-2xl shadow-black"
-            />
-          </div>
-        </motion.div>
+       
       </div>
 
         {/* Popup Mount */}

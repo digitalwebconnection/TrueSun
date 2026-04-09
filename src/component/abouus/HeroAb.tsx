@@ -24,22 +24,22 @@ function AboutHeroV2({
     eyebrow = "ABOUT US",
     title = "Driving Global Change with Solar Energy",
     subtitle = "We create high-performance solar solutions that help industries, businesses, and communities switch to clean and sustainable power.",
-    backgroundUrl = "https://ghargharsolar.com/images/Why%20US%20Solar%20Trade%20Actions%20Could%20Push%20India%20Into%20Overcapacity%20by%202027.png",
+    backgroundUrl = "https://images.unsplash.com/photo-1648135327756-b606e2eb8caa?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHNvbGFyJTIwcGFuZWx8ZW58MHx8MHx8fDA%3D",
 }: AboutHeroProps) {
 
     return (
-        <section className="relative py-25 flex items-center overflow-hidden    ">
+        <section className="relative h-125  flex items-center overflow-hidden    ">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
                     src={backgroundUrl}
                     alt="Solar background"
-                    className="h-full w-full object-cover opacity-40"
+                    className="h-full w-full object-cover opacity-60"
                     // onError={(e) => {
                     //     e.currentTarget.src = "https://placehold.co/1920x1080/000/fff?text=Solar+Hero";
                     // }}
                 />
-                {/* <div className="absolute inset-0 bg-linear-to-br from-black/30 via-black/30 to-blue-950/30" /> */}
+                <div className="absolute inset-0 bg-linear-to-br from-black/10 via-black/20 to-blue-950/30" />
             </div>
 
             {/* Content */}
@@ -52,7 +52,7 @@ function AboutHeroV2({
                 >
                     {/* Eyebrow */}
                     <motion.p
-                        className="text-[#fc763a] text-base font-semibold tracking-widest uppercase"
+                        className="text-white text-xl  font-semibold tracking-widest uppercase"
                         variants={itemVariants}
                     >
                         {eyebrow}

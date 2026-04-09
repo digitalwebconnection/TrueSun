@@ -24,7 +24,7 @@ export default function NetZeroCommandCenterAddOn({
     const [openLeadPopup, setOpenLeadPopup] = useState(false);
     return (
         <section
-            className="relative overflow-hidden py-34"
+            className="relative h-150 overflow-hidden py-24"
             style={{
                 backgroundImage:
                     "url('https://e6qg27vt7gu.exactdn.com/wp-content/uploads/2023/08/carbonfootprint1.jpg?strip=all')",

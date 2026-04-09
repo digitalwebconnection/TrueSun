@@ -1,10 +1,16 @@
+import { useState } from "react";
+import LeadPopup from "../../../LeadPopup";
+
 const SolarSubsidyHero = () => {
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
+
     return (
-        <section className="relative w-full h-[620px] flex items-center text-white">
+        
+        <section className="relative w-full h-150 flex items-center ">
 
             {/* Background Image */}
             <img
-                src="https://ornatesolar.com/wp-content/uploads/2024/01/WhatsApp-Image-2024-01-24-at-11.46.55.webp"
+                src="https://ibsolar.co.in/wp-content/uploads/2025/11/cheap-solar-panels.jpeg"
                 alt="Rooftop Solar India"
                 className="absolute inset-0 w-full h-full object-cover"
             />
@@ -13,7 +19,7 @@ const SolarSubsidyHero = () => {
             <div className="absolute inset-0 bg-black/60"></div>
 
             {/* Content */}
-            <div className="relative max-w-5xl   px-4 md:px-15 ">
+            <div className="relative max-w-5xl text-white  px-4 md:px-15 ">
 
                 {/* Top Tag */}
                 <div className="inline-block bg-[#FC763A] px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -40,17 +46,20 @@ const SolarSubsidyHero = () => {
                 {/* CTA Buttons */}
                 <div className="mt-8 flex flex-col sm:flex-row gap-4 ">
 
-                    <button className="px-8 py-3 bg-[#FC763A] rounded-full font-semibold hover:scale-105 transition">
+                    <button
+                            onClick={() => setOpenLeadPopup(true)}
+                    className="px-8 py-3 bg-[#FC763A] rounded-full font-semibold hover:scale-105 transition">
                         Apply for Subsidy
                     </button>
 
-                    <button className="px-8 py-3 border border-white rounded-full font-semibold hover:bg-white hover:text-black transition">
-                        Learn More
-                    </button>
+              
 
                 </div>
 
             </div>
+            {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
         </section>
     );
 };

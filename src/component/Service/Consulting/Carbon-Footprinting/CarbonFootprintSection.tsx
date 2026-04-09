@@ -39,7 +39,7 @@ const CarbonFootprintSectionWhite = () => {
                             <Leaf size={16} />
                             Sustainability Framework
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-extrabold text-slate-950 leading-tight tracking-tight">
+                        <h2 className="text-3xl md:text-5xl font-extrabold text-[#686868] leading-tight tracking-tight">
                             What is <span className="text-[#FC763A]">Carbon Footprinting?</span>
                         </h2>
                     </div>
@@ -77,7 +77,7 @@ const CarbonFootprintSectionWhite = () => {
 
                     {/* Main Assessment CTA/Header */}
                     <div className="lg:col-span-2">
-                        <h3 className="text-3xl font-extrabold text-slate-950 leading-tight mb-6 tracking-tight">
+                        <h3 className="text-3xl font-extrabold text-[#686868] leading-tight mb-6 tracking-tight">
                             Why perform an assessment?
                         </h3>
                         <p className="font-medium text-slate-700 text-lg mb-10">

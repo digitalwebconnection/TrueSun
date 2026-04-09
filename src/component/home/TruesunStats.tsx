@@ -9,7 +9,7 @@ export type Stat = {
   value: number;
   suffix?: string;
   label: string;
-  icon: "Sun" | "Building" | "MapPin" | "Zap" | "Receipt";
+  icon: "Sun" | "Building" | "MapPin" | "Zap" | "Receipt" | "LineChart";
   decimals?: number;
 };
 
@@ -19,6 +19,7 @@ type UseCountUpArgs = {
   decimals?: number;
   startOnVisible?: boolean;
 };
+
 
 type UseCountUpResult = {
   ref: React.RefObject<HTMLDivElement | null>;
@@ -154,6 +155,14 @@ const Svg = {
     </svg>
   ),
 
+   // ✅ NEW Growth Icon
+  LineChart: (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <path d="M3 3v18h18" stroke="currentColor" strokeWidth="2" />
+      <path d="M7 14l4-4 3 3 5-5" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  ),
+
 };
 
 // --------------------------- Background Accents ---------------------------
@@ -180,6 +189,8 @@ const itemVariants: Variants = {
 const DEFAULT_STATS: Stat[] = [
   { id: "projects", value: 100, suffix: "+", label: "Roofs Powered", icon: "Building" },
   { id: "cities", value: 100, suffix: "%", label: "Up to 100% Savings on Electricity Bills", icon: "Receipt" },
+  { id: "countries", value: 70, suffix: "%", label: "Up to 70% Return on Investment", icon: "LineChart" },
+
 ];
 
 // --------------------------- Stat Item ---------------------------
@@ -221,7 +232,7 @@ export default function ImpactStats({
   compact?: boolean;
   prefix?: string;
 }) {
-  const gridCols = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2  gap-x-8 mx-auto max-w-4xl  gap-y-10 sm:gap-y-12";
+  const gridCols = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-x-8 mx-auto max-w-7xl  gap-x-10 sm:gap-y-12";
   const padY = compact ? "py-12 sm:py-14" : "py-20 sm:py-24 lg:py-18";
   const headingSpace = compact ? "mb-8 sm:mb-10" : "mb-10 sm:mb-12";
 

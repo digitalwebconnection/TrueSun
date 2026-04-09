@@ -1,7 +1,10 @@
+import { useState } from "react";
+import LeadPopup from "../../../LeadPopup";
 
 export default function SolarHero() {
+    const [openLeadPopup, setOpenLeadPopup] = useState(false);
   return (
-    <section className="relative py-25 px-6 md:px-16 text-white">
+    <section className="relative py-25 h-150 px-6 md:px-16 ">
       
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -15,7 +18,7 @@ export default function SolarHero() {
       </div>
 
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto  items-center">
+      <div className="relative max-w-7xl mx-auto  text-white items-center">
         
         {/* Left Content */}
         <div className="max-w-4xl">
@@ -34,18 +37,20 @@ export default function SolarHero() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <button className="bg-[#FC763A] text-white font-semibold px-6 py-3 rounded-xl  transition">
+            <button
+                    onClick={() => setOpenLeadPopup(true)}
+            className="bg-[#FC763A] text-white font-semibold px-6 py-3 rounded-xl  transition">
               Get O&M Support
             </button>
 
-            <button className="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition">
-              Learn More
-            </button>
           </div>
         </div>
 
 
       </div>
+      {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
     </section>
   );
 }

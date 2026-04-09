@@ -230,7 +230,7 @@ const ContactPage: React.FC = () => {
           <h3 className="mt-2 text-lg font-semibold text-slate-900">Visit TrueSun</h3>
           <p className="mt-2 text-md text-slate-900">Meet our engineering team and discuss your requirement.</p>
           <p className="mt-4 text-sm text-slate-700">
-            8th floor, B-Wing, Peninsula Business Park Tower B, Lower Parel
+            8th floor, B-Wing, Peninsula Business Park, Tower B, Lower Parel
             Mumbai - 400013
           </p>
           <p className="mt-3 text-xs text-slate-500">Appointments preferred · Parking available</p>
@@ -252,7 +252,7 @@ const ContactPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-slate-600/50 shadow-sm bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out">
             <div className="aspect-4/3 w-full">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3453.199038507266!2d72.82532862520335!3d18.998344432190336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s8th%20floor%2C%20B-Wing%2C%20Peninsula%20Business%20Park%20Tower%20B%2C%20Lower%20Parel%20Mumbai%20-%20400013!5e1!3m2!1sen!2sin!4v1775206753967!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3797.03742712239!2d72.8266296751532!3d18.998690154395128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf494fee7d19%3A0xd15155d3f91eaee3!2sTrueSun%20Energy%20Solutions%20Private%20Limited!5e1!3m2!1sen!2sin!4v1775737153470!5m2!1sen!2sin"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full border-0"

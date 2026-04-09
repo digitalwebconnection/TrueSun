@@ -12,7 +12,7 @@ export default function ServicesPage() {
 
       {/* ===== PAGE TITLE ===== */}
       <section className="text-center space-y-4">
-        <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#686868]">
           Premium Solar Solutions for Every Need
         </h1>
         <p className="text-slate-600 max-w-2xl mx-auto text-sm md:text-base">
@@ -23,7 +23,7 @@ export default function ServicesPage() {
       {/* ===== SERVICE GRID ===== */}
       <section className="space-y-6">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
+          <h2 className="text-xl md:text-3xl font-bold text-[#FC763A]">
             Core Solar Services
           </h2>
           <p className="hidden md:block text-xs uppercase tracking-[0.18em] text-slate-500">
@@ -166,21 +166,21 @@ export default function ServicesPage() {
 
 
       {/* ===== SIMPLE PROCESS SECTION – TIMELINE STYLE ===== */}
-      <section className="relative overflow-hidden rounded-3xl  p-4 md:p-6 space-y-8">
+      <section className="relative overflow-hidden rounded-3xl  p-4 md:p-0 space-y-8">
         {/* subtle glow */}
         <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-[#FC763A]/10 blur-3xl" />
         <div className="pointer-events-none absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-sky-500/10 blur-3xl" />
 
         <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-3xl font-semibold text-[#FC763A]">
               A Clear, 3-Step Solar Journey
             </h2>
-            <p className="text-sm md:text-base text-slate-900 max-w-xl">
+            <p className="text-sm md:text-base text-[#686868] max-w-xl">
               From first call to live generation — no noise, just a structured path.
             </p>
           </div>
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-900">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#686868]">
             STUDY • DESIGN • EXECUTE
           </p>
         </div>
@@ -203,6 +203,7 @@ export default function ServicesPage() {
               text="You get layouts, energy yield and clear payback numbers."
             />
             <StepCard
+          
               step="03"
               label="Execution & Handover"
               text="We install, coordinate approvals and set up monitoring."
@@ -292,27 +293,35 @@ function StepCard({
   text: string;
 }) {
   return (
-    <div className="relative flex flex-col items-start md:items-center gap-3 rounded-2xl border border-slate-700/70 bg-slate-900 px-4 py-4 md:px-0 md:py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-orange-300/80">
-      {/* step circle */}
-      <div className="flex items-center gap-3 md:flex-col md:gap-2 w-full">
+    <div className="relative flex flex-col items-start md:items-center gap-4 rounded-3xl border border-gray-200 bg-white px-5 py-5 md:px-6 md:py-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-[#FC763A]">
+
+      {/* Step Circle */}
+      <div className="flex items-center gap-3 md:flex-col md:gap-3 w-full">
+
         <div className="relative">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 border border-orange-300/80 shadow-[0_0_0_4px_rgba(248,187,107,0.18)]">
-            <span className="text-xs font-semibold text-orange-300">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#c7a25a]/10 border border-[#FC763A] shadow-md">
+            <span className="text-sm font-bold text-[#c7a25a]">
               {step}
             </span>
           </div>
         </div>
 
+        {/* Label */}
         <div className="flex-1 md:text-center">
-          <h3 className="text-sm md:text-base font-semibold text-slate-50">
+          <h3 className="text-base md:text-lg font-semibold text-gray-800">
             {label}
           </h3>
         </div>
       </div>
 
-      <p className="text-xs md:text-sm text-slate-300 md:text-center">
+      {/* Text */}
+      <p className="text-sm text-gray-600 md:text-center leading-relaxed">
         {text}
       </p>
+
+      {/* Bottom Glow Line */}
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-r from-[#FC763A] to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+
     </div>
   );
 }

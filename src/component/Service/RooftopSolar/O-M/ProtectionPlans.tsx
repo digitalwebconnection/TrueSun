@@ -1,12 +1,16 @@
+import { useState } from "react";
+import LeadPopup from "../../../LeadPopup";
 
 export default function ProtectionPlans() {
+      const [openLeadPopup, setOpenLeadPopup] = useState(false);
+
     return (
         <section className="py-20 px-6 md:px-16 bg-gray-50">
             <div className="max-w-7xl mx-auto text-center mb-14">
                 <h2 className="text-3xl md:text-5xl font-bold  text-[#FC763A] mb-4">
                     Choose Your Protection Plan
                 </h2>
-                <p className="text-gray-600 text-lg">
+                <p className="text-[#686868] text-lg">
                     Reliable solar performance starts with the right maintenance plan.
                 </p>
             </div>
@@ -62,7 +66,9 @@ export default function ProtectionPlans() {
                         </li>
                     </ul>
 
-                    <button className="mt-8 w-full bg-[#FC763A] text-white py-3 rounded-xl  transition">
+                    <button
+                            onClick={() => setOpenLeadPopup(true)}
+                    className="mt-8 w-full bg-[#FC763A] text-white py-3 rounded-xl  transition">
                         Choose Plan
                     </button>
                 </div>
@@ -122,12 +128,17 @@ export default function ProtectionPlans() {
                         </li>
                     </ul>
 
-                    <button className="mt-8 w-full bg-[#FC763A] text-white py-3 rounded-xl font-semiboldtransition">
+                    <button
+                            onClick={() => setOpenLeadPopup(true)}
+                    className="mt-8 w-full bg-[#FC763A] text-white py-3 rounded-xl font-semiboldtransition">
                         Choose Plan
                     </button>
                 </div>
 
             </div>
+            {openLeadPopup && (
+        <LeadPopup onClose={() => setOpenLeadPopup(false)} />
+      )}
         </section>
     );
 }

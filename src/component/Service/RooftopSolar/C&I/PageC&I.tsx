@@ -128,7 +128,7 @@ export default function SolarNovaIndustrialPage() {
               {/* KPI strip */}
               <motion.div variants={container} className="mt-8 grid gap-4 sm:grid-cols-3">
                 {[
-                  { k: "Payback", v: "3–4 yrs" },
+                  { k: "Payback", v: "< 3 yrs" },
                   { k: "Warranty", v: "25 yrs" },
                   { k: "Policy", v: "Net metering" },
                 ].map((m) => (

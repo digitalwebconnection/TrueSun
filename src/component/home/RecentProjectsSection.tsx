@@ -3,11 +3,11 @@ import {  useState } from "react";
 
 import bloom from "../../assets/Bloom Packaging/2.jpg"
 import rentokil from "../../assets/PCI Rentokill/2.jpg";
-import rustomjee from "../../assets/Rustomjee virar/3.jpeg";
-import oberoi from "../../assets/Oberoi Realty/2.jpg";
+import rustomjee from "../../assets/Rustomjee virar/5.png";
+import oberoi from "../../assets/Oberoi Realty/3.png";
 import landmark from "../../assets/Landmrk Pllatinum/5.jpeg";
-import kalpataru from "../../assets/Kalpataru Estate CHS Limited/2.jpg";
-import ganesh from "../../assets/Ganesh kung/3.jpeg";
+import kalpataru from "../../assets/Kalpataru Estate CHS Limited/6.jpeg";
+import ganesh from "../../assets/Ganesh kung/4.png";
 import sharad from "../../assets/Sharad Apt/3.jpeg";
 import bungalow from "../../assets/Andheri Bungalow/1.png";
 
@@ -36,14 +36,14 @@ const projects = [
   {
     id: 4,
     title: "Oberoi Realty Rooftop Solar",
-    type: "Highrise Residential · 65 kW",
+    type: "Highrise Residential · 75 kW",
     location: "Bhandup West, Mumbai",
     image: oberoi,
   },
   {
     id: 5,
-    title: "Landmark Platinum Solar Project",
-    type: "Residential · 30 kW",
+    title: "Landmark Platina Solar Project",
+    type: "Commercial · 30 kW",
     location: "Bandra East, Mumbai",
     image: landmark,
   },
@@ -70,7 +70,7 @@ const projects = [
   },
   {
     id: 9,
-    title: "Andheri Independent Bungalow Solar",
+    title: "Villa & Bungalow Solar System",
     type: "Residential Bungalow · 15 kW",
     location: "Andheri, Mumbai",
     image: bungalow,

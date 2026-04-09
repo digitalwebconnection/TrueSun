@@ -10,7 +10,7 @@ export default function BESSSection() {
             WHAT IS BESS
           </h4>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#686868] mb-4">
             Intelligent Energy. Stored & Ready.
           </h2>
 
@@ -87,12 +87,6 @@ export default function BESSSection() {
 
         </div>
 
-        {/* CTA */}
-        <div className="mt-8">
-          <button className="bg-[#FC763A] text-white px-8 py-3 rounded-lg font-semibold  transition">
-            Get BESS Consultation
-          </button>
-        </div>
 
       </div>
     </section>

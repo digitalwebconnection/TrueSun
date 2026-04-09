@@ -25,14 +25,13 @@ export default function CareersPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
-              className="mt-3 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl"
+              className="mt-3 text-4xl text-[#686868] font-extrabold leading-tight sm:text-3xl lg:text-5xl"
             >
               BUILD YOUR{" "}
-              <span className="relative inline-block">
-                <span className="absolute inset-0 -skew-x-6 rounded-md bg-[#FC763A]" />
-                <span className="relative px-1 text-white">SOLAR</span>
+              <span className="relative ">
+                <span className="relative px-1 text-[#FC763A]">SOLAR  CAREER</span>
               </span>{" "}
-              CAREER WITH TRUESUN
+             WITH TRUESUN
             </motion.h1>
 
             <motion.p

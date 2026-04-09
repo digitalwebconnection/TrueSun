@@ -111,7 +111,7 @@ A strong system is needed to avoid greenwashing and double counting.
         readTime: "8 min read",
         date: "Feb 3, 2022",
         image:
-            "https://www.moserbaersolar.com/wp-content/uploads/2025/03/solar-healthcare-transformation-810x500.jpeg",
+            "https://jakson-solar.com/wp-content/uploads/2025/02/Does-Rooftop-Solar-is-Ideal-for-Hospitals-Jakson-Solar.jpg",
 
         content: `
 Solar energy is transforming hospitals by reducing costs and improving sustainability.

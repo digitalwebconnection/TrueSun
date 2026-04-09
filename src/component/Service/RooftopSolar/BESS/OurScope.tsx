@@ -37,7 +37,7 @@ export default function OurScope() {
             OUR SCOPE
           </h4>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#686868] mb-4">
             What TrueSun Delivers
           </h2>
 
@@ -66,13 +66,6 @@ export default function OurScope() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16">
-          <button className="bg-[#FC763A] text-white px-8 py-3 rounded-lg font-semibold transition">
-            Talk to Our Experts
-          </button>
         </div>
 
       </div>

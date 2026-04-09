@@ -87,7 +87,7 @@ export default function CarbonCreditTypesPremium() {
                         Verified Carbon Portfolio
                     </div>
 
-                    <h2 className="mt-4 text-4xl font-bold leading-tight">
+                    <h2 className="mt-4 text-4xl font-bold text-[#686868] leading-tight">
                         Types of <span className="text-[#FC763A]">Carbon Credits</span>
                     </h2>
 
