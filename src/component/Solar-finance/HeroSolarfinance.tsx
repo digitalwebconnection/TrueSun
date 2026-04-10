@@ -72,7 +72,7 @@ const TruesunSolarFinanceHero: React.FC = () => {
 
 
             <a
-              href=""
+                 href="tel:+918850845149"
               className="inline-flex items-center justify-center rounded-xl border border-slate-600 px-5 py-3 text-sm font-semibold text-slate-100 bg-slate-900/50 hover:bg-slate-800/70 transition"
             >
               Request a Call

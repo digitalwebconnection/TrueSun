@@ -10,7 +10,7 @@ const UNIT_MONTHLY_ONE_KW = 120;
 const COST_PER_KW = 52000;
 
 const CUSTOMER_CATEGORY = [
-  { label: "Residential", value: "RESIDENTIAL", subsidyAllowed: true },
+  { label: "Residential (CHS)", value: "RESIDENTIAL", subsidyAllowed: true },
   { label: "Bungalows & Homes", value: "BUNGALOWS_HOMES", subsidyAllowed: true },
   { label: "Industrial", value: "INDUSTRIAL", subsidyAllowed: false },
   { label: "Commercial", value: "COMMERCIAL", subsidyAllowed: false },
