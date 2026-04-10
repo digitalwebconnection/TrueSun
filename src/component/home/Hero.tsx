@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
 
+import i1 from "../../assets/Andheri Bungalow/4.png";
+import i2 from "../../assets/Bloom Packaging/3.jpg";
+import i3 from "../../assets/Kalpataru Estate CHS Limited/6.jpeg";
+import i4 from "../../assets/Ganesh kung/4.png";
+import i5 from "../../assets/Kruti Promotions/1.jpg";
+import i6 from "../../assets/Landmrk Pllatinum/6.jpeg";
+import i7 from "../../assets/Oberoi Realty//3.png";
+import i8 from "../../assets/PCI Rentokill/1.jpg";
+import i9 from "../../assets/Rustomjee virar/5.png";
+
 const bgImages = [
-  "https://t3.ftcdn.net/jpg/01/57/42/86/360_F_157428613_ZhDS00sqo623F3JH7cWhFvAK6o2FIWXh.jpg",
-  "https://australianpremiumsolar.co.in/wp-content/uploads/2024/06/cleaning-solar-panel.jpg",
-  "https://img-cdn.publive.online/fit-in/1200x675/english-betterindia/media/post_attachments/uploads/2020/09/Solar-panel-Malvan.jpg",
-  "https://waareertl.com/wp-content/uploads/2024/05/Rooftop-Solar-System-Installation-in-India.jpg",
+  i1,
+  i2,
+  i3,
+  i4,
+  i5,
+  i6,
+  i7,
+  i8,
+  i9,
   // "https://media.istockphoto.com/id/1405880267/photo/two-engineers-installing-solar-panels-on-roof.jpg?s=612x612&w=0&k=20&c=OvQDbJaTnMM4jPfIA3y5vrO88i98NZJRahZtnYFZCq0=",,
 ];
 
@@ -23,10 +38,10 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative h-150 overflow-hidden bg-white">
       <div className="mx-auto flex flex-col lg:flex-row min-h-[60svh] lg:min-h-[65svh]">
         {/* ============= LEFT CONTENT ============= */}
-        <div className="w-full lg:w-1/2 px-4 sm:px-8 lg:px-10 py-14 lg:py-20 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 px-4 sm:px-8 lg:px-10 py-14 lg:py-25 flex flex-col justify-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#FC763A] mb-3">
             Save More • Go Solar
           </p>

@@ -5,6 +5,9 @@ import bloomLogo from "../../assets/TestiminialVideo/Bloomlogo.png";
 import oberoiLogo from "../../assets/TestiminialVideo/oberoilogo.png";
 import kalpataruLogo from "../../assets/TestiminialVideo/Kalpatarulogo.png";
 
+import tv1 from "../../assets/TestiminialVideo/Testimonial-1.mp4";
+import tv2 from "../../assets/TestiminialVideo/rustamji testimonial.mp4";
+
 interface Review {
   name: string;
   location: string;
@@ -23,7 +26,7 @@ export default function ModernReviewSection() {
       rating: 5,
       comment:
           "The team at TrueSun has been very supportive and have installed the system very neatly, following all safety measures like walkways, lifeline, etc. We are satisfied with their work and recommend them.",
-      video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      video: tv1,
       logo: bloomLogo,
     },
     {
@@ -32,7 +35,7 @@ export default function ModernReviewSection() {
       rating: 5,
       comment:
  "We found TrueSun to be a company which is the right fit for us. For us quality comes first and TrueSun met all our expectations. They installed this plant on a high rise building while following all safety protocols.",
-      video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      video: tv2,
       logo: oberoiLogo,
     },
     {
@@ -41,7 +44,7 @@ export default function ModernReviewSection() {
       rating: 5,
       comment:
         "We appreciate the way TrueSun explained every aspect in detail right from designing to addressing Managing committee concerns. With TrueSun's proper guidance we now have a 115 KW solar plant.",  
-      video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      video: tv1,
       logo: kalpataruLogo,
     },
   ];
@@ -51,7 +54,7 @@ export default function ModernReviewSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % reviews.length);
-    }, 3000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
@@ -78,12 +81,15 @@ export default function ModernReviewSection() {
 
           {/* LEFT VIDEO */}
           <div className="relative w-full rounded-2xl overflow-hidden shadow-xl">
-            <iframe
+            <video
               key={current}
               src={review.video}
-              className="w-full h-[450px]"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
+              className="w-full h-[450px] object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+
             />
           </div>
 

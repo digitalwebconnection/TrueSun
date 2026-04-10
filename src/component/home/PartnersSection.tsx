@@ -54,7 +54,6 @@ export default function Scroll() {
       {/* === SECTION 6: VISUAL MAP — COVERAGE ACROSS 38+ CITIES === */}
       <div className="mt-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
-
           <div className="w-full">
             <div className="relative overflow-hidden rounded-2xl  border border-gray-300 bg-white shadow-xl ">
               <div className="absolute inset-0   pointer-events-none" />
@@ -87,7 +86,7 @@ export default function Scroll() {
 }
 
 /* ------------------------------------- */
-/*               Marquee                  */
+/*               Marquee                 */
 /* ------------------------------------- */
 
 function Marquee({
