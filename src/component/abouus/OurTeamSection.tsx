@@ -44,7 +44,7 @@ const LEADERS: Leader[] = [
     title: "Site Engineer",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTabOgeMNrSqYJ4c2-kMg0I_QreIqbVVfgvWQ&s",
-    bio: " He holds a Diploma in Electrical Engineering with hands-on experience in electrical and solar energy systems. His expertise includes site inspections, electricity bill analysis, BOQ preparation, design drawings, and proposal development. He also manages site execution, client coordination, and project follow-ups to ensure smooth and efficient project delivery. His focus is on providing reliable, practical, and cost-effective electrical and solar solutions.",
+    bio: " He holds a Diploma in Electrical Engineering with 20+ years of experience in electrical and solar energy systems. He specializes in site inspections, electricity analysis, BOQ, design planning, and project execution. He ensures smooth coordination and delivers reliable, cost-effective solutions.",
     tags: ["Performance PR", "Open Access", "O&M"],
     linkedin: "https://www.linkedin.com/",
   },
@@ -225,7 +225,7 @@ export default function LeadershipSectionModern() {
           Meet the Visionaries
         </p>
         <h2 className="mt-2 text-4xl font-extrabold tracking-tight text-[#686868] sm:text-5xl">
-         Meet Our Experts
+         Meet Our Team Membes
         </h2>
         <p className="mt-4 text-lg text-neutral-600">
           A seasoned group shaping renewable energy with financial rigor, technical depth,
