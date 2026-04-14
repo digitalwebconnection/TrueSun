@@ -1,4 +1,4 @@
- 
+
 
 import React from "react";
 import {
@@ -101,12 +101,25 @@ export default function SolarFooter() {
                             <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Solutions
                             </h4>
+
                             <nav className="grid gap-2 text-sm text-neutral-300">
-                                <a >Home Solar</a>
-                                <a >Housing Societies</a>
-                                <a >Commercial</a>
-                                <a >Industrial</a>
-                                <a >O&M</a>
+
+                                <Link to="/services/rooftop/residential" className="hover:text-white transition">
+                                    Housing Societies
+                                </Link>
+
+                                <Link to="/services/rooftop/C&I" className="hover:text-white transition">
+                                    Commercial
+                                </Link>
+
+                                <Link to="/services/rooftop/C&I" className="hover:text-white transition">
+                                    Industrial
+                                </Link>
+
+                                <Link to="/services/rooftop/O&M" className="hover:text-white transition">
+                                    O&M
+                                </Link>
+
                             </nav>
                         </div>
 
@@ -115,12 +128,25 @@ export default function SolarFooter() {
                             <h4 className="mb-3 text-sm font-semibold tracking-wide text-white">
                                 Resources
                             </h4>
+
                             <nav className="grid gap-2 text-sm text-neutral-300">
-                                <a >ROI Calculator</a>
-                                <a >Downloads</a>
-                                <a >FAQs</a>
-                                <a >Warranty</a>
-                                <a >Support</a>
+
+                                <Link to="/Solar-finance" className="hover:text-white transition">
+                                    ROI Calculator
+                                </Link>
+
+                                <Link to="/Knowledgwe" className="hover:text-white transition">
+                                    Downloads
+                                </Link>
+
+                                <Link to="/PrivacyPolicy" className="hover:text-white transition">
+                                    Warranty
+                                </Link>
+
+                                <Link to="/contact" className="hover:text-white transition">
+                                    Support
+                                </Link>
+
                             </nav>
                         </div>
 
@@ -138,8 +164,8 @@ export default function SolarFooter() {
                                         className="flex items-start gap-2 hover:text-[#FC763A]"
                                     >
                                         <MapPin className="mt-0.5 h-12 w-12  py-4" />
-                                    8th floor, B-Wing, Peninsula Business Park, Tower B, Lower Parel
-Mumbai - 400013 </a>
+                                        8th floor, B-Wing, Peninsula Business Park, Tower B, Lower Parel
+                                        Mumbai - 400013 </a>
                                 </p>
 
                                 <p className="inline-flex items-start gap-2">
@@ -198,7 +224,7 @@ Mumbai - 400013 </a>
 
                     {/* Bottom bar */}
                     <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm  border-white/10 text-neutral-400 md:flex-row">
-                        <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-[#FC763A]"> TrueSun</span>. All rights reserved.</p>
+                        <p>© {new Date().getFullYear()} <span className="w-6 h-6 text-lg  font-semibold text-[#FC763A] "> TrueSun Energy</span>. All rights reserved.</p>
                         <p className="flex md:me-25 md:px-10 items-center justify-center gap-2 ms-3 md:ms-0   text-white text-[13px] md:text-sm">
                             <Code2 className="w-6 h-6 text-[#FC763A]" />
                             <p>

@@ -20,7 +20,7 @@ const tags = [
 export default function AppSimple() {
   const [openLeadPopup, setOpenLeadPopup] = useState(false);
   return (
-    <section className="relative  flex flex-col justify-center items-center  p-6 overflow-hidden">
+    <section className="relative h-150  flex flex-col justify-center items-center  p-6 overflow-hidden">
       {/* Background Image with Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center"

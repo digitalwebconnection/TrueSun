@@ -7,7 +7,7 @@ import Navbar from "./component/Navbar";
 import SolarFooter from "./component/Footer";
 import HomeMain from "./component/home/HomeMain";
 import MainAbout from "./component/abouus/MainAbout";
-import ConsultingMain from "./component/Service/Consulting/ConsultingMain";
+// import ConsultingMain from "./component/Service/Consulting/ConsultingMain";
 import WhatsAppDockPro from "./component/WhatsAppChatbot";
 import Residentialmain from "./component/Service/RooftopSolar/Residential/Residentialmain";
 import CarbonFootprintingmain from "./component/Service/Consulting/Carbon-Footprinting/CarbonFootprintingmain";
@@ -24,7 +24,7 @@ import PrivacyPolicy from "./component/PrivacyPolicy";
 import OM from "./component/Service/RooftopSolar/O-M/OM";
 import BESS from "./component/Service/RooftopSolar/BESS/BESS";
 import Subsidy from "./component/Service/RooftopSolar/Subsidy/Subsidy";
-import SFC from "./component/Service/RooftopSolar/SFS/SFS";
+
 import NotFound from "./component/NotFound";
 
 function AppInner() {
@@ -51,9 +51,7 @@ function AppInner() {
 
         <Route path="/services/rooftop/Subsidy" element={<Subsidy />} /> {/* In Service Page Rooftop Section Subsidy Page */}
 
-        <Route path="/services/rooftop/Solar-Finance-Solutions" element={<SFC />} /> {/* In Service Page Rooftop Section Solar Finance Solutions Page */}
-
-        <Route path="/services/consulting" element={<ConsultingMain />} /> {/* In Service Page Consulting Section Main Page */}
+        {/* <Route path="/services/consulting" element={<ConsultingMain />} /> In Service Page Consulting Section Main Page */}
 
         <Route path="/services/consulting/Carbon-Footprinting" element={<CarbonFootprintingmain />} /> {/* In Service Page Consulting Section Carbon Footprinting Page */}
 

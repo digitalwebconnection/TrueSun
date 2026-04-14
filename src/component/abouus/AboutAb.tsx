@@ -377,7 +377,7 @@ function ZigZagWhyUs() {
       Icon: Users,
       title: "Lifetime Partnership",
       desc: "AMC plans, SLAs, and remote care—support that stays.",
-      img: "https://thumbs.dreamstime.com/b/business-handshake-near-solar-panel-small-plant-representing-green-energy-partnership-sustainability-eco-innovation-412197421.jpg",
+      img: "https://wise.com/imaginary-v2/f1dc58c69751c6ae812f740b229c1187.jpg?width=1200l",
     },
     {
       Icon: ShieldCheck,

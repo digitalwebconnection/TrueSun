@@ -28,7 +28,7 @@ function AboutHeroV2({
 }: AboutHeroProps) {
 
     return (
-        <section className="relative h-125  flex items-center overflow-hidden    ">
+        <section className="relative h-150  flex items-center overflow-hidden    ">
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img

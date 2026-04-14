@@ -76,18 +76,7 @@ const projects: Project[] = [
     payback: "3 years",
     savings: "₹10 Lakhs",
 
-    clientType: "Plastic Bottle Manufacturing Unit",
-    clientName: "Bloom Packaging Pvt Ltd",
-
-    modulesUsed: "Trina Solar Half-cut Mono PERC Panels",
-    invertersUsed: "Sungrow Multi-MPPT Inverters",
-    mountingType: "Metal sheet rooftop mounting structure",
-
-    specialFeatures: [
-      "FRP walkways installed for safe rooftop access",
-      "Net Metering enabled system",
-      "Complete turnkey EPC solution",
-    ],
+ 
   },
 
   {
@@ -106,18 +95,7 @@ const projects: Project[] = [
     payback: "",
     savings: "",
 
-    clientType: "Commercial Facility",
-    clientName: "Rentokil PCI",
-
-    modulesUsed: "High efficiency solar panels",
-    invertersUsed: "String Inverters",
-    mountingType: "RCC rooftop structure",
-
-    specialFeatures: [
-      "Optimized rooftop layout",
-      "Reduced electricity costs",
-      "Lower carbon footprint",
-    ],
+  
   },
 
   {
@@ -136,18 +114,7 @@ const projects: Project[] = [
     payback: "",
     savings: "₹4 Lakhs / year",
 
-    clientType: "Residential Society",
-    clientName: "Rustomjee Global City",
-
-    modulesUsed: "Mono Solar Modules",
-    invertersUsed: "Grid-tied String Inverters",
-    mountingType: "RCC rooftop structure",
-
-    specialFeatures: [
-      "Residential solar generation",
-      "Reduced grid dependency",
-      "Lower electricity bills",
-    ],
+   
   },
 
   {
@@ -166,18 +133,7 @@ const projects: Project[] = [
     payback: "",
     savings: "",
 
-    clientType: "Highrise Residential Building",
-    clientName: "Oberoi Realty",
 
-    modulesUsed: "High efficiency solar panels",
-    invertersUsed: "Grid tied inverters",
-    mountingType: "RCC rooftop mounting structure",
-
-    specialFeatures: [
-      "High efficiency generation",
-      "Reduced grid power usage",
-      "Sustainable energy solution",
-    ],
   },
 
   {
@@ -196,18 +152,7 @@ const projects: Project[] = [
     payback: "",
     savings: "",
 
-    clientType: "Residential Society",
-    clientName: "Landmark Platinum",
 
-    modulesUsed: "High efficiency solar panels",
-    invertersUsed: "Grid tied inverter",
-    mountingType: "RCC rooftop mounting",
-
-    specialFeatures: [
-      "Optimized for Mumbai solar conditions",
-      "Clean renewable power",
-      "Reduced carbon footprint",
-    ],
   },
 
   {
@@ -226,18 +171,6 @@ const projects: Project[] = [
     payback: "Less than 4 years",
     savings: "₹13 Lakhs annually",
 
-    clientType: "Residential Society",
-    clientName: "Kalpataru",
-
-    modulesUsed: "High efficiency solar modules",
-    invertersUsed: "String inverters",
-    mountingType: "RCC rooftop structure",
-
-    specialFeatures: [
-      "Solar for lifts, pumps and common lighting",
-      "High ROI for society",
-      "Reduced electricity costs",
-    ],
   },
 
   {
@@ -256,18 +189,7 @@ const projects: Project[] = [
     payback: "",
     savings: "",
 
-    clientType: "Residential Building",
-    clientName: "Ganesh Kunj",
-
-    modulesUsed: "Mono solar panels",
-    invertersUsed: "Grid tied inverter",
-    mountingType: "RCC rooftop mounting",
-
-    specialFeatures: [
-      "Clean renewable energy",
-      "Reduced electricity bills",
-      "Lower carbon emissions",
-    ],
+  
   },
 
   {
@@ -286,18 +208,6 @@ const projects: Project[] = [
     payback: "",
     savings: "",
 
-    clientType: "Residential Apartment",
-    clientName: "Sharad Apartment",
-
-    modulesUsed: "High efficiency solar modules",
-    invertersUsed: "Grid tied inverter",
-    mountingType: "Elevated RCC rooftop structure",
-
-    specialFeatures: [
-      "Elevated mounting design",
-      "Terrace remains usable",
-      "Clean energy generation",
-    ],
   },
 
   {
@@ -316,18 +226,7 @@ const projects: Project[] = [
     payback: "",
     savings: "",
 
-    clientType: "Private Residence",
-    clientName: "Independent Bungalow",
 
-    modulesUsed: "High efficiency solar modules",
-    invertersUsed: "Grid tied inverter",
-    mountingType: "RCC rooftop mounting",
-
-    specialFeatures: [
-      "Custom solar EPC project",
-      "Reduced electricity costs",
-      "Clean residential energy generation",
-    ],
   },
 ];
 

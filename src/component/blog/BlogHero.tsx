@@ -8,11 +8,11 @@ export default function SolarBlogPage() {
     return (
         <>
             {/* ===== BLOG HERO / INTRO ===== */}
-            <section className="relative overflow-hidden rounded-3xl text-slate-50 px-6 py-8 md:px-10 md:py-32">
+            <section className="relative overflow-hidden h-150  text-slate-50 px-6 py-8 md:px-10 md:py-35">
                 {/* Background image */}
                 <div className="absolute inset-0">
                     <img
-                        src="https://images.indianexpress.com/2025/08/Solar-Panels-1.jpg"
+                        src="https://www.tatapower.com/adobe/dynamicmedia/deliver/dm-aid--2368fbcc-c209-4949-a331-27e88d1aa428/body-1-img.png?quality=85&preferwebp=true"
                         alt="Solar panels at sunset"
                         className="h-full w-full object-cover"
                     />
@@ -67,7 +67,7 @@ export default function SolarBlogPage() {
                                 &ldquo;Solar Payback in 5 Minutes&rdquo; is a great place to
                                 start if you’re new to rooftop solar.
                             </p>
-                         
+
                         </div>
 
                         {/* subtle glow behind card */}
